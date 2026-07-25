@@ -13,7 +13,7 @@ import { pluginsController } from "./controllers/plugins.controller";
 import { errorHandler } from "./middleware/error.middleware";
 import { aiGateway } from "@brand-os/ai-gateway";
 
-const app = express();
+const app: express.Application = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(helmet());
