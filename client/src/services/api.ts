@@ -57,6 +57,13 @@ export class ApiClient {
     return this.request("/trends/scan", { method: "POST" });
   }
 
+  public async generateCustomTrend(prompt: string) {
+    return this.request("/trends/generate", {
+      method: "POST",
+      body: JSON.stringify({ prompt }),
+    });
+  }
+
   public async conductResearch(topic: string) {
     return this.request("/research", {
       method: "POST",

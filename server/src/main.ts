@@ -61,6 +61,7 @@ app.post("/api/v1/agents/trigger", (req, res) => agentsController.triggerSwarm(r
 // Trends & Research Routes
 app.get("/api/v1/trends", (req, res) => trendsController.getTrends(req, res));
 app.post("/api/v1/trends/scan", (req, res) => trendsController.scanTrends(req, res));
+app.post("/api/v1/trends/generate", (req, res) => trendsController.generateCustomTrend(req, res));
 app.post("/api/v1/research", (req, res) => researchController.conductResearch(req, res));
 
 // Content Routes
