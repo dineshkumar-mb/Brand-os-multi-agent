@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npx pnpm --filter @brand-os/web build",
+  "buildCommand": "pnpm --filter @brand-os/web build",
   "outputDirectory": "client/dist",
   "framework": "vite",
   "rewrites": [
