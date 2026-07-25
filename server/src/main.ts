@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { authController } from "./controllers/auth.controller";
@@ -13,7 +13,7 @@ import { pluginsController } from "./controllers/plugins.controller";
 import { errorHandler } from "./middleware/error.middleware";
 import { aiGateway } from "@brand-os/ai-gateway";
 
-const app: express.Application = express();
+const app: Application = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(helmet());
