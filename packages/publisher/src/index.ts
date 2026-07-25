@@ -1,4 +1,5 @@
 import { Platform } from "@brand-os/shared";
+import { analyticsService } from "@brand-os/analytics";
 
 export interface PublishResult {
   success: boolean;
@@ -78,11 +79,14 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
 
           if (response.ok) {
             const resData: any = await response.json();
+            const extId = resData.id || `urn:li:share:${Date.now()}`;
+            analyticsService.recordPublishedPost({ id: extId, title: content.title || "LinkedIn Post" });
+
             return {
               success: true,
               platform: Platform.LINKEDIN,
-              externalId: resData.id || `urn:li:share:${Date.now()}`,
-              url: `https://www.linkedin.com/feed/update/${resData.id || Date.now()}`,
+              externalId: extId,
+              url: `https://www.linkedin.com/feed/update/${extId}`,
               publishedAt: new Date().toISOString(),
               mode: "LIVE",
               message: `Successfully posted directly to real LinkedIn feed (${primaryAuthor})!`,
@@ -98,11 +102,14 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
     }
 
     // Default Sandbox / Simulation Mode
+    const simId = `urn:li:share:${Math.floor(100000000 + Math.random() * 900000000)}`;
+    analyticsService.recordPublishedPost({ id: simId, title: content.title || "LinkedIn Post" });
+
     return {
       success: true,
       platform: Platform.LINKEDIN,
-      externalId: `urn:li:share:${Math.floor(100000000 + Math.random() * 900000000)}`,
-      url: `https://www.linkedin.com/feed/update/urn:li:share:${Date.now()}`,
+      externalId: simId,
+      url: `https://www.linkedin.com/feed/update/${simId}`,
       publishedAt: new Date().toISOString(),
       mode: "SIMULATION",
       message: "Simulation Mode: Requires real LINKEDIN_ACCESS_TOKEN in .env for direct LinkedIn feed publishing.",

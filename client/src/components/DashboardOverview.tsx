@@ -33,18 +33,23 @@ export const DashboardOverview: React.FC = () => {
     return () => { isMounted = false; };
   }, []);
 
-  const kpis = dashboardData?.kpis || {
-    totalViews: 148200,
-    totalLikes: 12450,
-    avgCTR: 4.85,
-    followersGained: 1280,
+  const kpis = dashboardData?.kpis || dashboardData || {
+    totalViews: 9310,
+    totalLikes: 746,
+    avgCTR: 5.88,
+    followersGained: 258,
+  };
+
+  const formatViews = (v: number) => {
+    if (v >= 10000) return `${(v / 1000).toFixed(1)}K`;
+    return v.toLocaleString();
   };
 
   const statCards = [
-    { label: "Total Views", val: `${(kpis.totalViews / 1000).toFixed(1)}K`, change: "+18.4%", icon: Eye, color: "from-blue-500 to-indigo-500" },
-    { label: "Total Likes", val: kpis.totalLikes.toLocaleString(), change: "+24.1%", icon: ThumbsUp, color: "from-purple-500 to-pink-500" },
-    { label: "Avg CTR", val: `${kpis.avgCTR}%`, change: "+1.2%", icon: ArrowUpRight, color: "from-emerald-500 to-teal-500" },
-    { label: "Followers Gained", val: kpis.followersGained.toLocaleString(), change: "+32.0%", icon: Award, color: "from-amber-500 to-orange-500" },
+    { label: "Total Views", val: formatViews(kpis.totalViews || 9310), change: "+18.4%", icon: Eye, color: "from-blue-500 to-indigo-500" },
+    { label: "Total Likes", val: (kpis.totalLikes || 746).toLocaleString(), change: "+24.1%", icon: ThumbsUp, color: "from-purple-500 to-pink-500" },
+    { label: "Avg CTR", val: `${kpis.avgCTR || 5.88}%`, change: "+1.2%", icon: ArrowUpRight, color: "from-emerald-500 to-teal-500" },
+    { label: "Followers Gained", val: (kpis.followersGained || 258).toLocaleString(), change: "+32.0%", icon: Award, color: "from-amber-500 to-orange-500" },
   ];
 
   return (
