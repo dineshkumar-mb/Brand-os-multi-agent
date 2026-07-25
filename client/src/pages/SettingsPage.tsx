@@ -204,7 +204,7 @@ export const SettingsPage: React.FC = () => {
           <div className="space-y-4">
             <h4 className="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
               <Cpu className="h-4 w-4 text-indigo-400" />
-              <span>AI Gateway Routing Preferences</span>
+              <span>AI Gateway & Scheduling Preferences</span>
             </h4>
             <div className="space-y-3">
               <div>
@@ -221,15 +221,52 @@ export const SettingsPage: React.FC = () => {
                 </select>
               </div>
 
-              <div className="pt-2">
+              {/* Daily Automated Publishing Time Picker Card */}
+              <div className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-slate-200">Daily Automated Post Schedule</span>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    Cron Active (Daily)
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <label className="text-slate-400 font-medium text-[11px]">Execution Time</label>
+                    <input
+                      type="time"
+                      defaultValue="09:00"
+                      className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 font-mono text-xs focus:outline-none focus:border-indigo-500"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-slate-400 font-medium text-[11px]">Timezone</label>
+                    <select
+                      defaultValue="UTC"
+                      className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-200 text-xs focus:outline-none focus:border-indigo-500"
+                    >
+                      <option value="UTC">UTC (Coordinated Universal Time)</option>
+                      <option value="IST">IST (India Standard Time - UTC+05:30)</option>
+                      <option value="EST">EST (Eastern Standard Time - UTC-05:00)</option>
+                      <option value="PST">PST (Pacific Standard Time - UTC-08:00)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-slate-400 font-sans">
+                  The multi-agent swarm will automatically discover trends, research, verify facts, score quality, and post to LinkedIn daily at this set time.
+                </p>
+              </div>
+
+              <div className="pt-1">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={hitlRequired}
-                    onChange={(e) => setHitlRequired(e.target.checked)}
+                    checked={!hitlRequired}
+                    onChange={(e) => setHitlRequired(!e.target.checked)}
                     className="rounded border-slate-700 bg-slate-900 text-indigo-600 focus:ring-0"
                   />
-                  <span className="text-slate-300 font-medium">Require Human-in-the-Loop approval before publishing</span>
+                  <span className="text-slate-300 font-medium">Zero Human Intervention Mode (Auto-publish when Agent Verification passes)</span>
                 </label>
               </div>
             </div>
