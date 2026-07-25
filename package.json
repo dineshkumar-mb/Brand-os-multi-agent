@@ -1,0 +1,35 @@
+{
+  "name": "personal-brand-os",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Autonomous AI Personal Brand Operating System (LinkedIn + Medium Multi-Agent Platform)",
+  "workspaces": [
+    "client",
+    "server",
+    "worker",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npx pnpm --filter @brand-os/api dev\" \"npx pnpm --filter @brand-os/web dev\" \"npx pnpm --filter @brand-os/worker dev\"",
+    "dev:api": "npx pnpm --filter @brand-os/api dev",
+    "dev:web": "npx pnpm --filter @brand-os/web dev",
+    "dev:worker": "npx pnpm --filter @brand-os/worker dev",
+    "build": "npx pnpm -r build",
+    "test": "npx pnpm -r test",
+    "typecheck": "npx pnpm -r typecheck",
+    "db:generate": "npx pnpm --filter @brand-os/database db:generate",
+    "db:push": "npx pnpm --filter @brand-os/database db:push",
+    "db:seed": "npx ts-node packages/database/prisma/seed.ts",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "prettier": "^3.4.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

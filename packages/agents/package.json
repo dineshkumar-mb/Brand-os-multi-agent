@@ -1,0 +1,21 @@
+{
+  "name": "@brand-os/agents",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@brand-os/shared": "workspace:*",
+    "@brand-os/ai-gateway": "workspace:*",
+    "@brand-os/mcp-client": "workspace:*",
+    "@brand-os/database": "workspace:*",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

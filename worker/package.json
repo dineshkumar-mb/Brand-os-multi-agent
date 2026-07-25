@@ -1,0 +1,22 @@
+{
+  "name": "@brand-os/worker",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@brand-os/shared": "workspace:*",
+    "@brand-os/database": "workspace:*",
+    "@brand-os/agents": "workspace:*",
+    "@brand-os/ai-gateway": "workspace:*",
+    "@brand-os/publisher": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  }
+}

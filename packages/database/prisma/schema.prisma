@@ -1,0 +1,406 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+  TEAM_MEMBER
+}
+
+enum Platform {
+  LINKEDIN
+  MEDIUM
+  DEVTO
+  HASHNODE
+  X_TWITTER
+}
+
+enum PostStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  SCHEDULED
+  PUBLISHING
+  PUBLISHED
+  FAILED
+  REJECTED
+}
+
+enum ModelProvider {
+  OPENAI
+  GEMINI
+  ANTHROPIC
+  OPENROUTER
+  NVIDIA_NIM
+  OLLAMA
+}
+
+enum AgentType {
+  TREND_DISCOVERY
+  RESEARCH
+  FACT_VERIFICATION
+  WRITING_STYLE
+  CONTENT_STRATEGY
+  LINKEDIN_GENERATOR
+  MEDIUM_WRITER
+  REVIEWER
+  CRITIC
+  SEO
+  IMAGE_GENERATOR
+  HASHTAG_GENERATOR
+  PUBLISHER
+  ANALYTICS
+  LEARNING
+}
+
+enum Difficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum Competition {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String
+  passwordHash String
+  role         Role          @default(USER)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  profile      Profile?
+  settings     UserSettings?
+  posts        Post[]
+  articles     Article[]
+  apiKeys      EncryptedApiKey[]
+  auditLogs    AuditLog[]
+
+  @@map("users")
+}
+
+model Profile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  headline        String?
+  bio             String?
+  industry        String   @default("AI & Software Engineering")
+  careerStage     String   @default("Senior / Lead Engineer")
+  targetAudience  String   @default("Developers & Engineering Managers")
+  writingTone     String   @default("Authoritative, engaging, data-driven")
+  postingFrequency String  @default("DAILY")
+  goals           String[] @default(["Build Thought Leadership", "Grow Tech Following"])
+  chromaCollection String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+model UserSettings {
+  id                    String   @id @default(uuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  defaultRoutingStrategy String  @default("COST_OPTIMIZED")
+  preferredAiModel      String   @default("gpt-4o")
+  autoPublish           Boolean  @default(false)
+  hitlRequired          Boolean  @default(true)
+  hitlApprovalRole      Role     @default(USER)
+  minEvaluationScore    Float    @default(85.0)
+  activeProviders       String[] @default(["OPENAI", "GEMINI", "ANTHROPIC"])
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  @@map("user_settings")
+}
+
+model EncryptedApiKey {
+  id          String        @id @default(uuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider    ModelProvider
+  keyCipher   String
+  keyIv       String
+  isVerified  Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("encrypted_api_keys")
+}
+
+model Topic {
+  id            String      @id @default(uuid())
+  title         String
+  category      String
+  score         Float
+  reason        String
+  trendVelocity Float
+  difficulty    Difficulty  @default(INTERMEDIATE)
+  competition   Competition @default(MEDIUM)
+  audience      String
+  keywords      String[]
+  references    String[]
+  isResearched  Boolean     @default(false)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  researchData  ResearchData?
+  posts         Post[]
+  articles      Article[]
+  concepts      KnowledgeGraphConcept[]
+
+  @@map("topics")
+}
+
+model ResearchData {
+  id             String   @id @default(uuid())
+  topicId        String   @unique
+  topic          Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  summary        String   @db.Text
+  keyInsights    String[]
+  pros           String[]
+  cons           String[]
+  futureOutlook  String   @db.Text
+  codeSnippets   Json     @default("[]")
+  statistics     String[]
+  citations      Json     @default("[]")
+  factVerified   Boolean  @default(false)
+  confidenceScore Float   @default(0.0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("research_data")
+}
+
+model Post {
+  id                 String     @id @default(uuid())
+  userId             String
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId            String?
+  topic              Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  platform           Platform   @default(LINKEDIN)
+  title              String
+  hook               String     @db.Text
+  story              String     @db.Text
+  lesson             String     @db.Text
+  actionableInsight  String     @db.Text
+  cta                String
+  hashtags           String[]
+  fullText           String     @db.Text
+  carouselSlides     Json?
+  imageUrl           String?
+  status             PostStatus @default(DRAFT)
+  evaluationScore    Float      @default(0.0)
+  evaluationBreakdown Json?
+  reviewedBy         String?
+  scheduledFor       DateTime?
+  publishedAt        DateTime?
+  externalPostId     String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  analytics          AnalyticsMetric[]
+  publishingJobs     PublishingJob[]
+
+  @@map("posts")
+}
+
+model Article {
+  id                 String     @id @default(uuid())
+  userId             String
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  topicId            String?
+  topic              Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  platform           Platform   @default(MEDIUM)
+  title              String
+  subtitle           String
+  metaDescription    String
+  seoKeywords        String[]
+  readingTimeMinutes Int
+  tableOfContents    String[]
+  fullMarkdown       String     @db.Text
+  status             PostStatus @default(DRAFT)
+  evaluationScore    Float      @default(0.0)
+  evaluationBreakdown Json?
+  scheduledFor       DateTime?
+  publishedAt        DateTime?
+  externalArticleUrl String?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  analytics          AnalyticsMetric[]
+  publishingJobs     PublishingJob[]
+
+  @@map("articles")
+}
+
+model PublishingJob {
+  id           String     @id @default(uuid())
+  postId       String?
+  post         Post?      @relation(fields: [postId], references: [id], onDelete: Cascade)
+  articleId    String?
+  article      Article?   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  platform     Platform
+  scheduledAt  DateTime
+  executedAt   DateTime?
+  status       PostStatus @default(SCHEDULED)
+  retryCount   Int        @default(0)
+  maxRetries   Int        @default(3)
+  errorMessage String?
+  logs         Json       @default("[]")
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("publishing_jobs")
+}
+
+model AnalyticsMetric {
+  id           String   @id @default(uuid())
+  postId       String?
+  post         Post?    @relation(fields: [postId], references: [id], onDelete: Cascade)
+  articleId    String?
+  article      Article? @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  views        Int      @default(0)
+  likes        Int      @default(0)
+  comments     Int      @default(0)
+  shares       Int      @default(0)
+  ctr          Float    @default(0.0)
+  readTimeSec  Int      @default(0)
+  followersGained Int   @default(0)
+  recordedAt   DateTime @default(now())
+
+  @@map("analytics_metrics")
+}
+
+model AgentMemory {
+  id            String    @id @default(uuid())
+  agentType     AgentType
+  memoryKey     String
+  memoryValue   Json
+  embeddingId   String?
+  successCount  Int       @default(0)
+  failureCount  Int       @default(0)
+  lastUpdated   DateTime  @default(now())
+
+  @@unique([agentType, memoryKey])
+  @@map("agent_memories")
+}
+
+model PromptTemplate {
+  id                 String     @id @default(uuid())
+  name               String     @unique
+  agentType          AgentType
+  currentVersion     Int        @default(1)
+  systemPrompt       String     @db.Text
+  userPromptTemplate String     @db.Text
+  variables          String[]
+  isActive           Boolean    @default(true)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  versions           PromptVersion[]
+
+  @@map("prompt_templates")
+}
+
+model PromptVersion {
+  id                 String         @id @default(uuid())
+  templateId         String
+  template           PromptTemplate @relation(fields: [templateId], references: [id], onDelete: Cascade)
+  version            Int
+  systemPrompt       String         @db.Text
+  userPromptTemplate String         @db.Text
+  accuracyRating     Float          @default(0.0)
+  engagementRating   Float          @default(0.0)
+  avgLatencyMs       Float          @default(0.0)
+  avgCostUsd         Float          @default(0.0)
+  isPromoted         Boolean        @default(false)
+  createdAt          DateTime       @default(now())
+
+  @@map("prompt_versions")
+}
+
+model AIGatewayLog {
+  id                String        @id @default(uuid())
+  provider          ModelProvider
+  model             String
+  taskType          String
+  promptTokens      Int
+  completionTokens  Int
+  totalTokens       Int
+  costUsd           Float
+  latencyMs         Int
+  timeToFirstTokenMs Int?
+  routingDecision   String
+  wasFailover       Boolean       @default(false)
+  errorMessage      String?
+  createdAt         DateTime      @default(now())
+
+  @@map("ai_gateway_logs")
+}
+
+model ModelBenchmark {
+  id               String        @id @default(uuid())
+  provider         ModelProvider
+  model            String
+  totalRequests    Int           @default(0)
+  successfulReqs   Int           @default(0)
+  failedReqs       Int           @default(0)
+  avgLatencyMs     Float         @default(0.0)
+  avgTokensPerSec  Float         @default(0.0)
+  avgCostPer1k     Float         @default(0.0)
+  hallucinationRate Float        @default(0.0)
+  lastBenchmarked  DateTime      @default(now())
+
+  @@unique([provider, model])
+  @@map("model_benchmarks")
+}
+
+model KnowledgeGraphConcept {
+  id                String   @id @default(uuid())
+  topicId           String
+  topic             Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  conceptName       String
+  relatedConcepts   String[]
+  avgEngagementScore Float   @default(0.0)
+  postCount         Int      @default(0)
+  lastLearnedAt     DateTime @default(now())
+
+  @@map("knowledge_graph_concepts")
+}
+
+model PluginConfig {
+  id           String   @id @default(uuid())
+  pluginName   String   @unique
+  isEnabled    Boolean  @default(true)
+  settings     Json     @default("{}")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("plugin_configs")
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  resource  String
+  payload   Json?
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@map("audit_logs")
+}

@@ -1,0 +1,41 @@
+name: Personal Brand OS CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck Workspace
+        run: pnpm typecheck
+
+      - name: Build All Monorepo Packages & Apps
+        run: pnpm build
+
+      - name: Build Docker Containers
+        run: |
+          docker build -t brandos-api:latest -f docker/Dockerfile.api .
+          docker build -t brandos-web:latest -f docker/Dockerfile.web .
+          docker build -t brandos-worker:latest -f docker/Dockerfile.worker .

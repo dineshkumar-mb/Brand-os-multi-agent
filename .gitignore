@@ -1,0 +1,29 @@
+# Environment & Secrets (CRITICAL: NEVER COMMIT REAL KEYS)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Node Modules & Package Manager Caches
+node_modules/
+.pnpm-store/
+
+# Build Outputs & TypeScript Cache
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# Logs, Diagnostic & Scratch Files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+scratch/
+
+# OS Files
+.DS_Store
+Thumbs.db
