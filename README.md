@@ -15,42 +15,49 @@ Personal Brand OS is an enterprise-grade autonomous multi-agent platform designe
 
 ```mermaid
 flowchart TB
-    subgraph ClientLayer ["Client Layer (Frontend SaaS UI)"]
-        UI["React 19 + Vite Dashboard UI\n(https://brand-os-multi-agent.vercel.app)"]
-        ApiClient["Dynamic API Client\n(Adapts Local vs Vercel Serverless)"]
-        UI --> ApiClient
+    %% Multi-Color Class Styling Definitions
+    classDef clientStyle fill:#0284c7,stroke:#38bdf8,stroke-width:2px,color:#ffffff,font-weight:bold;
+    classDef apiStyle fill:#059669,stroke:#34d399,stroke-width:2px,color:#ffffff,font-weight:bold;
+    classDef swarmStyle fill:#6366f1,stroke:#818cf8,stroke-width:2px,color:#ffffff,font-weight:bold;
+    classDef aiStyle fill:#d97706,stroke:#fbbf24,stroke-width:2px,color:#ffffff,font-weight:bold;
+    classDef dataStyle fill:#e11d48,stroke:#fb7185,stroke-width:2px,color:#ffffff,font-weight:bold;
+
+    subgraph ClientLayer ["🩵 Client Layer (React 19 Frontend UI)"]
+        UI["📱 React 19 + Vite Dashboard UI\n(https://brand-os-multi-agent.vercel.app)"]:::clientStyle
+        ApiClient["⚡ Dynamic API Client\n(Adapts Local vs Vercel Serverless)"]:::clientStyle
+        UI -.->|User Actions| ApiClient
     end
 
-    subgraph APIBackend ["API & Routing Layer"]
-        ServerlessAPI["Vercel Serverless Express API\n(/api/v1/*)"]
-        LocalAPI["Local Express Server\n(http://localhost:4000/api/v1/*)"]
-        ApiClient -->|Production| ServerlessAPI
-        ApiClient -->|Local Dev| LocalAPI
+    subgraph APIBackend ["💚 API Gateway & Routing Layer"]
+        ServerlessAPI["☁️ Vercel Serverless Express API\n(/api/v1/*)"]:::apiStyle
+        LocalAPI["💻 Local Express Server\n(http://localhost:4000/api/v1/*)"]:::apiStyle
+        ApiClient == Production ==> ServerlessAPI
+        ApiClient == Local Dev ==> LocalAPI
     end
 
-    subgraph SwarmOrchestration ["Autonomous Multi-Agent Swarm Engine"]
-        Orchestrator["Agent Swarm Orchestrator"]
-        TrendAgent["1. Trend Discovery Agent"]
-        ResearchAgent["2. Deep Research Agent"]
-        FactAgent["3. Fact Verification Agent"]
-        WriterAgent["4. LinkedIn & Medium Writer Agents"]
-        ReviewerAgent["5. Reviewer & Critic Agent"]
-        PublisherAgent["6. Social Media Publisher Agent"]
+    subgraph SwarmOrchestration ["💜 Autonomous 12-Agent Swarm Engine"]
+        Orchestrator["👑 Agent Swarm Orchestrator"]:::swarmStyle
+        TrendAgent["🔍 1. Multi-Site Trend Discovery Agent"]:::swarmStyle
+        ResearchAgent["📚 2. Deep Technical Research Agent"]:::swarmStyle
+        FactAgent["🛡️ 3. Fact Verification Agent"]:::swarmStyle
+        WriterAgent["✍️ 4. Viral LinkedIn & Medium Writer Agents"]:::swarmStyle
+        ReviewerAgent["🎯 5. Quality Gatekeeper Reviewer Agent"]:::swarmStyle
+        PublisherAgent["📢 6. Social Media Publisher Agent"]:::swarmStyle
 
-        Orchestrator --> TrendAgent
-        TrendAgent --> ResearchAgent
-        ResearchAgent --> FactAgent
-        FactAgent --> WriterAgent
-        WriterAgent --> ReviewerAgent
-        ReviewerAgent --> PublisherAgent
+        Orchestrator -.-> TrendAgent
+        TrendAgent -.-> ResearchAgent
+        ResearchAgent -.-> FactAgent
+        FactAgent -.-> WriterAgent
+        WriterAgent -.-> ReviewerAgent
+        ReviewerAgent -.-> PublisherAgent
     end
 
-    subgraph AIGateway ["Multi-Provider AI Gateway (Cost & Latency Optimized)"]
-        Router["AI Gateway Router & Failover Cascade"]
-        OpenRouter["OpenRouter API\n(google/gemini-2.0-flash-lite-001)"]
-        NVIDIA["NVIDIA NIM API\n(meta/llama-3.1-405b-instruct)"]
-        OpenAI["OpenAI API (gpt-4o / gpt-4o-mini)"]
-        Ollama["Ollama Local (llama3)"]
+    subgraph AIGateway ["🧡 Multi-Provider AI Gateway"]
+        Router["🔀 AI Router & Cascade Failover"]:::aiStyle
+        OpenRouter["✨ OpenRouter API\n(google/gemini-2.0-flash-lite-001)"]:::aiStyle
+        NVIDIA["🚀 NVIDIA NIM API\n(meta/llama-3.1-405b-instruct)"]:::aiStyle
+        OpenAI["🤖 OpenAI API (gpt-4o / gpt-4o-mini)"]:::aiStyle
+        Ollama["🦙 Ollama Local (llama3)"]:::aiStyle
 
         Router --> OpenRouter
         Router --> NVIDIA
@@ -58,23 +65,25 @@ flowchart TB
         Router --> Ollama
     end
 
-    subgraph DataIntegrations ["External Integrations & Databases"]
-        LinkedIn["LinkedIn REST API v2\n(ugcPosts & OAuth 2.0)"]
-        Medium["Medium API"]
-        Postgres["PostgreSQL / Prisma ORM"]
-        Chroma["ChromaDB Vector Store (RAG Style Memory)"]
-        Redis["Redis Streams Event Bus"]
+    subgraph DataIntegrations ["🩷 External Integrations & Databases"]
+        LinkedIn["🔗 LinkedIn REST API v2\n(ugcPosts & OAuth 2.0)"]:::dataStyle
+        Medium["📝 Medium Publishing API"]:::dataStyle
+        Postgres["🐘 PostgreSQL / Prisma ORM"]:::dataStyle
+        Chroma["🗂️ ChromaDB Vector Store (RAG Memory)"]:::dataStyle
+        Redis["⚡ Redis Streams Event Bus"]:::dataStyle
     end
 
-    ServerlessAPI --> Orchestrator
-    LocalAPI --> Orchestrator
-    ResearchAgent --> Router
-    WriterAgent --> Router
-    PublisherAgent --> LinkedIn
-    PublisherAgent --> Medium
-    Orchestrator --> Postgres
-    Orchestrator --> Chroma
-    Orchestrator --> Redis
+    ServerlessAPI ==>|Trigger Request| Orchestrator
+    LocalAPI ==>|Trigger Request| Orchestrator
+    ResearchAgent -.->|Fetch LLM Synthesis| Router
+    WriterAgent -.->|Generate Viral Post| Router
+    PublisherAgent ==>|Post Live Content| LinkedIn
+    PublisherAgent ==>|Publish Draft| Medium
+    Orchestrator --- Postgres
+    Orchestrator --- Chroma
+    Orchestrator --- Redis
+
+    linkStyle default stroke:#818cf8,stroke-width:2px,stroke-dasharray: 4 4;
 ```
 
 ---
