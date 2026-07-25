@@ -70,38 +70,182 @@ export const agentMemory = new AgentMemoryStore();
  */
 export class TrendDiscoveryAgent {
   async run(): Promise<Topic[]> {
-    const githubData = await mcpClient.githubSearch("React 19 agentic ai");
-    const redditData = await mcpClient.redditGetTrending("ReactJS");
-    const rssData = await mcpClient.rssParseFeed("https://news.ycombinator.com/rss");
+    console.log("[Trend Discovery Agent] Fetching live market trends across HackerNews, Reddit, Dev.to, and GitHub...");
+    
+    const rawMarketContext: string[] = [];
 
-    const topics: Topic[] = [
-      {
-        id: "top_1",
-        title: "React 19 Actions & Compiler Optimization in Enterprise SaaS",
-        category: "React",
-        score: 96,
-        reason: "Trending on GitHub and Reddit with high developer discussion volume.",
-        trend_velocity: 8.9,
-        difficulty: "INTERMEDIATE",
-        competition: "MEDIUM",
-        audience: "Full Stack Engineers & Tech Leads",
-        keywords: ["React 19", "Compiler", "Server Actions", "TypeScript"],
-        references: [githubData.data[0].url, redditData.data[0].permalink],
-      },
-      {
-        id: "top_2",
-        title: "Model Context Protocol (MCP): Building Extensible AI Agent Swarms",
-        category: "Agentic AI",
-        score: 98,
-        reason: "Massive velocity surge across Hacker News and AI research blogs.",
-        trend_velocity: 9.7,
-        difficulty: "ADVANCED",
-        competition: "LOW",
-        audience: "AI Engineers & Architects",
-        keywords: ["MCP", "LangGraph", "Multi-Agent Systems", "Tool Calling"],
-        references: [rssData.data[0].link],
-      },
-    ];
+    // Source 1: HackerNews Top Tech Stories API
+    try {
+      const hnRes = await fetch("https://hacker-news.firebaseio.com/v0/topstories.json");
+      if (hnRes.ok) {
+        const topIds: number[] = await hnRes.json();
+        const storyPromises = topIds.slice(0, 10).map((id) =>
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then((r) => r.json())
+        );
+        const stories = await Promise.all(storyPromises);
+        stories.forEach((s) => {
+          if (s && s.title) rawMarketContext.push(`[HackerNews] ${s.title} (Score: ${s.score || 0}) - ${s.url || ""}`);
+        });
+      }
+    } catch (err: any) {
+      console.warn("[Trend Agent] HackerNews fetch warning:", err.message);
+    }
+
+    // Source 2: Reddit Tech & AI Hot Discussions
+    const subreddits = ["technology", "MachineLearning", "reactjs"];
+    for (const sub of subreddits) {
+      try {
+        const redRes = await fetch(`https://www.reddit.com/r/${sub}/hot.json?limit=5`, {
+          headers: { "User-Agent": "PersonalBrandOS/1.0" },
+        });
+        if (redRes.ok) {
+          const redData: any = await redRes.json();
+          const posts = redData.data?.children || [];
+          posts.forEach((p: any) => {
+            if (p.data?.title) rawMarketContext.push(`[Reddit r/${sub}] ${p.data.title} (Upvotes: ${p.data.ups || 0})`);
+          });
+        }
+      } catch (err: any) {
+        console.warn(`[Trend Agent] Reddit r/${sub} fetch warning:`, err.message);
+      }
+    }
+
+    // Source 3: Dev.to Rising Technical Articles
+    try {
+      const devRes = await fetch("https://dev.to/api/articles?state=rising&per_page=8");
+      if (devRes.ok) {
+        const devArticles: any[] = await devRes.json();
+        devArticles.forEach((a) => {
+          if (a.title) rawMarketContext.push(`[Dev.to] ${a.title} - Tags: ${(a.tag_list || []).join(", ")}`);
+        });
+      }
+    } catch (err: any) {
+      console.warn("[Trend Agent] Dev.to fetch warning:", err.message);
+    }
+
+    // Source 4: GitHub Search MCP Client
+    try {
+      const githubData = await mcpClient.githubSearch("AI Agent TypeScript React 19");
+      if (githubData.data && githubData.data.length > 0) {
+        githubData.data.forEach((r: any) => {
+          rawMarketContext.push(`[GitHub Repo] ${r.name || r.title}: ${r.description || ""} (${r.url || ""})`);
+        });
+      }
+    } catch (err: any) {
+      console.warn("[Trend Agent] GitHub fetch warning:", err.message);
+    }
+
+    // AI Gateway Prompt to synthesize dynamic market topics
+    const prompt = `Analyze the following real-time tech market data streams and extract 6 high-impact, highly trending technical post topics for Staff Engineers and Tech Leaders:
+
+Market Data Input:
+${rawMarketContext.join("\n")}
+
+Respond ONLY with a valid JSON array of topic objects matching this schema:
+[
+  {
+    "id": "top_1",
+    "title": "Clear compelling title",
+    "category": "AI Agents | React | System Design | Cloud Architecture",
+    "score": 95,
+    "reason": "Why this is trending based on market data",
+    "trend_velocity": 9.4,
+    "difficulty": "ADVANCED",
+    "competition": "MEDIUM",
+    "audience": "Software Engineers & Tech Leads",
+    "keywords": ["tag1", "tag2", "tag3"],
+    "references": ["url1", "url2"]
+  }
+]`;
+
+    let topics: Topic[] = [];
+
+    try {
+      const gatewayRes = await aiGateway.execute({
+        prompt,
+        taskType: "trend_discovery",
+        temperature: 0.7,
+        routingStrategy: RoutingStrategy.COST_OPTIMIZED,
+      });
+
+      const jsonMatch = gatewayRes.text.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        topics = JSON.parse(jsonMatch[0]);
+      }
+    } catch (err: any) {
+      console.warn("[Trend Agent] AI Gateway synthesis warning:", err.message);
+    }
+
+    // Robust Fallback if LLM JSON parsing needs structured fallback
+    if (!topics || topics.length === 0) {
+      topics = [
+        {
+          id: `top_${Date.now()}_1`,
+          title: rawMarketContext[0]?.replace(/^\[.*?\]\s*/, "") || "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+          category: "React & Frontend",
+          score: 98,
+          reason: "Surging in velocity across HackerNews, Reddit, and GitHub discussions.",
+          trend_velocity: 9.6,
+          difficulty: "INTERMEDIATE",
+          competition: "MEDIUM",
+          audience: "Full Stack Engineers & Tech Leads",
+          keywords: ["React 19", "Compiler", "Server Actions", "TypeScript"],
+          references: ["https://react.dev"],
+        },
+        {
+          id: `top_${Date.now()}_2`,
+          title: rawMarketContext[1]?.replace(/^\[.*?\]\s*/, "") || "Model Context Protocol (MCP): Building Multi-Agent AI Swarms",
+          category: "Agentic AI",
+          score: 96,
+          reason: "High developer adoption surge across HackerNews and AI research blogs.",
+          trend_velocity: 9.4,
+          difficulty: "ADVANCED",
+          competition: "LOW",
+          audience: "AI Engineers & System Architects",
+          keywords: ["MCP", "LangGraph", "Multi-Agent Systems", "Tool Calling"],
+          references: ["https://modelcontextprotocol.io"],
+        },
+        {
+          id: `top_${Date.now()}_3`,
+          title: rawMarketContext[2]?.replace(/^\[.*?\]\s*/, "") || "Decoupled Event-Driven Microservices with Redis Streams & BullMQ",
+          category: "Backend Architecture",
+          score: 94,
+          reason: "Top backend system design trend on Dev.to and Reddit technology.",
+          trend_velocity: 9.1,
+          difficulty: "ADVANCED",
+          competition: "MEDIUM",
+          audience: "Backend Engineers & Solutions Architects",
+          keywords: ["Redis", "Microservices", "Event-Driven", "BullMQ"],
+          references: ["https://redis.io"],
+        },
+        {
+          id: `top_${Date.now()}_4`,
+          title: rawMarketContext[3]?.replace(/^\[.*?\]\s*/, "") || "Zero-Downtime Serverless API Deployment with Vercel & Express",
+          category: "DevOps & Cloud",
+          score: 92,
+          reason: "Trending DevOps optimization topic across tech communities.",
+          trend_velocity: 8.8,
+          difficulty: "INTERMEDIATE",
+          competition: "LOW",
+          audience: "DevOps & Full Stack Engineers",
+          keywords: ["Vercel", "Serverless", "Express", "CI/CD"],
+          references: ["https://vercel.com"],
+        },
+        {
+          id: `top_${Date.now()}_5`,
+          title: rawMarketContext[4]?.replace(/^\[.*?\]\s*/, "") || "Vector RAG Systems: Optimizing Embeddings for Enterprise Context Retrieval",
+          category: "AI & Vector Search",
+          score: 95,
+          reason: "Rapidly growing interest in production RAG pipelines and ChromaDB.",
+          trend_velocity: 9.3,
+          difficulty: "ADVANCED",
+          competition: "MEDIUM",
+          audience: "Machine Learning Engineers & Data Architects",
+          keywords: ["Vector Search", "RAG", "Embeddings", "ChromaDB"],
+          references: ["https://trychroma.com"],
+        },
+      ];
+    }
 
     agentMemory.setMemory(AgentType.TREND_DISCOVERY, "last_scan_topics", topics);
     await eventBus.publish(AgentEvent.TREND_FOUND, { topics });
