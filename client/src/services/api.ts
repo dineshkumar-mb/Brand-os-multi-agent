@@ -1,4 +1,17 @@
-const API_BASE_URL = "http://localhost:4000/api/v1";
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname !== "localhost" && hostname !== "127.0.0.1") {
+      return "/api/v1";
+    }
+  }
+  return "http://localhost:4000/api/v1";
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 export class ApiClient {
   private token: string | null = null;

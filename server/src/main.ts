@@ -110,6 +110,11 @@ app.post("/api/v1/chat", async (req: Request, res: Response) => {
 // Error Handler Middleware
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`[Personal Brand OS API] Running at http://localhost:${PORT}`);
-});
+export default app;
+
+if (process.env.NODE_ENV !== "test" && !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[Personal Brand OS API] Running at http://localhost:${PORT}`);
+  });
+}
+
