@@ -87,6 +87,9 @@ importers:
       '@brand-os/mcp-client':
         specifier: workspace:*
         version: link:../mcp-client
+      '@brand-os/publisher':
+        specifier: workspace:*
+        version: link:../publisher
       '@brand-os/shared':
         specifier: workspace:*
         version: link:../shared

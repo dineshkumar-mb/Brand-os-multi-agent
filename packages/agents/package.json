@@ -12,6 +12,7 @@
     "@brand-os/ai-gateway": "workspace:*",
     "@brand-os/mcp-client": "workspace:*",
     "@brand-os/database": "workspace:*",
+    "@brand-os/publisher": "workspace:*",
     "zod": "^3.24.1"
   },
   "devDependencies": {

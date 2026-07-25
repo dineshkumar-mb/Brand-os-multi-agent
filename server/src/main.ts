@@ -67,9 +67,25 @@ app.post("/api/v1/research", (req, res) => researchController.conductResearch(re
 app.get("/api/v1/posts", (req, res) => contentController.getPosts(req, res));
 app.get("/api/v1/articles", (req, res) => contentController.getArticles(req, res));
 
+import { agentOrchestrator } from "@brand-os/agents";
+
 // Publishing & Jobs Routes
 app.post("/api/v1/publish", (req, res) => publishController.publishContent(req, res));
 app.post("/api/v1/schedule", (req, res) => publishController.scheduleContent(req, res));
+app.get("/api/v1/schedule/cron-daily", async (_req: Request, res: Response) => {
+  try {
+    console.log("[Daily Cron] Triggering zero human intervention verified agent pipeline...");
+    const result = await agentOrchestrator.executePipeline(true);
+    res.json({
+      status: "success",
+      message: "Daily automated post verified by agents and published successfully.",
+      result,
+    });
+  } catch (err: any) {
+    console.error("[Daily Cron Error]:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
 app.get("/api/v1/jobs", (req, res) => publishController.getJobs(req, res));
 
 // Analytics Routes

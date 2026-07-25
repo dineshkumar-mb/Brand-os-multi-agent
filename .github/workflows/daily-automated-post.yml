@@ -1,0 +1,40 @@
+name: Daily Automated Verified Agent Post
+
+on:
+  schedule:
+    # Runs automatically every single day at 09:00 UTC (Zero human intervention required)
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI if desired
+
+jobs:
+  daily-verified-post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install Monorepo Dependencies
+        run: pnpm install --no-frozen-lockfile
+
+      - name: Build Monorepo Workspace Packages
+        run: pnpm -r build
+
+      - name: Run Autonomous Verified Agent Swarm & Publish Post
+        env:
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          NVIDIA_NIM_API_KEY: ${{ secrets.NVIDIA_NIM_API_KEY }}
+          LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
+          LINKEDIN_CLIENT_SECRET: ${{ secrets.LINKEDIN_CLIENT_SECRET }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
+        run: npx ts-node --transpile-only scratch/run_pipeline.ts

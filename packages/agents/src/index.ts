@@ -5,6 +5,7 @@ import {
   FactVerification,
   LinkedInPostPayload,
   MediumArticlePayload,
+  Platform,
   ResearchOutput,
   RoutingStrategy,
   Topic,
@@ -262,6 +263,8 @@ export class ReviewerAgent {
 // MULTI-AGENT SWARM ORCHESTRATOR
 // ==========================================
 
+import { publisherService } from "@brand-os/publisher";
+
 export class AgentOrchestrator {
   private trendAgent = new TrendDiscoveryAgent();
   private researchAgent = new DeepResearchAgent();
@@ -269,31 +272,48 @@ export class AgentOrchestrator {
   private writerAgent = new WriterAgent();
   private reviewerAgent = new ReviewerAgent();
 
-  public async executePipeline() {
+  public async executePipeline(autoPublish = true) {
     console.log("=== Starting Autonomous Personal Brand OS Agent Swarm Pipeline ===");
 
     // Step 1: Discover Trends
     const topics = await this.trendAgent.run();
     const primaryTopic = topics[0];
+    console.log(`[Swarm] Primary Topic Discovered: "${primaryTopic.title}" (Score: ${primaryTopic.score})`);
 
-    // Step 2: Deep Research
+    // Step 2: Deep Technical Research
     const research = await this.researchAgent.run(primaryTopic);
+    console.log(`[Swarm] Deep Research Completed (${research.key_insights.length} key insights)`);
 
-    // Step 3: Fact Verification
+    // Step 3: Fact Verification Check
     const factCheck = await this.factAgent.run(research);
-
     if (!factCheck.factCheckPassed) {
+      console.warn("❌ [Swarm Verification Failed] Fact check rejected claims:", factCheck.rejectedClaims);
       throw new Error("Pipeline stopped: Fact verification failed.");
     }
+    console.log(`[Swarm Verification Passed] Fact Check Confidence Score: ${factCheck.confidenceScore}%`);
 
-    // Step 4: Write Post & Article
+    // Step 4: Writer Agent (Generate LinkedIn & Medium Payload)
     const linkedInPost = await this.writerAgent.generateLinkedInPost(primaryTopic, research);
     const mediumArticle = await this.writerAgent.generateMediumArticle(primaryTopic, research);
 
-    // Step 5: Review & Score
+    // Step 5: Reviewer & Critic Agent (Quality Gatekeeper)
     const review = await this.reviewerAgent.evaluateContent(linkedInPost.fullText);
+    console.log(`[Swarm Quality Check] Overall Score: ${review.overallScore}/100 | Passed Threshold: ${review.passedThreshold}`);
 
-    console.log("=== Pipeline Execution Finished Successfully ===");
+    if (!review.passedThreshold || review.overallScore < 85) {
+      console.warn(`❌ [Swarm Quality Check Failed] Score ${review.overallScore} below threshold 85. Aborting live publish.`);
+      throw new Error(`Pipeline stopped: Content quality score ${review.overallScore} did not pass threshold.`);
+    }
+
+    // Step 6: Automated Live Publishing (No Human Intervention)
+    let publishResult = null;
+    if (autoPublish) {
+      console.log("📢 [Swarm Publisher] Agent Verification Approved. Publishing post live to LinkedIn...");
+      publishResult = await publisherService.publish(Platform.LINKEDIN, linkedInPost);
+      console.log("✅ [Swarm Publisher Result]:", publishResult);
+    }
+
+    console.log("=== Autonomous Pipeline Execution Finished Successfully ===");
     return {
       topic: primaryTopic,
       research,
@@ -301,6 +321,7 @@ export class AgentOrchestrator {
       linkedInPost,
       mediumArticle,
       review,
+      publishResult,
     };
   }
 }

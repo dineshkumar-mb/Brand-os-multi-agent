@@ -3,6 +3,12 @@
   "buildCommand": "pnpm --filter @brand-os/web build",
   "outputDirectory": "client/dist",
   "framework": "vite",
+  "crons": [
+    {
+      "path": "/api/v1/schedule/cron-daily",
+      "schedule": "0 9 * * *"
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
