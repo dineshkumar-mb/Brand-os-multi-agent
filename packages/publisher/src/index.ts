@@ -54,11 +54,15 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
           explicitUrn = personEnv.startsWith("urn:") ? personEnv : `urn:li:person:${personEnv}`;
         }
 
-        const primaryAuthor = explicitUrn || memberPersonUrn;
+        const authorsToTry: string[] = [];
+        if (explicitUrn) authorsToTry.push(explicitUrn);
+        if (memberPersonUrn && !authorsToTry.includes(memberPersonUrn)) {
+          authorsToTry.push(memberPersonUrn);
+        }
 
-        if (primaryAuthor) {
+        for (const author of authorsToTry) {
           const body = {
-            author: primaryAuthor,
+            author: author,
             lifecycleState: "PUBLISHED",
             specificContent: {
               "com.linkedin.ugc.ShareContent": {
@@ -73,12 +77,12 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
             },
           };
 
-          console.log(`[LinkedIn Publisher] Making live REST API call for author: ${primaryAuthor}...`);
+          console.log(`[LinkedIn Publisher] Making live REST API call for author: ${author}...`);
 
           const response = await fetch("https://api.linkedin.com/v2/ugcPosts", {
             method: "POST",
             headers: {
-              Authorization: `Bearer ${accessToken}`,
+              Authorization: `Bearer ${accessToken.trim()}`,
               "Content-Type": "application/json",
               "X-Restli-Protocol-Version": "2.0.0",
             },
@@ -97,11 +101,11 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
               url: `https://www.linkedin.com/feed/update/${extId}`,
               publishedAt: new Date().toISOString(),
               mode: "LIVE",
-              message: `Successfully posted directly to real LinkedIn feed (${primaryAuthor})!`,
+              message: `Successfully posted directly to real LinkedIn feed (${author})!`,
             };
           } else {
             const errText = await response.text();
-            console.error(`[LinkedIn Publisher API Error ${response.status}]:`, errText);
+            console.error(`[LinkedIn Publisher API Error ${response.status} for ${author}]:`, errText);
             
             if (errText.includes("DUPLICATE_POST")) {
               return {
@@ -113,6 +117,12 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
                 mode: "LIVE",
                 message: "Post verified and dispatched (LinkedIn detected a duplicate recent post).",
               };
+            }
+
+            // If this author failed (e.g. 403 ACCESS_DENIED for org) and we have a fallback author to try, continue
+            if (authorsToTry.indexOf(author) < authorsToTry.length - 1) {
+              console.warn(`[LinkedIn Publisher] Author ${author} failed. Retrying with fallback author...`);
+              continue;
             }
 
             return {
