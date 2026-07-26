@@ -416,6 +416,10 @@ Return ONLY a valid JSON object matching this schema:
       };
     }
 
+    if (!post.imageUrl) {
+      post.imageUrl = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200";
+    }
+
     await eventBus.publish(AgentEvent.CONTENT_GENERATED, { post });
     return post;
   }

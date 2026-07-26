@@ -60,17 +60,36 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
           authorsToTry.push(memberPersonUrn);
         }
 
+        const imageUrl = content.imageUrl?.trim();
+
         for (const author of authorsToTry) {
+          const shareContent: any = {
+            shareCommentary: {
+              text: `${content.title || ""}\n\n${content.fullText || ""}`,
+            },
+            shareMediaCategory: imageUrl ? "ARTICLE" : "NONE",
+          };
+
+          if (imageUrl) {
+            shareContent.media = [
+              {
+                status: "READY",
+                description: {
+                  text: content.title || "Tech Insights & Architecture Blueprint",
+                },
+                originalUrl: imageUrl,
+                title: {
+                  text: content.title || "Tech Architecture Blueprint",
+                },
+              },
+            ];
+          }
+
           const body = {
             author: author,
             lifecycleState: "PUBLISHED",
             specificContent: {
-              "com.linkedin.ugc.ShareContent": {
-                shareCommentary: {
-                  text: `${content.title || ""}\n\n${content.fullText || ""}`,
-                },
-                shareMediaCategory: "NONE",
-              },
+              "com.linkedin.ugc.ShareContent": shareContent,
             },
             visibility: {
               "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC",
