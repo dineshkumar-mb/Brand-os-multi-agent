@@ -43,10 +43,18 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
           console.warn("[LinkedIn Publisher] Userinfo fetch error:", uErr.message);
         }
 
-        // Determine primary author (default to member person URN if available)
-        const primaryAuthor = memberPersonUrn || (process.env.LINKEDIN_PERSON_URN 
-          ? (process.env.LINKEDIN_PERSON_URN.startsWith("urn:") ? process.env.LINKEDIN_PERSON_URN : `urn:li:person:${process.env.LINKEDIN_PERSON_URN}`)
-          : (authorUrn ? (authorUrn.startsWith("urn:") ? authorUrn : (authorUrn.match(/^\d+$/) ? `urn:li:organization:${authorUrn}` : `urn:li:person:${authorUrn}`)) : null));
+        // Determine primary author (prioritize explicit LINKEDIN_ORGANIZATION_ID or LINKEDIN_PERSON_URN over member auto-detection)
+        const orgEnv = process.env.LINKEDIN_ORGANIZATION_ID?.trim();
+        const personEnv = process.env.LINKEDIN_PERSON_URN?.trim();
+
+        let explicitUrn: string | null = null;
+        if (orgEnv) {
+          explicitUrn = orgEnv.startsWith("urn:") ? orgEnv : `urn:li:organization:${orgEnv}`;
+        } else if (personEnv) {
+          explicitUrn = personEnv.startsWith("urn:") ? personEnv : `urn:li:person:${personEnv}`;
+        }
+
+        const primaryAuthor = explicitUrn || memberPersonUrn;
 
         if (primaryAuthor) {
           const body = {
