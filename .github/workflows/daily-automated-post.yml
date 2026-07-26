@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+        run: git config --global --add safe.directory "*"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -26,7 +26,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'pnpm'
 
       - name: Install Monorepo Dependencies
