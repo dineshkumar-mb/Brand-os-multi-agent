@@ -6,7 +6,7 @@
   "crons": [
     {
       "path": "/api/v1/schedule/cron-daily",
-      "schedule": "0 9 * * *"
+      "schedule": "30 3 * * *"
     }
   ],
   "rewrites": [

@@ -2,8 +2,8 @@ name: Daily Automated Verified Agent Post
 
 on:
   schedule:
-    # Runs automatically every single day at 09:00 UTC (Zero human intervention required)
-    - cron: '0 9 * * *'
+    # Runs automatically every single day at 09:00 AM IST (03:30 UTC)
+    - cron: '30 3 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI if desired
 
 jobs:

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { agentOrchestrator, TrendDiscoveryAgent } from "@brand-os/agents";
 
 console.log("[Worker Service] Starting Personal Brand OS Background Job Runner...");

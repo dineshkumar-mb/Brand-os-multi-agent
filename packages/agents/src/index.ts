@@ -176,12 +176,24 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
       console.warn("[Trend Agent] AI Gateway synthesis warning:", err.message);
     }
 
+    const cleanTitle = (raw: string | undefined, fallback: string) => {
+      if (!raw) return fallback;
+      const cleaned = raw
+        .replace(/^\[.*?\]\s*/, "")
+        .replace(/\s*\(Score:\s*\d+\)/gi, "")
+        .replace(/\s*\(Upvotes:\s*\d+\)/gi, "")
+        .replace(/\s*-\s*https?:\/\/\S+/gi, "")
+        .replace(/https?:\/\/\S+/gi, "")
+        .trim();
+      return cleaned || fallback;
+    };
+
     // Robust Fallback if LLM JSON parsing needs structured fallback
     if (!topics || topics.length === 0) {
       topics = [
         {
           id: `top_${Date.now()}_1`,
-          title: rawMarketContext[0]?.replace(/^\[.*?\]\s*/, "") || "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+          title: cleanTitle(rawMarketContext[0], "React 19 Actions & Compiler Optimization in Enterprise SaaS"),
           category: "React & Frontend",
           score: 98,
           reason: "Surging in velocity across HackerNews, Reddit, and GitHub discussions.",
@@ -194,7 +206,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
         },
         {
           id: `top_${Date.now()}_2`,
-          title: rawMarketContext[1]?.replace(/^\[.*?\]\s*/, "") || "Model Context Protocol (MCP): Building Multi-Agent AI Swarms",
+          title: cleanTitle(rawMarketContext[1], "Model Context Protocol (MCP): Building Multi-Agent AI Swarms"),
           category: "Agentic AI",
           score: 96,
           reason: "High developer adoption surge across HackerNews and AI research blogs.",
@@ -207,7 +219,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
         },
         {
           id: `top_${Date.now()}_3`,
-          title: rawMarketContext[2]?.replace(/^\[.*?\]\s*/, "") || "Decoupled Event-Driven Microservices with Redis Streams & BullMQ",
+          title: cleanTitle(rawMarketContext[2], "Decoupled Event-Driven Microservices with Redis Streams & BullMQ"),
           category: "Backend Architecture",
           score: 94,
           reason: "Top backend system design trend on Dev.to and Reddit technology.",
@@ -220,7 +232,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
         },
         {
           id: `top_${Date.now()}_4`,
-          title: rawMarketContext[3]?.replace(/^\[.*?\]\s*/, "") || "Zero-Downtime Serverless API Deployment with Vercel & Express",
+          title: cleanTitle(rawMarketContext[3], "Zero-Downtime Serverless API Deployment with Vercel & Express"),
           category: "DevOps & Cloud",
           score: 92,
           reason: "Trending DevOps optimization topic across tech communities.",
@@ -233,7 +245,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
         },
         {
           id: `top_${Date.now()}_5`,
-          title: rawMarketContext[4]?.replace(/^\[.*?\]\s*/, "") || "Vector RAG Systems: Optimizing Embeddings for Enterprise Context Retrieval",
+          title: cleanTitle(rawMarketContext[4], "Vector RAG Systems: Optimizing Embeddings for Enterprise Context Retrieval"),
           category: "AI & Vector Search",
           score: 95,
           reason: "Rapidly growing interest in production RAG pipelines and ChromaDB.",
@@ -245,6 +257,8 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
           references: ["https://trychroma.com"],
         },
       ];
+    } else {
+      topics = topics.map((t) => ({ ...t, title: cleanTitle(t.title, t.title) }));
     }
 
     agentMemory.setMemory(AgentType.TREND_DISCOVERY, "last_scan_topics", topics);
