@@ -22,7 +22,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-scratch/
+scratch/.state/
+scratch/dead_letter_queue/
 
 # OS Files
 .DS_Store
