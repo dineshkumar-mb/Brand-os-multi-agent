@@ -37,6 +37,9 @@ jobs:
       - name: Install Monorepo Dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Generate Prisma Database Client
+        run: pnpm --filter @brand-os/database db:generate
+
       - name: Build Monorepo Workspace Packages
         run: pnpm -r build
 
