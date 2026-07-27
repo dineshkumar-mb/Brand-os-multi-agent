@@ -468,12 +468,122 @@ export class MediumPublisherAdapter implements IPublisherAdapter {
   }
 }
 
+export class DevtoPublisherAdapter implements IPublisherAdapter {
+  async publishPost(content: any, options?: PublishOptions): Promise<PublishResult> {
+    const startTime = Date.now();
+    const envModeRaw = process.env.PUBLISH_MODE?.toUpperCase();
+    const requestedMode: PublishMode =
+      options?.mode ||
+      (envModeRaw === "LIVE"
+        ? PublishMode.LIVE
+        : envModeRaw === "SIMULATION"
+        ? PublishMode.SIMULATION
+        : PublishMode.AUTO);
+
+    const apiKey = process.env.DEVTO_API_KEY?.trim();
+    const isLiveExecution =
+      requestedMode === PublishMode.LIVE ||
+      (requestedMode === PublishMode.AUTO && Boolean(apiKey));
+
+    if (isLiveExecution && apiKey) {
+      try {
+        console.log("[Dev.to Publisher 📝] Publishing article via Dev.to REST API...");
+        const cleanTags = (content.seoKeywords || content.hashtags || ["technology", "typescript", "webdev"])
+          .map((t: string) => t.replace(/[^a-zA-Z0-9]/g, "").toLowerCase())
+          .filter(Boolean)
+          .slice(0, 4);
+
+        const res = await fetch("https://dev.to/api/articles", {
+          method: "POST",
+          headers: {
+            "api-key": apiKey,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            article: {
+              title: content.title || "Technical Architecture & System Insights",
+              published: true,
+              body_markdown: content.fullMarkdown || content.fullText || `${content.title}\n\n${content.introduction || ""}`,
+              tags: cleanTags,
+              main_image: content.imageUrl || undefined,
+            },
+          }),
+        });
+
+        if (res.ok) {
+          const data: any = await res.json();
+          const extId = String(data.id);
+          const articleUrl = data.url || `https://dev.to/article/${extId}`;
+          const latencyMs = Date.now() - startTime;
+          analyticsService.recordPublishedPost({ id: extId, title: content.title || "Dev.to Article" });
+
+          return {
+            success: true,
+            platform: Platform.DEVTO,
+            externalId: extId,
+            url: articleUrl,
+            publishedAt: new Date().toISOString(),
+            mode: "LIVE",
+            retries: 0,
+            latencyMs,
+            message: "Successfully published article directly to live Dev.to feed!",
+          };
+        } else {
+          const errText = await res.text();
+          console.error(`[Dev.to Publisher Error ${res.status}]:`, errText);
+          return {
+            success: false,
+            platform: Platform.DEVTO,
+            externalId: "",
+            url: "",
+            publishedAt: new Date().toISOString(),
+            mode: "LIVE",
+            retries: 0,
+            latencyMs: Date.now() - startTime,
+            reason: `Dev.to API HTTP ${res.status}`,
+            message: `Dev.to API error ${res.status}: ${errText}`,
+          };
+        }
+      } catch (err: any) {
+        console.error("[Dev.to Publisher Exception]:", err.message);
+        return {
+          success: false,
+          platform: Platform.DEVTO,
+          externalId: "",
+          url: "",
+          publishedAt: new Date().toISOString(),
+          mode: "LIVE",
+          retries: 0,
+          latencyMs: Date.now() - startTime,
+          reason: "Dev.to API Exception",
+          message: err.message,
+        };
+      }
+    }
+
+    const slug = (content.title || "article").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+    return {
+      success: true,
+      platform: Platform.DEVTO,
+      externalId: `devto_${Math.random().toString(36).substring(2, 9)}`,
+      url: `https://dev.to/dineshkumar-mb/${slug}-${Date.now()}`,
+      publishedAt: new Date().toISOString(),
+      mode: "SIMULATION",
+      retries: 0,
+      latencyMs: Date.now() - startTime,
+      message: "Simulation Mode: Requires DEVTO_API_KEY in env for live Dev.to publishing.",
+    };
+  }
+}
+
 export class PublisherService {
   private adapters: Map<Platform, IPublisherAdapter> = new Map();
 
   constructor() {
     this.adapters.set(Platform.LINKEDIN, new LinkedInPublisherAdapter());
     this.adapters.set(Platform.MEDIUM, new MediumPublisherAdapter());
+    this.adapters.set(Platform.DEVTO, new DevtoPublisherAdapter());
   }
 
   async publish(platform: Platform, content: any, options?: PublishOptions): Promise<PublishResult> {

@@ -54,6 +54,7 @@ jobs:
           LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
         run: npx ts-node --transpile-only scratch/run_pipeline.ts
 
       - name: Upload Dead Letter Queue Artifacts on Failure

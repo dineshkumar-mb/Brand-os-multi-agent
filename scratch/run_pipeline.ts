@@ -242,6 +242,21 @@ async function main() {
     } catch (mErr: any) {
       logStructured("WARN", "publisher", `Medium publishing exception: ${mErr.message}`);
     }
+  // Stage 4c: Publish to Dev.to Platform
+  let devtoPublishResult = null;
+  const devtoApiKey = process.env.DEVTO_API_KEY?.trim();
+  if (devtoApiKey || mode === PublishMode.LIVE) {
+    logStructured("INFO", "publisher", `Dispatching article to Dev.to Publisher in [${mode}] mode...`);
+    try {
+      devtoPublishResult = await publisherService.publish(Platform.DEVTO, swarmResult.mediumArticle, { mode });
+      if (devtoPublishResult.success) {
+        logStructured("INFO", "publisher", `Dev.to article published successfully!`, { url: devtoPublishResult.url, mode: devtoPublishResult.mode });
+      } else {
+        logStructured("WARN", "publisher", `Dev.to publishing warning: ${devtoPublishResult.message}`);
+      }
+    } catch (dErr: any) {
+      logStructured("WARN", "publisher", `Dev.to publishing exception: ${dErr.message}`);
+    }
   }
 
   const durationMs = Date.now() - startTime;
@@ -261,6 +276,10 @@ async function main() {
     ? `\n| **Medium Publish** | Mode: \`${mediumPublishResult.mode}\` \\| URL: [View Medium Article](${mediumPublishResult.url}) | 🎉 ${mediumPublishResult.success ? "Published" : "Warning"} |`
     : "";
 
+  const devtoSummaryLine = devtoPublishResult
+    ? `\n| **Dev.to Publish** | Mode: \`${devtoPublishResult.mode}\` \\| URL: [View Dev.to Article](${devtoPublishResult.url}) | 🎉 ${devtoPublishResult.success ? "Published" : "Warning"} |`
+    : "";
+
   const summaryMarkdown = `## 🚀 Daily Automated Multi-Platform Post Summary
 
 | Stage | Details | Status |
@@ -269,10 +288,10 @@ async function main() {
 | **Trend Discovered** | ${swarmResult.topic.title} | 🚀 Score: ${swarmResult.topic.score} |
 | **Fact Verification** | Verified Technical Claims | ✅ Score: ${swarmResult.factCheck.confidenceScore}% |
 | **Quality Gate** | Multi-Agent Review | ✅ Score: ${swarmResult.review.overallScore}/100 |
-| **LinkedIn Publish** | Mode: \`${publishResult.mode}\` \\| ID: \`${publishResult.externalId}\` | 🎉 Published |${mediumSummaryLine}
+| **LinkedIn Publish** | Mode: \`${publishResult.mode}\` \\| ID: \`${publishResult.externalId}\` | 🎉 Published |${mediumSummaryLine}${devtoSummaryLine}
 
 - **LinkedIn Post URL**: [View LinkedIn Post](${publishResult.url})
-${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediumPublishResult.url})\n` : ""}- **Retries**: ${publishResult.retries}
+${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediumPublishResult.url})\n` : ""}${devtoPublishResult ? `- **Dev.to Article URL**: [View Dev.to Article](${devtoPublishResult.url})\n` : ""}- **Retries**: ${publishResult.retries}
 - **Total Execution Time**: ${durationSec}s
 - **Published At**: ${publishResult.publishedAt}`;
 
