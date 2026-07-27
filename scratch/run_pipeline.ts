@@ -242,6 +242,7 @@ async function main() {
     } catch (mErr: any) {
       logStructured("WARN", "publisher", `Medium publishing exception: ${mErr.message}`);
     }
+  }
   // Stage 4c: Publish to Dev.to Platform
   let devtoPublishResult = null;
   const devtoApiKey = process.env.DEVTO_API_KEY?.trim();

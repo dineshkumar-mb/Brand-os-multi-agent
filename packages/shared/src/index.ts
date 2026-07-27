@@ -180,6 +180,7 @@ export const MediumArticlePayloadSchema = z.object({
   })),
   conclusion: z.string(),
   fullMarkdown: z.string(),
+  imageUrl: z.string().optional(),
 });
 export type MediumArticlePayload = z.infer<typeof MediumArticlePayloadSchema>;
 

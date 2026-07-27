@@ -425,6 +425,10 @@ Return ONLY a valid JSON object matching this schema:
   }
 
   async generateMediumArticle(topic: Topic, research: ResearchOutput): Promise<MediumArticlePayload> {
+    const imageUrl = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200";
+    const snippetCode = research.code_snippets[0]?.code || "console.log('System architecture online');";
+    const fullMarkdown = `![Architecture Blueprint](${imageUrl})\n\n# ${topic.title}: The Definitive Enterprise Guide\n\n## Executive Summary\n${research.summary}\n\n## Technical Insights & Best Practices\n- ${research.key_insights.join("\n- ")}\n\n## System Code Blueprint\n\`\`\`typescript\n${snippetCode}\n\`\`\`\n\n## Conclusion\nDecoupled multi-agent systems with type-safe contracts enable unprecedented engineering velocity.`;
+
     const article: MediumArticlePayload = {
       title: `${topic.title}: The Definitive Enterprise Guide`,
       subtitle: "A comprehensive deep dive into architecture, code examples, best practices, and performance benchmarks.",
@@ -445,7 +449,8 @@ Return ONLY a valid JSON object matching this schema:
       bestPractices: ["Always enforce strict Zod schemas", "Implement exponential backoff retries", "Maintain agent telemetry"],
       faq: [{ question: "Is this suitable for production?", answer: "Yes, fully tested with strict TypeScript and Docker isolated containers." }],
       conclusion: "Adopting this personal brand operating system transforms technical content creation from manual effort into an automated engine.",
-      fullMarkdown: `# ${topic.title}\n\n## Executive Summary\n${research.summary}\n\n## Code Example\n\`\`\`typescript\n${research.code_snippets[0]?.code}\n\`\`\``,
+      imageUrl,
+      fullMarkdown,
     };
 
     return article;
