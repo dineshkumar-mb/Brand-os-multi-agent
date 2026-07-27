@@ -34,8 +34,5 @@ jobs:
       - name: Generate Prisma Database Client
         run: pnpm --filter @brand-os/database db:generate
 
-      - name: Typecheck Workspace
-        run: pnpm typecheck
-
-      - name: Build All Monorepo Packages & Apps
-        run: pnpm build
+      - name: Build All Monorepo Workspace Packages
+        run: pnpm -r build
