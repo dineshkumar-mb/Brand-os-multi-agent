@@ -29,6 +29,77 @@ export interface IPublisherAdapter {
   publishPost(content: any, options?: PublishOptions): Promise<PublishResult>;
 }
 
+async function uploadLinkedInImage(accessToken: string, author: string, imageUrl: string): Promise<string | null> {
+  try {
+    console.log(`[LinkedIn Publisher 🖼️] Registering image upload asset for author: ${author}...`);
+    const registerRes = await fetch("https://api.linkedin.com/v2/assets?action=registerUpload", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        registerUploadRequest: {
+          recipes: ["urn:li:digitalmediaRecipe:feedshare-image"],
+          owner: author,
+          serviceRelationships: [
+            {
+              relationshipType: "OWNER",
+              identifier: "urn:li:userGeneratedContent",
+            },
+          ],
+        },
+      }),
+    });
+
+    if (!registerRes.ok) {
+      const errText = await registerRes.text();
+      console.warn(`[LinkedIn Publisher ⚠️] Image registerUpload failed (${registerRes.status}):`, errText);
+      return null;
+    }
+
+    const registerData: any = await registerRes.json();
+    const uploadUrl = registerData?.value?.uploadMechanism?.["com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest"]?.uploadUrl;
+    const assetUrn = registerData?.value?.asset;
+
+    if (!uploadUrl || !assetUrn) {
+      console.warn("[LinkedIn Publisher ⚠️] Failed to extract uploadUrl or assetUrn from registerUpload response");
+      return null;
+    }
+
+    console.log(`[LinkedIn Publisher 🖼️] Downloading image binary from: ${imageUrl}...`);
+    const imgRes = await fetch(imageUrl);
+    if (!imgRes.ok) {
+      console.warn(`[LinkedIn Publisher ⚠️] Failed to download image from ${imageUrl}: ${imgRes.status}`);
+      return null;
+    }
+    const contentType = imgRes.headers.get("content-type") || "image/jpeg";
+    const imageArrayBuffer = await imgRes.arrayBuffer();
+
+    console.log(`[LinkedIn Publisher 🖼️] Uploading binary to LinkedIn asset store (${assetUrn})...`);
+    const uploadRes = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": contentType,
+      },
+      body: Buffer.from(imageArrayBuffer),
+    });
+
+    if (!uploadRes.ok) {
+      const errText = await uploadRes.text();
+      console.warn(`[LinkedIn Publisher ⚠️] Binary upload to LinkedIn failed (${uploadRes.status}):`, errText);
+      return null;
+    }
+
+    console.log(`[LinkedIn Publisher ✅] Successfully uploaded native LinkedIn image asset: ${assetUrn}`);
+    return assetUrn;
+  } catch (err: any) {
+    console.warn(`[LinkedIn Publisher ⚠️] Exception during LinkedIn image upload:`, err.message);
+    return null;
+  }
+}
+
 export class LinkedInPublisherAdapter implements IPublisherAdapter {
   async publishPost(content: any, options?: PublishOptions): Promise<PublishResult> {
     const startTime = Date.now();
@@ -94,14 +165,29 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
       const imageUrl = content.imageUrl?.trim();
 
       for (const author of authorsToTry) {
+        let assetUrn: string | null = null;
+        if (imageUrl) {
+          assetUrn = await uploadLinkedInImage(accessToken, author, imageUrl);
+        }
+
         const shareContent: any = {
           shareCommentary: {
             text: `${content.title || ""}\n\n${content.fullText || ""}`,
           },
-          shareMediaCategory: imageUrl ? "ARTICLE" : "NONE",
+          shareMediaCategory: assetUrn ? "IMAGE" : imageUrl ? "ARTICLE" : "NONE",
         };
 
-        if (imageUrl) {
+        if (assetUrn) {
+          shareContent.media = [
+            {
+              status: "READY",
+              media: assetUrn,
+              title: {
+                text: content.title || "Tech Architecture Blueprint",
+              },
+            },
+          ];
+        } else if (imageUrl) {
           shareContent.media = [
             {
               status: "READY",
