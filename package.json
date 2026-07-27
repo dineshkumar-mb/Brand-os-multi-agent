@@ -16,7 +16,7 @@
     "dev:worker": "npx pnpm --filter @brand-os/worker dev",
     "build": "npx pnpm -r build",
     "test": "npx pnpm -r test",
-    "typecheck": "npx pnpm -r typecheck",
+    "typecheck": "npx pnpm -r --if-present typecheck",
     "db:generate": "npx pnpm --filter @brand-os/database db:generate",
     "db:push": "npx pnpm --filter @brand-os/database db:push",
     "db:seed": "npx ts-node packages/database/prisma/seed.ts",
