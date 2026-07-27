@@ -2,13 +2,18 @@ name: Daily Automated Verified Agent Post
 
 on:
   schedule:
-    # Runs automatically every single day at 09:00 AM IST (03:30 UTC)
-    - cron: '30 3 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI if desired
+    # Runs daily at ~09:00 AM IST (03:27 UTC to avoid runner queue congestion on :30)
+    - cron: '27 3 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+concurrency:
+  group: linkedin-daily
+  cancel-in-progress: false
 
 jobs:
   daily-verified-post:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout Codebase
         uses: actions/checkout@v4
@@ -37,6 +42,7 @@ jobs:
 
       - name: Run Autonomous Verified Agent Swarm & Publish Post
         env:
+          PUBLISH_MODE: LIVE
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           NVIDIA_NIM_API_KEY: ${{ secrets.NVIDIA_NIM_API_KEY }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
@@ -45,3 +51,11 @@ jobs:
           LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
         run: npx ts-node --transpile-only scratch/run_pipeline.ts
+
+      - name: Upload Dead Letter Queue Artifacts on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dead-letter-queue
+          path: scratch/dead_letter_queue/
+          if-no-files-found: ignore

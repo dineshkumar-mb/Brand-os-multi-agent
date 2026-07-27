@@ -12,6 +12,12 @@ export enum Platform {
   X_TWITTER = "X_TWITTER",
 }
 
+export enum PublishMode {
+  LIVE = "LIVE",
+  SIMULATION = "SIMULATION",
+  AUTO = "AUTO",
+}
+
 export enum ModelProvider {
   OPENAI = "OPENAI",
   GEMINI = "GEMINI",
