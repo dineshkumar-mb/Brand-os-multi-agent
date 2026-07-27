@@ -4,11 +4,11 @@ WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
-COPY package.json pnpm-workspace.yaml tsconfig.json ./
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* tsconfig.json ./
 COPY packages/ ./packages/
 COPY server/ ./server/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --no-frozen-lockfile
 RUN pnpm --filter @brand-os/database db:generate
 RUN pnpm --filter @brand-os/api build
 
