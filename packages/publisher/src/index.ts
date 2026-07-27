@@ -348,6 +348,111 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
 export class MediumPublisherAdapter implements IPublisherAdapter {
   async publishPost(content: any, options?: PublishOptions): Promise<PublishResult> {
     const startTime = Date.now();
+    const envModeRaw = process.env.PUBLISH_MODE?.toUpperCase();
+    const requestedMode: PublishMode =
+      options?.mode ||
+      (envModeRaw === "LIVE"
+        ? PublishMode.LIVE
+        : envModeRaw === "SIMULATION"
+        ? PublishMode.SIMULATION
+        : PublishMode.AUTO);
+
+    const token = process.env.MEDIUM_INTEGRATION_TOKEN?.trim();
+    const isLiveExecution =
+      requestedMode === PublishMode.LIVE ||
+      (requestedMode === PublishMode.AUTO && Boolean(token));
+
+    if (isLiveExecution && token) {
+      try {
+        console.log("[Medium Publisher 📝] Fetching user profile from Medium REST API...");
+        const meRes = await fetch("https://api.medium.com/v1/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+
+        if (!meRes.ok) {
+          const errText = await meRes.text();
+          console.error(`[Medium Publisher API Error ${meRes.status}]:`, errText);
+          throw new Error(`Medium /v1/me error ${meRes.status}: ${errText}`);
+        }
+
+        const meData: any = await meRes.json();
+        const userId = meData?.data?.id;
+        if (!userId) {
+          throw new Error("Failed to retrieve user ID from Medium API response.");
+        }
+
+        console.log(`[Medium Publisher 🚀] Publishing article for user ID: ${userId}...`);
+        const postRes = await fetch(`https://api.medium.com/v1/users/${userId}/posts`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            title: content.title || "Technical Insights & Architecture Blueprint",
+            contentFormat: "markdown",
+            content: content.fullMarkdown || content.fullText || `${content.title}\n\n${content.introduction || ""}`,
+            tags: (content.seoKeywords || content.hashtags || ["technology", "software-engineering", "typescript"]).slice(0, 5),
+            publishStatus: "public",
+          }),
+        });
+
+        if (postRes.ok) {
+          const postData: any = await postRes.json();
+          const extId = postData?.data?.id || `med_${Date.now()}`;
+          const articleUrl = postData?.data?.url || `https://medium.com/p/${extId}`;
+          const latencyMs = Date.now() - startTime;
+          analyticsService.recordPublishedPost({ id: extId, title: content.title || "Medium Article" });
+
+          return {
+            success: true,
+            platform: Platform.MEDIUM,
+            externalId: extId,
+            url: articleUrl,
+            publishedAt: new Date().toISOString(),
+            mode: "LIVE",
+            retries: 0,
+            latencyMs,
+            message: "Successfully published article directly to live Medium profile!",
+          };
+        } else {
+          const errText = await postRes.text();
+          console.error(`[Medium Publisher Create Post Error ${postRes.status}]:`, errText);
+          return {
+            success: false,
+            platform: Platform.MEDIUM,
+            externalId: "",
+            url: "",
+            publishedAt: new Date().toISOString(),
+            mode: "LIVE",
+            retries: 0,
+            latencyMs: Date.now() - startTime,
+            reason: `Medium API HTTP ${postRes.status}`,
+            message: `Medium API error ${postRes.status}: ${errText}`,
+          };
+        }
+      } catch (err: any) {
+        console.error("[Medium Publisher Exception]:", err.message);
+        return {
+          success: false,
+          platform: Platform.MEDIUM,
+          externalId: "",
+          url: "",
+          publishedAt: new Date().toISOString(),
+          mode: "LIVE",
+          retries: 0,
+          latencyMs: Date.now() - startTime,
+          reason: "Medium API Exception",
+          message: err.message,
+        };
+      }
+    }
+
     const slug = (content.title || "article").toLowerCase().replace(/[^a-z0-9]+/g, "-");
     return {
       success: true,
@@ -358,6 +463,7 @@ export class MediumPublisherAdapter implements IPublisherAdapter {
       mode: "SIMULATION",
       retries: 0,
       latencyMs: Date.now() - startTime,
+      message: "Simulation Mode: Requires MEDIUM_INTEGRATION_TOKEN in env for live Medium publishing.",
     };
   }
 }

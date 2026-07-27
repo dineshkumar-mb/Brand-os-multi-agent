@@ -227,6 +227,23 @@ async function main() {
   // Record idempotency state on success
   recordPublishedState(idempotency.dateKey, idempotency.hash, publishResult.externalId);
 
+  // Stage 4b: Publish to Medium Platform
+  let mediumPublishResult = null;
+  const mediumToken = process.env.MEDIUM_INTEGRATION_TOKEN?.trim();
+  if (mediumToken || mode === PublishMode.LIVE) {
+    logStructured("INFO", "publisher", `Dispatching article to Medium Publisher in [${mode}] mode...`);
+    try {
+      mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.mediumArticle, { mode });
+      if (mediumPublishResult.success) {
+        logStructured("INFO", "publisher", `Medium article published successfully!`, { url: mediumPublishResult.url, mode: mediumPublishResult.mode });
+      } else {
+        logStructured("WARN", "publisher", `Medium publishing warning: ${mediumPublishResult.message}`);
+      }
+    } catch (mErr: any) {
+      logStructured("WARN", "publisher", `Medium publishing exception: ${mErr.message}`);
+    }
+  }
+
   const durationMs = Date.now() - startTime;
   const durationSec = (durationMs / 1000).toFixed(2);
 
@@ -240,7 +257,11 @@ async function main() {
     totalDurationSec: durationSec,
   });
 
-  const summaryMarkdown = `## 🚀 Daily Automated LinkedIn Post Summary
+  const mediumSummaryLine = mediumPublishResult
+    ? `\n| **Medium Publish** | Mode: \`${mediumPublishResult.mode}\` \\| URL: [View Medium Article](${mediumPublishResult.url}) | 🎉 ${mediumPublishResult.success ? "Published" : "Warning"} |`
+    : "";
+
+  const summaryMarkdown = `## 🚀 Daily Automated Multi-Platform Post Summary
 
 | Stage | Details | Status |
 | :--- | :--- | :--- |
@@ -248,10 +269,10 @@ async function main() {
 | **Trend Discovered** | ${swarmResult.topic.title} | 🚀 Score: ${swarmResult.topic.score} |
 | **Fact Verification** | Verified Technical Claims | ✅ Score: ${swarmResult.factCheck.confidenceScore}% |
 | **Quality Gate** | Multi-Agent Review | ✅ Score: ${swarmResult.review.overallScore}/100 |
-| **LinkedIn Publish** | Mode: \`${publishResult.mode}\` \| ID: \`${publishResult.externalId}\` | 🎉 Published |
+| **LinkedIn Publish** | Mode: \`${publishResult.mode}\` \\| ID: \`${publishResult.externalId}\` | 🎉 Published |${mediumSummaryLine}
 
-- **Post URL**: [View LinkedIn Post](${publishResult.url})
-- **Retries**: ${publishResult.retries}
+- **LinkedIn Post URL**: [View LinkedIn Post](${publishResult.url})
+${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediumPublishResult.url})\n` : ""}- **Retries**: ${publishResult.retries}
 - **Total Execution Time**: ${durationSec}s
 - **Published At**: ${publishResult.publishedAt}`;
 
