@@ -11,13 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Configure Git Safe Directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory "*"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -41,9 +39,3 @@ jobs:
 
       - name: Build All Monorepo Packages & Apps
         run: pnpm build
-
-      - name: Build Docker Containers
-        run: |
-          docker build -t brandos-api:latest -f docker/Dockerfile.api .
-          docker build -t brandos-web:latest -f docker/Dockerfile.web .
-          docker build -t brandos-worker:latest -f docker/Dockerfile.worker .
