@@ -1,4 +1,4 @@
-$runId = "30333734194"
+$runId = "30395833736"
 $url = "https://api.github.com/repos/dineshkumar-mb/Brand-os-multi-agent/actions/runs/$runId/logs"
 $outputPath = "scratch/logs_$runId.zip"
 $extractPath = "scratch/logs_$runId"
