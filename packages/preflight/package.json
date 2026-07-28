@@ -1,0 +1,20 @@
+{
+  "name": "@brand-os/preflight",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@brand-os/config": "workspace:*",
+    "@brand-os/database": "workspace:*",
+    "@brand-os/shared": "workspace:*",
+    "redis": "^4.6.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

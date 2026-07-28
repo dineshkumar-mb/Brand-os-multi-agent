@@ -76,7 +76,7 @@ app.post("/api/v1/schedule", (req, res) => publishController.scheduleContent(req
 app.get("/api/v1/schedule/cron-daily", async (_req: Request, res: Response) => {
   try {
     console.log("[Daily Cron] Triggering zero human intervention verified agent pipeline...");
-    const result = await agentOrchestrator.executePipeline(true);
+    const result = await agentOrchestrator.executePipeline({ autoPublish: true });
     res.json({
       status: "success",
       message: "Daily automated post verified by agents and published successfully.",

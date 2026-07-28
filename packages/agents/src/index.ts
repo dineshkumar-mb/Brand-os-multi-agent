@@ -4,8 +4,11 @@ import {
   ContentEvaluation,
   FactVerification,
   LinkedInPostPayload,
+  LinkedInPostPayloadSchema,
   MediumArticlePayload,
+  MediumArticlePayloadSchema,
   Platform,
+  PublishMode,
   ResearchOutput,
   RoutingStrategy,
   Topic,
@@ -69,7 +72,7 @@ export const agentMemory = new AgentMemoryStore();
  * 1. Trend Discovery Agent
  */
 export class TrendDiscoveryAgent {
-  async run(): Promise<Topic[]> {
+  async run(pipelineId?: string): Promise<Topic[]> {
     console.log("[Trend Discovery Agent] Fetching live market trends across HackerNews, Reddit, Dev.to, and GitHub...");
     
     const rawMarketContext: string[] = [];
@@ -166,6 +169,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
         taskType: "trend_discovery",
         temperature: 0.7,
         routingStrategy: RoutingStrategy.COST_OPTIMIZED,
+        pipelineId,
       });
 
       const jsonMatch = gatewayRes.text.match(/\[[\s\S]*\]/);
@@ -271,7 +275,7 @@ Respond ONLY with a valid JSON array of topic objects matching this schema:
  * 2. Autonomous Deep Research Agent
  */
 export class DeepResearchAgent {
-  async run(topic: Topic): Promise<ResearchOutput> {
+  async run(topic: Topic, pipelineId?: string): Promise<ResearchOutput> {
     const searchRes = await mcpClient.googleSearch(topic.title);
     const scrapeRes = await mcpClient.browserScrapePage(searchRes.data[0].url);
 
@@ -280,6 +284,7 @@ export class DeepResearchAgent {
       taskType: "research",
       temperature: 0.7,
       routingStrategy: RoutingStrategy.COST_OPTIMIZED,
+      pipelineId,
     });
 
     const researchOutput: ResearchOutput = {
@@ -316,7 +321,7 @@ export class DeepResearchAgent {
  * 3. Fact Verification Agent
  */
 export class FactVerificationAgent {
-  async run(research: ResearchOutput): Promise<FactVerification> {
+  async run(research: ResearchOutput, pipelineId?: string): Promise<FactVerification> {
     const result: FactVerification = {
       factCheckPassed: true,
       confidenceScore: 94.5,
@@ -338,7 +343,7 @@ export class FactVerificationAgent {
  * 4. LinkedIn & Medium Writer Agents
  */
 export class WriterAgent {
-  async generateLinkedInPost(topic: Topic, research: ResearchOutput): Promise<LinkedInPostPayload> {
+  async generateLinkedInPost(topic: Topic, research: ResearchOutput, pipelineId?: string): Promise<LinkedInPostPayload> {
     console.log(`[Writer Agent] Crafting viral high-reach LinkedIn post with scroll-stopping hooks for: "${topic.title}"...`);
 
     const prompt = `You are a top 0.1% viral tech content creator and Staff Engineer on LinkedIn with 500k+ followers.
@@ -380,6 +385,7 @@ Return ONLY a valid JSON object matching this schema:
         taskType: "linkedin_writer",
         temperature: 0.7,
         routingStrategy: RoutingStrategy.COST_OPTIMIZED,
+        pipelineId,
       });
 
       const jsonMatch = gatewayRes.text.match(/\{[\s\S]*\}/);
@@ -424,7 +430,7 @@ Return ONLY a valid JSON object matching this schema:
     return post;
   }
 
-  async generateMediumArticle(topic: Topic, research: ResearchOutput): Promise<MediumArticlePayload> {
+  async generateMediumArticle(topic: Topic, research: ResearchOutput, pipelineId?: string): Promise<MediumArticlePayload> {
     const imageUrl = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200";
     const snippetCode = research.code_snippets[0]?.code || "console.log('System architecture online');";
     const fullMarkdown = `![Architecture Blueprint](${imageUrl})\n\n# ${topic.title}: The Definitive Enterprise Guide\n\n## Executive Summary\n${research.summary}\n\n## Technical Insights & Best Practices\n- ${research.key_insights.join("\n- ")}\n\n## System Code Blueprint\n\`\`\`typescript\n${snippetCode}\n\`\`\`\n\n## Conclusion\nDecoupled multi-agent systems with type-safe contracts enable unprecedented engineering velocity.`;
@@ -461,7 +467,7 @@ Return ONLY a valid JSON object matching this schema:
  * 5. Reviewer & Critic Agents
  */
 export class ReviewerAgent {
-  async evaluateContent(postText: string): Promise<ContentEvaluation> {
+  async evaluateContent(postText: string, pipelineId?: string): Promise<ContentEvaluation> {
     const evaluation: ContentEvaluation = {
       readabilityScore: 92,
       seoScore: 88,
@@ -492,49 +498,86 @@ export class AgentOrchestrator {
   private writerAgent = new WriterAgent();
   private reviewerAgent = new ReviewerAgent();
 
-  public async executePipeline(autoPublish = true) {
-    console.log("=== Starting Autonomous Personal Brand OS Agent Swarm Pipeline ===");
+  public async executePipeline(options: { autoPublish?: boolean; pipelineId?: string; publishMode?: PublishMode } = {}) {
+    const pipelineId = options.pipelineId || `pl_${Math.random().toString(36).substring(2, 11)}`;
+    const autoPublish = options.autoPublish !== false;
+    const requestedMode = options.publishMode || PublishMode.AUTO;
+
+    console.log(`[Pipeline ID: ${pipelineId}] === Starting Autonomous Personal Brand OS Agent Swarm Pipeline ===`);
 
     // Step 1: Discover Trends
-    const topics = await this.trendAgent.run();
+    const topics = await this.trendAgent.run(pipelineId);
     const primaryTopic = topics[0];
-    console.log(`[Swarm] Primary Topic Discovered: "${primaryTopic.title}" (Score: ${primaryTopic.score})`);
+    console.log(`[Pipeline ID: ${pipelineId}][Swarm] Primary Topic Discovered: "${primaryTopic.title}" (Score: ${primaryTopic.score})`);
 
     // Step 2: Deep Technical Research
-    const research = await this.researchAgent.run(primaryTopic);
-    console.log(`[Swarm] Deep Research Completed (${research.key_insights.length} key insights)`);
+    const research = await this.researchAgent.run(primaryTopic, pipelineId);
+    console.log(`[Pipeline ID: ${pipelineId}][Swarm] Deep Research Completed (${research.key_insights.length} key insights)`);
 
     // Step 3: Fact Verification Check
-    const factCheck = await this.factAgent.run(research);
+    const factCheck = await this.factAgent.run(research, pipelineId);
     if (!factCheck.factCheckPassed) {
-      console.warn("❌ [Swarm Verification Failed] Fact check rejected claims:", factCheck.rejectedClaims);
-      throw new Error("Pipeline stopped: Fact verification failed.");
+      console.warn(`[Pipeline ID: ${pipelineId}] ❌ [Swarm Verification Failed] Fact check rejected claims:`, factCheck.rejectedClaims);
+      throw new Error(`Pipeline stopped: Fact verification failed for Pipeline ID ${pipelineId}.`);
     }
-    console.log(`[Swarm Verification Passed] Fact Check Confidence Score: ${factCheck.confidenceScore}%`);
+    console.log(`[Pipeline ID: ${pipelineId}][Swarm Verification Passed] Fact Check Confidence Score: ${factCheck.confidenceScore}%`);
 
     // Step 4: Writer Agent (Generate LinkedIn & Medium Payload)
-    const linkedInPost = await this.writerAgent.generateLinkedInPost(primaryTopic, research);
-    const mediumArticle = await this.writerAgent.generateMediumArticle(primaryTopic, research);
+    const linkedInPost = await this.writerAgent.generateLinkedInPost(primaryTopic, research, pipelineId);
+    const mediumArticle = await this.writerAgent.generateMediumArticle(primaryTopic, research, pipelineId);
+
+    // Step 4b: Pre-Publish Content Smoke Tests
+    console.log(`[Pipeline ID: ${pipelineId}][Smoke Test] Running schemas validation and quality checks...`);
+    
+    // Schema validation
+    const liSchemaResult = LinkedInPostPayloadSchema.safeParse(linkedInPost);
+    const medSchemaResult = MediumArticlePayloadSchema.safeParse(mediumArticle);
+    
+    if (!liSchemaResult.success) {
+      const details = liSchemaResult.error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
+      throw new Error(`[Smoke Test Failure] Generated LinkedIn post failed schema validation: ${details}`);
+    }
+    if (!medSchemaResult.success) {
+      const details = medSchemaResult.error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
+      throw new Error(`[Smoke Test Failure] Generated Medium article failed schema validation: ${details}`);
+    }
+    
+    // Quality criteria checks
+    if (!linkedInPost.fullText || linkedInPost.fullText.length < 100) {
+      throw new Error(`[Smoke Test Failure] Generated LinkedIn post fullText is too short (${linkedInPost.fullText?.length || 0} characters).`);
+    }
+    if (!mediumArticle.fullMarkdown || mediumArticle.fullMarkdown.length < 200) {
+      throw new Error(`[Smoke Test Failure] Generated Medium article markdown is too short (${mediumArticle.fullMarkdown?.length || 0} characters).`);
+    }
+    console.log(`[Pipeline ID: ${pipelineId}][Smoke Test] Schema validation and content quality checks passed successfully ✅`);
 
     // Step 5: Reviewer & Critic Agent (Quality Gatekeeper)
-    const review = await this.reviewerAgent.evaluateContent(linkedInPost.fullText);
-    console.log(`[Swarm Quality Check] Overall Score: ${review.overallScore}/100 | Passed Threshold: ${review.passedThreshold}`);
+    const review = await this.reviewerAgent.evaluateContent(linkedInPost.fullText, pipelineId);
+    console.log(`[Pipeline ID: ${pipelineId}][Swarm Quality Check] Overall Score: ${review.overallScore}/100 | Passed Threshold: ${review.passedThreshold}`);
 
     if (!review.passedThreshold || review.overallScore < 85) {
-      console.warn(`❌ [Swarm Quality Check Failed] Score ${review.overallScore} below threshold 85. Aborting live publish.`);
+      console.warn(`[Pipeline ID: ${pipelineId}] ❌ [Swarm Quality Check Failed] Score ${review.overallScore} below threshold 85. Aborting live publish.`);
       throw new Error(`Pipeline stopped: Content quality score ${review.overallScore} did not pass threshold.`);
     }
 
     // Step 6: Automated Live Publishing (No Human Intervention)
     let publishResult = null;
     if (autoPublish) {
-      console.log("📢 [Swarm Publisher] Agent Verification Approved. Publishing post live to LinkedIn...");
-      publishResult = await publisherService.publish(Platform.LINKEDIN, linkedInPost);
-      console.log("✅ [Swarm Publisher Result]:", publishResult);
+      console.log(`[Pipeline ID: ${pipelineId}] 📢 [Swarm Publisher] Agent Verification Approved. Publishing post live to LinkedIn...`);
+      publishResult = await publisherService.publish(Platform.LINKEDIN, linkedInPost, { mode: requestedMode });
+      console.log(`[Pipeline ID: ${pipelineId}] ✅ [Swarm Publisher Result]:`, publishResult);
+
+      // Verify publishing mode to prevent silent fallback to simulation
+      if (requestedMode === PublishMode.LIVE && publishResult.mode === "SIMULATION") {
+        const err = `Requested LIVE publishing mode but publisher returned SIMULATION mode for Pipeline ID ${pipelineId}.`;
+        console.error(`[Pipeline ID: ${pipelineId}] ❌ ${err}`);
+        throw new Error(err);
+      }
     }
 
-    console.log("=== Autonomous Pipeline Execution Finished Successfully ===");
+    console.log(`[Pipeline ID: ${pipelineId}] === Autonomous Pipeline Execution Finished Successfully ===`);
     return {
+      pipelineId,
       topic: primaryTopic,
       research,
       factCheck,

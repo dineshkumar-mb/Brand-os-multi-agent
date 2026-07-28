@@ -194,6 +194,7 @@ export const AIGatewayRequestSchema = z.object({
   maxTokens: z.number().optional(),
   routingStrategy: z.nativeEnum(RoutingStrategy).default(RoutingStrategy.COST_OPTIMIZED),
   responseSchema: z.any().optional(),
+  pipelineId: z.string().optional(),
 });
 export type AIGatewayRequest = z.infer<typeof AIGatewayRequestSchema>;
 

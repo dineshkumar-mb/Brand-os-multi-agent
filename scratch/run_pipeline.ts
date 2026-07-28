@@ -4,7 +4,9 @@ import fs from "fs";
 import path from "path";
 import { agentOrchestrator } from "../packages/agents/src/index";
 import { publisherService, MissingAccessTokenError } from "../packages/publisher/src/index";
-import { Platform, PublishMode as SharedPublishMode } from "../packages/shared/src/index";
+import { Platform } from "../packages/shared/src/index";
+import { preflightService } from "../packages/preflight/src/index";
+import { prisma } from "../packages/database/src/index";
 
 export enum PublishMode {
   LIVE = "LIVE",
@@ -39,6 +41,17 @@ function writeGitHubStepSummary(summaryMarkdown: string) {
   }
 }
 
+function writeGitHubOutput(key: string, value: string) {
+  const outputPath = process.env.GITHUB_OUTPUT;
+  if (outputPath) {
+    try {
+      fs.appendFileSync(outputPath, `${key}=${value}\n`);
+    } catch (err: any) {
+      console.warn("[GitHub Output] Failed to write output:", err.message);
+    }
+  }
+}
+
 function saveToDeadLetterQueue(payload: any, errorReason: string) {
   try {
     const dlqDir = path.join(__dirname, "dead_letter_queue");
@@ -52,32 +65,6 @@ function saveToDeadLetterQueue(payload: any, errorReason: string) {
   } catch (err: any) {
     logStructured("ERROR", "dead_letter_queue", `Failed to save DLQ payload: ${err.message}`);
   }
-}
-
-// ==========================================
-// PREFLIGHT CHECK
-// ==========================================
-
-function runPreflightChecks(mode: PublishMode): { valid: boolean; errors: string[]; warnings: string[] } {
-  const errors: string[] = [];
-  const warnings: string[] = [];
-
-  logStructured("INFO", "preflight", "Running preflight validation checks...");
-
-  const openrouterKey = process.env.OPENROUTER_API_KEY;
-  const nvidiaKey = process.env.NVIDIA_NIM_API_KEY;
-  if (!openrouterKey && !nvidiaKey) {
-    warnings.push("Neither OPENROUTER_API_KEY nor NVIDIA_NIM_API_KEY is configured. Falling back to synthetic responses.");
-  }
-
-  const linkedinToken = process.env.LINKEDIN_ACCESS_TOKEN?.trim();
-  if (mode === PublishMode.LIVE && !linkedinToken) {
-    errors.push("LINKEDIN_ACCESS_TOKEN is missing or empty in LIVE publish mode.");
-  } else if (!linkedinToken) {
-    warnings.push("LINKEDIN_ACCESS_TOKEN is missing. Pipeline will operate in SIMULATION mode.");
-  }
-
-  return { valid: errors.length === 0, errors, warnings };
 }
 
 // ==========================================
@@ -131,6 +118,11 @@ async function main() {
   console.log("==========================================================");
   console.log(`Pipeline started at: ${new Date().toISOString()}`);
 
+  // Generate Correlation pipelineId
+  const pipelineId = crypto.randomUUID();
+  console.log(`[Pipeline ID: ${pipelineId}] Correlation ID successfully generated.`);
+  writeGitHubOutput("pipeline_id", pipelineId);
+
   // Parse CLI flags
   const isDryRun = process.argv.includes("--dry-run");
   const cliModeArg = process.argv.find((a) => a.startsWith("--mode="))?.split("=")[1]?.toUpperCase();
@@ -145,28 +137,85 @@ async function main() {
     mode = envMode === "LIVE" ? PublishMode.LIVE : envMode === "SIMULATION" ? PublishMode.SIMULATION : PublishMode.AUTO;
   }
 
-  logStructured("INFO", "init", `Execution configured with Mode: [${mode}] | Dry-Run: ${isDryRun}`);
+  logStructured("INFO", "init", `Execution configured with Mode: [${mode}] | Dry-Run: ${isDryRun}`, { pipelineId });
 
-  // Stage 1: Preflight Validation
-  const preflight = runPreflightChecks(mode);
-  if (preflight.warnings.length > 0) {
-    preflight.warnings.forEach((w) => logStructured("WARN", "preflight", w));
+  if (process.env.FORCE_FAIL === "true") {
+    throw new Error("Simulated Controlled Failure for Slack notification verification");
   }
 
-  if (!preflight.valid) {
-    preflight.errors.forEach((e) => logStructured("ERROR", "preflight", e));
-    writeGitHubStepSummary(`### ❌ Preflight Check Failed\n\n${preflight.errors.map((e) => `- ${e}`).join("\n")}`);
-    throw new Error(`Preflight check failed: ${preflight.errors.join("; ")}`);
+  // Stage 1: Reusable Preflight Checks (database, redis, filesystem, platforms)
+  logStructured("INFO", "preflight", "Running comprehensive preflight health checks...", { pipelineId });
+  try {
+    await preflightService.run();
+    logStructured("INFO", "preflight", "Preflight checks passed successfully ✅", { pipelineId });
+  } catch (err: any) {
+    logStructured("ERROR", "preflight", `Critical Preflight Checks Failed: ${err.message}`, { pipelineId });
+    writeGitHubStepSummary(`### ❌ Preflight Checks Failed\n\n${err.message}`);
+    throw err;
   }
-  logStructured("INFO", "preflight", "Preflight checks passed successfully ✅");
 
-  // Stage 2: Swarm Execution (Agent Generation & Quality Evaluation)
-  logStructured("INFO", "swarm", "Executing Multi-Agent Swarm (Trend, Research, FactCheck, Writing, Quality Review)...");
-  const swarmResult = await agentOrchestrator.executePipeline(false);
+  // Determine trigger source
+  const triggerSource = process.env.GITHUB_ACTIONS ? "GITHUB_ACTIONS" : "MANUAL";
 
-  logStructured("INFO", "trend_discovery", `Primary Topic: "${swarmResult.topic.title}" (Score: ${swarmResult.topic.score})`);
-  logStructured("INFO", "fact_verification", `Fact Check Score: ${swarmResult.factCheck.confidenceScore}% (Passed: ${swarmResult.factCheck.factCheckPassed})`);
-  logStructured("INFO", "quality_review", `Quality Gate Score: ${swarmResult.review.overallScore}/100 (Passed: ${swarmResult.review.passedThreshold})`);
+  // Create PipelineExecution DB record
+  let executionRecord: any = null;
+  try {
+    executionRecord = await prisma.pipelineExecution.create({
+      data: {
+        id: pipelineId,
+        triggerSource,
+        publishMode: mode,
+        status: "RUNNING",
+      }
+    });
+  } catch (dbErr: any) {
+    console.warn(`[Observability] Failed to create PipelineExecution record: ${dbErr.message}`);
+  }
+
+  // Stage 2: Swarm Execution (Agent Generation & Quality Evaluation with Smoke Tests)
+  logStructured("INFO", "swarm", "Executing Multi-Agent Swarm (Trend, Research, FactCheck, Writing, Quality Review)...", { pipelineId });
+  
+  let swarmResult;
+  try {
+    swarmResult = await agentOrchestrator.executePipeline({
+      autoPublish: false,
+      pipelineId,
+      publishMode: mode as any,
+    });
+    
+    // Update State: QUALITY_PASSED with Replay data
+    if (executionRecord) {
+      executionRecord = await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: {
+          status: "QUALITY_PASSED",
+          promptPayload: JSON.parse(JSON.stringify({
+            topic: swarmResult.topic,
+            research: {
+              summary: swarmResult.research.summary,
+              key_insights_count: swarmResult.research.key_insights.length,
+            },
+          })),
+          generatedContent: JSON.parse(JSON.stringify({
+            linkedInPost: swarmResult.linkedInPost,
+            mediumArticle: swarmResult.mediumArticle,
+          })),
+        }
+      }).catch(() => executionRecord);
+    }
+  } catch (swarmErr: any) {
+    if (executionRecord) {
+      await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: { status: "FAILED", error: `Swarm execution failed: ${swarmErr.message}` }
+      }).catch(() => {});
+    }
+    throw swarmErr;
+  }
+
+  logStructured("INFO", "trend_discovery", `Primary Topic: "${swarmResult.topic.title}" (Score: ${swarmResult.topic.score})`, { pipelineId });
+  logStructured("INFO", "fact_verification", `Fact Check Score: ${swarmResult.factCheck.confidenceScore}% (Passed: ${swarmResult.factCheck.factCheckPassed})`, { pipelineId });
+  logStructured("INFO", "quality_review", `Quality Gate Score: ${swarmResult.review.overallScore}/100 (Passed: ${swarmResult.review.passedThreshold})`, { pipelineId });
 
   console.log("\n----------------------------------------------------------");
   console.log(" 📄 GENERATED TRENDING LINKEDIN POST PAYLOAD              ");
@@ -180,11 +229,18 @@ async function main() {
   const idempotency = checkIdempotency(swarmResult.linkedInPost.fullText);
   if (idempotency.isDuplicate) {
     const skipMsg = `Post already published today (${idempotency.dateKey}) with hash [${idempotency.hash}]. Skipping duplicate publication to protect feed.`;
-    logStructured("WARN", "idempotency", skipMsg);
+    logStructured("WARN", "idempotency", skipMsg, { pipelineId });
 
     writeGitHubStepSummary(
       `## ⚠️ Pipeline Skipped (Idempotency Guard)\n\n${skipMsg}\n\n- **Topic**: ${swarmResult.topic.title}\n- **Quality Score**: ${swarmResult.review.overallScore}/100`
     );
+
+    if (executionRecord) {
+      await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: { status: "FAILED", error: "Skipped via idempotency guard (duplicate detected)" }
+      }).catch(() => {});
+    }
 
     console.log(`\n==========================================================`);
     console.log(` ⏭️ PIPELINE COMPLETED (SKIPPED DUPLICATE PUBLISH)       `);
@@ -192,78 +248,133 @@ async function main() {
     return;
   }
 
-  // Stage 4: Publish to LinkedIn Platform
-  logStructured("INFO", "publisher", `Dispatching post to LinkedIn Publisher in [${mode}] mode...`);
+  // Stage 4: Publish to LinkedIn Platform (Primary Target - Failures are Fatal)
+  logStructured("INFO", "publisher", `Dispatching post to LinkedIn Publisher in [${mode}] mode...`, { pipelineId });
 
   let publishResult;
   try {
-    publishResult = await publisherService.publish(Platform.LINKEDIN, swarmResult.linkedInPost, { mode });
+    if (executionRecord) {
+      executionRecord = await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: { status: "PUBLISHING" }
+      }).catch(() => executionRecord);
+    }
+
+    publishResult = await publisherService.publish(Platform.LINKEDIN, swarmResult.linkedInPost, { mode: mode as any });
+    
+    // Explicit Validation of LinkedIn Response
+    if (!publishResult.success) {
+      throw new Error(`LinkedIn API responded with failure: ${publishResult.message || publishResult.reason}`);
+    }
+    
+    if (mode === PublishMode.LIVE && publishResult.mode === "SIMULATION") {
+      throw new Error("Requested LIVE publishing mode but LinkedIn publisher returned SIMULATION mode.");
+    }
   } catch (err: any) {
     saveToDeadLetterQueue(swarmResult.linkedInPost, err.message);
-    logStructured("ERROR", "publisher", `Publishing failed with exception: ${err.message}`, { mode, error: err.message });
+    logStructured("ERROR", "publisher", `LinkedIn Publishing failed with exception: ${err.message}`, { mode, error: err.message, pipelineId });
     writeGitHubStepSummary(
       `## ❌ LinkedIn Publishing Failed\n\n- **Error**: ${err.message}\n- **Mode**: ${mode}\n- **Topic**: ${swarmResult.topic.title}`
     );
-    throw err;
+    
+    if (executionRecord) {
+      await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: { status: "FAILED", error: `LinkedIn Publishing Error: ${err.message}` }
+      }).catch(() => {});
+    }
+    throw err; // LinkedIn failure is fatal and blocks the pipeline
   }
 
-  if (!publishResult.success) {
-    saveToDeadLetterQueue(swarmResult.linkedInPost, publishResult.message || publishResult.reason || "Publish failed");
-    logStructured("ERROR", "publisher", `LinkedIn API publishing failed: ${publishResult.message}`, publishResult);
-    writeGitHubStepSummary(
-      `## ❌ LinkedIn Publishing Failed\n\n- **Message**: ${publishResult.message}\n- **Reason**: ${publishResult.reason || "N/A"}\n- **Mode**: ${publishResult.mode}`
-    );
-    throw new Error(`LinkedIn publishing failed: ${publishResult.message}`);
-  }
-
-  // If live posting was requested but mode returned simulation unexpectedly
-  if (mode === PublishMode.LIVE && publishResult.mode === "SIMULATION") {
-    const err = "Requested LIVE publishing mode but publisher returned SIMULATION mode.";
-    saveToDeadLetterQueue(swarmResult.linkedInPost, err);
-    logStructured("ERROR", "publisher", err, publishResult);
-    throw new Error(err);
-  }
-
-  // Record idempotency state on success
+  // Record idempotency state on successful primary publish
   recordPublishedState(idempotency.dateKey, idempotency.hash, publishResult.externalId);
 
-  // Stage 4b: Publish to Medium Platform
+  // Stage 4b: Publish to Medium Platform (Optional Target - Warning & continue)
   let mediumPublishResult = null;
   const mediumToken = process.env.MEDIUM_INTEGRATION_TOKEN?.trim();
   if (mediumToken || mode === PublishMode.LIVE) {
-    logStructured("INFO", "publisher", `Dispatching article to Medium Publisher in [${mode}] mode...`);
+    logStructured("INFO", "publisher", `Dispatching article to Medium Publisher in [${mode}] mode...`, { pipelineId });
     try {
-      mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.mediumArticle, { mode });
+      mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.mediumArticle, { mode: mode as any });
       if (mediumPublishResult.success) {
-        logStructured("INFO", "publisher", `Medium article published successfully!`, { url: mediumPublishResult.url, mode: mediumPublishResult.mode });
+        logStructured("INFO", "publisher", `Medium article published successfully!`, { url: mediumPublishResult.url, mode: mediumPublishResult.mode, pipelineId });
       } else {
-        logStructured("WARN", "publisher", `Medium publishing warning: ${mediumPublishResult.message}`);
+        logStructured("WARN", "publisher", `Medium publishing warning: ${mediumPublishResult.message || mediumPublishResult.reason}`, { pipelineId });
       }
     } catch (mErr: any) {
-      logStructured("WARN", "publisher", `Medium publishing exception: ${mErr.message}`);
+      logStructured("WARN", "publisher", `Medium publishing exception: ${mErr.message}`, { pipelineId });
     }
   }
-  // Stage 4c: Publish to Dev.to Platform
+
+  // Stage 4c: Publish to Dev.to Platform (Optional Target - Warning & continue)
   let devtoPublishResult = null;
   const devtoApiKey = process.env.DEVTO_API_KEY?.trim();
   if (devtoApiKey || mode === PublishMode.LIVE) {
-    logStructured("INFO", "publisher", `Dispatching article to Dev.to Publisher in [${mode}] mode...`);
+    logStructured("INFO", "publisher", `Dispatching article to Dev.to Publisher in [${mode}] mode...`, { pipelineId });
     try {
-      devtoPublishResult = await publisherService.publish(Platform.DEVTO, swarmResult.mediumArticle, { mode });
+      devtoPublishResult = await publisherService.publish(Platform.DEVTO, swarmResult.mediumArticle, { mode: mode as any });
       if (devtoPublishResult.success) {
-        logStructured("INFO", "publisher", `Dev.to article published successfully!`, { url: devtoPublishResult.url, mode: devtoPublishResult.mode });
+        logStructured("INFO", "publisher", `Dev.to article published successfully!`, { url: devtoPublishResult.url, mode: devtoPublishResult.mode, pipelineId });
       } else {
-        logStructured("WARN", "publisher", `Dev.to publishing warning: ${devtoPublishResult.message}`);
+        logStructured("WARN", "publisher", `Dev.to publishing warning: ${devtoPublishResult.message || devtoPublishResult.reason}`, { pipelineId });
       }
     } catch (dErr: any) {
-      logStructured("WARN", "publisher", `Dev.to publishing exception: ${dErr.message}`);
+      logStructured("WARN", "publisher", `Dev.to publishing exception: ${dErr.message}`, { pipelineId });
     }
   }
 
   const durationMs = Date.now() - startTime;
   const durationSec = (durationMs / 1000).toFixed(2);
 
-  // Stage 5: Structured Execution Summary & GitHub Actions Output
+  // Stage 5: Aggregate Cost, Token Usage & Models used from AI Gateway logs
+  let promptTokens = 0;
+  let completionTokens = 0;
+  let totalTokens = 0;
+  let costUsd = 0.0;
+  let modelsUsed: string[] = [];
+
+  try {
+    const logs = await prisma.aIGatewayLog.findMany({
+      where: { pipelineId },
+    });
+    
+    logs.forEach((log) => {
+      promptTokens += log.promptTokens;
+      completionTokens += log.completionTokens;
+      totalTokens += log.totalTokens;
+      costUsd += log.costUsd;
+      if (log.model && !modelsUsed.includes(log.model)) {
+        modelsUsed.push(log.model);
+      }
+    });
+  } catch (telemetryErr: any) {
+    console.warn(`[Observability] Failed to retrieve AI Gateway logs for telemetry: ${telemetryErr.message}`);
+  }
+
+  // Persist final telemetry statistics to Database execution record
+  try {
+    if (executionRecord) {
+      await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: {
+          status: "PUBLISHED",
+          endedAt: new Date(),
+          modelsUsed,
+          promptTokens,
+          completionTokens,
+          totalTokens,
+          costUsd,
+          linkedinResult: publishResult ? JSON.parse(JSON.stringify(publishResult)) : null,
+          mediumResult: mediumPublishResult ? JSON.parse(JSON.stringify(mediumPublishResult)) : null,
+          devtoResult: devtoPublishResult ? JSON.parse(JSON.stringify(devtoPublishResult)) : null,
+        }
+      });
+    }
+  } catch (saveErr: any) {
+    console.warn(`[Observability] Failed to save final pipeline execution record: ${saveErr.message}`);
+  }
+
+  // Stage 6: Structured Execution Summary & GitHub Actions Output
   logStructured("INFO", "completed", `Post published successfully!`, {
     externalId: publishResult.externalId,
     url: publishResult.url,
@@ -271,6 +382,12 @@ async function main() {
     retries: publishResult.retries,
     latencyMs: publishResult.latencyMs,
     totalDurationSec: durationSec,
+    pipelineId,
+    promptTokens,
+    completionTokens,
+    totalTokens,
+    costUsd,
+    modelsUsed,
   });
 
   const mediumSummaryLine = mediumPublishResult
@@ -282,18 +399,27 @@ async function main() {
     : "";
 
   const summaryMarkdown = `## 🚀 Daily Automated Multi-Platform Post Summary
+  
+| Metric | Details |
+| :--- | :--- |
+| **Pipeline ID** | \`${pipelineId}\` |
+| **Publish Mode** | \`${publishResult.mode}\` |
+| **Total Swarm Duration** | \`${durationSec}s\` |
+| **Total Prompt Tokens** | \`${promptTokens}\` |
+| **Total Completion Tokens** | \`${completionTokens}\` |
+| **Total USD Cost** | \`$${costUsd.toFixed(5)}\` |
+| **Models Activated** | \`${modelsUsed.join(", ")}\` |
 
-| Stage | Details | Status |
+| Platform Stage | Details | Status |
 | :--- | :--- | :--- |
-| **Preflight Checks** | API Keys & Token Verified | ✅ Passed |
+| **Preflight Checks** | API Keys & Database verified | ✅ Passed |
 | **Trend Discovered** | ${swarmResult.topic.title} | 🚀 Score: ${swarmResult.topic.score} |
-| **Fact Verification** | Verified Technical Claims | ✅ Score: ${swarmResult.factCheck.confidenceScore}% |
-| **Quality Gate** | Multi-Agent Review | ✅ Score: ${swarmResult.review.overallScore}/100 |
+| **Fact Verification** | Verified Claims | ✅ Score: ${swarmResult.factCheck.confidenceScore}% |
+| **Quality Gate** | Smoke Tests & Swarm Review | ✅ Score: ${swarmResult.review.overallScore}/100 |
 | **LinkedIn Publish** | Mode: \`${publishResult.mode}\` \\| ID: \`${publishResult.externalId}\` | 🎉 Published |${mediumSummaryLine}${devtoSummaryLine}
 
 - **LinkedIn Post URL**: [View LinkedIn Post](${publishResult.url})
 ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediumPublishResult.url})\n` : ""}${devtoPublishResult ? `- **Dev.to Article URL**: [View Dev.to Article](${devtoPublishResult.url})\n` : ""}- **Retries**: ${publishResult.retries}
-- **Total Execution Time**: ${durationSec}s
 - **Published At**: ${publishResult.publishedAt}`;
 
   writeGitHubStepSummary(summaryMarkdown);
@@ -301,18 +427,24 @@ ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediu
   console.log("\n==========================================================");
   console.log(" 🎉 PIPELINE & PUBLISHING COMPLETED SUCCESSFULLY          ");
   console.log("==========================================================");
+  console.log(`Pipeline ID:    ${pipelineId}`);
   console.log(`Topic:          ${swarmResult.topic.title}`);
   console.log(`Quality Score:  ${swarmResult.review.overallScore}/100`);
   console.log(`Publish Mode:   ${publishResult.mode}`);
   console.log(`Post ID:        ${publishResult.externalId}`);
   console.log(`Post URL:       ${publishResult.url}`);
   console.log(`Duration:       ${durationSec}s`);
+  console.log(`Estimated Cost: $${costUsd.toFixed(5)}`);
   console.log("==========================================================");
-  console.log("🎉 Post published successfully to LinkedIn!");
+  writeGitHubOutput("status", "success");
+  writeGitHubOutput("topic", swarmResult.topic.title);
+  writeGitHubOutput("linkedin_url", publishResult.url);
 }
 
 main().catch((err) => {
   logStructured("ERROR", "fatal", `Pipeline failed with error: ${err.message}`, { stack: err.stack });
   console.error("\n❌ Pipeline failed with error:", err.message);
+  writeGitHubOutput("status", "failure");
+  writeGitHubOutput("error", err.message);
   process.exit(1);
 });

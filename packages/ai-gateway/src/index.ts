@@ -4,6 +4,7 @@ import {
   ModelProvider,
   RoutingStrategy,
 } from "@brand-os/shared";
+import { prisma } from "@brand-os/database";
 
 // Provider Price Table per 1k tokens (Prompt / Completion)
 const MODEL_PRICING: Record<string, { prompt: number; completion: number }> = {
@@ -103,6 +104,27 @@ export class AIGateway {
         b.latencySum += latencyMs;
         this.benchmarks.set(currentChoice.model, b);
 
+        // Write log to DB asynchronously for observability
+        prisma.aIGatewayLog.create({
+          data: {
+            provider: currentChoice.provider,
+            model: currentChoice.model,
+            taskType: request.taskType || "general",
+            promptTokens: result.promptTokens,
+            completionTokens: result.completionTokens,
+            totalTokens: result.promptTokens + result.completionTokens,
+            costUsd,
+            latencyMs,
+            timeToFirstTokenMs: Math.floor(latencyMs * 0.25),
+            routingDecision: target.reason,
+            wasFailover: attempt > 0,
+            errorMessage: null,
+            pipelineId: request.pipelineId || null,
+          }
+        }).catch((dbErr) => {
+          console.warn("[AI Gateway Observability] Failed to write log to DB:", dbErr.message);
+        });
+
         return {
           id: `req_${Math.random().toString(36).substring(2, 11)}`,
           provider: currentChoice.provider,
@@ -123,6 +145,26 @@ export class AIGateway {
         console.warn(`[AI Gateway] Attempt ${attempt + 1} failed for ${currentChoice.model}: ${err.message}. Cascading...`);
       }
     }
+
+    // Write failure log to DB asynchronously
+    prisma.aIGatewayLog.create({
+      data: {
+        provider: target.provider,
+        model: target.model,
+        taskType: request.taskType || "general",
+        promptTokens: 0,
+        completionTokens: 0,
+        totalTokens: 0,
+        costUsd: 0.0,
+        latencyMs: Date.now() - startTime,
+        routingDecision: target.reason,
+        wasFailover: true,
+        errorMessage: lastError?.message || "Unknown error",
+        pipelineId: request.pipelineId || null,
+      }
+    }).catch((dbErr) => {
+      console.warn("[AI Gateway Observability] Failed to write failure log to DB:", dbErr.message);
+    });
 
     throw new Error(`AI Gateway execution failed after failover cascade: ${lastError?.message}`);
   }

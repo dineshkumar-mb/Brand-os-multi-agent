@@ -346,6 +346,7 @@ model AIGatewayLog {
   routingDecision   String
   wasFailover       Boolean       @default(false)
   errorMessage      String?
+  pipelineId        String?
   createdAt         DateTime      @default(now())
 
   @@map("ai_gateway_logs")
@@ -404,3 +405,26 @@ model AuditLog {
 
   @@map("audit_logs")
 }
+
+model PipelineExecution {
+  id               String    @id @default(uuid())
+  triggerSource    String    @default("GITHUB_ACTIONS")
+  startedAt        DateTime  @default(now())
+  endedAt          DateTime?
+  publishMode      String
+  modelsUsed       String[]
+  promptTokens     Int       @default(0)
+  completionTokens Int       @default(0)
+  totalTokens      Int       @default(0)
+  costUsd          Float     @default(0.0)
+  status           String    @default("RUNNING") // DRAFT_GENERATED, QUALITY_PASSED, APPROVED, PUBLISHING, PUBLISHED, FAILED
+  linkedinResult   Json?
+  mediumResult     Json?
+  devtoResult      Json?
+  error            String?
+  promptPayload    Json?
+  generatedContent Json?
+
+  @@map("pipeline_executions")
+}
+
