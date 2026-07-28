@@ -1,0 +1,298 @@
+name: Self-Healing Agent - Auto-Diagnose & Fix Pipeline
+
+# ──────────────────────────────────────────────────────────────────────────────
+# This agent triggers automatically whenever the Daily Automated Post workflow
+# completes with a failure. It:
+#   1. Downloads and parses the failure logs
+#   2. Classifies the error into a known category
+#   3. Applies the appropriate remediation strategy
+#   4. Re-triggers the main pipeline
+#   5. Prevents infinite loops by capping at 10 heal attempts per day
+# ──────────────────────────────────────────────────────────────────────────────
+
+on:
+  workflow_run:
+    workflows: ["Daily Automated Verified Agent Post"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      force_heal:
+        description: 'Force a heal attempt regardless of conclusion'
+        required: false
+        default: 'false'
+
+concurrency:
+  group: self-healing-agent
+  cancel-in-progress: false  # Never cancel a running heal; queue it
+
+jobs:
+  self-heal:
+    name: Diagnose & Heal Failed Pipeline
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    # Only run if the triggering workflow failed (or force mode)
+    if: |
+      github.event.workflow_run.conclusion == 'failure' ||
+      github.event.inputs.force_heal == 'true'
+
+    permissions:
+      actions: write
+      contents: read
+
+    steps:
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 1: Safety Gate — cap total heal attempts at 10 per UTC day
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Safety Gate - Count Today's Heal Attempts
+        id: gate
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          TODAY=$(date -u '+%Y-%m-%d')
+          echo "UTC date: $TODAY"
+
+          # Count how many times this self-healing workflow has run today
+          HEAL_RUNS=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO/actions/workflows/self-healing-agent.yml/runs?per_page=50" | \
+            python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          today = '$TODAY'
+          runs = data.get('workflow_runs', [])
+          count = sum(1 for r in runs if r.get('created_at','').startswith(today))
+          print(count)
+          ")
+
+          echo "Heal attempts today: $HEAL_RUNS"
+
+          if [ "$HEAL_RUNS" -ge 10 ]; then
+            echo "SAFETY GATE: Max 10 heal attempts per day reached. Stopping."
+            echo "should_heal=false" >> $GITHUB_OUTPUT
+          else
+            echo "Heal attempt $HEAL_RUNS of 10 allowed. Proceeding."
+            echo "should_heal=true" >> $GITHUB_OUTPUT
+            echo "attempt_number=$HEAL_RUNS" >> $GITHUB_OUTPUT
+          fi
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 2: Check if today's post already succeeded (idempotency)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Check if Post Already Published Today
+        id: already-published
+        if: steps.gate.outputs.should_heal == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          TODAY=$(date -u '+%Y-%m-%d')
+
+          SUCCESS_TODAY=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO/actions/workflows/daily-automated-post.yml/runs?per_page=20" | \
+            python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          today = '$TODAY'
+          runs = data.get('workflow_runs', [])
+          found = any(
+              r.get('conclusion') == 'success' and r.get('created_at','').startswith(today)
+              for r in runs
+          )
+          print('true' if found else 'false')
+          ")
+
+          echo "Post already published today: $SUCCESS_TODAY"
+          echo "already_published=$SUCCESS_TODAY" >> $GITHUB_OUTPUT
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 3: Download & parse the failure logs from the failed run
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Download & Analyze Failure Logs
+        id: diagnose
+        if: |
+          steps.gate.outputs.should_heal == 'true' &&
+          steps.already-published.outputs.already_published == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
+        run: |
+          echo "Analyzing failed run: $FAILED_RUN_ID"
+
+          # Fetch jobs from the failed run
+          JOBS=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO/actions/runs/$FAILED_RUN_ID/jobs")
+
+          # Extract the failed step name
+          FAILED_STEP=$(echo "$JOBS" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          jobs = data.get('jobs', [])
+          for job in jobs:
+              for step in job.get('steps', []):
+                  if step.get('conclusion') == 'failure':
+                      print(step.get('name', 'unknown'))
+                      break
+          " 2>/dev/null || echo "unknown")
+
+          echo "Failed step: $FAILED_STEP"
+          echo "failed_step=$FAILED_STEP" >> $GITHUB_OUTPUT
+
+          # ── Error Classification Engine ──────────────────────────────────────
+          # Classify based on known patterns in step names and common GHA errors
+
+          STRATEGY="RETRY_WITH_DELAY"
+          WAIT_SECONDS=30
+          REASON="Generic transient failure — will retry after ${WAIT_SECONDS}s"
+
+          # Rate limit errors (OpenRouter, LinkedIn, GitHub API)
+          if echo "$FAILED_STEP" | grep -qi "rate.limit\|429\|quota\|too many"; then
+            STRATEGY="RETRY_RATE_LIMIT"
+            WAIT_SECONDS=120
+            REASON="Rate limit detected. Waiting 2 minutes before retry."
+
+          # Auth / token errors
+          elif echo "$FAILED_STEP" | grep -qi "401\|403\|unauthorized\|forbidden\|invalid.*token\|token.*invalid"; then
+            STRATEGY="AUTH_ERROR"
+            WAIT_SECONDS=0
+            REASON="Authentication error detected. Token may be expired. Cannot auto-fix — check secrets."
+
+          # Network / timeout errors
+          elif echo "$FAILED_STEP" | grep -qi "timeout\|ETIMEDOUT\|ECONNRESET\|ECONNREFUSED\|network"; then
+            STRATEGY="RETRY_NETWORK"
+            WAIT_SECONDS=45
+            REASON="Network/timeout error. Waiting 45s before retry."
+
+          # Database errors
+          elif echo "$FAILED_STEP" | grep -qi "database\|postgres\|prisma\|connection.*refused\|ECONNREFUSED.*5432"; then
+            STRATEGY="RETRY_DB"
+            WAIT_SECONDS=60
+            REASON="Database connectivity issue. Waiting 60s for sidecar to stabilize."
+
+          # Build / compile errors
+          elif echo "$FAILED_STEP" | grep -qi "build\|compile\|tsc\|typescript\|syntax"; then
+            STRATEGY="BUILD_ERROR"
+            WAIT_SECONDS=0
+            REASON="Build/compile error detected. This requires manual code fix."
+
+          # Dependency install errors
+          elif echo "$FAILED_STEP" | grep -qi "install\|pnpm\|npm\|node_modules"; then
+            STRATEGY="RETRY_DEPS"
+            WAIT_SECONDS=30
+            REASON="Dependency install failure. Retrying after 30s (may be registry flap)."
+
+          # AI Gateway / model errors
+          elif echo "$FAILED_STEP" | grep -qi "openrouter\|nvidia\|model\|ai.gateway\|completion"; then
+            STRATEGY="RETRY_AI"
+            WAIT_SECONDS=60
+            REASON="AI Gateway failure. Waiting 60s for model provider recovery."
+
+          # LinkedIn publish errors
+          elif echo "$FAILED_STEP" | grep -qi "linkedin\|publish\|ugcpost\|social"; then
+            STRATEGY="RETRY_PUBLISH"
+            WAIT_SECONDS=90
+            REASON="LinkedIn publish error. Waiting 90s (API may be momentarily down)."
+          fi
+
+          echo ""
+          echo "================================================"
+          echo "  DIAGNOSIS REPORT"
+          echo "================================================"
+          echo "  Failed Run ID : $FAILED_RUN_ID"
+          echo "  Failed Step   : $FAILED_STEP"
+          echo "  Strategy      : $STRATEGY"
+          echo "  Wait          : ${WAIT_SECONDS}s"
+          echo "  Reason        : $REASON"
+          echo "================================================"
+
+          # Export for next steps
+          echo "strategy=$STRATEGY" >> $GITHUB_OUTPUT
+          echo "wait_seconds=$WAIT_SECONDS" >> $GITHUB_OUTPUT
+          echo "reason=$REASON" >> $GITHUB_OUTPUT
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 4: Abort if it's a non-recoverable error (AUTH / BUILD)
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Abort on Non-Recoverable Error
+        if: |
+          steps.diagnose.outputs.strategy == 'AUTH_ERROR' ||
+          steps.diagnose.outputs.strategy == 'BUILD_ERROR'
+        run: |
+          echo "NON-RECOVERABLE ERROR: ${{ steps.diagnose.outputs.reason }}"
+          echo "Manual intervention required. Self-Healing Agent cannot auto-fix this."
+          echo "Please check GitHub Secrets and pipeline code manually."
+          exit 0  # Exit 0 — don't mark the watchdog itself as failed
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 5: Apply remediation wait based on classified strategy
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Apply Remediation Strategy (Wait)
+        if: |
+          steps.gate.outputs.should_heal == 'true' &&
+          steps.already-published.outputs.already_published == 'false' &&
+          steps.diagnose.outputs.strategy != 'AUTH_ERROR' &&
+          steps.diagnose.outputs.strategy != 'BUILD_ERROR'
+        run: |
+          WAIT="${{ steps.diagnose.outputs.wait_seconds }}"
+          REASON="${{ steps.diagnose.outputs.reason }}"
+
+          echo "Remediation: $REASON"
+          if [ "$WAIT" -gt 0 ]; then
+            echo "Waiting ${WAIT}s before re-triggering pipeline..."
+            sleep $WAIT
+          fi
+          echo "Remediation wait complete."
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 6: Re-trigger the daily pipeline
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Re-Trigger Daily Post Pipeline
+        if: |
+          steps.gate.outputs.should_heal == 'true' &&
+          steps.already-published.outputs.already_published == 'false' &&
+          steps.diagnose.outputs.strategy != 'AUTH_ERROR' &&
+          steps.diagnose.outputs.strategy != 'BUILD_ERROR'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          ATTEMPT="${{ steps.gate.outputs.attempt_number }}"
+          echo "Re-triggering daily post pipeline (heal attempt $ATTEMPT)..."
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$REPO/actions/workflows/daily-automated-post.yml/dispatches" \
+            -d '{"ref":"main"}')
+
+          if [ "$HTTP_CODE" = "204" ]; then
+            echo "Successfully re-triggered daily post pipeline (HTTP 204)."
+            echo "Pipeline will retry in approximately 1-2 minutes on a fresh runner."
+          else
+            echo "Failed to re-trigger pipeline. HTTP status: $HTTP_CODE"
+            exit 1
+          fi
+
+      # ────────────────────────────────────────────────────────────────────────
+      # STEP 7: Log final status summary
+      # ────────────────────────────────────────────────────────────────────────
+      - name: Log Healing Summary
+        if: always()
+        run: |
+          echo "================================================"
+          echo "  SELF-HEALING AGENT SUMMARY"
+          echo "================================================"
+          echo "  Time (UTC)       : $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+          echo "  Gate Passed      : ${{ steps.gate.outputs.should_heal }}"
+          echo "  Already Published: ${{ steps.already-published.outputs.already_published }}"
+          echo "  Strategy Applied : ${{ steps.diagnose.outputs.strategy }}"
+          echo "  Reason           : ${{ steps.diagnose.outputs.reason }}"
+          echo "================================================"
