@@ -91,7 +91,38 @@ jobs:
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
           MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-        run: pnpm exec ts-node --transpile-only ./scratch/run_pipeline.ts
+        run: |
+          MAX_RETRIES=3
+          ATTEMPT=0
+          SUCCESS=false
+
+          until [ $ATTEMPT -ge $MAX_RETRIES ]; do
+            ATTEMPT=$((ATTEMPT+1))
+            echo "::group::Pipeline Attempt $ATTEMPT of $MAX_RETRIES"
+            echo "Starting swarm pipeline attempt $ATTEMPT at $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+            if pnpm exec ts-node --transpile-only ./scratch/run_pipeline.ts; then
+              echo "Pipeline succeeded on attempt $ATTEMPT"
+              SUCCESS=true
+              echo "::endgroup::"
+              break
+            else
+              EXIT_CODE=$?
+              echo "Pipeline failed on attempt $ATTEMPT with exit code $EXIT_CODE"
+              echo "::endgroup::"
+
+              if [ $ATTEMPT -lt $MAX_RETRIES ]; then
+                DELAY=$((ATTEMPT * 30))
+                echo "Waiting ${DELAY}s before retry $((ATTEMPT+1))..."
+                sleep $DELAY
+              fi
+            fi
+          done
+
+          if [ "$SUCCESS" = false ]; then
+            echo "All $MAX_RETRIES attempts failed. Pipeline aborted."
+            exit 1
+          fi
 
       - name: Upload Dead Letter Queue Artifacts on Failure
         if: failure()
