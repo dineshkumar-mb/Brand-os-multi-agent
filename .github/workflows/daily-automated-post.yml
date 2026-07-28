@@ -2,8 +2,8 @@ name: Daily Automated Verified Agent Post
 
 on:
   schedule:
-    # Runs daily at ~09:00 AM IST (03:27 UTC to avoid runner queue congestion on :30)
-    - cron: '27 3 * * *'
+    # Temporarily scheduled once at 02:22 AM IST (20:52 UTC) for verification
+    - cron: '52 20 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 concurrency:
