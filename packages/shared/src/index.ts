@@ -30,13 +30,21 @@ export enum ModelProvider {
 export enum AgentType {
   TREND_DISCOVERY = "TREND_DISCOVERY",
   RESEARCH = "RESEARCH",
+  SOURCE_VERIFICATION = "SOURCE_VERIFICATION",
+  KNOWLEDGE_EXTRACTION = "KNOWLEDGE_EXTRACTION",
   FACT_VERIFICATION = "FACT_VERIFICATION",
   WRITING_STYLE = "WRITING_STYLE",
   CONTENT_STRATEGY = "CONTENT_STRATEGY",
+  TECHNICAL_WRITER = "TECHNICAL_WRITER",
+  HUMANIZATION = "HUMANIZATION",
+  STORYTELLING = "STORYTELLING",
   LINKEDIN_GENERATOR = "LINKEDIN_GENERATOR",
   MEDIUM_WRITER = "MEDIUM_WRITER",
+  DEVTO_WRITER = "DEVTO_WRITER",
   REVIEWER = "REVIEWER",
   CRITIC = "CRITIC",
+  VISUAL_PLANNING = "VISUAL_PLANNING",
+  IMAGE_PROMPT_ENGINEERING = "IMAGE_PROMPT_ENGINEERING",
   SEO = "SEO",
   IMAGE_GENERATOR = "IMAGE_GENERATOR",
   HASHTAG_GENERATOR = "HASHTAG_GENERATOR",
@@ -183,6 +191,18 @@ export const MediumArticlePayloadSchema = z.object({
   imageUrl: z.string().optional(),
 });
 export type MediumArticlePayload = z.infer<typeof MediumArticlePayloadSchema>;
+
+export const DevToArticlePayloadSchema = z.object({
+  title: z.string(),
+  published: z.boolean().default(false),
+  tags: z.array(z.string()),
+  series: z.string().optional(),
+  canonicalUrl: z.string().optional(),
+  description: z.string(),
+  mainImage: z.string().optional(),
+  markdownContent: z.string(),
+});
+export type DevToArticlePayload = z.infer<typeof DevToArticlePayloadSchema>;
 
 export const AIGatewayRequestSchema = z.object({
   prompt: z.string(),
