@@ -14,8 +14,8 @@ jobs:
   daily-verified-post:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+#     env:
+#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     services:
       postgres:
@@ -89,7 +89,7 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
-          MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
+          # MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
         run: |
           MAX_RETRIES=3
@@ -132,14 +132,14 @@ jobs:
           path: scratch/dead_letter_queue/
           if-no-files-found: ignore
 
-      - name: Send Slack Webhook Notification on Failure
-        if: failure() && env.SLACK_WEBHOOK_URL != ''
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_TITLE: "Daily Automated Post Swarm Failed"
-          SLACK_MESSAGE: |
-            *Pipeline ID*: `${{ steps.run-swarm.outputs.pipeline_id }}`
-            *Topic*: ${{ steps.run-swarm.outputs.topic || 'Unknown' }}
-            *Error*: `${{ steps.run-swarm.outputs.error }}`
-          SLACK_COLOR: "#FF0000"
+#       - name: Send Slack Webhook Notification on Failure
+#         if: failure() && env.SLACK_WEBHOOK_URL != ''
+#         uses: rtCamp/action-slack-notify@v2
+#         env:
+#           SLACK_WEBHOOK: ${{ env.SLACK_WEBHOOK_URL }}
+#           SLACK_TITLE: "Daily Automated Post Swarm Failed"
+#           SLACK_MESSAGE: |
+#             *Pipeline ID*: `${{ steps.run-swarm.outputs.pipeline_id }}`
+#             *Topic*: ${{ steps.run-swarm.outputs.topic || 'Unknown' }}
+#             *Error*: `${{ steps.run-swarm.outputs.error }}`
+#           SLACK_COLOR: "#FF0000"

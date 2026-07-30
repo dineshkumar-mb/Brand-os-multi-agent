@@ -292,7 +292,7 @@ async function main() {
   // Stage 4b: Publish to Medium Platform (Optional Target - Warning & continue)
   let mediumPublishResult = null;
   const mediumToken = process.env.MEDIUM_INTEGRATION_TOKEN?.trim();
-  if (mediumToken || mode === PublishMode.LIVE) {
+  if (mediumToken) {
     logStructured("INFO", "publisher", `Dispatching article to Medium Publisher in [${mode}] mode...`, { pipelineId });
     try {
       mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.mediumArticle, { mode: mode as any });
