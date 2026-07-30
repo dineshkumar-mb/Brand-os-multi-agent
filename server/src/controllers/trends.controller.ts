@@ -6,13 +6,15 @@ import { RoutingStrategy } from "@brand-os/shared";
 export class TrendsController {
   public async getTrends(_req: Request, res: Response) {
     const trendAgent = new TrendDiscoveryAgent();
-    const topics = await trendAgent.run();
+    const trendRes = await trendAgent.run();
+    const topics = trendRes.data || [];
     res.json({ topics });
   }
 
   public async scanTrends(_req: Request, res: Response) {
     const trendAgent = new TrendDiscoveryAgent();
-    const topics = await trendAgent.run();
+    const trendRes = await trendAgent.run();
+    const topics = trendRes.data || [];
     res.json({ success: true, count: topics.length, topics });
   }
 

@@ -9,7 +9,8 @@ async function processQueue() {
   try {
     console.log("[Worker Service] Executing scheduled Hourly Trend Scan...");
     const trendAgent = new TrendDiscoveryAgent();
-    const topics = await trendAgent.run();
+    const trendRes = await trendAgent.run();
+    const topics = trendRes.data || [];
     console.log(`[Worker Service] Hourly Trend Scan completed. Found ${topics.length} high-velocity topics.`);
 
     console.log("[Worker Service] Executing Daily Content Swarm Pipeline...");

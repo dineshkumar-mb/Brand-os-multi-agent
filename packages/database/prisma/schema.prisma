@@ -192,6 +192,11 @@ model Post {
   topic              Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
   platform           Platform   @default(LINKEDIN)
   title              String
+  category           String     @default("AI Engineering")
+  framework          String?
+  supportingTech     String[]   @default([])
+  audience           String?
+  storyAngle         String?
   hook               String     @db.Text
   story              String     @db.Text
   lesson             String     @db.Text
@@ -225,6 +230,11 @@ model Article {
   topic              Topic?     @relation(fields: [topicId], references: [id], onDelete: SetNull)
   platform           Platform   @default(MEDIUM)
   title              String
+  category           String     @default("AI Engineering")
+  framework          String?
+  supportingTech     String[]   @default([])
+  audience           String?
+  storyAngle         String?
   subtitle           String
   metaDescription    String
   seoKeywords        String[]
@@ -244,6 +254,23 @@ model Article {
   publishingJobs     PublishingJob[]
 
   @@map("articles")
+}
+
+model ExperienceLog {
+  id               String   @id @default(uuid())
+  title            String
+  category         String
+  description      String   @db.Text
+  technologiesUsed String[]
+  challengesFaced  String[]
+  solutionApproach String   @db.Text
+  tradeoffs        String[]
+  keyLessons       String[]
+  metricsOrOutcome String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@map("experience_logs")
 }
 
 model PublishingJob {

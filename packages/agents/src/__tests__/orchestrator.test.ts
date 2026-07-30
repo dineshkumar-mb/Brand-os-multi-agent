@@ -46,7 +46,7 @@ vi.mock("@brand-os/ai-gateway", () => ({
             story: "We built an autonomous swarm pipeline to orchestrate content production.",
             lesson: "Decoupling concerns ensures fault tolerance.",
             actionableInsight: "Establish a quality evaluation gatekeeper agent.",
-            cta: "Click here to read the full technical architecture blueprint.",
+            cta: "How is your engineering team balancing abstraction complexity versus runtime performance? Let's discuss in the comments.",
             hashtags: ["ai", "devops"],
             fullText: "Here is the full text of our viral tech post that exceeds 100 characters in length to pass the smoke tests validation checks.",
           }),
