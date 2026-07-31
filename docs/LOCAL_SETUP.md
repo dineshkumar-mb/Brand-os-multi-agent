@@ -95,7 +95,16 @@ Runs Web Frontend (`http://localhost:3000`), Backend API (`http://localhost:4000
 npm run dev
 ```
 
+#### 7. Individual Service Commands
+If you want to run specific services independently:
+- **Web UI only**: `npm run dev:web`
+- **Backend API Gateway only**: `npm run dev:api`
+- **Background Worker only**: `npm run dev:worker`
+- **TypeScript Typecheck**: `npm run typecheck`
+- **Test Suite**: `npm run test`
+
 ---
+
 
 ### Option B: Run via Docker Compose (Full Containerized Stack)
 

@@ -178,33 +178,81 @@ personal-brand-os/
 
 ## 🚀 Quick Start — How to Run Locally
 
-### 1. Install Workspace Dependencies
+### 1. Prerequisites
+- **Node.js**: `v20.0.0` or higher
+- **Package Manager**: `pnpm` (recommended) or `npm`
+- **Docker Desktop**: Optional (required if using local PostgreSQL, Redis, ChromaDB)
+
+### 2. Install Workspace Dependencies
 ```bash
 pnpm install
+# or
+npm install
 ```
 
-### 2. Configure Environment
+### 3. Configure Environment Variables
+Copy `.env.example` to `.env` in the root directory:
 ```bash
 cp .env.example .env
 ```
-Fill in your credentials in `.env` (`OPENROUTER_API_KEY`, `NVIDIA_NIM_API_KEY`, `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN`).
+Fill in your credentials in `.env` (e.g. `OPENROUTER_API_KEY`, `NVIDIA_NIM_API_KEY`, `LINKEDIN_CLIENT_ID`, `LINKEDIN_CLIENT_SECRET`, `LINKEDIN_ACCESS_TOKEN`).
 
-### 3. Start Local Infrastructure Databases
+### 4. Start Local Infrastructure Services (Optional)
+To launch PostgreSQL, Redis, ChromaDB, and Neo4j containers locally via Docker:
 ```bash
 npm run docker:up
 ```
 
-### 4. Initialize Database
+### 5. Initialize & Seed Database
+Generate Prisma Client, push schema, and populate demo data:
 ```bash
 npm run db:generate
 npm run db:push
 npm run db:seed
 ```
 
-### 5. Start Development Server
-Runs Web Dashboard (`http://localhost:3000`), Backend API (`http://localhost:4000`), and Background Worker concurrently:
+### 6. Start Development Servers
+Runs the Web Dashboard (`http://localhost:3000`), Backend API (`http://localhost:4000`), and Background Worker concurrently:
 ```bash
 npm run dev
+```
+
+---
+
+## 🛠️ Workspace CLI Commands Reference
+
+All workspace scripts can be run from the root directory using `npm run <command>` or `pnpm <command>`:
+
+| Category | Command | Description |
+| :--- | :--- | :--- |
+| **Development** | `npm run dev` | Runs **Web UI**, **API Gateway**, and **Worker** concurrently |
+| **Development** | `npm run dev:web` | Starts only the **React 19 + Vite Frontend** (`http://localhost:3000`) |
+| **Development** | `npm run dev:api` | Starts only the **Express Backend API** (`http://localhost:4000`) |
+| **Development** | `npm run dev:worker` | Starts only the **Background Worker** swarm service |
+| **Build & Quality**| `npm run build` | Builds production bundles for all workspace applications & packages |
+| **Build & Quality**| `npm run typecheck` | Runs TypeScript type checking across all workspace packages |
+| **Build & Quality**| `npm run test` | Runs unit & integration test suites using Vitest |
+| **Database** | `npm run db:generate` | Generates Prisma Client types from database schema |
+| **Database** | `npm run db:push` | Pushes Prisma schema changes directly to the PostgreSQL database |
+| **Database** | `npm run db:seed` | Seeds the database with baseline admin, swarm agents, and benchmark data |
+| **Docker** | `npm run docker:up` | Starts local database and queue containers (`docker-compose up -d`) |
+| **Docker** | `npm run docker:down` | Stops local database and queue containers (`docker-compose down`) |
+
+---
+
+## 🐳 Running via Docker Compose (Full Container Stack)
+
+To run the entire platform as fully containerized microservices without needing local Node.js:
+
+```bash
+# 1. Build and launch containers in background
+docker-compose up --build -d
+
+# 2. Access Web Dashboard UI
+# Open: http://localhost:3000
+
+# 3. Access Backend API Gateway Health Check
+# Open: http://localhost:4000/health
 ```
 
 ---
@@ -215,3 +263,4 @@ npm run dev
 - [AI Gateway Documentation](docs/AI_GATEWAY.md)
 - [MCP Integration Specs](docs/MCP_INTEGRATION.md)
 - [Agent Specifications](docs/AGENT_SPEC.md)
+
