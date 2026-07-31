@@ -15,14 +15,22 @@ import {
   Zap,
   ShieldCheck,
   Network,
+  X,
 } from "lucide-react";
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  activeTab,
+  setActiveTab,
+  mobileOpen = false,
+  onCloseMobile,
+}) => {
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "topology", label: "Agent Swarm Topology", icon: Network, badge: "Swarm" },
@@ -40,20 +48,34 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
   ];
 
   return (
-    <aside className="w-64 border-r border-slate-800/80 bg-slate-900/60 p-4 flex flex-col justify-between backdrop-blur-xl shrink-0">
+    <aside
+      className={`fixed inset-y-0 left-0 z-50 w-64 bg-slate-900/95 p-4 flex flex-col justify-between border-r border-slate-800/80 backdrop-blur-xl shrink-0 transition-transform duration-300 md:static md:translate-x-0 ${
+        mobileOpen ? "translate-x-0 flex" : "-translate-x-full hidden md:flex"
+      }`}
+    >
       <div>
-        <div className="flex items-center gap-3 px-2 py-3 mb-6">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <Zap className="h-5 w-5 text-white fill-white" />
+        <div className="flex items-center justify-between px-2 py-3 mb-6">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+              <Zap className="h-5 w-5 text-white fill-white" />
+            </div>
+            <div>
+              <h1 className="font-bold text-base tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
+                Personal Brand OS
+              </h1>
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-indigo-400">
+                Multi-Agent Swarm
+              </span>
+            </div>
           </div>
-          <div>
-            <h1 className="font-bold text-base tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent">
-              Personal Brand OS
-            </h1>
-            <span className="text-[10px] uppercase tracking-wider font-semibold text-indigo-400">
-              Multi-Agent Swarm
-            </span>
-          </div>
+          {onCloseMobile && (
+            <button
+              onClick={onCloseMobile}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 md:hidden"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         <nav className="space-y-1">
@@ -63,7 +85,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  if (onCloseMobile) onCloseMobile();
+                }}
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition-all ${
                   isActive
                     ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/30 font-semibold shadow-sm"

@@ -75,7 +75,7 @@ export const SettingsPage: React.FC = () => {
             <span>Connected Social Platform Accounts</span>
           </h4>
 
-          <div className="grid grid-cols-2 gap-6 text-xs">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
             {/* LinkedIn Account Card */}
             <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
@@ -101,7 +101,7 @@ export const SettingsPage: React.FC = () => {
                     className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 focus:outline-none focus:border-indigo-500 font-sans"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
                     <label className="text-slate-400 font-medium">LinkedIn Client ID</label>
                     <input
@@ -164,7 +164,7 @@ export const SettingsPage: React.FC = () => {
         </div>
 
         {/* Section 2: AI Gateway Keys & Preferences */}
-        <div className="grid grid-cols-2 gap-6 text-xs pt-4 border-t border-slate-800">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs pt-4 border-t border-slate-800">
           <div className="space-y-4">
             <h4 className="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
               <Key className="h-4 w-4 text-indigo-400" />
@@ -230,7 +230,7 @@ export const SettingsPage: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <div>
                     <label className="text-slate-400 font-medium text-[11px]">Execution Time</label>
                     <input

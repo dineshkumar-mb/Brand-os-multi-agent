@@ -109,14 +109,14 @@ export const DashboardOverview: React.FC = () => {
             <span>Fetching Live LinkedIn Performance Telemetry...</span>
           </div>
         ) : (
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {statCards.map((stat, idx) => {
               const Icon = stat.icon;
               return (
                 <div key={idx} className="glass-card glass-card-hover p-4 rounded-xl space-y-2 border border-slate-800">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-medium text-slate-400">{stat.label}</span>
-                    <div className={`h-7 w-7 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center text-white shadow-sm`}>
+                    <div className={`h-7 w-7 rounded-lg bg-gradient-to-br ${stat.color} flex items-center justify-center text-white shadow-sm shrink-0`}>
                       <Icon className="h-3.5 w-3.5" />
                     </div>
                   </div>
@@ -137,17 +137,17 @@ export const DashboardOverview: React.FC = () => {
 
       {/* Weekly Progress Section */}
       <div className="glass-card p-5 rounded-xl space-y-4 border border-slate-800">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 className="text-sm font-bold text-white">Weekly progress</h3>
             <p className="text-xs text-slate-400">Jul 25–Jul 31 • Multi-Agent Automation Progress</p>
           </div>
-          <span className="px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 text-xs font-mono">
+          <span className="px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 text-xs font-mono self-start sm:self-auto">
             Active Pulse
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-lg bg-slate-900/80 border border-slate-800 space-y-2">
             <div className="flex items-center gap-2">
               <Edit3 className="h-4 w-4 text-indigo-400" />
@@ -177,8 +177,8 @@ export const DashboardOverview: React.FC = () => {
       </div>
 
       {/* Main Engagement Growth Chart & Telemetry */}
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 glass-card p-5 rounded-xl space-y-4 border border-slate-800">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="col-span-1 lg:col-span-2 glass-card p-5 rounded-xl space-y-4 border border-slate-800">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-semibold text-white">Cross-Platform Impression Growth</h3>
             <span className="text-xs text-indigo-400 font-medium">LinkedIn REST API Feed</span>

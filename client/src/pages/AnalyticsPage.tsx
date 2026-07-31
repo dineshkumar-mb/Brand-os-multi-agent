@@ -62,15 +62,15 @@ export const AnalyticsPage: React.FC = () => {
     <div className="space-y-6">
       {/* LinkedIn Profile Card */}
       {profile && (
-        <div className="glass-card p-6 rounded-xl border border-indigo-500/20 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="glass-card p-4 sm:p-6 rounded-xl border border-indigo-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <img
               src={profile.profilePictureUrl || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400"}
               alt={profile.name}
-              className="h-14 w-14 rounded-full border-2 border-indigo-500/50 object-cover"
+              className="h-14 w-14 rounded-full border-2 border-indigo-500/50 object-cover shrink-0"
             />
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <h2 className="text-lg font-bold text-white">{profile.name}</h2>
                 {profile.isRealApiData && (
                   <span className="flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
@@ -79,7 +79,7 @@ export const AnalyticsPage: React.FC = () => {
                 )}
               </div>
               <p className="text-xs text-slate-300">{profile.headline}</p>
-              <div className="flex items-center gap-4 text-xs font-mono text-indigo-400 mt-1">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-mono text-indigo-400 mt-1">
                 <span>{profile.followersCount?.toLocaleString()} Followers</span>
                 <span>•</span>
                 <span>{profile.connectionsCount}+ Connections</span>
@@ -93,7 +93,7 @@ export const AnalyticsPage: React.FC = () => {
             href={`https://www.linkedin.com/in/${profile.vanityName || "dineshkumar-mb"}`}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition shrink-0 self-start sm:self-auto"
           >
             <span>View Profile</span>
             <ExternalLink className="h-3.5 w-3.5" />
@@ -102,13 +102,13 @@ export const AnalyticsPage: React.FC = () => {
       )}
 
       {/* Main Analytics Chart */}
-      <div className="glass-card p-6 rounded-xl space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="glass-card p-4 sm:p-6 rounded-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-2">
           <div>
             <h3 className="text-base font-semibold text-white">Cross-Platform Analytics & Engagement Velocity</h3>
             <p className="text-xs text-slate-400">Real-time daily impression metrics & multi-agent telemetry analysis.</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 self-start sm:self-auto">
             {loading && <Loader2 className="h-4 w-4 animate-spin text-indigo-400" />}
             <span className="px-3 py-1 rounded bg-indigo-500/20 text-indigo-300 text-xs font-mono">
               Live Telemetry Active
@@ -133,7 +133,7 @@ export const AnalyticsPage: React.FC = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="grid grid-cols-2 gap-6 pt-4 border-t border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800">
           <div>
             <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-3">Top Performing Hooks</h4>
             <div className="space-y-2 text-xs">

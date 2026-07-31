@@ -383,7 +383,7 @@ export const AgentSwarmTopologyPage: React.FC = () => {
       )}
 
       {/* Top Overview Metric Cards */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass-card p-4 rounded-xl border border-indigo-500/20">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs text-slate-400 font-medium">Master Swarm Topology</span>
@@ -433,10 +433,10 @@ export const AgentSwarmTopologyPage: React.FC = () => {
       </div>
 
       {/* Directed Graph 5-Layer Swarm Topology */}
-      <div className="glass-card p-6 rounded-xl space-y-4">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="glass-card p-4 sm:p-6 rounded-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-4 gap-3">
           <div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono">
                 Directed Graph + Loopback Loop
               </span>
@@ -450,7 +450,7 @@ export const AgentSwarmTopologyPage: React.FC = () => {
           <button
             onClick={handleSimulateSwarm}
             disabled={isExecuting}
-            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 transition-all disabled:opacity-50"
+            className="px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 transition-all disabled:opacity-50 shrink-0 self-start sm:self-auto"
           >
             <RefreshCw className={`h-3.5 w-3.5 ${isExecuting ? "animate-spin" : ""}`} />
             <span>{isExecuting ? "Executing Graph Pipeline..." : "Execute Swarm Communication Flow"}</span>
@@ -458,7 +458,7 @@ export const AgentSwarmTopologyPage: React.FC = () => {
         </div>
 
         {/* Swarm Layers Visualization */}
-        <div className="grid grid-cols-5 gap-3 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
           {swarmLayers.map((layer, idx) => {
             const Icon = layer.icon;
             const isCurrentStep = activeStep === idx;
@@ -492,7 +492,7 @@ export const AgentSwarmTopologyPage: React.FC = () => {
                 </div>
 
                 {idx < 4 && (
-                  <div className="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+                  <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
                     <ArrowRight className="h-4 w-4 text-indigo-400" />
                   </div>
                 )}
@@ -502,22 +502,22 @@ export const AgentSwarmTopologyPage: React.FC = () => {
         </div>
 
         {/* Directed Graph Regeneration Loop Indicator */}
-        <div className="p-3 rounded-lg bg-indigo-950/40 border border-indigo-500/30 flex items-center justify-between text-xs text-indigo-200">
+        <div className="p-3 rounded-lg bg-indigo-950/40 border border-indigo-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs text-indigo-200">
           <div className="flex items-center gap-2">
             <RotateCcw className="h-4 w-4 text-indigo-400 shrink-0" />
             <span>
               <strong className="text-white">Directed Graph Regeneration Loop:</strong> If Decision Gate or Originality Agent rejects content (Similarity &gt; 0.35 or Score &lt; 80%), the system automatically loops back to topic selection/writing for up to 3 retries.
             </span>
           </div>
-          <span className="px-2 py-0.5 rounded bg-indigo-900/60 text-indigo-300 font-mono text-[10px] border border-indigo-500/40">
+          <span className="px-2 py-0.5 rounded bg-indigo-900/60 text-indigo-300 font-mono text-[10px] border border-indigo-500/40 shrink-0">
             Loopback Active (Max 3)
           </span>
         </div>
       </div>
 
       {/* 18 Agent Telemetry Matrix Table */}
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2 glass-card p-5 rounded-xl space-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="col-span-1 lg:col-span-2 glass-card p-5 rounded-xl space-y-4">
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <h3 className="text-sm font-semibold text-white flex items-center gap-2">
               <Cpu className="h-4 w-4 text-indigo-400" />

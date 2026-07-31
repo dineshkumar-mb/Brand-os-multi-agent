@@ -41,7 +41,7 @@ export const AIGatewayPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass-card p-4 rounded-xl">
           <span className="text-xs text-slate-400 font-medium">Active Providers</span>
           <p className="text-lg font-bold text-white mt-1">OpenAI, Gemini, Claude, Ollama</p>
@@ -60,7 +60,7 @@ export const AIGatewayPage: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="glass-card p-5 rounded-xl space-y-4">
           <h3 className="text-sm font-semibold text-white">Model Latency Comparison (ms)</h3>
           <div className="h-60">
