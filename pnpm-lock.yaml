@@ -84,6 +84,9 @@ importers:
       '@brand-os/ai-gateway':
         specifier: workspace:*
         version: link:../ai-gateway
+      '@brand-os/analytics':
+        specifier: workspace:*
+        version: link:../analytics
       '@brand-os/database':
         specifier: workspace:*
         version: link:../database

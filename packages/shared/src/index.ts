@@ -456,3 +456,67 @@ export interface PromptTemplateDefinition {
   isActive: boolean;
 }
 
+// ==========================================
+// ADDITIONAL ENTERPRISE GOVERNANCE TYPES
+// ==========================================
+
+export interface ExecutionTelemetry {
+  agentName: string;
+  agentType: AgentType;
+  executionTimeMs: number;
+  tokensUsed: number;
+  retryCount: number;
+  confidenceScore: number;
+  status: "SUCCESS" | "FAILED" | "RETRY";
+  modelUsed?: string;
+  errors?: string[];
+  timestamp: string;
+}
+
+export interface PortfolioCategoryMetric {
+  category: string;
+  count: number;
+  percentage: number;
+  targetPercentage: number;
+  deviation: number;
+  priority: "HIGH" | "MEDIUM" | "LOW";
+}
+
+export interface PortfolioMetrics {
+  totalPostsAnalyzed: number;
+  portfolioDomainMetrics: PortfolioCategoryMetric[];
+  underrepresentedDomains: string[];
+  overrepresentedDomains: string[];
+  recommendedCategory: string;
+}
+
+export interface ContentScore {
+  technicalAccuracyScore: number;
+  originalityScore: number;
+  humanToneScore: number;
+  audienceRelevanceScore: number;
+  brandAlignmentScore: number;
+  visualAlignmentScore: number;
+  seoScore: number;
+  overallScore: number;
+}
+
+export type PublishingDecision = "PUBLISH" | "REGENERATE" | "REJECT";
+
+export interface DecisionResult {
+  decision: PublishingDecision;
+  approvedForPublishing: boolean;
+  score: ContentScore;
+  rejectionReasons: string[];
+  actionRequired?: string;
+}
+
+export interface QualityGateResult {
+  gateName: string;
+  passed: boolean;
+  score: number;
+  threshold: number;
+  details?: string;
+}
+
+

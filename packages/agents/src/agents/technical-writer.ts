@@ -17,6 +17,27 @@ export interface TechnicalWriterOutput {
 }
 
 export class TechnicalWriterAgent {
+  private getDynamicImageUrl(topic: Topic): string {
+    const techTerm = encodeURIComponent(
+      topic.framework || topic.supportingTech?.[0] || topic.category || "software architecture"
+    );
+    const topicHash = Math.abs(
+      (topic.title || "").split("").reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0)
+    );
+    const photoIds = [
+      "photo-1555066931-4365d14bab8c", // Code on screen
+      "photo-1517694712202-14dd9538aa97", // Laptop coding
+      "photo-1526374965328-7f61d4dc18c5", // Matrix cyber data
+      "photo-1451187580459-43490279c0fa", // Network connections
+      "photo-1558494949-ef010cbdcc31", // Server rack datacenter
+      "photo-1504639725590-34d0984388bd", // Cyber security code
+      "photo-1518770660439-4636190af475", // Chip circuit board
+      "photo-1531403009284-440f080d1e12", // System design whiteboard
+    ];
+    const selectedPhotoId = photoIds[topicHash % photoIds.length];
+    return `https://images.unsplash.com/${selectedPhotoId}?w=1200&auto=format&fit=crop&q=80&sig=${topicHash}&term=${techTerm}`;
+  }
+
   public async generateContent(
     topic: Topic,
     research: ResearchOutput,
@@ -31,6 +52,7 @@ export class TechnicalWriterAgent {
     const prosList = research.pros || ["Zero runtime overhead", "Type-safe contracts"];
     const consList = research.cons || ["Initial setup complexity"];
     const codeSnippetsList = research.code_snippets || [];
+    const dynamicImageUrl = this.getDynamicImageUrl(topic);
 
     // 1. Generate LinkedIn Post
     const linkedinPrompt = `You are a Staff Full Stack AI Engineer.
@@ -97,8 +119,10 @@ Return ONLY a valid JSON object matching:
         cta,
         hashtags,
         fullText,
-        imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200",
+        imageUrl: dynamicImageUrl,
       };
+    } else {
+      linkedInPost.imageUrl = dynamicImageUrl;
     }
 
     // 2. Generate Dev.to Standalone Technical Article with Mermaid & Runnable Snippets
@@ -175,7 +199,7 @@ ${research.future_outlook || "Clean architecture scales predictably."}
       tags: topic.keywords.slice(0, 4).map((k) => k.toLowerCase().replace(/[^a-z0-9]/g, "")),
       canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
       description: (research.summary || topic.reason || topic.title).substring(0, 150),
-      mainImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200",
+      mainImage: dynamicImageUrl,
       markdownContent: devToMarkdown,
     };
 
@@ -201,3 +225,4 @@ ${research.future_outlook || "Clean architecture scales predictably."}
     };
   }
 }
+

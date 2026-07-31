@@ -23,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
           {activeTab.replace("_", " ")}
         </h2>
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span className="text-xs font-medium text-emerald-400">12 Agents Active</span>
+        <span className="text-xs font-medium text-emerald-400">18 Master Agents Active</span>
       </div>
 
       <div className="flex items-center gap-3">

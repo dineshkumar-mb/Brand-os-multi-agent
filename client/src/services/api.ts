@@ -116,6 +116,18 @@ export class ApiClient {
     return this.request("/analytics");
   }
 
+  public async getLinkedInProfile() {
+    return this.request("/analytics/linkedin-profile");
+  }
+
+  public async getTimeSeriesAnalytics() {
+    return this.request("/analytics/timeseries");
+  }
+
+  public async getRecentPosts() {
+    return this.request("/analytics/posts");
+  }
+
   public async getPlugins() {
     return this.request("/plugins");
   }

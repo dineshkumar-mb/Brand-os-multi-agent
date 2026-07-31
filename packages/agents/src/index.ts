@@ -220,6 +220,8 @@ export class ImagePromptEngineeringAgent {
 // DIRECTED GRAPH SWARM ORCHESTRATOR
 // ==========================================
 
+import { postHistoryTracker } from "@brand-os/analytics";
+
 export class AgentOrchestrator {
   private trendDiscoveryAgent = new TrendDiscoveryAgent();
   private topicIntelligenceAgent = new TopicIntelligenceAgent();
@@ -249,9 +251,12 @@ export class AgentOrchestrator {
     const pipelineId = options.pipelineId || `pl_${Math.random().toString(36).substring(2, 11)}`;
     const autoPublish = options.autoPublish !== false;
     const requestedMode = options.publishMode || PublishMode.AUTO;
-    const history = options.historicalPosts || [];
+    const history = options.historicalPosts && options.historicalPosts.length > 0 
+      ? options.historicalPosts 
+      : postHistoryTracker.getHistory();
 
     console.log(`[Pipeline ID: ${pipelineId}] === Starting Master Directed Intelligence Graph Pipeline ===`);
+
 
     this.topicIntelligenceAgent.setHistory(history);
     this.originalityAgent.setHistory(history);
@@ -404,6 +409,14 @@ export class AgentOrchestrator {
     if (autoPublish && decisionGateRes.data.approvedForPublishing) {
       const pubRes = await this.publisherAgent.publishContent(linkedInPost, devToArticle, { mode: requestedMode }, pipelineId);
       publishResult = pubRes.data.linkedInResult;
+
+      postHistoryTracker.addPublishedPost({
+        id: publishResult?.externalId || `post_${Date.now()}`,
+        title: linkedInPost.title,
+        fullText: linkedInPost.fullText,
+        category: selectedTopic.category,
+        framework: selectedTopic.framework,
+      });
     } else if (autoPublish && !decisionGateRes.data.approvedForPublishing) {
       console.warn(`[Pipeline ID: ${pipelineId}] Publishing skipped: Decision Gate returned decision=${decisionGateRes.data.decision}. Action: ${decisionGateRes.data.actionRequired}`);
     }

@@ -12,6 +12,7 @@ import { analyticsController } from "./controllers/analytics.controller";
 import { pluginsController } from "./controllers/plugins.controller";
 import { errorHandler } from "./middleware/error.middleware";
 import { aiGateway } from "@brand-os/ai-gateway";
+import { analyticsService } from "@brand-os/analytics";
 
 const app: Application = express();
 const PORT = process.env.PORT || 4000;
@@ -91,12 +92,20 @@ app.get("/api/v1/jobs", (req, res) => publishController.getJobs(req, res));
 
 // Analytics Routes
 app.get("/api/v1/analytics", (req, res) => analyticsController.getAnalytics(req, res));
+app.get("/api/v1/analytics/linkedin-profile", (req, res) => analyticsController.getLinkedInProfile(req, res));
+app.get("/api/v1/analytics/timeseries", (req, res) => analyticsController.getTimeSeries(req, res));
+app.get("/api/v1/analytics/posts", (req, res) => analyticsController.getRecentPosts(req, res));
 app.get("/api/v1/dashboard", (req, res) => {
+  const summary = analyticsService.getSummary();
+  const timeSeries = analyticsService.getTimeSeriesAnalytics();
   res.json({
-    kpis: { totalViews: 148200, totalLikes: 12450, avgCTR: 4.85, followersGained: 1280 },
-    activeAgents: 12,
-    scheduledPosts: 5,
+    kpis: summary.kpis,
+    timeSeries,
+    activeAgents: 18,
+    scheduledPosts: summary.kpis.totalPostsPublished,
     pendingHITLReviews: 2,
+    topHooks: summary.topPerformingHooks,
+    recommendations: summary.learningRecommendations,
     telemetry: aiGateway.getBenchmarks(),
   });
 });
