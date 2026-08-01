@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   Network,
   X,
+  Image as ImageIcon,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -38,6 +39,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: "playground", label: "Agent Playground", icon: Play },
     { id: "trends", label: "Trend Discovery", icon: TrendingUp },
     { id: "research", label: "Deep Research", icon: Search },
+    { id: "visuals", label: "Visual Studio", icon: ImageIcon, badge: "RAG vs CAG" },
     { id: "linkedin", label: "LinkedIn Studio", icon: Linkedin },
     { id: "medium", label: "Medium Writer", icon: FileText },
     { id: "memory", label: "Memory & RAG", icon: Brain },
@@ -46,6 +48,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: "plugins", label: "Plugin Marketplace", icon: Plug },
     { id: "settings", label: "Settings & Keys", icon: Settings },
   ];
+
 
   return (
     <aside

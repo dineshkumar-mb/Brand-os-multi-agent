@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { agentOrchestrator } from "@brand-os/agents";
+import { agentOrchestrator, VisualPlanningAgent, INFOGRAPHIC_PRESETS } from "@brand-os/agents";
 
 export class AgentsController {
   public async triggerSwarm(_req: Request, res: Response) {
@@ -31,6 +31,35 @@ export class AgentsController {
       ],
     });
   }
+
+  public generateVisualDiagram(req: Request, res: Response) {
+    try {
+      const { topic = "RAG vs CAG", presetKey } = req.body;
+      const agent = new VisualPlanningAgent();
+
+      if (presetKey && INFOGRAPHIC_PRESETS[presetKey]) {
+        const preset = INFOGRAPHIC_PRESETS[presetKey];
+        const svg = agent.generateDiagramSvg(preset.diagramSpec);
+        return res.json({
+          success: true,
+          preset,
+          diagramSpec: preset.diagramSpec,
+          renderedSvg: svg,
+        });
+      }
+
+      const result = agent.createVisualPlan({ id: "custom", title: topic, score: 95 } as any);
+      return res.json({
+        success: true,
+        blueprint: result.data,
+        diagramSpec: result.data.diagramSpec,
+        renderedSvg: result.data.renderedSvg,
+      });
+    } catch (err: any) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
 }
 
 export const agentsController = new AgentsController();
+

@@ -1,16 +1,34 @@
 import React, { useState } from "react";
-import { ThumbsUp, MessageSquare, Share2, Sparkles, Send, Layers, CheckCircle2, Loader2, Save, Zap, Flame } from "lucide-react";
+import { ThumbsUp, MessageSquare, Share2, Sparkles, Send, Layers, CheckCircle2, Loader2, Save, Zap, Flame, Image as ImageIcon } from "lucide-react";
 import { api } from "../services/api";
 
 export const LinkedInStudioPage: React.FC = () => {
-  const [hook, setHook] = useState("Stop building legacy architectures in 2026. React 19 Actions & Agentic Swarms change everything. 🚀");
-  const [body, setBody] = useState(`Stop building legacy architectures in 2026. React 19 Actions & Agentic Swarms change everything. 🚀\n\nLast week, our engineering team evaluated modern AI swarm architectures and React 19 primitives across high-concurrency production workloads.\n\nThe results?\n⚡ 90% reduction in state management boilerplate\n🚀 3.4x faster time-to-first-token execution\n💡 100% type safety across distributed services\n\nActionable Takeaways for Tech Leads:\n1. Shift from imperative state hooks to declarative Server Actions\n2. Decouple background agent tasks via Redis streams\n3. Enforce Zod validation at every service boundary\n\nWhat is your team's strategy for adopting modern agentic AI in 2026? Drop your thoughts below! 👇\n\n#SoftwareEngineering #SystemDesign #React19 #TypeScript #TechLeadership`);
+  const [hook, setHook] = useState("RAG vs CAG: Stop building legacy architectures in 2026. Here is why CAG changes everything. 🚀");
+  const [body, setBody] = useState(`RAG vs CAG: Stop building legacy architectures in 2026. Here is why CAG changes everything. 🚀\n\nLast week, our engineering team evaluated modern AI swarm architectures comparing Retrieval Augmented Generation (RAG) vs Cache Augmented Generation (CAG).\n\nThe results?\n⚡ 90% reduction in state retrieval latency\n🚀 3.4x faster time-to-first-token execution\n💡 100% KV cache hit rate across repetitive prompt workflows\n\nKey Differences (Refer Attached Architecture Diagram):\n1. RAG queries Vector DB on every request\n2. CAG pre-caches context into LLM KV store for instantaneous retrieval\n3. RAG + CAG hybrid maximizes accuracy while slashing latency!\n\nWhat is your team's strategy for adopting CAG in 2026? Drop your thoughts below! 👇\n\n#SystemDesign #RAG #CAG #AI #Architecture #TypeScript`);
 
   const [hookScore, setHookScore] = useState(98);
   const [isImproving, setIsImproving] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isScheduling, setIsScheduling] = useState(false);
+  const [attachedDiagramSvg, setAttachedDiagramSvg] = useState<string | null>(null);
+  const [isGeneratingDiagram, setIsGeneratingDiagram] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
+
+  const handleGenerateAndAttachDiagram = async () => {
+    setIsGeneratingDiagram(true);
+    try {
+      const res = await api.generateVisualDiagram("RAG vs CAG", "RAG_VS_CAG");
+      if (res.renderedSvg) {
+        setAttachedDiagramSvg(res.renderedSvg);
+        showNotification("🖼️ Attached pixel-perfect RAG vs CAG Architecture Diagram to LinkedIn Post!");
+      }
+    } catch (err: any) {
+      showNotification(`❌ Error generating diagram: ${err.message || "Failed"}`);
+    } finally {
+      setIsGeneratingDiagram(false);
+    }
+  };
+
 
   const viralHookFormulas = [
     {
@@ -164,13 +182,39 @@ export const LinkedInStudioPage: React.FC = () => {
               />
             </div>
             <div>
-              <label className="text-slate-400 font-medium">Full Post Body (Mobile Scannable Layout)</label>
+              <label className="text-slate-400 font-medium flex items-center justify-between">
+                <span>Full Post Body (Mobile Scannable Layout)</span>
+              </label>
               <textarea
-                rows={12}
+                rows={10}
                 value={body}
                 onChange={(e) => setBody(e.target.value)}
                 className="w-full mt-1 bg-slate-900 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-sans leading-relaxed focus:outline-none focus:border-indigo-500 transition-all"
               />
+            </div>
+
+            {/* Attached AI Visual Diagram Preview */}
+            <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-slate-300 flex items-center gap-1.5">
+                  <ImageIcon className="h-3.5 w-3.5 text-amber-400" />
+                  Visual Diagram Attachment
+                </span>
+                <button
+                  onClick={handleGenerateAndAttachDiagram}
+                  disabled={isGeneratingDiagram}
+                  className="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center gap-1 transition-all disabled:opacity-50"
+                >
+                  {isGeneratingDiagram ? <Loader2 className="h-3 w-3 animate-spin" /> : <Sparkles className="h-3 w-3 text-amber-400" />}
+                  <span>{attachedDiagramSvg ? "Re-generate RAG vs CAG" : "+ Attach RAG vs CAG Diagram"}</span>
+                </button>
+              </div>
+
+              {attachedDiagramSvg && (
+                <div className="p-3 rounded-lg bg-white overflow-auto max-h-[220px] flex justify-center border border-slate-700">
+                  <div className="w-full max-w-[400px]" dangerouslySetInnerHTML={{ __html: attachedDiagramSvg }} />
+                </div>
+              )}
             </div>
           </div>
 
@@ -183,6 +227,7 @@ export const LinkedInStudioPage: React.FC = () => {
               {isImproving ? <Loader2 className="h-3.5 w-3.5 animate-spin text-indigo-400" /> : <Sparkles className="h-3.5 w-3.5 text-indigo-400" />}
               <span>{isImproving ? "Optimizing Hook..." : "Optimize Viral Hook"}</span>
             </button>
+
 
             <div className="flex gap-2">
               <button

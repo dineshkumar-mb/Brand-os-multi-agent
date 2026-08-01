@@ -377,6 +377,14 @@ export class AgentOrchestrator {
     const visualValidationRes = this.visualPlanningAgent.validateVisualAlignment(selectedTopic, visualPlanRes.data, devToArticle, pipelineId);
     console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Validation] Aligned: ${visualValidationRes.data.alignedWithArticle} (${visualValidationRes.data.alignmentScore}%)`);
 
+    if (visualPlanRes.data.renderedSvg) {
+      const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;
+      linkedInPost.imageUrl = svgDataUrl;
+      devToArticle.mainImage = svgDataUrl;
+      console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Generator] Attached custom dynamic architecture diagram SVG image.`);
+    }
+
+
     // Agent 16: Decision Gate Agent (Mandatory Pass Layer before Publishing)
     const decisionGateRes = this.decisionGateAgent.evaluateDecision(
       selectedTopic,

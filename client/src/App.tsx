@@ -8,6 +8,7 @@ import { AIGatewayPage } from "./pages/AIGatewayPage";
 import { AgentPlaygroundPage } from "./pages/AgentPlaygroundPage";
 import { TrendDiscoveryPage } from "./pages/TrendDiscoveryPage";
 import { DeepResearchPage } from "./pages/DeepResearchPage";
+import { VisualStudioPage } from "./pages/VisualStudioPage";
 import { LinkedInStudioPage } from "./pages/LinkedInStudioPage";
 import { MediumWriterPage } from "./pages/MediumWriterPage";
 import { MemoryRAGPage } from "./pages/MemoryRAGPage";
@@ -83,6 +84,7 @@ export default function App() {
           {activeTab === "playground" && <AgentPlaygroundPage />}
           {activeTab === "trends" && <TrendDiscoveryPage />}
           {activeTab === "research" && <DeepResearchPage />}
+          {activeTab === "visuals" && <VisualStudioPage />}
           {activeTab === "linkedin" && <LinkedInStudioPage />}
           {activeTab === "medium" && <MediumWriterPage />}
           {activeTab === "memory" && <MemoryRAGPage />}
@@ -92,6 +94,7 @@ export default function App() {
           {activeTab === "settings" && <SettingsPage />}
         </div>
       </main>
+
 
       {copilotOpen && <AICopilotSidebar onClose={() => setCopilotOpen(false)} />}
     </div>

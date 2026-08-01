@@ -68,14 +68,27 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
       return null;
     }
 
-    console.log(`[LinkedIn Publisher 🖼️] Downloading image binary from: ${imageUrl}...`);
-    const imgRes = await fetch(imageUrl);
-    if (!imgRes.ok) {
-      console.warn(`[LinkedIn Publisher ⚠️] Failed to download image from ${imageUrl}: ${imgRes.status}`);
-      return null;
+    let imageBuffer: Buffer;
+    let contentType = "image/png";
+
+    if (imageUrl.startsWith("data:")) {
+      console.log(`[LinkedIn Publisher 🖼️] Processing dynamic Data URL image...`);
+      const parts = imageUrl.split(",");
+      const mimeMatch = parts[0].match(/data:(.*?);/);
+      if (mimeMatch) contentType = mimeMatch[1];
+      const isBase64 = parts[0].includes("base64");
+      imageBuffer = isBase64 ? Buffer.from(parts[1], "base64") : Buffer.from(decodeURIComponent(parts[1]));
+    } else {
+      console.log(`[LinkedIn Publisher 🖼️] Downloading image binary from: ${imageUrl}...`);
+      const imgRes = await fetch(imageUrl);
+      if (!imgRes.ok) {
+        console.warn(`[LinkedIn Publisher ⚠️] Failed to download image from ${imageUrl}: ${imgRes.status}`);
+        return null;
+      }
+      contentType = imgRes.headers.get("content-type") || "image/jpeg";
+      const imageArrayBuffer = await imgRes.arrayBuffer();
+      imageBuffer = Buffer.from(imageArrayBuffer);
     }
-    const contentType = imgRes.headers.get("content-type") || "image/jpeg";
-    const imageArrayBuffer = await imgRes.arrayBuffer();
 
     console.log(`[LinkedIn Publisher 🖼️] Uploading binary to LinkedIn asset store (${assetUrn})...`);
     const uploadRes = await fetch(uploadUrl, {
@@ -84,8 +97,10 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": contentType,
       },
-      body: Buffer.from(imageArrayBuffer),
+      body: new Uint8Array(imageBuffer),
     });
+
+
 
     if (!uploadRes.ok) {
       const errText = await uploadRes.text();

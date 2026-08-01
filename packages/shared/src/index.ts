@@ -519,4 +519,51 @@ export interface QualityGateResult {
   details?: string;
 }
 
+// ==========================================
+// TECHNICAL DIAGRAM & INFOGRAPHIC TYPES
+// ==========================================
+
+export interface DiagramNode {
+  id: string;
+  label: string;
+  sublabel?: string;
+  icon?: "query" | "data" | "embedding" | "vector" | "vectordb" | "context" | "llm" | "response" | "cache" | "custom";
+  color?: "yellow" | "blue" | "green" | "purple" | "slate";
+}
+
+export interface DiagramColumn {
+  id: string;
+  title: string;
+  subtitle: string;
+  color: "blue" | "green" | "yellow" | "purple";
+  nodes: DiagramNode[];
+  flowConnections?: Array<{ from: string; to: string; label?: string }>;
+}
+
+export interface DiagramSpec {
+  title: string;
+  columns: DiagramColumn[];
+  layoutStyle: "SIDE_BY_SIDE_COMPARISON" | "SINGLE_FLOWCHART" | "SYSTEM_DESIGN";
+  colorPalette: string;
+}
+
+export interface InfographicPreset {
+  id: string;
+  name: string;
+  description: string;
+  diagramSpec: DiagramSpec;
+}
+
+export interface VisualPlanBlueprint {
+  topicConcept: string;
+  visualCategory: "SYSTEM_DESIGN" | "AI_AGENTS" | "REACT_COMPILER" | "DOCKER_K8S" | "CLOUD_INFRA" | "COMPARISON_DIAGRAM";
+  requiredDiagramNodes: string[];
+  colorPalette: string;
+  imagePrompt: string;
+  diagramSpec?: DiagramSpec;
+  renderedSvg?: string;
+}
+
+
+
 

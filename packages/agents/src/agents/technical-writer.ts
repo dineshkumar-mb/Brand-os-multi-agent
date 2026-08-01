@@ -11,32 +11,27 @@ import { aiGateway } from "@brand-os/ai-gateway";
 import { MinedExperienceNarrative } from "./experience-mining";
 import { AudienceContext } from "./audience-research";
 
+import { VisualPlanningAgent } from "./visual-planning";
+
 export interface TechnicalWriterOutput {
   linkedInPost: LinkedInPostPayload;
   devToArticle: DevToArticlePayload;
 }
 
 export class TechnicalWriterAgent {
+  private visualPlanner = new VisualPlanningAgent();
+
   private getDynamicImageUrl(topic: Topic): string {
-    const techTerm = encodeURIComponent(
-      topic.framework || topic.supportingTech?.[0] || topic.category || "software architecture"
-    );
-    const topicHash = Math.abs(
-      (topic.title || "").split("").reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0)
-    );
-    const photoIds = [
-      "photo-1555066931-4365d14bab8c", // Code on screen
-      "photo-1517694712202-14dd9538aa97", // Laptop coding
-      "photo-1526374965328-7f61d4dc18c5", // Matrix cyber data
-      "photo-1451187580459-43490279c0fa", // Network connections
-      "photo-1558494949-ef010cbdcc31", // Server rack datacenter
-      "photo-1504639725590-34d0984388bd", // Cyber security code
-      "photo-1518770660439-4636190af475", // Chip circuit board
-      "photo-1531403009284-440f080d1e12", // System design whiteboard
-    ];
-    const selectedPhotoId = photoIds[topicHash % photoIds.length];
-    return `https://images.unsplash.com/${selectedPhotoId}?w=1200&auto=format&fit=crop&q=80&sig=${topicHash}&term=${techTerm}`;
+    const plan = this.visualPlanner.createVisualPlan(topic);
+    const svg = plan.data.renderedSvg;
+    if (svg) {
+      return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+    }
+    return `data:image/svg+xml;utf8,${encodeURIComponent(
+      `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500"><rect width="800" height="500" fill="#0f172a"/><text x="400" y="250" fill="#38bdf8" font-size="28" font-weight="bold" text-anchor="middle">${topic.title}</text></svg>`
+    )}`;
   }
+
 
   public async generateContent(
     topic: Topic,

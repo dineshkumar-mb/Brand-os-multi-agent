@@ -58,6 +58,8 @@ app.post("/api/v1/gateway/execute", (req, res) => gatewayController.executePromp
 // Agents & Swarm Routes
 app.get("/api/v1/agents/status", (req, res) => agentsController.getStatus(req, res));
 app.post("/api/v1/agents/trigger", (req, res) => agentsController.triggerSwarm(req, res));
+app.post("/api/v1/agents/visual-diagram", (req, res) => agentsController.generateVisualDiagram(req, res));
+
 
 // Trends & Research Routes
 app.get("/api/v1/trends", (req, res) => trendsController.getTrends(req, res));

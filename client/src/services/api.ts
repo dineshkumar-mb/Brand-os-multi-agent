@@ -78,6 +78,14 @@ export class ApiClient {
     });
   }
 
+  public async generateVisualDiagram(topic: string, presetKey?: string) {
+    return this.request("/agents/visual-diagram", {
+      method: "POST",
+      body: JSON.stringify({ topic, presetKey }),
+    });
+  }
+
+
   public async getGatewayLogs() {
     return this.request("/gateway/logs");
   }
