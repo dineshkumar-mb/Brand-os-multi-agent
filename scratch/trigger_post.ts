@@ -25,19 +25,18 @@ async function main() {
     console.log(`🖼️ Attached Diagram Image URL (First 100 chars): ${result.linkedInPost.imageUrl?.substring(0, 100)}...`);
     console.log(`🎯 Decision Gate Status: ${result.decisionGate.decision} (Approved: ${result.decisionGate.approvedForPublishing})`);
 
-    if (result.publishResults && result.publishResults.length > 0) {
-      console.log("\n📢 PUBLISH RESULTS:");
-      for (const pub of result.publishResults) {
-        console.log(`- Platform: ${pub.platform} | Mode: ${pub.mode} | Success: ${pub.success}`);
-        if (pub.url) console.log(`  URL: ${pub.url}`);
-        if (pub.externalId) console.log(`  External Asset/URN: ${pub.externalId}`);
-        if (pub.message) console.log(`  Details: ${pub.message}`);
-      }
+    if (result.publishResult) {
+      console.log("\n📢 PUBLISH RESULT:");
+      console.log(`- Platform: ${result.publishResult.platform} | Mode: ${result.publishResult.mode} | Success: ${result.publishResult.success}`);
+      if (result.publishResult.url) console.log(`  URL: ${result.publishResult.url}`);
+      if (result.publishResult.externalId) console.log(`  External Asset/URN: ${result.publishResult.externalId}`);
+      if (result.publishResult.message) console.log(`  Details: ${result.publishResult.message}`);
     } else {
       console.log("\n📢 Auto-publishing triggered manually directly via Publisher Service...");
       const pubRes = await publisherService.publish(Platform.LINKEDIN, result.linkedInPost);
       console.log("LinkedIn Publishing Result:", pubRes);
     }
+
   } catch (err: any) {
     console.error("❌ Agent Pipeline execution failed:", err);
   }
