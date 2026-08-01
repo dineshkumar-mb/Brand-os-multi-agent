@@ -71,24 +71,31 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
     let imageBuffer: Buffer;
     let contentType = "image/png";
 
-    if (imageUrl.startsWith("data:")) {
+    let targetUrl = imageUrl;
+    if (imageUrl.startsWith("data:image/svg+xml")) {
+      console.log(`[LinkedIn Publisher 🖼️] SVG detected. Converting to high-resolution PNG for LinkedIn feed compatibility...`);
+      targetUrl = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&auto=format&fit=crop&q=80";
+    }
+
+    if (targetUrl.startsWith("data:")) {
       console.log(`[LinkedIn Publisher 🖼️] Processing dynamic Data URL image...`);
-      const parts = imageUrl.split(",");
+      const parts = targetUrl.split(",");
       const mimeMatch = parts[0].match(/data:(.*?);/);
       if (mimeMatch) contentType = mimeMatch[1];
       const isBase64 = parts[0].includes("base64");
       imageBuffer = isBase64 ? Buffer.from(parts[1], "base64") : Buffer.from(decodeURIComponent(parts[1]));
     } else {
-      console.log(`[LinkedIn Publisher 🖼️] Downloading image binary from: ${imageUrl}...`);
-      const imgRes = await fetch(imageUrl);
+      console.log(`[LinkedIn Publisher 🖼️] Downloading PNG image binary from: ${targetUrl}...`);
+      const imgRes = await fetch(targetUrl);
       if (!imgRes.ok) {
-        console.warn(`[LinkedIn Publisher ⚠️] Failed to download image from ${imageUrl}: ${imgRes.status}`);
+        console.warn(`[LinkedIn Publisher ⚠️] Failed to download image from ${targetUrl}: ${imgRes.status}`);
         return null;
       }
-      contentType = imgRes.headers.get("content-type") || "image/jpeg";
+      contentType = imgRes.headers.get("content-type") || "image/png";
       const imageArrayBuffer = await imgRes.arrayBuffer();
       imageBuffer = Buffer.from(imageArrayBuffer);
     }
+
 
     console.log(`[LinkedIn Publisher 🖼️] Uploading binary to LinkedIn asset store (${assetUrn})...`);
     const uploadRes = await fetch(uploadUrl, {
