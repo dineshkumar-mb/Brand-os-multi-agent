@@ -14,11 +14,12 @@ async function processQueue() {
     console.log(`[Worker Service] Hourly Trend Scan completed. Found ${topics.length} high-velocity topics.`);
 
     console.log("[Worker Service] Executing Daily Content Swarm Pipeline...");
-    const result = await agentOrchestrator.executePipeline();
-    console.log("[Worker Service] Daily Content Pipeline completed successfully with score:", result.review.overallScore);
+    const result = await agentOrchestrator.executePipeline({ autoPublish: true });
+    console.log("[Worker Service] Daily Content Pipeline completed & published successfully with score:", result.review.overallScore);
   } catch (err: any) {
     console.error("[Worker Service] Worker execution error:", err.message);
   }
+
 }
 
 // Initial Run
