@@ -120,7 +120,35 @@ Return ONLY a valid JSON object matching:
       linkedInPost.imageUrl = dynamicImageUrl;
     }
 
-    // 2. Generate Dev.to Standalone Technical Article with Mermaid & Runnable Snippets
+    // 2. Generate Dev.to Standalone Technical Article with Dynamic High-Engagement Headlines & Community CTAs
+    const generateDevToTitle = (topicTitle: string): string => {
+      const cleanTitle = topicTitle.replace(/:(.*)$/, "").trim();
+      const titleFormulas = [
+        `🚀 ${cleanTitle}: Performance Gains, Trade-Offs, and Implementation Blueprints`,
+        `Inside ${cleanTitle}: Benchmarks, System Architecture, and Production Edge Cases`,
+        `Why We Scaled ${cleanTitle} in Production (And Lessons Learned)`,
+        `A Software Architect's Deep Dive into ${cleanTitle}`,
+        `Mastering ${cleanTitle}: High-Throughput Patterns & Code Blueprints`,
+      ];
+      const charCodeSum = cleanTitle.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
+      return titleFormulas[charCodeSum % titleFormulas.length];
+    };
+
+    const devToTitle = generateDevToTitle(topic.title);
+
+    const rawKeywords = (topic.keywords && topic.keywords.length > 0)
+      ? topic.keywords
+      : [topic.category || "webdev", "architecture", "systemdesign", "programming"];
+    
+    const devToTags = rawKeywords
+      .map((k) => k.toLowerCase().replace(/[^a-z0-9]/g, ""))
+      .filter((k) => k.length >= 2)
+      .slice(0, 4);
+
+    if (devToTags.length === 0) {
+      devToTags.push("webdev", "architecture", "softwareengineering");
+    }
+
     const codeSnippet = codeSnippetsList[0]?.code || `export const runService = () => { console.log("Service active"); };`;
 
     const mermaidDiagram = `\`\`\`mermaid
@@ -131,14 +159,14 @@ flowchart TD
 \`\`\``;
 
     const devToMarkdown = `---
-title: "${topic.title}: Architecture, Benchmarks, and Lessons Learned"
+title: "${devToTitle}"
 published: true
-tags: ${JSON.stringify((topic.keywords || []).slice(0, 4).map((k) => k.toLowerCase().replace(/[^a-z0-9]/g, "")))}
+tags: ${JSON.stringify(devToTags)}
 canonical_url: "https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}"
 description: "A comprehensive deep dive into ${topic.title} architecture, implementation blueprints, edge cases, and performance benchmarks."
 ---
 
-# ${topic.title}: Architecture, Benchmarks, and Lessons Learned
+# ${devToTitle}
 
 ## Overview & Background
 ${research.summary || topic.title}
@@ -185,13 +213,20 @@ ${codeSnippet}
 ## Conclusion & Next Steps
 ${research.future_outlook || "Clean architecture scales predictably."}
 
-*Next Steps for Software Architects*: Implement structured logging, monitor queue depths, and run automated integration tests.
+---
+
+## 💬 Community Discussion & Feedback
+
+> **What's your team's approach?**
+> How are you handling architecture trade-offs with ${topic.title}? Have you experienced similar performance benchmarks or edge cases in production?
+> 
+> *Drop a comment below with your insights, thoughts, or questions—let's discuss!* 🚀
 `;
 
     const devToArticle: DevToArticlePayload = {
-      title: `${topic.title}: Architecture, Benchmarks, and Lessons Learned`,
+      title: devToTitle,
       published: false,
-      tags: topic.keywords.slice(0, 4).map((k) => k.toLowerCase().replace(/[^a-z0-9]/g, "")),
+      tags: devToTags,
       canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
       description: (research.summary || topic.reason || topic.title).substring(0, 150),
       mainImage: dynamicImageUrl,

@@ -573,9 +573,30 @@ export class MediumPublisherAdapter implements IPublisherAdapter {
   }
 }
 
+const publishedTitlesCache = new Map<string, number>();
+
 export class DevtoPublisherAdapter implements IPublisherAdapter {
   async publishPost(content: any, options?: PublishOptions): Promise<PublishResult> {
     const startTime = Date.now();
+    const titleKey = (content.title || "").trim().toLowerCase();
+    const lastPublishedTime = publishedTitlesCache.get(titleKey);
+    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+    if (titleKey && lastPublishedTime && (Date.now() - lastPublishedTime) < TWENTY_FOUR_HOURS) {
+      console.warn(`[Dev.to Publisher ⚠️] Duplicate post blocked for title: "${content.title}". Already published within 24 hours.`);
+      return {
+        success: true,
+        platform: Platform.DEVTO,
+        externalId: `dup_blocked_${Date.now()}`,
+        url: `https://dev.to/dashboard`,
+        publishedAt: new Date().toISOString(),
+        mode: "SIMULATION",
+        retries: 0,
+        latencyMs: 0,
+        message: `Duplicate post blocked by Publisher Agent guard: Title "${content.title}" was already published recently.`,
+      };
+    }
+
     const envModeRaw = process.env.PUBLISH_MODE?.toUpperCase();
     const requestedMode: PublishMode =
       options?.mode ||
