@@ -330,7 +330,7 @@ export class AgentOrchestrator {
     let revisionCount = 0;
 
     let techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, pipelineId);
-    let originality = this.originalityAgent.evaluateOriginality(linkedInPost, pipelineId);
+    let originality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
 
     while ((!techReview.data.passed || !originality.data.passed) && revisionCount < maxRevisions) {
       revisionCount++;
@@ -358,7 +358,7 @@ export class AgentOrchestrator {
       linkedInPost = this.humanizationAgent.sanitize(linkedInPost, devToArticle, pipelineId).data.post;
 
       techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, pipelineId);
-      originality = this.originalityAgent.evaluateOriginality(linkedInPost, pipelineId);
+      originality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
     }
 
     if (linkedInPost.fullText.trim().length <= 100) {

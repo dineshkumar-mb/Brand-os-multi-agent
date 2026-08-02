@@ -4,6 +4,7 @@ import {
   OriginalityCheckResult,
   HistoricalPostRecord,
   LinkedInPostPayload,
+  DevToArticlePayload,
 } from "@brand-os/shared";
 
 export class OriginalityAgent {
@@ -71,6 +72,7 @@ export class OriginalityAgent {
 
   public evaluateOriginality(
     post: LinkedInPostPayload,
+    devToArticle?: DevToArticlePayload,
     pipelineId?: string
   ): AgentResult<OriginalityCheckResult> {
     const startTime = Date.now();
@@ -99,9 +101,21 @@ export class OriginalityAgent {
       const fullTextSim = this.jaccardSimilarity(post.fullText, pastPost.fullText);
       const semanticSim = this.semanticCosineSimilarity(post.fullText, pastPost.fullText);
 
-      // Hybrid similarity: 50% Lexical Jaccard + 50% Semantic Vector Cosine
+      // Hybrid similarity for LinkedIn
       const combinedFullTextSim = fullTextSim * 0.5 + semanticSim * 0.5;
-      const overallSim = titleSim * 0.25 + hookSim * 0.25 + ctaSim * 0.15 + combinedFullTextSim * 0.35;
+      let overallSim = titleSim * 0.25 + hookSim * 0.25 + ctaSim * 0.15 + combinedFullTextSim * 0.35;
+
+      // Also evaluate DEV.to article title & markdown content uniqueness if present
+      if (devToArticle) {
+        const devTitleSim = this.jaccardSimilarity(devToArticle.title, pastPost.title);
+        const devBodySim = devToArticle.markdownContent
+          ? this.semanticCosineSimilarity(devToArticle.markdownContent, pastPost.fullText)
+          : 0;
+
+        if (devTitleSim > 0.45 || devBodySim > 0.4) {
+          overallSim = Math.max(overallSim, devTitleSim * 0.5 + devBodySim * 0.5);
+        }
+      }
 
       if (overallSim > maxOverallSim) {
         maxOverallSim = overallSim;
