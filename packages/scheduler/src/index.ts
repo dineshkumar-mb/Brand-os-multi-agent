@@ -1,3 +1,5 @@
+declare const process: any;
+
 export interface ScheduledTask {
   id: string;
   name: string;
@@ -9,6 +11,13 @@ export interface ScheduledTask {
 
 export class TaskScheduler {
   private tasks: ScheduledTask[] = [
+    {
+      id: "cron_0",
+      name: "Global AI Intelligence Multi-Source Scan",
+      cronExpression: process.env.INTELLIGENCE_SCAN_CRON || "0 * * * *",
+      nextRun: new Date(Date.now() + 3600000).toISOString(),
+      status: "ACTIVE",
+    },
     {
       id: "cron_1",
       name: "Hourly Trend Scan",

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@brand-os/shared": "workspace:*",
+    "@brand-os/intelligence": "workspace:*",
     "@brand-os/database": "workspace:*",
     "@brand-os/ai-gateway": "workspace:*",
     "@brand-os/mcp-client": "workspace:*",

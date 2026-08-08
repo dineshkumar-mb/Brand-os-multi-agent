@@ -53,6 +53,25 @@ export class ApiClient {
     return this.request("/trends");
   }
 
+  public async getIntelligenceDashboard() {
+    return this.request("/intelligence/dashboard");
+  }
+
+  public async triggerIntelligenceScan(mode = "ON_DEMAND") {
+    return this.request("/intelligence/scan", {
+      method: "POST",
+      body: JSON.stringify({ mode }),
+    });
+  }
+
+  public async getLLMProviders() {
+    return this.request("/intelligence/providers");
+  }
+
+  public async getSourceHealth() {
+    return this.request("/intelligence/sources");
+  }
+
   public async triggerTrendScan() {
     return this.request("/trends/scan", { method: "POST" });
   }

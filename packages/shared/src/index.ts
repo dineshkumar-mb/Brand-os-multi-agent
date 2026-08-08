@@ -564,6 +564,146 @@ export interface VisualPlanBlueprint {
   renderedSvg?: string;
 }
 
+// ==========================================
+// GLOBAL AI INTELLIGENCE LAYER CONTRACTS
+// ==========================================
+
+export enum SourceAuthorityLevel {
+  LEVEL_1_PRIMARY = 1,     // Official docs, API refs, release posts, official repos, official blogs
+  LEVEL_2_TECHNICAL = 2,   // Research papers, maintainer discussions, benchmarks, engineering blogs
+  LEVEL_3_COMMUNITY = 3,   // Hacker News, Reddit, Dev.to, GitHub discussions
+  LEVEL_4_DISCOVERY = 4,   // Social media, aggregators, third-party blogs
+}
+
+export type SourceCategory =
+  | "OFFICIAL_LAB"
+  | "MODEL_HUB"
+  | "OPEN_SOURCE"
+  | "COMMUNITY"
+  | "RESEARCH"
+  | "DEVELOPER_PLATFORM";
+
+export interface IntelligenceSource {
+  id: string;
+  name: string;
+  category: SourceCategory;
+  authority: SourceAuthorityLevel;
+  endpoint?: string;
+  rss?: string;
+  api?: string;
+  scraper?: string;
+  enabled: boolean;
+  pollingIntervalMinutes: number;
+  capabilities: string[];
+  healthStatus: "GREEN" | "YELLOW" | "RED";
+  lastVerifiedAt?: string;
+  errorCount: number;
+}
+
+export interface LLMProviderInfo {
+  provider: string;
+  model: string;
+  releaseDate: string;
+  contextWindow: number;
+  inputPricingPer1M: number;
+  outputPricingPer1M: number;
+  modalities: string[];
+  reasoning: boolean;
+  toolCalling: boolean;
+  structuredOutput: boolean;
+  vision: boolean;
+  audio: boolean;
+  codingScore: number; // 0 - 100 benchmark score
+  availability: "PUBLIC_API" | "OPEN_WEIGHTS" | "LOCAL_ONLY" | "PREVIEW";
+  status: "ACTIVE" | "DEPRECATED" | "BETA";
+  officialSource: string;
+  lastVerified: string;
+}
+
+export interface WhyCareContext {
+  whatHappened: string;
+  whyItMatters: string;
+  whoIsAffected: string;
+  whatChangedTechnically: string;
+  whatCanDevelopersBuild: string;
+  isProductionReady: boolean;
+  isWorthLearning: boolean;
+  careerRelevanceExplanation: string;
+  personalBuildConnection: string;
+}
+
+export interface ExperienceEvidence {
+  experienceId: string;
+  title: string;
+  relevanceScore: number;
+  overlapDescription: string;
+  technologiesUsed: string[];
+}
+
+export interface AudiencePersona {
+  role: string;
+  relevanceReason: string;
+}
+
+export type ContentAngle =
+  | "ANNOUNCEMENT"
+  | "ARCHITECTURE_ANALYSIS"
+  | "DEVELOPER_IMPACT"
+  | "PRODUCTION_TRADEOFF"
+  | "PERFORMANCE_COMPARISON"
+  | "IMPLEMENTATION_TUTORIAL"
+  | "MIGRATION_GUIDE"
+  | "COST_ANALYSIS"
+  | "SECURITY_IMPLICATIONS"
+  | "PERSONAL_EXPERIMENT";
+
+export interface EvidenceProvenance {
+  sourceId: string;
+  sourceName: string;
+  sourceType: string;
+  url?: string;
+  retrievedAt: string;
+  authorityLevel: SourceAuthorityLevel;
+  claimVerified: boolean;
+  citationText: string;
+}
+
+export interface ContentOpportunity {
+  id: string;
+  canonicalEventId: string;
+  topic: string;
+  summary: string;
+  careerRelevanceScore: number;
+  personalExperienceMatch: number;
+  technicalImportanceScore: number;
+  sourceAuthorityScore: number;
+  originalityOpportunityScore: number;
+  trendVelocityScore: number;
+  contentGapScore: number;
+  developerAdoptionScore: number;
+  overallScore: number;
+  whyCare: WhyCareContext;
+  experienceEvidence: ExperienceEvidence[];
+  recommendedAngle: ContentAngle;
+  targetAudience: AudiencePersona[];
+  targetPlatforms: Platform[];
+  evidence: EvidenceProvenance[];
+  status: "CANDIDATE" | "APPROVED" | "REJECTED" | "EXPIRED" | "PUBLISHED";
+  rejectionReason?: string;
+  expiresAt: string;
+}
+
+export type ScanTriggerMode = "MANUAL" | "SCHEDULED" | "ON_DEMAND" | "EVENT_TRIGGERED";
+
+export interface SourceHealthSummary {
+  totalSources: number;
+  healthyGreen: number;
+  degradedYellow: number;
+  failedRed: number;
+  sources: IntelligenceSource[];
+}
+
+
 
 
 

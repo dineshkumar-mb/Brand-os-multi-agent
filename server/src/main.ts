@@ -61,6 +61,14 @@ app.post("/api/v1/agents/trigger", (req, res) => agentsController.triggerSwarm(r
 app.post("/api/v1/agents/visual-diagram", (req, res) => agentsController.generateVisualDiagram(req, res));
 
 
+import { intelligenceController } from "./controllers/intelligence.controller";
+
+// Global AI Intelligence Layer Routes
+app.get("/api/v1/intelligence/dashboard", (req, res) => intelligenceController.getDashboard(req, res));
+app.post("/api/v1/intelligence/scan", (req, res) => intelligenceController.triggerScan(req, res));
+app.get("/api/v1/intelligence/providers", (req, res) => intelligenceController.getLLMProviders(req, res));
+app.get("/api/v1/intelligence/sources", (req, res) => intelligenceController.getSourceHealth(req, res));
+
 // Trends & Research Routes
 app.get("/api/v1/trends", (req, res) => trendsController.getTrends(req, res));
 app.post("/api/v1/trends/scan", (req, res) => trendsController.scanTrends(req, res));

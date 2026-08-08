@@ -455,3 +455,107 @@ model PipelineExecution {
   @@map("pipeline_executions")
 }
 
+model LLMProviderRecord {
+  id                  String   @id @default(uuid())
+  provider            String
+  model               String   @unique
+  releaseDate         String
+  contextWindow       Int
+  inputPricingPer1M   Float
+  outputPricingPer1M  Float
+  modalities          String[]
+  reasoning           Boolean  @default(false)
+  toolCalling         Boolean  @default(false)
+  structuredOutput    Boolean  @default(false)
+  vision              Boolean  @default(false)
+  audio               Boolean  @default(false)
+  codingScore         Float    @default(0.0)
+  availability        String   @default("PUBLIC_API")
+  status              String   @default("ACTIVE")
+  officialSource      String
+  lastVerified        DateTime @default(now())
+
+  @@map("llm_provider_records")
+}
+
+model ContentOpportunityRecord {
+  id                             String   @id @default(uuid())
+  canonicalEventId               String
+  topic                          String
+  summary                        String   @db.Text
+  careerRelevanceScore           Float
+  personalExperienceMatch       Float
+  technicalImportanceScore       Float
+  sourceAuthorityScore           Float
+  originalityOpportunityScore   Float
+  trendVelocityScore             Float
+  contentGapScore                Float
+  developerAdoptionScore         Float
+  overallScore                   Float
+  whyCarePayload                 Json
+  experienceEvidencePayload       Json
+  recommendedAngle               String
+  targetAudiencePayload          Json
+  targetPlatforms                String[]
+  evidencePayload                Json
+  status                         String   @default("CANDIDATE")
+  rejectionReason                String?
+  expiresAt                      DateTime
+  createdAt                      DateTime @default(now())
+  updatedAt                      DateTime @updatedAt
+
+  @@map("content_opportunity_records")
+}
+
+model IntelligenceSourceConfigRecord {
+  id                     String   @id @default(uuid())
+  sourceId               String   @unique
+  name                   String
+  category               String
+  authorityLevel         Int
+  endpoint               String?
+  rss                    String?
+  api                    String?
+  enabled                Boolean  @default(true)
+  pollingIntervalMinutes Int      @default(60)
+  healthStatus           String   @default("GREEN")
+  errorCount             Int      @default(0)
+  lastVerifiedAt         DateTime @default(now())
+
+  @@map("intelligence_source_configs")
+}
+
+model CanonicalEventRecord {
+  id               String   @id @default(uuid())
+  eventId          String   @unique
+  title            String
+  summary          String   @db.Text
+  primarySourceUrl String?
+  authorityLevel   Int      @default(1)
+  confidenceScore  Float    @default(0.0)
+  trendVelocity    Float    @default(0.0)
+  sourcesPayload   Json     @default("[]")
+  claimsPayload    Json     @default("[]")
+  firstSeenAt      DateTime @default(now())
+  lastUpdatedAt    DateTime @updatedAt
+
+  @@map("canonical_events")
+}
+
+model EvidenceProvenanceRecord {
+  id             String   @id @default(uuid())
+  postId         String?
+  opportunityId  String?
+  sourceId       String
+  sourceName     String
+  sourceType     String
+  url            String?
+  authorityLevel Int
+  claimVerified  Boolean  @default(true)
+  citationText   String   @db.Text
+  createdAt      DateTime @default(now())
+
+  @@map("evidence_provenance_records")
+}
+
+

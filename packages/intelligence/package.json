@@ -1,24 +1,23 @@
 {
-  "name": "@brand-os/agents",
+  "name": "@brand-os/intelligence",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@brand-os/shared": "workspace:*",
-    "@brand-os/intelligence": "workspace:*",
     "@brand-os/ai-gateway": "workspace:*",
     "@brand-os/mcp-client": "workspace:*",
     "@brand-os/database": "workspace:*",
-    "@brand-os/publisher": "workspace:*",
-    "@brand-os/analytics": "workspace:*",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
   }
 }
