@@ -1,0 +1,165 @@
+[
+  {
+    "id": "urn:li:share:7493324218508435456",
+    "title": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure",
+    "framework": "NVIDIA NIM",
+    "supportingTech": [
+      "TypeScript"
+    ],
+    "keywords": [
+      "AI",
+      "Engineering"
+    ],
+    "hook": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
+    "fullText": "Today I refactored our AI Infrastructure pipeline for NVIDIA NIM. The unexpected part was how much cleaner error boundaries became. 1️⃣ Observation:\nWhile working on our AI Infrastructure infrastructure, High concurrency caused state drift and tight coupling between background worker tasks. We evaluated our options and chose Decoupled state management into strict event-driven boundaries with standardized schema validation.. 2️⃣ Problem & Production Bottleneck:\nUnchecked state drift and unhandled edge cases degrade reliability at scale. 3️⃣ Engineering Decision:\nDecoupled state management into strict event-driven boundaries with standardized schema validation. 4️⃣ Key Trade-offs to Consider:\n• Architectural setup overhead vs zero runtime bugs.\n• High concurrency throughput vs strict telemetry dependencies. 5️⃣ Engineering Takeaways & Results:\n⚡ 1. NVIDIA NIM eliminates state coupling across distributed nodes.\n⚡ 2. Explicit schema validation prevents runtime errors and state corruption.\n⚡ 3. Exponential backoff and dead-letter queues recover from transient upstream failures. 6️⃣ Discussion:\nHow is your engineering team approaching NVIDIA NIM in production? Let's discuss trade-offs in the comments. #SoftwareEngineering #SystemDesign #AIEngineering #DeveloperTools",
+    "publishedAt": "2026-08-12T15:15:14.774Z",
+    "engagementMetrics": {
+      "impressions": 208,
+      "reactions": 38,
+      "comments": 2,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:7493324189920235520",
+    "title": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening",
+    "platform": "LINKEDIN",
+    "category": "DevOps & Cloud Infrastructure",
+    "framework": "Docker Buildx",
+    "supportingTech": [
+      "TypeScript"
+    ],
+    "keywords": [
+      "AI",
+      "Engineering"
+    ],
+    "hook": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening",
+    "fullText": "The implementation passed all local unit tests. Production exposed a bottleneck in state synchronization. 1️⃣ Observation:\nWhile working on our DevOps & Cloud Infrastructure infrastructure, High concurrency caused state drift and tight coupling between background worker tasks. We evaluated our options and chose Decoupled state management into strict event-driven boundaries with standardized schema validation.. 2️⃣ Problem & Production Bottleneck:\nUnchecked state drift and unhandled edge cases degrade reliability at scale. 3️⃣ Engineering Decision:\nDecoupled state management into strict event-driven boundaries with standardized schema validation. 4️⃣ Key Trade-offs to Consider:\n• Architectural setup overhead vs zero runtime bugs.\n• High concurrency throughput vs strict telemetry dependencies. 5️⃣ Engineering Takeaways & Results:\n⚡ 1. Docker Buildx eliminates state coupling across distributed nodes.\n⚡ 2. Explicit schema validation prevents runtime errors and state corruption.\n⚡ 3. Exponential backoff and dead-letter queues recover from transient upstream failures. 6️⃣ Discussion:\nHow is your engineering team approaching Docker Buildx in production? Let's discuss trade-offs in the comments. #SoftwareEngineering #SystemDesign #AIEngineering #DeveloperTools",
+    "publishedAt": "2026-08-12T15:15:07.824Z",
+    "engagementMetrics": {
+      "impressions": 192,
+      "reactions": 27,
+      "comments": 3,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 10,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:7493321269095010306",
+    "title": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+    "platform": "LINKEDIN",
+    "category": "System Performance & Databases",
+    "framework": "ClickHouse SQL",
+    "supportingTech": [
+      "TypeScript"
+    ],
+    "keywords": [
+      "AI",
+      "Engineering"
+    ],
+    "hook": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+    "fullText": "We expected ClickHouse SQL to simplify our data flow. Instead, production load exposed a subtle concurrency edge case. 1️⃣ Observation:\nWhile working on our System Performance & Databases infrastructure, High concurrency caused state drift and tight coupling between background worker tasks. We evaluated our options and chose Decoupled state management into strict event-driven boundaries with standardized schema validation.. 2️⃣ Problem & Production Bottleneck:\nUnchecked state drift and unhandled edge cases degrade reliability at scale. 3️⃣ Engineering Decision:\nDecoupled state management into strict event-driven boundaries with standardized schema validation. 4️⃣ Key Trade-offs to Consider:\n• Architectural setup overhead vs zero runtime bugs.\n• High concurrency throughput vs strict telemetry dependencies. 5️⃣ Engineering Takeaways & Results:\n⚡ 1. ClickHouse SQL eliminates state coupling across distributed nodes.\n⚡ 2. Explicit schema validation prevents runtime errors and state corruption.\n⚡ 3. Exponential backoff and dead-letter queues recover from transient upstream failures. 6️⃣ Discussion:\nHow is your engineering team approaching ClickHouse SQL in production? Let's discuss trade-offs in the comments. #SoftwareEngineering #SystemDesign #AIEngineering #DeveloperTools",
+    "publishedAt": "2026-08-12T15:03:31.084Z",
+    "engagementMetrics": {
+      "impressions": 244,
+      "reactions": 32,
+      "comments": 2,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 10,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:7493321241278451712",
+    "title": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+    "platform": "LINKEDIN",
+    "category": "AI Model Benchmarks",
+    "framework": "DeepSeek-R1",
+    "supportingTech": [
+      "TypeScript"
+    ],
+    "keywords": [
+      "AI",
+      "Engineering"
+    ],
+    "hook": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+    "fullText": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training was released recently. Beyond the initial benchmarks, here is what changes for software engineers. 1️⃣ Observation:\nWhile working on our AI Model Benchmarks infrastructure, High concurrency caused state drift and tight coupling between background worker tasks. We evaluated our options and chose Decoupled state management into strict event-driven boundaries with standardized schema validation.. 2️⃣ Problem & Production Bottleneck:\nUnchecked state drift and unhandled edge cases degrade reliability at scale. 3️⃣ Engineering Decision:\nDecoupled state management into strict event-driven boundaries with standardized schema validation. 4️⃣ Key Trade-offs to Consider:\n• Architectural setup overhead vs zero runtime bugs.\n• High concurrency throughput vs strict telemetry dependencies. 5️⃣ Engineering Takeaways & Results:\n⚡ 1. DeepSeek-R1 eliminates state coupling across distributed nodes.\n⚡ 2. Explicit schema validation prevents runtime errors and state corruption.\n⚡ 3. Exponential backoff and dead-letter queues recover from transient upstream failures. 6️⃣ Discussion:\nHow is your engineering team approaching DeepSeek-R1 in production? Let's discuss trade-offs in the comments. #SoftwareEngineering #SystemDesign #AIEngineering #DeveloperTools",
+    "publishedAt": "2026-08-12T15:03:24.677Z",
+    "engagementMetrics": {
+      "impressions": 187,
+      "reactions": 26,
+      "comments": 4,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:7486750714623414272",
+    "title": "Building an Autonomous Multi-Agent Personal Brand OS",
+    "platform": "LINKEDIN",
+    "category": "Agentic AI",
+    "framework": "MCP",
+    "supportingTech": [
+      "TypeScript",
+      "Node.js",
+      "Redis"
+    ],
+    "keywords": [
+      "Multi-Agent",
+      "MCP",
+      "AI OS",
+      "TypeScript"
+    ],
+    "hook": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.",
+    "fullText": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.\n\nWe refactored our pipeline to use decoupled event-driven architecture.\n\nKey Engineering Takeaways:\n⚡ 1. Standardize JSON-RPC tool schemas.\n⚡ 2. Enforce strict Decision Gate verification before publishing.\n\nHow is your team handling agent state drift?",
+    "publishedAt": "2026-08-07T15:03:17.293Z",
+    "engagementMetrics": {
+      "impressions": 342,
+      "reactions": 42,
+      "comments": 12,
+      "shares": 6,
+      "saves": 4,
+      "profileVisits": 18,
+      "followersGained": 12
+    }
+  },
+  {
+    "id": "urn:li:share:7486717437455900672",
+    "title": "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+    "platform": "LINKEDIN",
+    "category": "React",
+    "framework": "React 19",
+    "supportingTech": [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS"
+    ],
+    "keywords": [
+      "React 19",
+      "Compiler",
+      "Server Actions"
+    ],
+    "hook": "Stop writing repetitive form mutations in React. React 19 server actions change everything.",
+    "fullText": "Stop writing repetitive form mutations in React. React 19 server actions change everything.\n\nWe refactored 40+ forms into zero-boilerplate async server mutations.\n\nKey Takeaways:\n⚡ 1. Zero client-side JS overhead for form hooks.\n⚡ 2. Automatic optimistic updates.\n\nWhat has been your experience with React 19 in production?",
+    "publishedAt": "2026-08-06T15:03:17.293Z",
+    "engagementMetrics": {
+      "impressions": 512,
+      "reactions": 64,
+      "comments": 18,
+      "shares": 9,
+      "saves": 8,
+      "profileVisits": 20,
+      "followersGained": 15
+    }
+  }
+]

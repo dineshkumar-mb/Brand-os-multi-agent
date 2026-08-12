@@ -1,111 +1,97 @@
 import { HistoricalPostRecord, Platform } from "@brand-os/shared";
 
-declare const process: { env: Record<string, string | undefined> };
+declare const process: any;
+declare const require: any;
 
-export interface DashboardSummary {
-  kpis: {
-    totalViews: number;
-    totalLikes: number;
-    totalComments: number;
-    totalShares: number;
-    avgCTR: number;
-    followersGained: number;
-    totalPostsPublished: number;
-    profileViewers: number;
-    searchAppearances: number;
-    impressionsChangePercent: string;
-    followersChangePercent: string;
-    profileViewersChangePercent: string;
-    searchAppearancesChangePercent: string;
-    weeklyPosts: number;
-    weeklyComments: number;
-  };
-  totalViews: number;
-  totalLikes: number;
-  totalComments: number;
-  totalShares: number;
-  avgCTR: number;
-  followersGained: number;
-  topPerformingHooks: string[];
-  lowestPerformingTopics: string[];
-  learningRecommendations: string[];
-}
+const fs = require("fs");
+const path = require("path");
 
-export interface LinkedInProfileData {
-  id: string;
-  name: string;
-  headline: string;
-  vanityName?: string;
-  profilePictureUrl?: string;
-  followersCount: number;
-  connectionsCount: number;
-  totalPostsCount: number;
-  profileViewers90Days: number;
-  searchAppearancesWeek: number;
-  isRealApiData: boolean;
-}
+const POST_HISTORY_FILE = path.resolve(process.cwd(), "post_history.json");
 
-export interface TimeSeriesDataPoint {
-  name: string;
-  date: string;
-  views: number;
-  likes: number;
-  comments: number;
-  shares: number;
-  ctr: number;
-}
+const SEED_HISTORY: HistoricalPostRecord[] = [
+  {
+    id: "urn:li:share:7486750714623414272",
+    title: "Building an Autonomous Multi-Agent Personal Brand OS",
+    platform: Platform.LINKEDIN,
+    category: "Agentic AI",
+    framework: "MCP",
+    supportingTech: ["TypeScript", "Node.js", "Redis"],
+    keywords: ["Multi-Agent", "MCP", "AI OS", "TypeScript"],
+    hook: "Building production multi-agent swarms taught our team a hard lesson about state boundaries.",
+    fullText: "Building production multi-agent swarms taught our team a hard lesson about state boundaries.\n\nWe refactored our pipeline to use decoupled event-driven architecture.\n\nKey Engineering Takeaways:\n⚡ 1. Standardize JSON-RPC tool schemas.\n⚡ 2. Enforce strict Decision Gate verification before publishing.\n\nHow is your team handling agent state drift?",
+    publishedAt: new Date(Date.now() - 5 * 86400000).toISOString(),
+    engagementMetrics: {
+      impressions: 342,
+      reactions: 42,
+      comments: 12,
+      shares: 6,
+      saves: 4,
+      profileVisits: 18,
+      followersGained: 12,
+    },
+  },
+  {
+    id: "urn:li:share:7486717437455900672",
+    title: "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+    platform: Platform.LINKEDIN,
+    category: "React",
+    framework: "React 19",
+    supportingTech: ["Next.js", "TypeScript", "TailwindCSS"],
+    keywords: ["React 19", "Compiler", "Server Actions"],
+    hook: "Stop writing repetitive form mutations in React. React 19 server actions change everything.",
+    fullText: "Stop writing repetitive form mutations in React. React 19 server actions change everything.\n\nWe refactored 40+ forms into zero-boilerplate async server mutations.\n\nKey Takeaways:\n⚡ 1. Zero client-side JS overhead for form hooks.\n⚡ 2. Automatic optimistic updates.\n\nWhat has been your experience with React 19 in production?",
+    publishedAt: new Date(Date.now() - 6 * 86400000).toISOString(),
+    engagementMetrics: {
+      impressions: 512,
+      reactions: 64,
+      comments: 18,
+      shares: 9,
+      saves: 8,
+      profileVisits: 20,
+      followersGained: 15,
+    },
+  },
+];
 
 export class PostHistoryTracker {
-  private history: HistoricalPostRecord[] = [
-    {
-      id: "urn:li:share:7486750714623414272",
-      title: "Building an Autonomous Multi-Agent Personal Brand OS",
-      platform: Platform.LINKEDIN,
-      category: "Agentic AI",
-      framework: "MCP",
-      supportingTech: ["TypeScript", "Node.js", "Redis"],
-      keywords: ["Multi-Agent", "MCP", "AI OS", "TypeScript"],
-      hook: "Building production multi-agent swarms taught our team a hard lesson about state boundaries.",
-      fullText: "Building production multi-agent swarms taught our team a hard lesson about state boundaries.\n\nWe refactored our pipeline to use decoupled event-driven architecture.\n\nKey Engineering Takeaways:\n⚡ 1. Standardize JSON-RPC tool schemas.\n⚡ 2. Enforce strict Decision Gate verification before publishing.\n\nHow is your team handling agent state drift?",
-      publishedAt: new Date().toISOString(),
-      engagementMetrics: {
-        impressions: 342,
-        reactions: 42,
-        comments: 12,
-        shares: 6,
-        saves: 4,
-        profileVisits: 18,
-        followersGained: 12,
-      },
-    },
-    {
-      id: "urn:li:share:7486717437455900672",
-      title: "React 19 Actions & Compiler Optimization in Enterprise SaaS",
-      platform: Platform.LINKEDIN,
-      category: "React",
-      framework: "React 19",
-      supportingTech: ["Next.js", "TypeScript", "TailwindCSS"],
-      keywords: ["React 19", "Compiler", "Server Actions"],
-      hook: "Stop writing repetitive form mutations in React. React 19 server actions change everything.",
-      fullText: "Stop writing repetitive form mutations in React. React 19 server actions change everything.\n\nWe refactored 40+ forms into zero-boilerplate async server mutations.\n\nKey Takeaways:\n⚡ 1. Zero client-side JS overhead for form hooks.\n⚡ 2. Automatic optimistic updates.\n\nWhat has been your experience with React 19 in production?",
-      publishedAt: new Date(Date.now() - 86400000).toISOString(),
-      engagementMetrics: {
-        impressions: 512,
-        reactions: 64,
-        comments: 18,
-        shares: 9,
-        saves: 8,
-        profileVisits: 20,
-        followersGained: 15,
-      },
-    },
-  ];
+  private history: HistoricalPostRecord[] = [];
+
+  constructor() {
+    this.loadHistory();
+  }
+
+  private loadHistory() {
+    try {
+      if (fs.existsSync(POST_HISTORY_FILE)) {
+        const raw = fs.readFileSync(POST_HISTORY_FILE, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          this.history = parsed;
+          return;
+        }
+      }
+    } catch (err: any) {
+      console.warn("[PostHistoryTracker] Failed to load history from disk, using seed history:", err.message);
+    }
+    this.history = [...SEED_HISTORY];
+    this.saveHistory();
+  }
+
+  private saveHistory() {
+    try {
+      fs.writeFileSync(POST_HISTORY_FILE, JSON.stringify(this.history, null, 2), "utf-8");
+    } catch (err: any) {
+      console.warn("[PostHistoryTracker] Failed to save history to disk:", err.message);
+    }
+  }
 
   public getHistory(): HistoricalPostRecord[] {
+    this.loadHistory();
     return this.history;
   }
 
   public addPublishedPost(record: Partial<HistoricalPostRecord> & { title: string; fullText: string }) {
+    this.loadHistory();
     const newRecord: HistoricalPostRecord = {
       id: record.id || `post_${Date.now()}`,
       title: record.title,
@@ -128,6 +114,7 @@ export class PostHistoryTracker {
       },
     };
     this.history.unshift(newRecord);
+    this.saveHistory();
   }
 }
 

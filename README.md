@@ -1,42 +1,131 @@
 # Personal Brand OS
 
-> **Autonomous Multi-Agent AI Platform for Daily Technical Content Intelligence, Dynamic Architecture Visuals & Selective Personal Brand Automation (LinkedIn + Dev.to)**
+> **Autonomous Multi-Agent AI Platform for Daily Technical Content Intelligence, Live GitHub Trending & Official LLM Provider Monitoring, Dynamic Architecture Visuals & Selective Personal Brand Automation (LinkedIn + Dev.to)**
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel)](https://brand-os-multi-agent.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![React 19](https://img.shields.io/badge/React-19.0-cyan?style=for-the-badge&logo=react)](https://react.dev/)
+[![Live Intelligence](https://img.shields.io/badge/Intelligence-Live%20APIs-brightgreen?style=for-the-badge&logo=rss)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
 
-Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers verified technical topics across official AI labs (OpenAI, Anthropic, DeepSeek, Google), open-source GitHub repositories, developer tools, and engineering forums. 
-
-The platform applies **exponential time decay**, **multi-dimensional saturation filtering**, **normalized scoring**, **authentic humanization filters**, and **dynamic SVG architecture diagram generation** to output non-repetitive, high-authority LinkedIn posts and Dev.to technical articles every day.
+Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies **multi-layer trending safeguards** to guarantee only genuinely trending, non-repetitive content ever reaches publication.
 
 ---
 
 ## 🚀 Key Features & Architectural Capabilities
 
-### 1. 🧠 Daily Content Intelligence & Topic Diversity Engine
-- **Multi-Source Signal Scanner**: Discovers 20–50 candidate topics daily across Official AI Labs, Open Source Repositories, Developer Platforms, and Community Engineering Discussions.
-- **Normalized Configurable Scoring Formula**:
-  $$\text{FinalScore} = 0.18 \times \text{Freshness} + 0.15 \times \text{Velocity} + 0.14 \times \text{TechnicalImportance} + 0.14 \times \text{CareerRelevance} + 0.10 \times \text{PersonalExperience} + 0.10 \times \text{ContentGap} + 0.08 \times \text{Originality} + 0.06 \times \text{AudienceInterest} + 0.05 \times \text{SourceAuthority}$$
-- **Exponential Time Decay**: Penalizes recently published topics ($0\text{d} \rightarrow 100$, $1\text{d} \rightarrow 95$, $2\text{d} \rightarrow 90$, $3\text{d} \rightarrow 80$, $4\text{d} \rightarrow 65$, $5\text{d} \rightarrow 50$, $7\text{d} \rightarrow 30$, $14+\text{d} \rightarrow 0$).
-- **Multi-Dimensional Saturation**: Tracks Topic, Technology, Category, Narrative, and Visual saturation to eliminate topic loops (e.g. repeated Redis/MCP posts).
-- **7-Day Category Portfolio Balancing**: Applies $0.80$ portfolio penalty if the category was published within the past 48h.
-- **Breaking News Override**: Bypasses decay ONLY when verified by a Level 1 primary source, $<24\text{h}$ old, with high velocity ($>8.5$).
-- **Autonomous `NO_POST_TODAY` Safe Exit**: Exits cleanly when no topic meets quality standards without manufacturing generic AI filler content.
+### 1. 🌐 Live Intelligence Feed Engine (Real-Time, No Static Data)
 
-### 2. 🤖 Human Tone & Anti-AI Cliché Sanitization
-- **35+ AI Cliché Regex Filters**: Automatically strips out AI buzzwords like *"in today's fast-paced world"*, *"let's dive in"*, *"game-changing"*, *"harness the power"*, *"paradigm shift"*, *"rich tapestry"*, *"synergy"*, and *"supercharge"*.
-- **Authentic Engineering Narrative Attribution**: Clear labeling distinguishing *"Direct Production Build Experience"* vs *"Technical Research & Benchmarking"*.
-- **8 Rotated Narrative Structures**: Automatically cycles narrative angles (`ENGINEERING_DISCOVERY`, `UNEXPECTED_PROBLEM`, `TECHNICAL_TRADEOFF`, `PRODUCTION_FAILURE`, `CONTRARIAN_OBSERVATION`, `NEW_TECHNOLOGY_ANALYSIS`, `BUILD_IN_PUBLIC`, `ARCHITECTURE_LESSON`).
+Every pipeline run fetches **live data** from seven concurrent source categories:
 
-### 3. 🎨 Dynamic Context-Aware Architecture Visuals
-- **Topic-Tailored SVG Diagrams**: Generates dynamic vector flow diagrams matching topic domain (DeepSeek RL Pipelines, TypeScript 5.7 Compiler AST, Docker Buildx Hardening, ClickHouse Columnar Analytics, eBPF Zero-Trust Security).
-- **Visual Concept History Tracking**: Remembers past diagram structures to prevent visual repetition across consecutive days.
-- **Semantic Text-Visual Alignment Gate ($\ge 80\%$)**: Verifies diagram node labels against article keywords before publishing.
+| Source | Feed | Authority |
+|:---|:---|:---|
+| **GitHub Trending** | [`ghapi.huchen.dev`](https://ghapi.huchen.dev) daily repos → GitHub Search API fallback | 🔴 LEVEL_1_PRIMARY |
+| **OpenAI** | `openai.com/blog/rss/` | 🔴 LEVEL_1_PRIMARY |
+| **Google AI** | `blog.google/technology/ai/rss/` | 🔴 LEVEL_1_PRIMARY |
+| **Meta AI** | `ai.meta.com/blog/rss/` | 🔴 LEVEL_1_PRIMARY |
+| **Mistral AI** | `mistral.ai/feed.xml` | 🔴 LEVEL_1_PRIMARY |
+| **HuggingFace** | `huggingface.co/api/models?sort=downloads` (live trending models) | 🔴 LEVEL_1_PRIMARY |
+| **DeepSeek** | GitHub Releases API (`deepseek-ai/DeepSeek-V3`) | 🔴 LEVEL_1_PRIMARY |
+| **Hacker News** | Firebase Realtime API (top stories, AI/tech filtered) | 🟡 LEVEL_3_COMMUNITY |
+| **Dev.to** | `dev.to/api/articles?tag=ai` (live) | 🟡 LEVEL_3_COMMUNITY |
 
-### 4. 📊 7-Day Observability & Telemetry Report
-- Generates structured daily logs (`[TREND_SCAN]`, `[TOPIC_FILTER]`, `[VISUAL_FILTER]`, `[DECISION_GATE]`) and outputs a 7-Day Daily Content Intelligence & Diversity Report detailing category distribution, repeated tech, top fresh candidates, and decision explainability.
+All sources run **concurrently** with `Promise.allSettled()` — individual source failures are isolated and never break the pipeline. If a live feed is unavailable, curated fallback signals supplement without reuse.
+
+---
+
+### 2. 🛡️ Trending Safeguard System — How Non-Trending Posts Are Blocked
+
+The platform implements **five independent layers** of trending enforcement. A post must pass **all five** before it is approved for publication:
+
+#### Layer 1 — Source Origin Scoring Boost
+```
+GitHub Trending (live)        → sourceOriginBoost = 100 (max priority)
+Official LLM Provider RSS     → sourceOriginBoost = 90
+HuggingFace Trending Models   → sourceOriginBoost = 80
+Community (HN, Reddit, Dev.to)→ sourceOriginBoost = 40
+```
+Topics not grounded in live trending sources receive a **60-point scoring penalty** vs GitHub-sourced topics. The `sourceOriginBoost` dimension contributes **3% of the total topic score**, meaning a non-trending source can be outranked by any live feed signal with equivalent freshness.
+
+#### Layer 2 — Multi-Dimensional Saturation Gate
+```typescript
+// topic-intelligence.ts — evaluateTopics()
+if (minDaysAgoTopic < 2.0 && recentTopicMatches > 0)     → REJECT (RECENT_TOPIC_SATURATION)
+if (recentFwMatches >= 3 && minDaysAgoFw < 3.0)           → REJECT (TECHNOLOGY_DECAY)
+if (overallSaturationScore >= 80)                          → REJECT (HIGH_SATURATION_SCORE)
+```
+Five saturation dimensions are tracked per candidate topic:
+- **Topic Saturation** — title/semantic Jaccard similarity vs past 50 posts
+- **Technology Saturation** — framework/library repetition detection
+- **Category Saturation** — category overuse in past 7 days
+- **Narrative Saturation** — story angle repetition detection
+- **Visual Saturation** — architecture diagram concept deduplication
+
+#### Layer 3 — Exponential Time Decay Penalty
+```
+0 days ago → 100 penalty  (topic effectively blocked)
+1 day ago  → 95 penalty
+2 days ago → 90 penalty
+3 days ago → 80 penalty
+4 days ago → 65 penalty
+5 days ago → 50 penalty
+7 days ago → 30 penalty
+14+ days   →  0 penalty  (topic fully eligible)
+```
+Every topic referenced in the post history receives a decay penalty in the formula:
+$$\text{AdjustedScore} = \text{BaseScore} - (\text{SaturationScore} \times 0.5) + \text{PortfolioBalancingBonus}$$
+
+#### Layer 4 — Breaking News Override Gate (Controlled Exception)
+The only path for an already-seen topic to bypass the decay gate is **all three** of:
+- `trend_velocity >= 8.5` (top decile of velocity scores)
+- `publishedAt < 24h ago` (verified fresh from Level 1 source)
+- `references.length > 0` (has URL-backed evidence)
+
+Verified breaking news events (e.g. a new Claude or Gemini release confirmed by official RSS) bypass decay — everything else is blocked.
+
+#### Layer 5 — Decision Gate (10 Quality Gates)
+The final gate before `PUBLISH` evaluates:
+```
+topicFreshness ≥ 60    ✓
+originality    ≥ 65    ✓  (Jaccard similarity < 0.35 vs past posts)
+humanTone      = 100   ✓  (0 AI clichés remaining)
+visualAlignment ≥ 80  ✓  (diagram nodes match article keywords)
+careerSignal   ≥ 75    ✓
+```
+If any gate fails → `NO_POST_TODAY` safe exit. The pipeline never manufactures content from a non-trending source to fill the schedule.
+
+---
+
+### 3. 🧠 Normalized Scoring Formula (Updated v2)
+
+$$\text{FinalScore} = 0.17 \times \text{Freshness} + 0.15 \times \text{Velocity} + 0.14 \times \text{TechnicalImportance} + 0.13 \times \text{CareerRelevance} + 0.10 \times \text{PersonalExperience} + 0.09 \times \text{ContentGap} + 0.08 \times \text{Originality} + 0.06 \times \text{AudienceInterest} + 0.05 \times \text{SourceAuthority} + 0.03 \times \text{SourceOriginBoost}$$
+
+> **SourceOriginBoost** is the new dimension (v2) that explicitly rewards topics sourced from live GitHub Trending and official LLM provider releases.
+
+---
+
+### 4. 📅 Persistent Post & Visual History (Cross-Run Memory)
+- **`post_history.json`**: All published posts are persisted to disk. Decay penalty and saturation scores are calculated against this full history on every run — even after process restarts. This is the core fix for the "same post repeated for 5 days" problem.
+- **`visual_history.json`**: All generated architecture diagram concepts are stored. The Visual Planning Agent checks semantic similarity against the last 7 diagrams before generating a new one, ensuring visual variety every day.
+
+---
+
+### 5. 🤖 Human Tone & Anti-AI Cliché Sanitization
+- **35+ AI Cliché Regex Filters**: Automatically strips *"in today's fast-paced world"*, *"let's dive in"*, *"game-changing"*, *"harness the power"*, *"paradigm shift"*, *"rich tapestry"*, *"synergy"*, *"supercharge"*, and 27 more.
+- **Authentic Engineering Narrative Attribution**: Clear labeling of *"Direct Production Build Experience"* vs *"Technical Research & Benchmarking"*.
+- **8 Rotated Narrative Structures**: Cycles through `ENGINEERING_DISCOVERY`, `UNEXPECTED_PROBLEM`, `TECHNICAL_TRADEOFF`, `PRODUCTION_FAILURE`, `CONTRARIAN_OBSERVATION`, `NEW_TECHNOLOGY_ANALYSIS`, `BUILD_IN_PUBLIC`, `ARCHITECTURE_LESSON`.
+
+---
+
+### 6. 🎨 Dynamic Context-Aware Architecture Visuals
+- **Topic-Tailored SVG Diagrams**: Generates dynamic vector flow diagrams matching the topic domain (DeepSeek RL Pipelines, TypeScript 5.7 Compiler AST, Docker Buildx Hardening, ClickHouse Columnar Analytics, eBPF Zero-Trust Security).
+- **Visual Concept Deduplication**: Remembers the last 7 diagram concepts to prevent visual repetition.
+- **Semantic Text-Visual Alignment Gate (≥ 80%)**: Verifies diagram node labels against article keywords before publishing.
+
+---
+
+### 7. 📊 7-Day Observability & Telemetry Report
+Structured daily logs (`[TREND_SCAN]`, `[TOPIC_FILTER]`, `[VISUAL_FILTER]`, `[DECISION_GATE]`) with explainable decisions for every approved, rejected, and bypassed topic.
 
 ---
 
@@ -49,6 +138,29 @@ flowchart TB
     classDef swarmStyle fill:#6366f1,stroke:#818cf8,stroke-width:2px,color:#ffffff,font-weight:bold;
     classDef aiStyle fill:#d97706,stroke:#fbbf24,stroke-width:2px,color:#ffffff,font-weight:bold;
     classDef dataStyle fill:#e11d48,stroke:#fb7185,stroke-width:2px,color:#ffffff,font-weight:bold;
+    classDef liveStyle fill:#16a34a,stroke:#4ade80,stroke-width:2px,color:#ffffff,font-weight:bold;
+
+    subgraph LiveFeeds ["🌐 Live Intelligence Feed Layer (Real-Time APIs)"]
+        GH["🐙 GitHub Trending\n(ghapi.huchen.dev + GitHub Search API)"]:::liveStyle
+        OAI["🤖 OpenAI Blog RSS"]:::liveStyle
+        ANT["🧠 Anthropic News Feed"]:::liveStyle
+        GOO["✨ Google AI Blog RSS"]:::liveStyle
+        META["🦙 Meta AI Blog RSS"]:::liveStyle
+        MIS["🌬️ Mistral AI Feed"]:::liveStyle
+        HF["🤗 HuggingFace Models API\n(live trending by downloads)"]:::liveStyle
+        DS["🔬 DeepSeek GitHub Releases"]:::liveStyle
+        HN["📰 Hacker News Firebase API\n(top stories, AI/tech filtered)"]:::liveStyle
+        DEVTO["📝 Dev.to API\n(top AI articles)"]:::liveStyle
+    end
+
+    subgraph SafeguardLayers ["🛡️ 5-Layer Non-Trending Safeguard System"]
+        L1["Layer 1: Source Origin Boost\n(GitHub=100, LLM=90, HF=80, Community=40)"]:::swarmStyle
+        L2["Layer 2: Multi-Dimensional Saturation Gate\n(Topic + Tech + Category + Narrative + Visual)"]:::swarmStyle
+        L3["Layer 3: Exponential Time Decay\n(0d=100pen, 1d=95pen, 7d=30pen, 14d=0pen)"]:::swarmStyle
+        L4["Layer 4: Breaking News Override\n(velocity≥8.5 + <24h + L1 verified ONLY)"]:::swarmStyle
+        L5["Layer 5: 10 Quality Gates\n(freshness + originality + humanTone + visual)"]:::swarmStyle
+        L1 --> L2 --> L3 --> L4 --> L5
+    end
 
     subgraph ClientLayer ["🩵 Client Layer (React 19 Frontend UI)"]
         UI["📱 React 19 + Vite Dashboard UI\n(https://brand-os-multi-agent.vercel.app)"]:::clientStyle
@@ -106,36 +218,70 @@ flowchart TB
 
     subgraph AIGateway ["🧡 Multi-Provider AI Gateway"]
         Router["🔀 AI Router & Cascade Failover"]:::aiStyle
+        Gemini["✨ Gemini API (gemini-2.0-flash)"]:::aiStyle
         OpenRouter["✨ OpenRouter API\n(google/gemini-2.0-flash-lite-001)"]:::aiStyle
         NVIDIA["🚀 NVIDIA NIM API\n(meta/llama-3.1-405b-instruct)"]:::aiStyle
-        OpenAI["🤖 OpenAI API (gpt-4o / gpt-4o-mini / o3-mini)"]:::aiStyle
-        Ollama["🦙 Ollama Local (llama3)"]:::aiStyle
+        OpenAI["🤖 OpenAI API (gpt-4o / o3-mini)"]:::aiStyle
+        Anthropic["🧠 Anthropic API (claude-3-5-sonnet)"]:::aiStyle
 
+        Router --> Gemini
         Router --> OpenRouter
         Router --> NVIDIA
         Router --> OpenAI
-        Router --> Ollama
+        Router --> Anthropic
     end
 
     subgraph DataIntegrations ["🩷 External Integrations & Databases"]
         LinkedIn["🔗 LinkedIn REST API v2"]:::dataStyle
-        DevTo["📝 Dev.to API"]:::dataStyle
+        DevToAPI["📝 Dev.to API"]:::dataStyle
         Postgres["🐘 PostgreSQL / Prisma ORM"]:::dataStyle
         Chroma["🗂️ ChromaDB Vector Store"]:::dataStyle
-        Redis["⚡ Redis Streams Event Bus"]:::dataStyle
+        PostHistory["📋 post_history.json\n(Persistent Cross-Run Memory)"]:::dataStyle
+        VisualHistory["🎨 visual_history.json\n(Visual Dedup Memory)"]:::dataStyle
     end
 
+    GH & OAI & ANT & GOO & META & MIS & HF & DS & HN & DEVTO ==> L1
+    L5 --> Orchestrator
     ServerlessAPI ==>|Trigger Request| Orchestrator
     LocalAPI ==>|Trigger Request| Orchestrator
     TechResearchAgent -.->|LLM Synthesis| Router
     WriterAgent -.->|Draft Post| Router
     PublisherAgent ==>|Post Live Content| LinkedIn
-    PublisherAgent ==>|Publish Article| DevTo
+    PublisherAgent ==>|Publish Article| DevToAPI
     Orchestrator --- Postgres
     Orchestrator --- Chroma
-    Orchestrator --- Redis
+    Orchestrator --- PostHistory
+    Orchestrator --- VisualHistory
 
     linkStyle default stroke:#818cf8,stroke-width:2px,stroke-dasharray: 4 4;
+```
+
+---
+
+## 🛡️ Non-Trending Topic Safeguard — Decision Flow
+
+```mermaid
+flowchart TD
+    A[🌐 Live API Fetch\nGitHub + LLM Providers + HN + Dev.to] --> B{Live data?\n≥4 sources?}
+    B -->|Yes| C[Signals Normalized\n& Canonicalized]
+    B -->|No| D[Curated Fallback Signals\nloaded — never stale]
+    D --> C
+    C --> E[sourceOriginBoost applied\nGitHub=100 LLM=90 Comm=40]
+    E --> F[Topic Scorer\nNormalized 10-dimension score]
+    F --> G{Saturation Check\nPast 50 posts}
+    G -->|Topic seen <2d ago| H[❌ REJECT\nRECENT_TOPIC_SATURATION]
+    G -->|Tech repeated ≥3x <3d| I[❌ REJECT\nTECHNOLOGY_DECAY]
+    G -->|Score ≥80| J[❌ REJECT\nHIGH_SATURATION]
+    G -->|Passes| K{Breaking News\nOverride Check}
+    K -->|velocity≥8.5 + <24h + L1| L[⚡ OVERRIDE\nDecay bypassed]
+    K -->|No override| M[Portfolio Balance\nBonus/Penalty applied]
+    L --> M
+    M --> N[Top-scored topic\nselected]
+    N --> O[18-Agent Pipeline\nruns on selected topic]
+    O --> P{Decision Gate\n10 Quality Gates}
+    P -->|All pass| Q[✅ PUBLISH\nLinkedIn + Dev.to]
+    P -->|Any fail| R[🛑 NO_POST_TODAY\nSafe Exit — no filler]
+    H & I & J --> R
 ```
 
 ---
@@ -157,8 +303,8 @@ The platform features **dynamic dual-environment API routing**:
 | :--- | :--- | :--- |
 | `GET` | `/api/v1/agents/status` | Get real-time status of all 18 autonomous swarm agents |
 | `POST` | `/api/v1/agents/trigger` | Trigger full end-to-end multi-agent execution pipeline |
-| `GET` | `/api/v1/trends` | Fetch latest discovered technical topics and trend velocity scores |
-| `POST` | `/api/v1/trends/scan` | Trigger live scan across official labs, GitHub, forums, and developer platforms |
+| `GET` | `/api/v1/trends` | Fetch latest discovered topics with live trend velocity scores |
+| `POST` | `/api/v1/trends/scan` | Trigger live scan across GitHub trending, official LLM labs, forums |
 | `POST` | `/api/v1/research` | Conduct deep technical research on a given topic |
 
 ### 🧠 Multi-Provider AI Gateway Endpoints
@@ -166,7 +312,7 @@ The platform features **dynamic dual-environment API routing**:
 | :--- | :--- | :--- |
 | `GET` | `/api/v1/gateway/benchmarks` | Retrieve model performance, token usage, latency, and costs |
 | `GET` | `/api/v1/gateway/logs` | Fetch AI Gateway execution and failover logs |
-| `POST` | `/api/v1/gateway/execute` | Execute custom prompt with auto-routing (OpenRouter, NVIDIA NIM, OpenAI) |
+| `POST` | `/api/v1/gateway/execute` | Execute custom prompt with auto-routing (Gemini, OpenRouter, NVIDIA NIM, OpenAI, Anthropic) |
 | `POST` | `/api/v1/chat` | Server-Sent Events (SSE) stream for AI Copilot chat assistant |
 
 ### 📄 Content Generation & Social Media Publishing Endpoints
@@ -214,14 +360,29 @@ personal-brand-os/
 ├── packages/                   # Core Shared Domain Libraries
 │   ├── shared/                 # Zod Validation Schemas, Enums, TypeScript Types
 │   ├── database/               # Prisma Schema, Database Client, and Seeding Script
-│   ├── ai-gateway/             # Multi-Provider Router (OpenRouter, NVIDIA NIM, OpenAI)
+│   ├── ai-gateway/             # Multi-Provider Router (Gemini, OpenRouter, NVIDIA NIM, OpenAI, Anthropic)
 │   ├── mcp-client/             # MCP Tool Bindings (GitHub, Reddit, RSS, Search, Browser)
 │   ├── plugins/                # Plugin Marketplace Registry (Dev.to, Hashnode, Slack)
 │   ├── agents/                 # Autonomous 18-Agent Swarm Engine & Event Bus
+│   │   └── src/agents/
+│   │       ├── trend-discovery.ts      # Live GitHub + LLM provider signal discovery
+│   │       ├── topic-intelligence.ts   # 5-layer trending safeguard engine
+│   │       └── visual-planning.ts      # Dynamic SVG generation + visual deduplication
+│   ├── intelligence/           # Real-Time Intelligence Scan Engine
+│   │   └── src/
+│   │       ├── sources/
+│   │       │   ├── open-source/github.ts       # Live GitHub Trending API
+│   │       │   ├── official/labs.ts             # Live LLM Provider RSS Feeds
+│   │       │   ├── model-hubs/hubs.ts           # Live HuggingFace + Ollama APIs
+│   │       │   └── communities/discussions.ts   # Live HN Firebase + Dev.to APIs
+│   │       └── ranking/
+│   │           └── topic-scorer.ts     # Scoring with sourceOriginBoost (GitHub/LLM priority)
 │   ├── publisher/              # Social Media Adapters (LinkedIn REST API, Dev.to API)
 │   ├── scheduler/              # BullMQ Cron Job Scheduler
-│   └── analytics/              # Metric Aggregator & 7-Day Content Memory
+│   └── analytics/              # Metric Aggregator, post_history.json, visual_history.json
 │
+├── post_history.json           # Persistent cross-run post memory (prevents repetition)
+├── visual_history.json         # Persistent cross-run visual memory (prevents visual loops)
 ├── docker/                     # Production Container Configurations
 ├── docs/                       # Architecture Specs & Setup Guides
 ├── vercel.json                 # Vercel Deployment & Serverless Rewrite Config
@@ -247,7 +408,25 @@ Copy `.env.example` to `.env` in the root directory:
 ```bash
 cp .env.example .env
 ```
-Fill in your credentials in `.env` (`OPENROUTER_API_KEY`, `NVIDIA_NIM_API_KEY`, `OPENAI_API_KEY`, `LINKEDIN_ACCESS_TOKEN`, `DEVTO_API_KEY`).
+Fill in your credentials:
+```env
+# AI Providers
+OPENROUTER_API_KEY=your_openrouter_key
+NVIDIA_NIM_API_KEY=your_nim_key
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+
+# Social Publishing
+LINKEDIN_ACCESS_TOKEN=your_linkedin_token
+DEVTO_API_KEY=your_devto_key
+
+# Live Intelligence (optional — increases GitHub API rate limit from 60 to 5000 req/hr)
+GITHUB_TOKEN=your_github_pat
+HUGGINGFACE_TOKEN=your_hf_token
+```
+
+> **`GITHUB_TOKEN`** and **`HUGGINGFACE_TOKEN`** are optional but strongly recommended. Without them the GitHub Search API is limited to 60 requests/hour and HuggingFace to public model access only. The trending feed will still work via `ghapi.huchen.dev` as the primary source.
 
 ### 4. Run TypeScript Typecheck & Test Suite
 ```bash
@@ -287,3 +466,24 @@ npm run dev
 - [AI Gateway Documentation](docs/AI_GATEWAY.md)
 - [MCP Integration Specs](docs/MCP_INTEGRATION.md)
 - [Agent Specifications](docs/AGENT_SPEC.md)
+
+---
+
+## 📋 Changelog
+
+### v2.0 — Live Intelligence & Trending Safeguards (Aug 2026)
+- **NEW**: All 4 source collectors upgraded to live APIs — no more static hardcoded data
+- **NEW**: `sourceOriginBoost` scoring dimension — GitHub Trending=100, Official LLM=90, HF=80, Community=40
+- **NEW**: 7 concurrent official LLM provider RSS/API feeds with per-source isolation (`Promise.allSettled`)
+- **NEW**: Live HuggingFace Trending Models API + Ollama Popular Models API
+- **NEW**: Live Hacker News Firebase top stories with AI/tech keyword filtering
+- **NEW**: Live Dev.to top AI articles via REST API
+- **NEW**: `post_history.json` and `visual_history.json` — persistent cross-run memory to prevent same-post repetition even after restarts
+- **NEW**: Expanded framework/category mapping for GPT-4o, Claude 3.7/4, Gemini 2.5, Llama 4, Qwen, Rust, Go, K8s, etc.
+- **FIX**: Root cause of "same post for 5 days" resolved — history was being lost on process restart
+
+### v1.0 — Initial Platform Launch
+- 18-agent swarm pipeline with multi-source intelligence scanning
+- LinkedIn + Dev.to publishing with image upload support
+- Dynamic SVG architecture diagram generation
+- Exponential time decay saturation filtering

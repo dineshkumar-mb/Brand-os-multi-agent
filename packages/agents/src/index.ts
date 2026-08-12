@@ -210,6 +210,7 @@ export class ImagePromptEngineeringAgent {
 // ==========================================
 
 import { postHistoryTracker } from "@brand-os/analytics";
+import { visualHistoryTracker } from "./agents/visual-planning";
 
 export class AgentOrchestrator {
   private trendDiscoveryAgent = new TrendDiscoveryAgent();
@@ -442,6 +443,12 @@ export class AgentOrchestrator {
         category: selectedTopic.category,
         framework: selectedTopic.framework,
       });
+
+      visualHistoryTracker.addConcept(
+        selectedTopic.id || `t_${Date.now()}`,
+        selectedTopic.title,
+        visualPlanRes.data.diagramSpec?.title || selectedTopic.category
+      );
     } else if (autoPublish && !decisionGateRes.data.approvedForPublishing) {
       console.warn(`[Pipeline ID: ${pipelineId}] Publishing skipped: Decision Gate returned decision=${decisionGateRes.data.decision}. Action: ${decisionGateRes.data.actionRequired}`);
     }

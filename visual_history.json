@@ -1,0 +1,86 @@
+[
+  {
+    "topicId": "opp_1786547707831_q29pc",
+    "conceptTitle": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
+    "diagramType": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization Vector Flow Map",
+    "hash": "nvidianimmicroservicesenterprisegpuinferenceoptimization_NVIDIA NIM Microservices & Enterprise GPU Inference Optimization Vector Flow Map",
+    "createdAt": "2026-08-12T15:15:14.775Z"
+  },
+  {
+    "topicId": "opp_1786547707831_q29pc",
+    "conceptTitle": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
+    "diagramType": "NVIDIA NIM Microservices & Enter Architecture Blueprint",
+    "hash": "nvidianimmicroservicesenterprisegpuinferenceoptimization_NVIDIA NIM Microservices & Enter Architecture Blueprint",
+    "createdAt": "2026-08-12T15:15:08.423Z"
+  },
+  {
+    "topicId": "opp_1786547707831_q29pc",
+    "conceptTitle": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
+    "diagramType": "NVIDIA NIM Microservices & Enter Architecture Blueprint",
+    "hash": "nvidianimmicroservicesenterprisegpuinferenceoptimization_NVIDIA NIM Microservices & Enter Architecture Blueprint",
+    "createdAt": "2026-08-12T15:15:08.305Z"
+  },
+  {
+    "topicId": "opp_1786547700442_omulo",
+    "conceptTitle": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening",
+    "diagramType": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening Vector Flow Map",
+    "hash": "dockerdesktop438multiarchitecturebuildxcontainerhardening_Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening Vector Flow Map",
+    "createdAt": "2026-08-12T15:15:07.825Z"
+  },
+  {
+    "topicId": "opp_1786547700442_omulo",
+    "conceptTitle": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerdesktop438multiarchitecturebuildxcontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-12T15:15:01.330Z"
+  },
+  {
+    "topicId": "opp_1786547700442_omulo",
+    "conceptTitle": "Docker Desktop 4.38 Multi-Architecture Buildx & Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerdesktop438multiarchitecturebuildxcontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-12T15:15:01.199Z"
+  },
+  {
+    "topicId": "opp_1786547004687_jrbxf",
+    "conceptTitle": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+    "diagramType": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale. Vector Flow Map",
+    "hash": "githubrepoanalysisclickhouseclickhousecolumnardatabasemanagementsystemdesignedforrealtimeanalyticalsqlqueriesatpetabytescale_GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale. Vector Flow Map",
+    "createdAt": "2026-08-12T15:03:31.085Z"
+  },
+  {
+    "topicId": "opp_1786547004687_jrbxf",
+    "conceptTitle": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+    "diagramType": "GitHub Repo Analysis Architecture Blueprint",
+    "hash": "githubrepoanalysisclickhouseclickhousecolumnardatabasemanagementsystemdesignedforrealtimeanalyticalsqlqueriesatpetabytescale_GitHub Repo Analysis Architecture Blueprint",
+    "createdAt": "2026-08-12T15:03:25.123Z"
+  },
+  {
+    "topicId": "opp_1786547004687_jrbxf",
+    "conceptTitle": "GitHub Repo Analysis: clickhouse/clickhouse — Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+    "diagramType": "GitHub Repo Analysis Architecture Blueprint",
+    "hash": "githubrepoanalysisclickhouseclickhousecolumnardatabasemanagementsystemdesignedforrealtimeanalyticalsqlqueriesatpetabytescale_GitHub Repo Analysis Architecture Blueprint",
+    "createdAt": "2026-08-12T15:03:24.990Z"
+  },
+  {
+    "topicId": "opp_1786546997396_4eg4f",
+    "conceptTitle": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+    "diagramType": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training Vector Flow Map",
+    "hash": "deepseekr1openweightreasoningarchitecturepurerltraining_DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training Vector Flow Map",
+    "createdAt": "2026-08-12T15:03:24.678Z"
+  },
+  {
+    "topicId": "opp_1786546997396_4eg4f",
+    "conceptTitle": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "deepseekr1openweightreasoningarchitecturepurerltraining_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-12T15:03:18.190Z"
+  },
+  {
+    "topicId": "opp_1786546997396_4eg4f",
+    "conceptTitle": "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "deepseekr1openweightreasoningarchitecturepurerltraining_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-12T15:03:18.079Z"
+  }
+]

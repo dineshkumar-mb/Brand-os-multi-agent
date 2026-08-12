@@ -48,11 +48,46 @@ export const INFOGRAPHIC_PRESETS: Record<string, any> = {
   },
 };
 
+declare const process: any;
+declare const require: any;
+
+const fs = require("fs");
+const path = require("path");
+
+const VISUAL_HISTORY_FILE = path.resolve(process.cwd(), "visual_history.json");
+
 // Image Concept History Tracker across published/generated posts
 export class VisualHistoryTracker {
   private pastConcepts: Array<{ topicId: string; conceptTitle: string; diagramType: string; hash: string; createdAt: string }> = [];
 
+  constructor() {
+    this.loadHistory();
+  }
+
+  private loadHistory() {
+    try {
+      if (fs.existsSync(VISUAL_HISTORY_FILE)) {
+        const raw = fs.readFileSync(VISUAL_HISTORY_FILE, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          this.pastConcepts = parsed;
+        }
+      }
+    } catch (err: any) {
+      console.warn("[VisualHistoryTracker] Failed to load visual history:", err.message);
+    }
+  }
+
+  private saveHistory() {
+    try {
+      fs.writeFileSync(VISUAL_HISTORY_FILE, JSON.stringify(this.pastConcepts, null, 2), "utf-8");
+    } catch (err: any) {
+      console.warn("[VisualHistoryTracker] Failed to save visual history:", err.message);
+    }
+  }
+
   public addConcept(topicId: string, conceptTitle: string, diagramType: string) {
+    this.loadHistory();
     const hash = `${conceptTitle.toLowerCase().replace(/[^a-z0-9]/g, "")}_${diagramType}`;
     this.pastConcepts.unshift({
       topicId,
@@ -61,15 +96,18 @@ export class VisualHistoryTracker {
       hash,
       createdAt: new Date().toISOString(),
     });
+    this.saveHistory();
   }
 
   public isConceptSimilar(conceptTitle: string, diagramType: string): boolean {
+    this.loadHistory();
     const hash = `${conceptTitle.toLowerCase().replace(/[^a-z0-9]/g, "")}_${diagramType}`;
     const recent3 = this.pastConcepts.slice(0, 3);
-    return recent3.some((c) => c.hash === hash || c.diagramType === diagramType && c.conceptTitle === conceptTitle);
+    return recent3.some((c) => c.hash === hash || (c.diagramType === diagramType && c.conceptTitle === conceptTitle));
   }
 
   public getHistory() {
+    this.loadHistory();
     return this.pastConcepts;
   }
 }
@@ -209,32 +247,35 @@ export class VisualPlanningAgent {
       };
     }
 
-    // Default System Design Architecture Blueprint
+    // Dynamic Architecture Blueprint per Topic
+    const techName = topic.framework || topic.supportingTech?.[0] || topic.category || "System Architecture";
+    const cleanTitle = topic.title.replace(/:(.*)$/, "").substring(0, 32);
+
     return {
-      title: `${topic.framework || topic.category} System Design Blueprint`,
+      title: `${cleanTitle} Architecture Blueprint`,
       layoutStyle: "SIDE_BY_SIDE_COMPARISON",
       colorPalette: "Blue (#3b82f6), Green (#10b981)",
       columns: [
         {
-          id: "monolithic_flow",
-          title: "Tight Coupling",
-          subtitle: "Synchronous Request Path",
+          id: "traditional_flow",
+          title: "Standard Architecture",
+          subtitle: "Synchronous Request Boundaries",
           color: "blue",
           nodes: [
-            { id: "c_req", label: "Client Request", icon: "query", color: "blue" },
-            { id: "sync_proc", label: "Blocking Logic", icon: "data", color: "blue" },
-            { id: "mono_db", label: "Monolith DB", icon: "vectordb", color: "blue" },
+            { id: "c_req", label: "Client Ingress Gateway", icon: "query", color: "blue" },
+            { id: "sync_proc", label: "Monolithic Service Layer", icon: "data", color: "blue" },
+            { id: "mono_db", label: "Shared State Store", icon: "vectordb", color: "blue" },
           ],
         },
         {
           id: "decoupled_flow",
-          title: "Decoupled Architecture",
-          subtitle: "Event-Driven & Isolated Boundaries",
+          title: `${techName} Pipeline`,
+          subtitle: "Decoupled Event-Driven Flow",
           color: "green",
           nodes: [
-            { id: "gw", label: "API Gateway", icon: "query", color: "green" },
-            { id: "worker_node", label: `${topic.framework || "Worker Engine"}`, icon: "llm", color: "green" },
-            { id: "isolated_db", label: "Isolated Database", icon: "vectordb", color: "green" },
+            { id: "gw", label: "API Mesh Gateway", icon: "query", color: "green" },
+            { id: "worker_node", label: `${techName} Engine`, icon: "llm", color: "green" },
+            { id: "isolated_db", label: "Isolated State Database", icon: "vectordb", color: "green" },
           ],
         },
       ],
