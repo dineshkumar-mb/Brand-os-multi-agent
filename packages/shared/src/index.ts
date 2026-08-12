@@ -703,6 +703,102 @@ export interface SourceHealthSummary {
   sources: IntelligenceSource[];
 }
 
+export interface ScoringWeightsConfig {
+  trendFreshness: number;         // default 0.18
+  trendVelocity: number;          // default 0.15
+  technicalImportance: number;    // default 0.14
+  careerRelevance: number;        // default 0.14
+  personalExperience: number;     // default 0.10
+  contentGap: number;             // default 0.10
+  originality: number;            // default 0.08
+  audienceInterest: number;       // default 0.06
+  sourceAuthority: number;        // default 0.05
+}
+
+export const DEFAULT_SCORING_WEIGHTS: ScoringWeightsConfig = {
+  trendFreshness: 0.18,
+  trendVelocity: 0.15,
+  technicalImportance: 0.14,
+  careerRelevance: 0.14,
+  personalExperience: 0.10,
+  contentGap: 0.10,
+  originality: 0.08,
+  audienceInterest: 0.06,
+  sourceAuthority: 0.05,
+};
+
+export interface TopicDecayProfile {
+  daysAgo: number;
+  decayPenalty: number;
+  eligibilityPercent: number;
+}
+
+export interface ContentSaturationScore {
+  topicSaturation: number;       // 0 - 100
+  technologySaturation: number;  // 0 - 100
+  categorySaturation: number;    // 0 - 100
+  narrativeSaturation: number;   // 0 - 100
+  visualSaturation: number;      // 0 - 100
+  overallSaturationScore: number;
+  rejected: boolean;
+  rejectionReason?: string;
+}
+
+export type NarrativePattern =
+  | "ENGINEERING_DISCOVERY"
+  | "UNEXPECTED_PROBLEM"
+  | "TECHNICAL_TRADEOFF"
+  | "PRODUCTION_FAILURE"
+  | "CONTRARIAN_OBSERVATION"
+  | "NEW_TECHNOLOGY_ANALYSIS"
+  | "BUILD_IN_PUBLIC"
+  | "ARCHITECTURE_LESSON";
+
+export interface VisualBrief {
+  topic: string;
+  technicalConcept: string;
+  primaryObjects: string[];
+  architectureLayers: string[];
+  relationships: string[];
+  labels: string[];
+  visualStyle: string;
+  platform: Platform;
+  aspectRatio: string;
+  diagramType: string;
+  prohibitedElements: string[];
+  conceptHash?: string;
+}
+
+export interface DailyContentMemory {
+  date: string;
+  topic: string;
+  category: string;
+  framework?: string;
+  technologies: string[];
+  angle: string;
+  hook: string;
+  cta: string;
+  narrativePattern: NarrativePattern;
+  visualConcept: string;
+  imageHash: string;
+  sourceEvents: string[];
+}
+
+export interface DiversityReport7Day {
+  date: string;
+  todayTopic: string;
+  todayCategory: string;
+  todayStatus: "POST_GENERATED" | "NO_POST_TODAY";
+  last7DaysCategories: Record<string, number>;
+  repeatedTechnologies: Record<string, number>;
+  topFreshCandidates: string[];
+  rejectedCandidates: Array<{ topic: string; reason: string }>;
+  decisionExplainability: string;
+  visualAlignmentScore?: number;
+  originalityScore?: number;
+}
+
+
 
 
 

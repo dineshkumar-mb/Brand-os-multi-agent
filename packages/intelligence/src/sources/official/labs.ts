@@ -6,52 +6,52 @@ export class OfficialLabsCollector {
     const now = new Date().toISOString();
     const signals: RawIntelligenceSignal[] = [];
 
-    // OpenAI Primary Announcement Signal
+    // OpenAI Signal
     signals.push({
       id: `sig_openai_${Date.now()}`,
       sourceId: "openai_official",
       sourceName: "OpenAI Official Documentation & Releases",
       category: "OFFICIAL_LAB",
       authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
-      title: "OpenAI o3-mini & Model Context Protocol (MCP) Server Tooling",
-      content: "OpenAI announced o3-mini reasoning capabilities and first-class Model Context Protocol integration for low-latency developer agents.",
+      title: "OpenAI o3-mini Reasoning Engine & Low-Latency Agent Execution",
+      content: "OpenAI announced o3-mini reasoning capabilities with high-speed tool calling and cost-efficient developer API endpoints.",
       url: "https://openai.com/index/openai-o3-mini/",
       publishedAt: now,
       retrievedAt: now,
       metadata: { provider: "OpenAI", model: "o3-mini", reasoning: true },
-      tags: ["OpenAI", "o3-mini", "MCP", "Agents", "Reasoning"],
+      tags: ["OpenAI", "o3-mini", "LLM Infrastructure", "Reasoning", "Agents"],
     });
 
-    // Anthropic Primary Signal
+    // Anthropic Signal
     signals.push({
       id: `sig_anthropic_${Date.now()}`,
       sourceId: "anthropic_official",
       sourceName: "Anthropic Engineering & Claude Releases",
       category: "OFFICIAL_LAB",
       authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
-      title: "Anthropic Claude 3.5 Sonnet Computer Use & MCP SDK Specification",
-      content: "Anthropic released updated Model Context Protocol SDKs enabling standard tool calling and client-server agent swarms across local and cloud environments.",
-      url: "https://docs.anthropic.com/en/docs/agents-and-tools/mcp",
+      title: "Anthropic Claude 3.5 Sonnet Computer Use & Agentic Tool Execution",
+      content: "Anthropic released computer use capability allowing Claude models to manipulate GUI elements and execute complex multi-step workflows.",
+      url: "https://docs.anthropic.com/en/docs/agents-and-tools/computer-use",
       publishedAt: now,
       retrievedAt: now,
-      metadata: { provider: "Anthropic", model: "claude-3-5-sonnet", mcp: true },
-      tags: ["Anthropic", "Claude", "MCP", "Agent Swarms"],
+      metadata: { provider: "Anthropic", model: "claude-3-5-sonnet" },
+      tags: ["Anthropic", "Claude", "Agentic AI", "Computer Use", "Tool Calling"],
     });
 
-    // DeepSeek Primary Signal
+    // DeepSeek Signal
     signals.push({
       id: `sig_deepseek_${Date.now()}`,
       sourceId: "deepseek_official",
       sourceName: "DeepSeek Research & Open Models",
       category: "OFFICIAL_LAB",
       authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
-      title: "DeepSeek R1 Open-Weight Reasoning Model Release & Architecture",
-      content: "DeepSeek-R1 achieves competitive reasoning performance using pure reinforcement learning without supervised fine-tuning, open-sourced under MIT license.",
+      title: "DeepSeek R1 Open-Weight Reasoning Architecture & Pure RL Training",
+      content: "DeepSeek-R1 achieves frontier-level reasoning performance using pure reinforcement learning without supervised fine-tuning.",
       url: "https://github.com/deepseek-ai/DeepSeek-R1",
       publishedAt: now,
       retrievedAt: now,
       metadata: { provider: "DeepSeek", model: "deepseek-r1", openWeight: true },
-      tags: ["DeepSeek", "DeepSeek-R1", "Reasoning", "Open Source", "Reinforcement Learning"],
+      tags: ["DeepSeek", "DeepSeek-R1", "Model Releases", "Open Source", "Reinforcement Learning"],
     });
 
     // Google Gemini Signal
@@ -61,13 +61,13 @@ export class OfficialLabsCollector {
       sourceName: "Google AI & Gemini Releases",
       category: "OFFICIAL_LAB",
       authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
-      title: "Google AI Studio 2M Token Context Window & Multimodal Video Agent API",
-      content: "Google expanded Gemini 1.5 Pro context window to 2 million tokens with streaming video input and dynamic structured output schemas.",
+      title: "Google Gemini 2.0 Flash Multimodal Live API & Real-Time Function Calling",
+      content: "Google released Gemini 2.0 Flash featuring native audio-video streaming, sub-second latency, and dynamic function call execution.",
       url: "https://ai.google.dev",
       publishedAt: now,
       retrievedAt: now,
-      metadata: { provider: "Google", model: "gemini-1.5-pro", contextWindow: 2000000 },
-      tags: ["Google", "Gemini", "Multimodal", "Context Window"],
+      metadata: { provider: "Google", model: "gemini-2.0-flash", streaming: true },
+      tags: ["Google", "Gemini 2.0", "AI Engineering", "Multimodal", "Real-Time"],
     });
 
     // NVIDIA Signal
@@ -77,13 +77,29 @@ export class OfficialLabsCollector {
       sourceName: "NVIDIA NIM Microservices",
       category: "OFFICIAL_LAB",
       authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
-      title: "NVIDIA NIM Inference Microservices & Llama-3.1-Nemotron Optimization",
+      title: "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
       content: "NVIDIA NIM microservices deliver 2.5x higher throughput for open-weight 70B models using TensorRT-LLM containerized pipelines.",
       url: "https://build.nvidia.com",
       publishedAt: now,
       retrievedAt: now,
       metadata: { provider: "NVIDIA", framework: "NIM" },
-      tags: ["NVIDIA", "NIM", "Inference", "Docker", "TensorRT-LLM"],
+      tags: ["NVIDIA", "NIM", "Performance", "Docker", "GPU Inference"],
+    });
+
+    // Meta Llama Signal
+    signals.push({
+      id: `sig_meta_${Date.now()}`,
+      sourceId: "meta_official",
+      sourceName: "Meta AI Research",
+      category: "OFFICIAL_LAB",
+      authorityLevel: SourceAuthorityLevel.LEVEL_1_PRIMARY,
+      title: "Meta Llama 3.3 70B Quantization & High-Throughput Self-Hosted Deployment",
+      content: "Meta open-sourced Llama 3.3 70B with 128k context window, reaching performance parity with legacy 405B models at lower compute cost.",
+      url: "https://ai.meta.com/llama",
+      publishedAt: now,
+      retrievedAt: now,
+      metadata: { provider: "Meta", model: "llama-3.3-70b" },
+      tags: ["Meta", "Llama 3.3", "Open Source", "LLM Infrastructure", "Quantization"],
     });
 
     return signals;
@@ -91,3 +107,4 @@ export class OfficialLabsCollector {
 }
 
 export const officialLabsCollector = new OfficialLabsCollector();
+

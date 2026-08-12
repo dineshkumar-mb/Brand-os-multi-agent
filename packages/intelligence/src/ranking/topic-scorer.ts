@@ -1,90 +1,108 @@
-import { SourceAuthorityLevel } from "@brand-os/shared";
+import { SourceAuthorityLevel, DEFAULT_SCORING_WEIGHTS, ScoringWeightsConfig } from "@brand-os/shared";
 import { CanonicalEvent } from "../sources/types.js";
 
 export interface DetailedTopicScores {
-  careerRelevanceScore: number;         // 20%
-  personalExperienceMatch: number;      // 20%
-  technicalImportanceScore: number;     // 15%
-  sourceAuthorityScore: number;         // 15%
-  originalityOpportunityScore: number; // 10%
-  trendVelocityScore: number;           // 10%
-  contentGapScore: number;              // 5%
-  developerAdoptionScore: number;       // 5%
+  trendFreshnessScore: number;          // 18%
+  trendVelocityScore: number;           // 15%
+  technicalImportanceScore: number;     // 14%
+  careerRelevanceScore: number;         // 14%
+  personalExperienceMatch: number;      // 10%
+  contentGapScore: number;              // 10%
+  originalityOpportunityScore: number; // 8%
+  audienceInterestScore: number;        // 6%
+  sourceAuthorityScore: number;         // 5%
+  developerAdoptionScore: number;       // 80
   overallScore: number;
 }
 
 export class TopicScorerEngine {
+  private weights: ScoringWeightsConfig = DEFAULT_SCORING_WEIGHTS;
+
+  constructor(customWeights?: Partial<ScoringWeightsConfig>) {
+    this.weights = { ...DEFAULT_SCORING_WEIGHTS, ...(customWeights || {}) };
+  }
+
+  public setWeights(customWeights: ScoringWeightsConfig) {
+    this.weights = customWeights;
+  }
+
   public calculateScores(
     event: CanonicalEvent,
     experienceMatchScore: number
   ): DetailedTopicScores {
-    // 1. Source Authority (15%)
+    const w = this.weights && this.weights.trendFreshness !== undefined ? this.weights : DEFAULT_SCORING_WEIGHTS;
+
+    // 1. Source Authority (5%)
     let sourceAuthorityScore = 40;
-    const hasLevel1 = event.sources.some(
-      (s) => s.authorityLevel === SourceAuthorityLevel.LEVEL_1_PRIMARY
-    );
-    const hasLevel2 = event.sources.some(
-      (s) => s.authorityLevel === SourceAuthorityLevel.LEVEL_2_TECHNICAL
-    );
+    const hasLevel1 = event.sources.some((s) => s.authorityLevel === SourceAuthorityLevel.LEVEL_1_PRIMARY);
+    const hasLevel2 = event.sources.some((s) => s.authorityLevel === SourceAuthorityLevel.LEVEL_2_TECHNICAL);
+    const hasLevel3 = event.sources.some((s) => s.authorityLevel === SourceAuthorityLevel.LEVEL_3_COMMUNITY);
+
     if (hasLevel1) sourceAuthorityScore = 95;
     else if (hasLevel2) sourceAuthorityScore = 80;
+    else if (hasLevel3) sourceAuthorityScore = 45;
+    else sourceAuthorityScore = 30; // Level 4 Discovery or unverified blogs
 
-    // 2. Trend Velocity (10%) - normalize 0-10 to 0-100
-    const trendVelocityScore = Math.min(100, event.trendVelocity * 10);
 
-    // 3. Technical Importance (15%)
-    let technicalImportanceScore = 75;
-    const tLower = event.title.toLowerCase();
-    if (
-      tLower.includes("mcp") ||
-      tLower.includes("architecture") ||
-      tLower.includes("deepseek") ||
-      tLower.includes("reasoning")
-    ) {
-      technicalImportanceScore = 95;
-    }
+    // 2. Trend Velocity (15%) - 0-100 score
+    const trendVelocityScore = Math.min(100, Math.max(10, event.trendVelocity * 10));
 
-    // 4. Career Relevance (20%)
-    let careerRelevanceScore = 80;
-    if (tLower.includes("mcp") || tLower.includes("agent") || tLower.includes("system design")) {
-      careerRelevanceScore = 95;
-    }
+    // 3. Trend Freshness (18%) - based on source timestamp
+    const firstSeen = new Date(event.firstSeenAt).getTime();
+    const hoursAgo = Math.max(0, (Date.now() - firstSeen) / 3600000);
+    let trendFreshnessScore = 100;
+    if (hoursAgo > 336) trendFreshnessScore = 15;      // > 14 days
+    else if (hoursAgo > 168) trendFreshnessScore = 40; // 7 - 14 days
+    else if (hoursAgo > 72) trendFreshnessScore = 65;  // 3 - 7 days
+    else if (hoursAgo > 24) trendFreshnessScore = 85;  // 1 - 3 days
+    else trendFreshnessScore = 100;                    // < 24h
 
-    // 5. Personal Experience Match (20%)
-    const personalExperienceMatch = experienceMatchScore;
+    // 4. Technical Importance (14%) - cross source confirmation + authority
+    const sourceCountBonus = Math.min(30, event.sources.length * 10);
+    const technicalImportanceScore = Math.min(100, 60 + sourceCountBonus + (hasLevel1 ? 10 : 0));
 
-    // 6. Originality Opportunity (10%)
-    const originalityOpportunityScore = 90;
+    // 5. Career Relevance (14%) - software engineering relevance
+    const careerRelevanceScore = 85;
 
-    // 7. Content Gap (5%)
+    // 6. Personal Experience Match (10%) - angle differentiator
+    const personalExperienceMatch = Math.min(100, Math.max(10, experienceMatchScore));
+
+    // 7. Content Gap (10%)
     const contentGapScore = 85;
 
-    // 8. Developer Adoption (5%)
-    const developerAdoptionScore = Math.min(100, (event.sources.length * 20) + 40);
+    // 8. Originality Opportunity (8%)
+    const originalityOpportunityScore = 90;
 
-    // Exact user weighted formula:
-    // 20% Career Relevance + 20% Personal Experience + 15% Tech Importance + 15% Source Authority + 10% Originality + 10% Velocity + 5% Content Gap + 5% Adoption
+    // 9. Audience Interest (6%)
+    const audienceInterestScore = Math.min(100, 40 + event.sources.length * 15);
+
+    const developerAdoptionScore = 80;
+
+    // Configurable Normalized Weighted Score
     const overallScore = parseFloat(
       (
-        careerRelevanceScore * 0.20 +
-        personalExperienceMatch * 0.20 +
-        technicalImportanceScore * 0.15 +
-        sourceAuthorityScore * 0.15 +
-        originalityOpportunityScore * 0.10 +
-        trendVelocityScore * 0.10 +
-        contentGapScore * 0.05 +
-        developerAdoptionScore * 0.05
+        (w.trendFreshness ?? 0.18) * trendFreshnessScore +
+        (w.trendVelocity ?? 0.15) * trendVelocityScore +
+        (w.technicalImportance ?? 0.14) * technicalImportanceScore +
+        (w.careerRelevance ?? 0.14) * careerRelevanceScore +
+        (w.personalExperience ?? 0.10) * personalExperienceMatch +
+        (w.contentGap ?? 0.10) * contentGapScore +
+        (w.originality ?? 0.08) * originalityOpportunityScore +
+        (w.audienceInterest ?? 0.06) * audienceInterestScore +
+        (w.sourceAuthority ?? 0.05) * sourceAuthorityScore
       ).toFixed(1)
     );
 
     return {
+      trendFreshnessScore,
+      trendVelocityScore,
+      technicalImportanceScore,
       careerRelevanceScore,
       personalExperienceMatch,
-      technicalImportanceScore,
-      sourceAuthorityScore,
-      originalityOpportunityScore,
-      trendVelocityScore,
       contentGapScore,
+      originalityOpportunityScore,
+      audienceInterestScore,
+      sourceAuthorityScore,
       developerAdoptionScore,
       overallScore,
     };
@@ -92,3 +110,5 @@ export class TopicScorerEngine {
 }
 
 export const topicScorerEngine = new TopicScorerEngine();
+
+

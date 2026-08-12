@@ -22,37 +22,59 @@ export class GitHubCollector {
 
     const analyses: GitHubRepoAnalysis[] = [
       {
-        repoName: "modelcontextprotocol/servers",
-        url: "https://github.com/modelcontextprotocol/servers",
-        stars: 18400,
-        starVelocity7d: 1450,
-        maintainerActivityScore: 95,
-        hasActiveReleases: true,
-        whyGainingAttention: "Standardized agent tool connection protocol adopting Postgres, SQLite, Slack, and GitHub tools.",
-        technicalImportance: "HIGH",
-        primaryTech: ["TypeScript", "Node.js", "MCP", "JSON-RPC"],
-      },
-      {
         repoName: "langchain-ai/langgraph",
         url: "https://github.com/langchain-ai/langgraph",
-        stars: 14200,
+        stars: 15400,
         starVelocity7d: 890,
         maintainerActivityScore: 92,
         hasActiveReleases: true,
         whyGainingAttention: "Cyclic state graph multi-agent orchestration framework replacing naive DAG chains in production.",
         technicalImportance: "HIGH",
-        primaryTech: ["Python", "TypeScript", "Multi-Agent Systems", "State Graphs"],
+        primaryTech: ["Python", "TypeScript", "Agentic AI", "State Graphs"],
       },
       {
         repoName: "browserbase/stagehand",
         url: "https://github.com/browserbase/stagehand",
-        stars: 9800,
+        stars: 10200,
         starVelocity7d: 2100,
         maintainerActivityScore: 88,
         hasActiveReleases: true,
         whyGainingAttention: "AI web browsing framework with Playwright integration for automated web agent workflows.",
         technicalImportance: "HIGH",
-        primaryTech: ["TypeScript", "Playwright", "AI Agents", "Web Automation"],
+        primaryTech: ["TypeScript", "Playwright", "AI Agents", "Automation"],
+      },
+      {
+        repoName: "biomejs/biome",
+        url: "https://github.com/biomejs/biome",
+        stars: 16800,
+        starVelocity7d: 1200,
+        maintainerActivityScore: 94,
+        hasActiveReleases: true,
+        whyGainingAttention: "Rust-powered fast linter and formatter replacing ESLint and Prettier in modern monorepos.",
+        technicalImportance: "HIGH",
+        primaryTech: ["Rust", "TypeScript", "Developer Tools", "Performance"],
+      },
+      {
+        repoName: "aquasecurity/trivy",
+        url: "https://github.com/aquasecurity/trivy",
+        stars: 22400,
+        starVelocity7d: 950,
+        maintainerActivityScore: 96,
+        hasActiveReleases: true,
+        whyGainingAttention: "Comprehensive security scanner for container images, Kubernetes manifests, and IaC dependencies.",
+        technicalImportance: "HIGH",
+        primaryTech: ["Go", "Security", "DevOps", "Containers"],
+      },
+      {
+        repoName: "clickhouse/clickhouse",
+        url: "https://github.com/clickhouse/clickhouse",
+        stars: 38200,
+        starVelocity7d: 1100,
+        maintainerActivityScore: 95,
+        hasActiveReleases: true,
+        whyGainingAttention: "Columnar database management system designed for real-time analytical SQL queries at petabyte scale.",
+        technicalImportance: "HIGH",
+        primaryTech: ["C++", "Databases", "System Design", "Analytics"],
       },
     ];
 
@@ -76,3 +98,4 @@ export class GitHubCollector {
 }
 
 export const gitHubCollector = new GitHubCollector();
+

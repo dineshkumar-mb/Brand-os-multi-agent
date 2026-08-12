@@ -32,6 +32,7 @@ export * from "./agents/visual-planning";
 export * from "./agents/publisher-agent";
 export * from "./agents/continuous-learning";
 export * from "./agents/decision-gate";
+export * from "./agents/diversity-report";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";
@@ -51,48 +52,36 @@ import { VisualPlanningAgent } from "./agents/visual-planning";
 import { PublisherAgent } from "./agents/publisher-agent";
 import { ContinuousLearningAgent } from "./agents/continuous-learning";
 import { DecisionGateAgent } from "./agents/decision-gate";
+import { DiversityReportAgent } from "./agents/diversity-report";
 
 // ==========================================
-// DECOUPLED EVENT BUS
+// DECOUPLED EVENT BUS & MEMORY
 // ==========================================
 
 type EventHandler = (payload: any) => Promise<void>;
 
 export class AgentEventBus {
   private handlers: Map<AgentEvent, EventHandler[]> = new Map();
-
   public subscribe(event: AgentEvent, handler: EventHandler) {
     const list = this.handlers.get(event) || [];
     list.push(handler);
     this.handlers.set(event, list);
   }
-
   public async publish(event: AgentEvent, payload: any) {
-    console.log(`[Event Bus] Published Event: ${event}`, { timestamp: new Date().toISOString() });
     const list = this.handlers.get(event) || [];
     for (const handler of list) {
-      try {
-        await handler(payload);
-      } catch (err: any) {
-        console.error(`[Event Bus] Handler failed for ${event}:`, err.message);
-      }
+      try { await handler(payload); } catch (err: any) {}
     }
   }
 }
 
 export const eventBus = new AgentEventBus();
 
-// ==========================================
-// AGENT MEMORY STORE
-// ==========================================
-
 export class AgentMemoryStore {
   private memoryMap: Map<string, any> = new Map();
-
   public setMemory(agentType: AgentType, key: string, value: any) {
     this.memoryMap.set(`${agentType}:${key}`, value);
   }
-
   public getMemory(agentType: AgentType, key: string) {
     return this.memoryMap.get(`${agentType}:${key}`);
   }
@@ -241,9 +230,11 @@ export class AgentOrchestrator {
   private publisherAgent = new PublisherAgent();
   private continuousLearningAgent = new ContinuousLearningAgent();
   private decisionGateAgent = new DecisionGateAgent();
+  private diversityReportAgent = new DiversityReportAgent();
 
   public async executePipeline(options: {
     autoPublish?: boolean;
+
     pipelineId?: string;
     publishMode?: PublishMode;
     historicalPosts?: HistoricalPostRecord[];
@@ -257,23 +248,50 @@ export class AgentOrchestrator {
 
     console.log(`[Pipeline ID: ${pipelineId}] === Starting Master Directed Intelligence Graph Pipeline ===`);
 
-
     this.topicIntelligenceAgent.setHistory(history);
     this.originalityAgent.setHistory(history);
 
     // Agent 1: Trend Discovery
     const trendRes = await this.trendDiscoveryAgent.run(pipelineId);
-    let candidateTopics = trendRes.data;
+    let candidateTopics = trendRes.data || [];
 
-    // Agent 2: Topic Intelligence (Rejection of recent duplicates/overused frameworks)
+    // Agent 2: Topic Intelligence (Decay, Saturation, Diversity Filter)
     let topicEvalRes = this.topicIntelligenceAgent.evaluateTopics(candidateTopics, pipelineId);
     let selectedTopic = topicEvalRes.data.selectedTopic;
 
     if (!selectedTopic) {
-      console.warn(`[Pipeline ID: ${pipelineId}] All candidate topics rejected by Topic Intelligence. Falling back to primary candidate with adjusted angle.`);
-      selectedTopic = candidateTopics[0];
+      console.warn(`[Pipeline ID: ${pipelineId}] All candidate topics rejected by Topic Intelligence. Executing NO_POST_TODAY safe exit.`);
+      const diversityReport = this.diversityReportAgent.generateReport(
+        null,
+        history,
+        candidateTopics,
+        topicEvalRes.data.rejectedTopics,
+        pipelineId
+      );
+
+      return {
+        pipelineId,
+        status: "NO_POST_TODAY",
+        topic: null,
+        linkedInPost: null,
+        devToArticle: null,
+        factCheck: { factCheckPassed: false, confidenceScore: 0 },
+        diversityReport: diversityReport.data,
+        review: {
+          readabilityScore: 0,
+          seoScore: 0,
+          engagementScore: 0,
+          noveltyScore: 0,
+          grammarScore: 0,
+          technicalAccuracyScore: 0,
+          overallScore: 0,
+          passedThreshold: false,
+          feedbackNotes: ["NO_POST_TODAY: Safe exit executed due to topic decay or content saturation."],
+        },
+      };
     }
-    console.log(`[Pipeline ID: ${pipelineId}][Agent 2: Topic Intelligence] Selected Topic: "${selectedTopic.title}"`);
+
+    console.log(`[Pipeline ID: ${pipelineId}][Agent 2: Topic Intelligence] Selected Topic: "${selectedTopic.title}" (Category: ${selectedTopic.category})`);
 
     // Agent 3: Content Gap Analysis & Portfolio Metrics
     const contentGapRes = this.contentGapAgent.analyzeGaps(history, pipelineId);
@@ -301,7 +319,7 @@ export class AgentOrchestrator {
     const experience = expRes.data;
     console.log(`[Pipeline ID: ${pipelineId}][Agent 8: Experience Mining] Outcome: ${experience.quantifiableOutcome}`);
 
-    // Agent 9: Technical Writer (Drafts)
+    // Agent 9: Technical Writer (Drafts with Narrative Pattern Rotation)
     let writerRes = await this.technicalWriterAgent.generateContent(
       selectedTopic,
       research,
@@ -315,7 +333,7 @@ export class AgentOrchestrator {
     // Agent 10: Storytelling (6-step developer flow)
     const storyRes = this.storytellingAgent.formatDeveloperStory(linkedInPost, pipelineId);
     linkedInPost = storyRes.data;
-    console.log(`[Pipeline ID: ${pipelineId}][Agent 10: Storytelling] Applied 6-step developer story flow`);
+    console.log(`[Pipeline ID: ${pipelineId}][Agent 10: Storytelling] Applied developer story flow`);
 
     // Agent 11: Humanization (Anti-AI Cliché Filter)
     const humanRes = this.humanizationAgent.sanitize(linkedInPost, devToArticle, pipelineId);
@@ -384,7 +402,6 @@ export class AgentOrchestrator {
       console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Generator] Attached custom dynamic architecture diagram SVG image.`);
     }
 
-
     // Agent 16: Decision Gate Agent (Mandatory Pass Layer before Publishing)
     const decisionGateRes = this.decisionGateAgent.evaluateDecision(
       selectedTopic,
@@ -431,10 +448,19 @@ export class AgentOrchestrator {
 
     // Agent 18: Continuous Learning Agent
     const learningRes = this.continuousLearningAgent.analyzeEngagementTelemetry(history, pipelineId);
-    console.log(`[Pipeline ID: ${pipelineId}][Agent 18: Continuous Learning] Career Impact Score: ${learningRes.data.careerImpactScore}`);
+
+    // Generate 7-Day Diversity Report
+    const diversityReport = this.diversityReportAgent.generateReport(
+      selectedTopic,
+      history,
+      candidateTopics,
+      topicEvalRes.data.rejectedTopics,
+      pipelineId
+    );
 
     return {
       pipelineId,
+      status: "POST_GENERATED",
       topic: selectedTopic,
       research,
       sourceVerification: { confidenceScore: 95, verifiedCount: 1 },
@@ -453,8 +479,10 @@ export class AgentOrchestrator {
       originality: originality.data,
       techReview: techReview.data,
       continuousLearning: learningRes.data,
+      diversityReport: diversityReport.data,
     };
   }
 }
 
 export const agentOrchestrator = new AgentOrchestrator();
+

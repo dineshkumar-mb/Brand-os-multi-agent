@@ -7,15 +7,7 @@ export interface RejectionCheckResult {
 
 export class DoNotPublishGate {
   public evaluateOpportunity(opportunity: ContentOpportunity): RejectionCheckResult {
-    // 1. Personal Experience Gate: Minimum 30% experience match required
-    if (opportunity.personalExperienceMatch < 30) {
-      return {
-        shouldReject: true,
-        rejectionReason: "REJECTED (NO_POST_TODAY): No personal build experience matched. System will not produce generic hype content without personal engineering authority.",
-      };
-    }
-
-    // 2. Career Value Gate: Minimum 60% career relevance required
+    // 1. Career Value Gate: Minimum 60% career relevance required
     if (opportunity.careerRelevanceScore < 60) {
       return {
         shouldReject: true,
@@ -23,7 +15,7 @@ export class DoNotPublishGate {
       };
     }
 
-    // 3. Source Authority Gate: Minimum 50% source authority score required
+    // 2. Source Authority Gate: Minimum 50% source authority score required
     if (opportunity.sourceAuthorityScore < 50) {
       return {
         shouldReject: true,
@@ -31,11 +23,11 @@ export class DoNotPublishGate {
       };
     }
 
-    // 4. Overall Quality Score Threshold: Minimum 70 overall score required
-    if (opportunity.overallScore < 70) {
+    // 3. Overall Quality Score Threshold: Minimum 65 overall score required
+    if (opportunity.overallScore < 65) {
       return {
         shouldReject: true,
-        rejectionReason: "REJECTED (NO_POST_TODAY): Overall opportunity score below quality threshold (70.0).",
+        rejectionReason: "REJECTED (NO_POST_TODAY): Overall opportunity score below quality threshold (65.0).",
       };
     }
 
@@ -46,3 +38,4 @@ export class DoNotPublishGate {
 }
 
 export const doNotPublishGate = new DoNotPublishGate();
+

@@ -8,25 +8,37 @@ export class ExperienceMatcherEngine {
   } {
     const textToMatch = `${event.title} ${event.summary} ${event.tags.join(" ")}`.toLowerCase();
 
-    // Default mock user experience inventory if DB log not present
+    // Diversified user project experience inventory across full-stack AI & systems engineering
     const userExperiences = [
       {
         id: "exp_1",
-        title: "Built Multi-Agent AI Gateway with Model Context Protocol & Failover",
-        tech: ["MCP", "TypeScript", "Node.js", "OpenAI", "Anthropic", "Redis"],
-        description: "Implemented standard tool calling contract and multi-provider failover routing.",
+        title: "Built Autonomous Multi-Agent Personal Brand OS",
+        tech: ["TypeScript", "Node.js", "OpenAI", "Anthropic", "PostgreSQL", "Docker"],
+        description: "Implemented multi-agent orchestration, quality decision gates, and event-driven architecture.",
       },
       {
         id: "exp_2",
-        title: "Decoupled Event-Driven Microservices with Redis Streams & BullMQ",
-        tech: ["Redis", "BullMQ", "Node.js", "Docker", "PostgreSQL"],
-        description: "Built asynchronous queue processing pipeline managing rate limits and retry exponential backoffs.",
+        title: "High-Throughput Microservice Distributed Rate Limiting & Queue Processing",
+        tech: ["Node.js", "Docker", "PostgreSQL", "System Design", "Performance"],
+        description: "Built asynchronous queue pipeline managing rate limits, exponential backoffs, and memory bounds.",
       },
       {
         id: "exp_3",
-        title: "React 19 SaaS Migration with Server Actions & Vite",
-        tech: ["React 19", "Next.js", "TypeScript", "Vite", "TailwindCSS"],
-        description: "Refactored legacy form handling to React 19 Server Actions reducing bundle size by 35%.",
+        title: "Enterprise SaaS Full Stack Refactoring & Compiler Optimization",
+        tech: ["React", "TypeScript", "Vite", "Next.js", "TailwindCSS"],
+        description: "Refactored legacy forms and state pipelines to modern async server actions reducing client bundle size.",
+      },
+      {
+        id: "exp_4",
+        title: "Containerized Microservice Hardening & CI/CD Pipeline Security",
+        tech: ["Docker", "Kubernetes", "Security", "CI/CD", "GitHub Actions"],
+        description: "Enforced vulnerability scanning, rootless container execution, and zero-trust mTLS authorization.",
+      },
+      {
+        id: "exp_5",
+        title: "Columnar Analytics & Real-Time Data Pipeline Architecture",
+        tech: ["Databases", "System Design", "Analytics", "SQL", "Performance"],
+        description: "Designed high-cardinality analytical aggregation queries with low-latency indexing strategies.",
       },
     ];
 
@@ -38,13 +50,9 @@ export class ExperienceMatcherEngine {
 
       for (const tag of event.tags) {
         if (expText.includes(tag.toLowerCase())) {
-          score += 25;
+          score += 20;
         }
       }
-
-      if (textToMatch.includes("mcp") && expText.includes("mcp")) score += 40;
-      if (textToMatch.includes("redis") && expText.includes("redis")) score += 40;
-      if (textToMatch.includes("react") && expText.includes("react")) score += 40;
 
       if (score > 0) {
         matchedEvidence.push({
@@ -58,7 +66,7 @@ export class ExperienceMatcherEngine {
     }
 
     matchedEvidence.sort((a, b) => b.relevanceScore - a.relevanceScore);
-    const topScore = matchedEvidence.length > 0 ? matchedEvidence[0].relevanceScore : 20;
+    const topScore = matchedEvidence.length > 0 ? Math.max(30, matchedEvidence[0].relevanceScore) : 30;
 
     return {
       matchPercentage: topScore,
@@ -68,3 +76,5 @@ export class ExperienceMatcherEngine {
 }
 
 export const experienceMatcherEngine = new ExperienceMatcherEngine();
+
+

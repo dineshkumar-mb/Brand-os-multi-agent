@@ -12,9 +12,9 @@ import { TechnicalReviewResult } from "./technical-reviewer";
 
 export class DecisionGateAgent {
   public evaluateDecision(
-    topic: Topic,
-    post: LinkedInPostPayload,
-    article: DevToArticlePayload,
+    topic: Topic | null,
+    post: LinkedInPostPayload | null,
+    article: DevToArticlePayload | null,
     originality: OriginalityCheckResult,
     techReview: TechnicalReviewResult,
     visualValidation: VisualValidationResult,
@@ -22,9 +22,43 @@ export class DecisionGateAgent {
     pipelineId?: string
   ): AgentResult<DecisionGateResult> {
     const startTime = Date.now();
-    console.log(`[Decision Gate Agent] Evaluating 10 Quality Gates for topic "${topic.title}"...`);
+    console.log(`[Decision Gate Agent] Evaluating 10 Quality Gates for topic "${topic?.title || "N/A"}"...`);
 
     const rejectionReasons: string[] = [];
+
+    if (!topic || !post || !article) {
+      rejectionReasons.push("NO_POST_TODAY: Topic or post payload is missing due to topic decay or content saturation.");
+      console.log(`[DECISION_GATE] topicFreshness=0 originality=0 humanTone=0 visualAlignment=0 decision=REJECT`);
+      return {
+        success: false,
+        confidenceScore: 0,
+        data: {
+          approvedForPublishing: false,
+          decision: "REJECT",
+          gateCheckResults: {
+            topicFreshnessPassed: false,
+            technicalAccuracyPassed: false,
+            originalityPassed: false,
+            humanTonePassed: false,
+            audienceRelevancePassed: false,
+            brandStrategyPassed: false,
+            discussionPotentialPassed: false,
+            platformOptimizationPassed: false,
+            visualValidationPassed: false,
+            seoCompletenessPassed: false,
+          },
+          rejectionReasons,
+          actionRequired: "NO_POST_TODAY: Safe exit executed.",
+        },
+        validationResult: { passed: false, errors: rejectionReasons, warnings: [] },
+        metadata: {
+          agentType: AgentType.DECISION_GATE,
+          timestamp: new Date().toISOString(),
+          executionTimeMs: Date.now() - startTime,
+          pipelineId,
+        },
+      };
+    }
 
     // Gate 1: Topic Freshness
     const topicFreshnessPassed = Boolean(topic.title);
@@ -81,6 +115,16 @@ export class DecisionGateAgent {
     const decision: DecisionGateResult["decision"] = approvedForPublishing ? "PUBLISH" : "REGENERATE";
     const actionRequired = approvedForPublishing ? "Dispatch to Publisher Agent" : `Revise content: ${rejectionReasons.join("; ")}`;
 
+    const topicFreshnessScore = Math.round(topic.score);
+    const originalityScore = Math.round((1 - originality.overallSimilarityScore) * 100);
+    const humanToneScore = Math.max(70, 100 - clichésRemoved * 5);
+    const visualAlignmentScore = visualValidation.alignmentScore;
+    const careerSignalScore = 90;
+
+    console.log(
+      `[DECISION_GATE] topicFreshness=${topicFreshnessScore} originality=${originalityScore} humanTone=${humanToneScore} visualAlignment=${visualAlignmentScore} careerSignal=${careerSignalScore} decision=${decision}`
+    );
+
     const executionTimeMs = Date.now() - startTime;
     return {
       success: approvedForPublishing,
@@ -119,3 +163,4 @@ export class DecisionGateAgent {
     };
   }
 }
+

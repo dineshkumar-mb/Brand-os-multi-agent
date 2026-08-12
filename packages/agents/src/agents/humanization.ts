@@ -22,6 +22,20 @@ export class HumanizationAgent {
     /at the end of the day/gi,
     /beacon of/gi,
     /paradigm shift/gi,
+    /furthermore,/gi,
+    /moreover,/gi,
+    /rich tapestry/gi,
+    /tapestry of/gi,
+    /cutting-edge/gi,
+    /spearhead/gi,
+    /holistic approach/gi,
+    /synergy/gi,
+    /transformative/gi,
+    /supercharge/gi,
+    /navigating the landscape/gi,
+    /in the realm of/gi,
+    /demystify/gi,
+    /embark on a journey/gi,
   ];
 
   public sanitize(

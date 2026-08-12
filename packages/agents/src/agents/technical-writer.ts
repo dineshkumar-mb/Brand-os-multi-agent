@@ -6,16 +6,17 @@ import {
   LinkedInPostPayload,
   DevToArticlePayload,
   RoutingStrategy,
+  NarrativePattern,
 } from "@brand-os/shared";
 import { aiGateway } from "@brand-os/ai-gateway";
 import { MinedExperienceNarrative } from "./experience-mining";
 import { AudienceContext } from "./audience-research";
-
 import { VisualPlanningAgent } from "./visual-planning";
 
 export interface TechnicalWriterOutput {
   linkedInPost: LinkedInPostPayload;
   devToArticle: DevToArticlePayload;
+  narrativePattern: NarrativePattern;
 }
 
 export class TechnicalWriterAgent {
@@ -32,6 +33,89 @@ export class TechnicalWriterAgent {
     )}`;
   }
 
+  private selectNarrativePattern(topic: Topic): NarrativePattern {
+    const patterns: NarrativePattern[] = [
+      "ENGINEERING_DISCOVERY",
+      "UNEXPECTED_PROBLEM",
+      "TECHNICAL_TRADEOFF",
+      "PRODUCTION_FAILURE",
+      "CONTRARIAN_OBSERVATION",
+      "NEW_TECHNOLOGY_ANALYSIS",
+      "BUILD_IN_PUBLIC",
+      "ARCHITECTURE_LESSON",
+    ];
+    const sum = (topic.title || "").split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+    return patterns[sum % patterns.length];
+  }
+
+  private buildDynamicHook(topic: Topic, pattern: NarrativePattern, hasMatch: boolean): string {
+    const fw = topic.framework || topic.category || "this technology";
+    if (pattern === "ENGINEERING_DISCOVERY") {
+      return `While testing ${topic.title}, I noticed an architectural trade-off that changes how we evaluate system performance.`;
+    }
+    if (pattern === "UNEXPECTED_PROBLEM") {
+      return `We expected ${fw} to simplify our data flow. Instead, production load exposed a subtle concurrency edge case.`;
+    }
+    if (pattern === "TECHNICAL_TRADEOFF") {
+      return `Choosing between ${fw} and custom abstractions isn't about hype—it comes down to long-term maintenance overhead vs immediate velocity.`;
+    }
+    if (pattern === "PRODUCTION_FAILURE") {
+      return `The implementation passed all local unit tests. Production exposed a bottleneck in state synchronization.`;
+    }
+    if (pattern === "CONTRARIAN_OBSERVATION") {
+      return `Everyone is discussing the headline features of ${topic.title}. The part I find far more interesting is the underlying architecture change.`;
+    }
+    if (pattern === "NEW_TECHNOLOGY_ANALYSIS") {
+      return `${topic.title} was released recently. Beyond the initial benchmarks, here is what changes for software engineers.`;
+    }
+    if (pattern === "BUILD_IN_PUBLIC") {
+      return `Today I refactored our ${topic.category} pipeline for ${fw}. The unexpected part was how much cleaner error boundaries became.`;
+    }
+    return `This looked like a simple feature in ${topic.title}. Under production scale, it required decoupling our event handlers.`;
+  }
+
+  private generateTopicMermaid(topic: Topic): string {
+    const t = (topic.title + " " + (topic.framework || "")).toLowerCase();
+    if (t.includes("docker") || t.includes("container")) {
+      return `\`\`\`mermaid
+flowchart LR
+    Dev["Developer Code"] --> Build["Docker Buildx Engine"]
+    Build --> Scan["Security Scanner (Trivy)"]
+    Scan --> Registry["Private OCI Registry"]
+    Registry --> K8s["Kubernetes Cluster Node"]
+\`\`\``;
+    }
+    if (t.includes("typescript") || t.includes("compiler")) {
+      return `\`\`\`mermaid
+flowchart TD
+    AST["AST Parser"] --> TypeCheck["Type Checker Engine"]
+    TypeCheck --> ProjectRef["Project References Resolver"]
+    ProjectRef --> Emit["JS Emitter & Declaration Maps"]
+\`\`\``;
+    }
+    if (t.includes("deepseek") || t.includes("reasoning") || t.includes("model")) {
+      return `\`\`\`mermaid
+flowchart TD
+    Prompt["User Prompt / Context"] --> RL["Reinforcement Learning Model Engine"]
+    RL --> CoT["Chain-of-Thought Verification"]
+    CoT --> Out["Structured Response"]
+\`\`\``;
+    }
+    if (t.includes("security") || t.includes("mtls") || t.includes("ebpf")) {
+      return `\`\`\`mermaid
+flowchart LR
+    AppA["Microservice A"] --> mTLS["mTLS Proxy / Service Mesh"]
+    mTLS --> eBPF["eBPF Kernel Probe Filter"]
+    eBPF --> AppB["Microservice B"]
+\`\`\``;
+    }
+    return `\`\`\`mermaid
+flowchart TD
+    Client["Client / API Gateway"] --> Controller["Service Controller (${topic.framework || "Backend"})"]
+    Controller --> Engine["Domain Logic Processor"]
+    Engine --> Storage["Database / Cache Layer"]
+\`\`\``;
+  }
 
   public async generateContent(
     topic: Topic,
@@ -48,18 +132,17 @@ export class TechnicalWriterAgent {
     const consList = research.cons || ["Initial setup complexity"];
     const codeSnippetsList = research.code_snippets || [];
     const dynamicImageUrl = this.getDynamicImageUrl(topic);
+    const narrativePattern = this.selectNarrativePattern(topic);
+    const hasBuildMatch = Boolean(experience.foundMatch && experience.quantifiableOutcome);
 
-    // 1. Generate LinkedIn Post
+    // 1. Generate LinkedIn Post with dynamic prompt
     const linkedinPrompt = `You are a Staff Full Stack AI Engineer.
 Write an authentic, highly engaging LinkedIn post for ${audience.primaryAudience} about: "${topic.title}".
 
-Context & Production Narrative:
-- Problem: ${experience.realWorldProblem}
-- Decision: ${experience.engineeringDecision}
-- Outcome: ${experience.quantifiableOutcome}
-
-Insights:
-${keyInsightsList.map((k) => `- ${k}`).join("\n")}
+Narrative Pattern: ${narrativePattern}
+Experience Type: ${hasBuildMatch ? "Direct Production Experience" : "Technical Research & Benchmarking"}
+- Real Context: ${hasBuildMatch ? experience.realWorldProblem : research.summary}
+- Technical Insights: ${keyInsightsList.slice(0, 3).join("; ")}
 
 STRICT RULES FOR LINKEDIN:
 - Length between 200 and 500 words.
@@ -71,11 +154,11 @@ Return ONLY a valid JSON object matching:
 {
   "title": "${topic.title}",
   "hook": "Scroll-stopping developer hook",
-  "story": "Observation and real problem",
+  "story": "Observation and technical scenario",
   "lesson": "Engineering decision made",
   "actionableInsight": "Bullet 1\\nBullet 2\\nBullet 3",
   "cta": "Discussion prompt",
-  "hashtags": ["#SoftwareEngineering", "#AI", "#SystemDesign", "#TypeScript"],
+  "hashtags": ["#SoftwareEngineering", "#SystemDesign", "#Engineering"],
   "fullText": "Full formatted text"
 }`;
 
@@ -97,19 +180,21 @@ Return ONLY a valid JSON object matching:
       console.warn("[Technical Writer Agent] LinkedIn generation warning:", err.message);
     }
 
-    if (!linkedInPost || !linkedInPost.fullText) {
-      const hook = `Building production systems with ${topic.framework || topic.category} taught our team a hard lesson about state boundaries.`;
-      const story = `${experience.realWorldProblem} We refactored our pipeline to use ${experience.engineeringDecision}.`;
+    if (!linkedInPost || !linkedInPost.fullText || linkedInPost.fullText.trim().length < 100) {
+      const hook = this.buildDynamicHook(topic, narrativePattern, hasBuildMatch);
+      const story = hasBuildMatch
+        ? `While working on our ${topic.category} infrastructure, ${experience.realWorldProblem} We evaluated our options and chose ${experience.engineeringDecision || topic.framework || "a modular pattern"}.`
+        : `I recently analyzed and benchmarked ${topic.title}. ${research.summary.substring(0, 180)}...`;
       const insights = keyInsightsList.map((k, i) => `⚡ ${i + 1}. ${k}`).join("\n");
-      const cta = `How is your engineering team balancing abstraction complexity versus runtime performance? Let's discuss in the comments.`;
-      const hashtags = ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering", "#TypeScript"];
-      const fullText = `${hook}\n\n${story}\n\nKey Engineering Takeaways:\n${insights}\n\nTrade-offs:\n• ${experience.tradeoffsFaced?.join("\n• ") || "Increased initial boilerplate vs long-term stability"}\n\n${cta}\n\n${hashtags.join(" ")}`;
+      const cta = `How is your engineering team approaching ${topic.framework || topic.category} in production? Let's discuss trade-offs in the comments.`;
+      const hashtags = ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering", "#DeveloperTools"];
+      const fullText = `${hook}\n\n${story}\n\nKey Engineering Insights:\n${insights}\n\nTrade-offs:\n• Pros: ${prosList.join(", ")}\n• Cons: ${consList.join(", ")}\n\n${cta}\n\n${hashtags.join(" ")}`;
 
       linkedInPost = {
         title: topic.title,
         hook,
         story,
-        lesson: experience.engineeringDecision || "Decoupled clean architecture reduces state bugs.",
+        lesson: experience.engineeringDecision || "Decoupled clean architecture reduces operational complexity.",
         actionableInsight: insights,
         cta,
         hashtags,
@@ -120,13 +205,13 @@ Return ONLY a valid JSON object matching:
       linkedInPost.imageUrl = dynamicImageUrl;
     }
 
-    // 2. Generate Dev.to Standalone Technical Article with Dynamic High-Engagement Headlines & Community CTAs
+    // 2. Generate Dev.to Standalone Technical Article with Dynamic Mermaid Diagrams
     const generateDevToTitle = (topicTitle: string): string => {
       const cleanTitle = topicTitle.replace(/:(.*)$/, "").trim();
       const titleFormulas = [
         `🚀 ${cleanTitle}: Performance Gains, Trade-Offs, and Implementation Blueprints`,
         `Inside ${cleanTitle}: Benchmarks, System Architecture, and Production Edge Cases`,
-        `Why We Scaled ${cleanTitle} in Production (And Lessons Learned)`,
+        `Practical Architecture Guide: ${cleanTitle}`,
         `A Software Architect's Deep Dive into ${cleanTitle}`,
         `Mastering ${cleanTitle}: High-Throughput Patterns & Code Blueprints`,
       ];
@@ -149,14 +234,8 @@ Return ONLY a valid JSON object matching:
       devToTags.push("webdev", "architecture", "softwareengineering");
     }
 
-    const codeSnippet = codeSnippetsList[0]?.code || `export const runService = () => { console.log("Service active"); };`;
-
-    const mermaidDiagram = `\`\`\`mermaid
-flowchart TD
-    Client["Client / API Gateway"] --> Queue["Redis Event Stream"]
-    Queue --> Worker["Worker Node (${topic.framework || "Agent"})"]
-    Worker --> Storage["PostgreSQL / ChromaDB"]
-\`\`\``;
+    const codeSnippet = codeSnippetsList[0]?.code || `// Production implementation blueprint for ${topic.title}\nexport const runService = async () => {\n  console.log("Service active: ${topic.title}");\n};`;
+    const mermaidDiagram = this.generateTopicMermaid(topic);
 
     const devToMarkdown = `---
 title: "${devToTitle}"
@@ -168,12 +247,12 @@ description: "A comprehensive deep dive into ${topic.title} architecture, implem
 
 # ${devToTitle}
 
-## Overview & Background
+## Overview & Technical Context
 ${research.summary || topic.title}
 
-### Target Persona & Problem Statement
+### Target Audience & Real-World Scenario
 * **Target Audience**: ${audience.primaryAudience}
-* **Real-World Context**: ${experience.realWorldProblem}
+* **Engineering Narrative**: ${hasBuildMatch ? `Direct Build Experience: ${experience.realWorldProblem}` : `In-Depth Benchmarking: ${research.summary.substring(0, 150)}`}
 
 ---
 
@@ -185,12 +264,12 @@ ${mermaidDiagram}
 
 ## Deep Technical Explanation & Trade-Offs
 
-${keyInsightsList.map((insight) => `### ${insight}\nDetailed architectural breakdown of this insight in production environments.`).join("\n\n")}
+${keyInsightsList.map((insight) => `### ${insight}\nDetailed architectural breakdown of this pattern in enterprise production systems.`).join("\n\n")}
 
 ### Trade-Offs Matrix
 * **Pros**: ${prosList.join(", ")}
 * **Cons**: ${consList.join(", ")}
-* **Quantifiable Outcome**: ${experience.quantifiableOutcome}
+* **Outcome**: ${hasBuildMatch ? experience.quantifiableOutcome : "Predictable scalability and maintainability."}
 
 ---
 
@@ -204,14 +283,14 @@ ${codeSnippet}
 
 ## Edge Cases & Failure Recovery
 
-1. **Network Latency & Timeout Spikes**: Enforce exponential backoff retries with jitter.
-2. **State Memory Bloat**: Configure TTL eviction and bounded queue lengths.
-3. **Schema Corruption**: Validate input payloads using Zod or JSON-RPC schema contracts.
+1. **Network Latency & Timeout Spikes**: Enforce exponential backoff retries with jitter and circuit breakers.
+2. **Resource & Memory Bounds**: Configure explicit memory limits, TTL eviction, and queue backpressure.
+3. **Schema & Payload Contract Drift**: Enforce runtime validation schemas using Zod or OpenAPI contracts.
 
 ---
 
-## Conclusion & Next Steps
-${research.future_outlook || "Clean architecture scales predictably."}
+## Conclusion & Future Outlook
+${research.future_outlook || "Modern decoupled architecture scales predictably."}
 
 ---
 
@@ -240,6 +319,7 @@ ${research.future_outlook || "Clean architecture scales predictably."}
       data: {
         linkedInPost,
         devToArticle,
+        narrativePattern,
       },
       validationResult: {
         passed: Boolean(linkedInPost.fullText && devToArticle.markdownContent),
@@ -255,4 +335,5 @@ ${research.future_outlook || "Clean architecture scales predictably."}
     };
   }
 }
+
 
