@@ -33,6 +33,11 @@ export * from "./agents/publisher-agent";
 export * from "./agents/continuous-learning";
 export * from "./agents/decision-gate";
 export * from "./agents/diversity-report";
+export * from "./agents/writing-memory";
+export * from "./agents/hook-engine";
+export * from "./agents/tradeoff-engine";
+export * from "./agents/writing-quality-evaluator";
+export * from "./agents/engineering-reasoning";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";
@@ -49,6 +54,11 @@ import { TechnicalReviewerAgent } from "./agents/technical-reviewer";
 import { OriginalityAgent } from "./agents/originality";
 import { SeoAndEngagementAgent } from "./agents/seo-engagement";
 import { VisualPlanningAgent } from "./agents/visual-planning";
+import { VisualIntelligenceAgent } from "./agents/visual-intelligence";
+import { VisualReviewAgent } from "./agents/visual-reviewer";
+import { VisualRAGStore } from "./agents/visual-rag-store";
+import { RecentVisualMemoryStore } from "./agents/visual-memory";
+import { VisualPatternExtractor } from "./agents/visual-pattern-extractor";
 import { PublisherAgent } from "./agents/publisher-agent";
 import { ContinuousLearningAgent } from "./agents/continuous-learning";
 import { DecisionGateAgent } from "./agents/decision-gate";
@@ -228,6 +238,8 @@ export class AgentOrchestrator {
   private originalityAgent = new OriginalityAgent();
   private seoEngagementAgent = new SeoAndEngagementAgent();
   private visualPlanningAgent = new VisualPlanningAgent();
+  private visualIntelligenceAgent = new VisualIntelligenceAgent();
+  private visualReviewAgent = new VisualReviewAgent();
   private publisherAgent = new PublisherAgent();
   private continuousLearningAgent = new ContinuousLearningAgent();
   private decisionGateAgent = new DecisionGateAgent();
@@ -320,16 +332,36 @@ export class AgentOrchestrator {
     const experience = expRes.data;
     console.log(`[Pipeline ID: ${pipelineId}][Agent 8: Experience Mining] Outcome: ${experience.quantifiableOutcome}`);
 
-    // Agent 9: Technical Writer (Drafts with Narrative Pattern Rotation)
+    // Agent 9: Technical Writer Subsystem (Senior Engineer Writing Agent with Quality Gate)
     let writerRes = await this.technicalWriterAgent.generateContent(
       selectedTopic,
       research,
       experience,
       audienceRes.data,
-      pipelineId
+      pipelineId,
+      history
     );
     let linkedInPost = writerRes.data.linkedInPost;
     let devToArticle = writerRes.data.devToArticle;
+    const wScore = writerRes.data.writingQualityScore;
+
+    console.log(`[WRITER]
+Topic: ${selectedTopic.title}
+Hook: ${linkedInPost.hook.substring(0, 60)}...
+Narrative: ${writerRes.data.narrativePattern}
+
+Technical Depth: ${wScore.technicalDepth}
+Seniority: ${wScore.seniority}
+Authenticity: ${wScore.authenticity}
+Originality: ${wScore.originality}
+Career Signal: ${wScore.careerSignal}
+Cliché Score: ${wScore.aiClicheScore}
+Overall: ${wScore.overall}
+
+Generation Attempt: ${writerRes.data.regenerationCount + 1}/3
+Model: cost-optimized-llm
+Tokens: ${writerRes.metadata.tokensUsed || 1200}
+Latency: ${writerRes.metadata.executionTimeMs}ms`);
 
     // Agent 10: Storytelling (6-step developer flow)
     const storyRes = this.storytellingAgent.formatDeveloperStory(linkedInPost, pipelineId);
@@ -391,16 +423,34 @@ export class AgentOrchestrator {
     const seoRes = this.seoEngagementAgent.optimize(selectedTopic, linkedInPost, devToArticle, pipelineId);
     console.log(`[Pipeline ID: ${pipelineId}][Agent 14: SEO & Engagement] Canonical URL: ${seoRes.data.devToMeta.canonicalUrl}`);
 
-    // Agent 15: Visual Planning & Visual Validation Step
+    // Agent 15: Visual Intelligence & Visual Review Step
+    const visualIntelRes = this.visualIntelligenceAgent.generateVisualBlueprint(
+      selectedTopic,
+      writerRes.data.linkedInPost?.starStory,
+      writerRes.data.linkedInPost?.storyMode,
+      pipelineId
+    );
+
+    const visualReviewRes = this.visualReviewAgent.evaluateVisualQuality(
+      selectedTopic,
+      visualIntelRes.data,
+      linkedInPost,
+      devToArticle,
+      writerRes.data.linkedInPost?.starStory,
+      pipelineId
+    );
+
+    console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Intelligence] Format: ${visualIntelRes.data.visualFormat}, Alignment: ${visualIntelRes.data.visualStoryAlignmentScore}%, RepetitionScore: ${visualIntelRes.data.visualRepetitionScore}`);
+    console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Reviewer] Passed: ${visualReviewRes.data.passed} (Quality Score: ${visualReviewRes.data.overallScore})`);
+
     const visualPlanRes = this.visualPlanningAgent.createVisualPlan(selectedTopic, pipelineId);
     const visualValidationRes = this.visualPlanningAgent.validateVisualAlignment(selectedTopic, visualPlanRes.data, devToArticle, pipelineId);
-    console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Validation] Aligned: ${visualValidationRes.data.alignedWithArticle} (${visualValidationRes.data.alignmentScore}%)`);
 
     if (visualPlanRes.data.renderedSvg) {
       const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;
       linkedInPost.imageUrl = svgDataUrl;
       devToArticle.mainImage = svgDataUrl;
-      console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Generator] Attached custom dynamic architecture diagram SVG image.`);
+      console.log(`[Pipeline ID: ${pipelineId}][Agent 15: Visual Generator] Attached dynamic story-aware architecture blueprint SVG.`);
     }
 
     // Agent 16: Decision Gate Agent (Mandatory Pass Layer before Publishing)
@@ -425,7 +475,7 @@ export class AgentOrchestrator {
       noveltyScore: Math.round((1 - originality.data.overallSimilarityScore) * 100),
       grammarScore: 99,
       technicalAccuracyScore: techReview.data.accuracyScore,
-      overallScore: decisionGateRes.data.approvedForPublishing ? 95 : 65,
+      overallScore: Math.round((94 + 92 + 95 + Math.round((1 - originality.data.overallSimilarityScore) * 100) + 99 + techReview.data.accuracyScore) / 6),
       passedThreshold: decisionGateRes.data.approvedForPublishing,
       feedbackNotes: decisionGateRes.data.rejectionReasons,
     };
@@ -492,4 +542,11 @@ export class AgentOrchestrator {
 }
 
 export const agentOrchestrator = new AgentOrchestrator();
+
+export { VisualIntelligenceAgent } from "./agents/visual-intelligence";
+export { VisualReviewAgent } from "./agents/visual-reviewer";
+export { VisualRAGStore, CURATED_VISUAL_RAG_KNOWLEDGE_BASE } from "./agents/visual-rag-store";
+export { RecentVisualMemoryStore } from "./agents/visual-memory";
+export { VisualPatternExtractor } from "./agents/visual-pattern-extractor";
+
 

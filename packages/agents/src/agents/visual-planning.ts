@@ -353,11 +353,14 @@ export class VisualPlanningAgent {
     const renderedSvg = this.generateDiagramSvg(diagramSpec);
     const requiredDiagramNodes = diagramSpec.columns.flatMap((c) => c.nodes.map((n) => n.label));
 
-    const imagePrompt = `A high-contrast technical architecture diagram titled "${diagramSpec.title}". Side-by-side layout with color-coded vector node badges: Blue, Green, Purple accents on crisp white canvas. Key components: ${requiredDiagramNodes.join(
+    const imagePrompt = `A 16:9 technical architecture blueprint diagram titled "${diagramSpec.title}". Side-by-side layout with color-coded vector node badges: Blue, Green, Purple accents on crisp white canvas. Key components: ${requiredDiagramNodes.join(
       ", "
     )}. Clean typography and vector flow arrows.`;
 
     console.log(`[VISUAL_FILTER] accepted=${diagramSpec.title} alignment=96`);
+
+    const topicCat = (topic.category || topic.title || "").toLowerCase();
+    const visualCategory = (topicCat.includes("agent") || topicCat.includes("llm") || topicCat.includes("mcp")) ? "AI_AGENTS" : "COMPARISON_DIAGRAM";
 
     const executionTimeMs = Date.now() - startTime;
     return {
@@ -365,7 +368,7 @@ export class VisualPlanningAgent {
       confidenceScore: 96,
       data: {
         topicConcept: topic.title,
-        visualCategory: "COMPARISON_DIAGRAM",
+        visualCategory,
         requiredDiagramNodes,
         colorPalette: diagramSpec.colorPalette,
         imagePrompt,

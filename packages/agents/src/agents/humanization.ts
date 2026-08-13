@@ -36,6 +36,14 @@ export class HumanizationAgent {
     /in the realm of/gi,
     /demystify/gi,
     /embark on a journey/gi,
+    /the future of/gi,
+    /here are \d+ things/gi,
+    /as developers, we/gi,
+    /technology is evolving rapidly/gi,
+    /exciting times ahead/gi,
+    /this is a must-have/gi,
+    /transform your development workflow/gi,
+    /whether you're a beginner or expert/gi,
   ];
 
   public sanitize(

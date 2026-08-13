@@ -66,6 +66,9 @@ describe("17-Agent Personal Brand Intelligence System Unit Tests", () => {
       ...sampleTopic,
       title: "React 19 Server Actions in Enterprise SaaS", // exact title match
       framework: "React 19",
+      trend_velocity: 5.0,
+      score: 70,
+      references: [],
     };
 
     const evalResult = agent.evaluateTopics([overusedTopic, sampleTopic]);

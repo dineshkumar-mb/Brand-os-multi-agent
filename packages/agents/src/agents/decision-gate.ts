@@ -72,9 +72,19 @@ export class DecisionGateAgent {
     const originalityPassed = originality.passed && originality.overallSimilarityScore <= 0.35;
     if (!originalityPassed) rejectionReasons.push(`Originality check failed: Similarity score is ${originality.overallSimilarityScore} (Threshold <= 0.35).`);
 
-    // Gate 4: Human Tone
-    const humanTonePassed = clichésRemoved <= 5 && !post.fullText.includes("In today's fast-paced world");
-    if (!humanTonePassed) rejectionReasons.push("Human tone check failed: AI cliché patterns detected in content.");
+    // Gate 4: Human Tone & Boredom Check (No AI Clichés, no rigid "Situation:" or "1️⃣ Observation:" labels, BoredomScore <= 35)
+    const hasRigidHeaders = /1️⃣|2️⃣|3️⃣|4️⃣|5️⃣|6️⃣|Situation:|Task:|Action:|Result:/i.test(post.fullText);
+    const boredomTooHigh = Boolean(post.writingQualityScore?.boredomScore && post.writingQualityScore.boredomScore.overall > 35);
+    const humanTonePassed = clichésRemoved <= 5 && !post.fullText.includes("In today's fast-paced world") && !hasRigidHeaders && !boredomTooHigh;
+    if (!humanTonePassed) {
+      if (hasRigidHeaders) {
+        rejectionReasons.push("Human tone check failed: Literal STAR headers or emoji bullet numbers detected in output text.");
+      } else if (boredomTooHigh) {
+        rejectionReasons.push(`Human tone check failed: Content boredom score too high (${post.writingQualityScore?.boredomScore?.overall} > 35).`);
+      } else {
+        rejectionReasons.push("Human tone check failed: AI cliché patterns detected in content.");
+      }
+    }
 
     // Gate 5: Audience Relevance
     const audienceRelevancePassed = Boolean(topic.audience || topic.title);
@@ -85,7 +95,7 @@ export class DecisionGateAgent {
     if (!brandStrategyPassed) rejectionReasons.push("Brand strategy check failed: Content too short to demonstrate Full Stack AI Engineer authority.");
 
     // Gate 7: Discussion Potential
-    const discussionPotentialPassed = post.cta.length > 5;
+    const discussionPotentialPassed = Boolean(post.cta && (post.cta.length > 5 || post.fullText.includes("?")));
     if (!discussionPotentialPassed) rejectionReasons.push("Discussion potential check failed: Missing strong call-to-discussion prompt.");
 
     // Gate 8: Platform Optimization
@@ -149,7 +159,7 @@ export class DecisionGateAgent {
       },
       validationResult: {
         passed: approvedForPublishing,
-        errors: approvedForPublishing ? [] : rejectionReasons,
+        errors: rejectionReasons,
         warnings: [],
       },
       metadata: {
@@ -157,10 +167,9 @@ export class DecisionGateAgent {
         timestamp: new Date().toISOString(),
         executionTimeMs,
         pipelineId,
-        retryCount: approvedForPublishing ? 0 : 1,
-        errorDetails: rejectionReasons,
       },
     };
   }
 }
 
+export const decisionGateAgent = new DecisionGateAgent();

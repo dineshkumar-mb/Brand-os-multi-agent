@@ -44,6 +44,8 @@ export enum AgentType {
   ORIGINALITY = "ORIGINALITY",
   SEO_AND_ENGAGEMENT = "SEO_AND_ENGAGEMENT",
   VISUAL_PLANNING = "VISUAL_PLANNING",
+  VISUAL_INTELLIGENCE = "VISUAL_INTELLIGENCE",
+  VISUAL_REVIEWER = "VISUAL_REVIEWER",
   PUBLISHER = "PUBLISHER",
   CONTINUOUS_LEARNING = "CONTINUOUS_LEARNING",
   DECISION_GATE = "DECISION_GATE",
@@ -349,6 +351,29 @@ export const ContentEvaluationSchema = z.object({
 });
 export type ContentEvaluation = z.infer<typeof ContentEvaluationSchema>;
 
+export enum StoryMode {
+  FAILURE_STORY = "FAILURE_STORY",
+  DECISION_STORY = "DECISION_STORY",
+  DEBUGGING_STORY = "DEBUGGING_STORY",
+  PERFORMANCE_STORY = "PERFORMANCE_STORY",
+  ARCHITECTURE_STORY = "ARCHITECTURE_STORY",
+  BUILD_IN_PUBLIC = "BUILD_IN_PUBLIC",
+  TECH_DISCOVERY = "TECH_DISCOVERY",
+  CONTRARIAN_OBSERVATION = "CONTRARIAN_OBSERVATION",
+  BEFORE_AFTER = "BEFORE_AFTER",
+  PRODUCTION_REALITY = "PRODUCTION_REALITY",
+}
+
+export enum FormatStyle {
+  NARRATIVE_PARAGRAPHS = "NARRATIVE_PARAGRAPHS",
+  MINIMAL_BULLETS = "MINIMAL_BULLETS",
+  BEFORE_AFTER_LAYOUT = "BEFORE_AFTER_LAYOUT",
+  SHORT_DIALOGUE = "SHORT_DIALOGUE",
+  TECHNICAL_NOTE = "TECHNICAL_NOTE",
+  STORY_FIRST = "STORY_FIRST",
+  ARCHITECTURE_FIRST = "ARCHITECTURE_FIRST",
+}
+
 export const LinkedInPostPayloadSchema = z.object({
   title: z.string(),
   hook: z.string(),
@@ -368,6 +393,10 @@ export const LinkedInPostPayloadSchema = z.object({
     )
     .optional(),
   imageUrl: z.string().optional(),
+  writingQualityScore: z.lazy(() => WritingQualityScoreSchema.optional()),
+  storyMode: z.nativeEnum(StoryMode).optional(),
+  formatStyle: z.nativeEnum(FormatStyle).optional(),
+  starStory: z.lazy(() => STARStorySchema.optional()),
 });
 export type LinkedInPostPayload = z.infer<typeof LinkedInPostPayloadSchema>;
 
@@ -797,6 +826,332 @@ export interface DiversityReport7Day {
   visualAlignmentScore?: number;
   originalityScore?: number;
 }
+
+// ==========================================
+// SENIOR SOFTWARE ENGINEER WRITING AGENT TYPES
+// ==========================================
+
+export enum HookType {
+  ENGINEERING_OBSERVATION = "ENGINEERING_OBSERVATION",
+  UNEXPECTED_FAILURE = "UNEXPECTED_FAILURE",
+  ARCHITECTURE_QUESTION = "ARCHITECTURE_QUESTION",
+  CONTRARIAN_OBSERVATION = "CONTRARIAN_OBSERVATION",
+  BUILD_EXPERIENCE = "BUILD_EXPERIENCE",
+  NEW_TECHNOLOGY = "NEW_TECHNOLOGY",
+  DEBUGGING_STORY = "DEBUGGING_STORY",
+  TRADEOFF = "TRADEOFF",
+  PERFORMANCE = "PERFORMANCE",
+  ARCHITECTURE_BOUNDARY = "ARCHITECTURE_BOUNDARY",
+}
+
+export enum DiscussionCtaType {
+  TRADEOFF_CHOICE = "TRADEOFF_CHOICE",
+  BOUNDARY_QUESTION = "BOUNDARY_QUESTION",
+  PRODUCTION_FAILURE_CHECK = "PRODUCTION_FAILURE_CHECK",
+  OPTIMIZATION_PRIORITY = "OPTIMIZATION_PRIORITY",
+  DESIGN_CHANGE = "DESIGN_CHANGE",
+  TEAM_PRACTICE = "TEAM_PRACTICE",
+}
+
+export const STARStorySchema = z.object({
+  situation: z.object({
+    context: z.string(),
+    trigger: z.string(),
+    stakes: z.string().optional(),
+    curiosityTension: z.string().optional(),
+  }),
+  task: z.object({
+    objective: z.string(),
+    constraints: z.array(z.string()),
+    successCriteria: z.array(z.string()).optional(),
+  }),
+  action: z.object({
+    approachesConsidered: z.array(z.string()),
+    chosenApproach: z.string(),
+    rejectedApproaches: z.array(z.string()).optional(),
+    reasoning: z.string(),
+    decisionMoment: z.string().optional(),
+    implementation: z.string().optional(),
+    debugging: z.string().optional(),
+  }),
+  result: z.object({
+    outcome: z.string(),
+    metrics: z.array(z.string()).optional(),
+    evidence: z.array(z.string()),
+  }),
+  insight: z.object({
+    engineeringLesson: z.string(),
+    tradeoffs: z.array(z.string()),
+    whenNotToUse: z.array(z.string()).optional(),
+  }),
+});
+export type STARStory = z.infer<typeof STARStorySchema>;
+
+export const BoredomScoreSchema = z.object({
+  structuralRepetition: z.number().min(0).max(100),
+  hookRepetition: z.number().min(0).max(100),
+  vocabularyRepetition: z.number().min(0).max(100),
+  topicRepetition: z.number().min(0).max(100),
+  ctaRepetition: z.number().min(0).max(100),
+  narrativePredictability: z.number().min(0).max(100),
+  genericness: z.number().min(0).max(100),
+  overall: z.number().min(0).max(100),
+});
+export type BoredomScore = z.infer<typeof BoredomScoreSchema>;
+
+export const StoryQualityScoreSchema = z.object({
+  curiosity: z.number().min(0).max(100),
+  tension: z.number().min(0).max(100),
+  specificity: z.number().min(0).max(100),
+  decisionQuality: z.number().min(0).max(100),
+  technicalDepth: z.number().min(0).max(100),
+  resultStrength: z.number().min(0).max(100),
+  authenticity: z.number().min(0).max(100),
+  seniority: z.number().min(0).max(100),
+  starCompleteness: z.number().min(0).max(100),
+  overall: z.number().min(0).max(100),
+});
+export type StoryQualityScore = z.infer<typeof StoryQualityScoreSchema>;
+
+export const WritingQualityScoreSchema = z.object({
+  clarity: z.number().min(0).max(100),
+  technicalDepth: z.number().min(0).max(100),
+  seniority: z.number().min(0).max(100),
+  authenticity: z.number().min(0).max(100),
+  originality: z.number().min(0).max(100),
+  narrativeQuality: z.number().min(0).max(100),
+  evidenceQuality: z.number().min(0).max(100),
+  readability: z.number().min(0).max(100),
+  careerSignal: z.number().min(0).max(100),
+  discussionPotential: z.number().min(0).max(100),
+  aiClicheScore: z.number().min(0).max(100),
+  overall: z.number().min(0).max(100),
+  boredomScore: BoredomScoreSchema.optional(),
+  storyQualityScore: StoryQualityScoreSchema.optional(),
+});
+export type WritingQualityScore = z.infer<typeof WritingQualityScoreSchema>;
+
+export const VisualNarrativeSchema = z.object({
+  coreConcept: z.string(),
+  primaryFlow: z.string(),
+  importantComponents: z.array(z.string()),
+  relationships: z.array(z.string()),
+  keyLabels: z.array(z.string()),
+  visualType: z.string(),
+});
+export type VisualNarrative = z.infer<typeof VisualNarrativeSchema>;
+
+export const SeniorEngineeringPostSchema = z.object({
+  platform: z.nativeEnum(Platform).default(Platform.LINKEDIN),
+  title: z.string(),
+  hook: z.string(),
+  hookType: z.string(),
+  body: z.string(),
+  storyAngle: z.string(),
+  engineeringProblem: z.string(),
+  technicalInsight: z.string(),
+  tradeoffs: z.array(z.string()),
+  evidence: z.array(z.string()),
+  personalExperience: z.string(),
+  discussionAngle: z.string(),
+  hashtags: z.array(z.string()),
+  sourceReferences: z.array(z.string()),
+  fullText: z.string(),
+  visualNarrative: VisualNarrativeSchema.optional(),
+  writingQualityScore: WritingQualityScoreSchema.optional(),
+  storyMode: z.nativeEnum(StoryMode).optional(),
+  formatStyle: z.nativeEnum(FormatStyle).optional(),
+  starStory: STARStorySchema.optional(),
+});
+export type SeniorEngineeringPost = z.infer<typeof SeniorEngineeringPostSchema>;
+
+export const SeniorEngineeringArticleSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  body: z.string(),
+  tags: z.array(z.string()),
+  canonicalUrl: z.string().optional(),
+  architecture: z.string(),
+  mermaidDiagram: z.string().optional(),
+  codeExamples: z.array(
+    z.object({
+      language: z.string(),
+      code: z.string(),
+      explanation: z.string(),
+    })
+  ),
+  tradeoffs: z.array(z.string()),
+  sources: z.array(z.string()),
+  markdownContent: z.string(),
+  writingQualityScore: WritingQualityScoreSchema.optional(),
+});
+export type SeniorEngineeringArticle = z.infer<typeof SeniorEngineeringArticleSchema>;
+
+export interface WritingMemoryEntry {
+  id: string;
+  timestamp: string;
+  topic: string;
+  category: string;
+  framework?: string;
+  hook: string;
+  hookType: HookType | string;
+  storyAngle: ContentAngle | string;
+  narrativePattern: NarrativePattern;
+  ctaType: DiscussionCtaType | string;
+  ctaText: string;
+  vocabulary: string[];
+  writingQualityScore: WritingQualityScore;
+  storyMode?: StoryMode | string;
+  formatStyle?: FormatStyle | string;
+  openingStyle?: string;
+  starStory?: STARStory;
+  boredomScore?: BoredomScore;
+}
+
+// ==========================================
+// VISUAL INTELLIGENCE & RAG TYPES
+// ==========================================
+
+export enum VisualFormat {
+  ARCHITECTURE_DIAGRAM = "ARCHITECTURE_DIAGRAM",
+  BEFORE_AFTER_COMPARISON = "BEFORE_AFTER_COMPARISON",
+  DEBUGGING_TIMELINE = "DEBUGGING_TIMELINE",
+  DECISION_MATRIX = "DECISION_MATRIX",
+  PERFORMANCE_BENCHMARK = "PERFORMANCE_BENCHMARK",
+  SYSTEM_FLOW = "SYSTEM_FLOW",
+  SEQUENCE_DIAGRAM = "SEQUENCE_DIAGRAM",
+  INCIDENT_TIMELINE = "INCIDENT_TIMELINE",
+  CONCEPT_MAP = "CONCEPT_MAP",
+  CODE_BLUEPRINT = "CODE_BLUEPRINT",
+  TECHNICAL_ILLUSTRATION = "TECHNICAL_ILLUSTRATION",
+  SYSTEM_COMPARISON = "SYSTEM_COMPARISON",
+  MINIMAL_TYPOGRAPHY = "MINIMAL_TYPOGRAPHY",
+  BUILD_PROGRESS = "BUILD_PROGRESS",
+  INFRASTRUCTURE_MAP = "INFRASTRUCTURE_MAP",
+  DATA_FLOW = "DATA_FLOW",
+  AGENT_WORKFLOW = "AGENT_WORKFLOW",
+  MODEL_COMPARISON = "MODEL_COMPARISON",
+  FAILURE_RECOVERY_MAP = "FAILURE_RECOVERY_MAP",
+  TELEMETRY_DASHBOARD = "TELEMETRY_DASHBOARD",
+}
+
+export enum VisualComposition {
+  CENTERED = "CENTERED",
+  SPLIT_SCREEN = "SPLIT_SCREEN",
+  LEFT_TO_RIGHT = "LEFT_TO_RIGHT",
+  TOP_TO_BOTTOM = "TOP_TO_BOTTOM",
+  PIPELINE = "PIPELINE",
+  LAYERED_ARCHITECTURE = "LAYERED_ARCHITECTURE",
+  SIDE_BY_SIDE = "SIDE_BY_SIDE",
+  TIMELINE = "TIMELINE",
+  BEFORE_AFTER = "BEFORE_AFTER",
+  DECISION_TREE = "DECISION_TREE",
+  FLOWCHART = "FLOWCHART",
+}
+
+export enum VisualDensity {
+  MINIMAL = "MINIMAL",
+  MEDIUM = "MEDIUM",
+  HIGH = "HIGH",
+}
+
+export enum VisualPurpose {
+  EXPLAIN = "EXPLAIN",
+  COMPARE = "COMPARE",
+  DEMONSTRATE = "DEMONSTRATE",
+  TELL_STORY = "TELL_STORY",
+  EXPOSE_PROBLEM = "EXPOSE_PROBLEM",
+  SHOW_ARCHITECTURE = "SHOW_ARCHITECTURE",
+  SHOW_PERFORMANCE = "SHOW_PERFORMANCE",
+  SUMMARIZE_RESEARCH = "SUMMARIZE_RESEARCH",
+}
+
+export enum ColorStyle {
+  LIGHT_TECHNICAL_BLUEPRINT = "LIGHT_TECHNICAL_BLUEPRINT",
+  DARK_CONTRAST = "DARK_CONTRAST",
+  MONOCHROME_ARCHITECTURE = "MONOCHROME_ARCHITECTURE",
+  NEUTRAL_DOCUMENTATION = "NEUTRAL_DOCUMENTATION",
+  GREEN_TERMINAL = "GREEN_TERMINAL",
+  WARM_EDITORIAL = "WARM_EDITORIAL",
+  HIGH_CONTRAST_DIAGRAM = "HIGH_CONTRAST_DIAGRAM",
+}
+
+export const VisualRAGPatternSchema = z.object({
+  id: z.string(),
+  sourcePlatform: z.string(),
+  author: z.string().optional(),
+  topic: z.string(),
+  technicalCategory: z.string(),
+  visualType: z.nativeEnum(VisualFormat),
+  composition: z.nativeEnum(VisualComposition),
+  layout: z.string(),
+  informationDensity: z.nativeEnum(VisualDensity),
+  purpose: z.nativeEnum(VisualPurpose),
+  style: z.nativeEnum(ColorStyle),
+  engagementSignal: z.enum(["HIGH", "MEDIUM", "VIRAL"]),
+  keyElements: z.array(z.string()),
+});
+export type VisualRAGPattern = z.infer<typeof VisualRAGPatternSchema>;
+
+export const RecentVisualMemoryEntrySchema = z.object({
+  id: z.string(),
+  date: z.string(),
+  topic: z.string(),
+  category: z.string(),
+  visualFormat: z.nativeEnum(VisualFormat),
+  composition: z.nativeEnum(VisualComposition),
+  layout: z.string(),
+  colorStyle: z.nativeEnum(ColorStyle),
+  promptHash: z.string(),
+  imageHash: z.string(),
+  visualRepetitionScore: z.number().min(0).max(100),
+  visualStoryAlignmentScore: z.number().min(0).max(100),
+});
+export type RecentVisualMemoryEntry = z.infer<typeof RecentVisualMemoryEntrySchema>;
+
+export const VisualQualityScoreSchema = z.object({
+  storyAlignment: z.number().min(0).max(100),
+  technicalClarity: z.number().min(0).max(100),
+  readability: z.number().min(0).max(100),
+  clutterLevel: z.number().min(0).max(100),
+  genericnessScore: z.number().min(0).max(100),
+  repetitionScore: z.number().min(0).max(100),
+  overallScore: z.number().min(0).max(100),
+  passed: z.boolean(),
+  rejectionReasons: z.array(z.string()),
+});
+export type VisualQualityScore = z.infer<typeof VisualQualityScoreSchema>;
+
+export const StructuredImagePromptSchema = z.object({
+  subject: z.string(),
+  story: z.string(),
+  visualFormat: z.nativeEnum(VisualFormat),
+  composition: z.nativeEnum(VisualComposition),
+  keyElements: z.array(z.string()),
+  style: z.nativeEnum(ColorStyle),
+  purpose: z.nativeEnum(VisualPurpose),
+  negativePrompt: z.string(),
+});
+export type StructuredImagePrompt = z.infer<typeof StructuredImagePromptSchema>;
+
+export const VisualIntelligenceOutputSchema = z.object({
+  topicTitle: z.string(),
+  visualFormat: z.nativeEnum(VisualFormat),
+  composition: z.nativeEnum(VisualComposition),
+  density: z.nativeEnum(VisualDensity),
+  purpose: z.nativeEnum(VisualPurpose),
+  colorStyle: z.nativeEnum(ColorStyle),
+  structuredPrompt: StructuredImagePromptSchema,
+  linkedInImageBlueprint: z.any(),
+  devToImageBlueprint: z.any(),
+  visualStoryAlignmentScore: z.number().min(0).max(100),
+  visualRepetitionScore: z.number().min(0).max(100),
+  opportunityScore: z.number().min(0).max(100),
+  ragReferences: z.array(z.string()),
+});
+export type VisualIntelligenceOutput = z.infer<typeof VisualIntelligenceOutputSchema>;
+
+
 
 
 

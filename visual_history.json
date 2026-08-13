@@ -1,5 +1,2924 @@
 [
   {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:37:37.176Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:37:37.160Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.142Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.126Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.105Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.084Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.062Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:37:37.042Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.022Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:37.006Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.982Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.968Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.961Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.951Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:37:36.940Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.929Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:37:36.922Z"
+  },
+  {
+    "topicId": "opp_1786639056854_v54cv",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.917Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:37:36.914Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.911Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.903Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.892Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.883Z"
+  },
+  {
+    "topicId": "opp_1786639056854_v54cv",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.878Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.871Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.867Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:37:36.857Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:36:44.323Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:36:44.305Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.287Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.270Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.248Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.230Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.210Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:36:44.192Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.175Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.156Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.138Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.131Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.122Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.118Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:36:44.113Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.104Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:36:44.093Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:36:44.084Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.079Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.071Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.062Z"
+  },
+  {
+    "topicId": "opp_1786639004027_96x5g",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.055Z"
+  },
+  {
+    "topicId": "opp_1786639004027_96x5g",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.046Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.038Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:44.028Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.362Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.358Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.351Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:36:35.347Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.344Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:36:35.340Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:36:35.337Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.331Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.328Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.324Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.314Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:35.309Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:06.757Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:06.745Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-13T16:36:06.737Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:31:55.864Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:31:55.850Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.832Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.819Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.802Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.788Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.773Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:31:55.755Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.741Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.722Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.705Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.686Z"
+  },
+  {
+    "topicId": "opp_1786638715661_lz2lx",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.671Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:31:55.649Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.641Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.627Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.621Z"
+  },
+  {
+    "topicId": "opp_1786638715591_39fm0",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.615Z"
+  },
+  {
+    "topicId": "opp_1786638715591_39fm0",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.607Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:31:55.596Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:29:32.603Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:29:32.589Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.572Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.556Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.541Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.522Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.506Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:29:32.488Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.468Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.449Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.430Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.412Z"
+  },
+  {
+    "topicId": "opp_1786638572393_11vpq",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.403Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:29:32.388Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.382Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:29:32.370Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.357Z"
+  },
+  {
+    "topicId": "opp_1786638572320_y0y4g",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.349Z"
+  },
+  {
+    "topicId": "opp_1786638572320_y0y4g",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.339Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:32.333Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:29:02.264Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:29:02.253Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.242Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.227Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.214Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.199Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.149Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:29:02.131Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.114Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.100Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.080Z"
+  },
+  {
+    "topicId": "opp_1786638542060_z1e46",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.069Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:29:02.048Z"
+  },
+  {
+    "topicId": "opp_1786638541988_pjjtd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.041Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.037Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:29:02.033Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.016Z"
+  },
+  {
+    "topicId": "opp_1786638541988_pjjtd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.012Z"
+  },
+  {
+    "topicId": "opp_1786638541988_pjjtd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:02.006Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:29:01.996Z"
+  },
+  {
+    "topicId": "opp_1786638529651_irln2",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:49.655Z"
+  },
+  {
+    "topicId": "opp_1786638529615_pi3u0",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:49.644Z"
+  },
+  {
+    "topicId": "opp_1786638529615_pi3u0",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:49.628Z"
+  },
+  {
+    "topicId": "opp_1786638529615_pi3u0",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:49.625Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:28:42.500Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:28:42.488Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.476Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.462Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.447Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.434Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.414Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:28:42.400Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.387Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.370Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.355Z"
+  },
+  {
+    "topicId": "opp_1786638522340_0gt27",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.351Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.335Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:28:42.320Z"
+  },
+  {
+    "topicId": "opp_1786638522275_i2wxd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.316Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.312Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:28:42.304Z"
+  },
+  {
+    "topicId": "opp_1786638522275_i2wxd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.295Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.294Z"
+  },
+  {
+    "topicId": "opp_1786638522275_i2wxd",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.289Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:28:42.283Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:27:55.535Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:27:55.523Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.512Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.500Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.488Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.472Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.460Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:27:55.448Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.437Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.424Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.406Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.393Z"
+  },
+  {
+    "topicId": "opp_1786638475377_a5o27",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.386Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:27:55.378Z"
+  },
+  {
+    "topicId": "opp_1786638475321_ohtsp",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.364Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.360Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.344Z"
+  },
+  {
+    "topicId": "opp_1786638475321_ohtsp",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.340Z"
+  },
+  {
+    "topicId": "opp_1786638475321_ohtsp",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:55.334Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:27:32.884Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:27:32.872Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.863Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.849Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.837Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.823Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.806Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:27:32.793Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.781Z"
+  },
+  {
+    "topicId": "opp_1786638452737_5fjjo",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.772Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.763Z"
+  },
+  {
+    "topicId": "opp_1786638452737_5fjjo",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.754Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.750Z"
+  },
+  {
+    "topicId": "opp_1786638452737_5fjjo",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.746Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.737Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:27:32.723Z"
+  },
+  {
+    "topicId": "opp_1786638452677_p2na1",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.718Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:27:32.712Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.710Z"
+  },
+  {
+    "topicId": "opp_1786638452677_p2na1",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.698Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:27:32.695Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:51.098Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:51.093Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:26:51.084Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:26:51.079Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.069Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.063Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.052Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.046Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.036Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.030Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.015Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:51.010Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.997Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.992Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:50.980Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:50.973Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.961Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.954Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.943Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.937Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.923Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.912Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.900Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.895Z"
+  },
+  {
+    "topicId": "opp_1786638410861_ookht",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.892Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:50.882Z"
+  },
+  {
+    "topicId": "opp_1786638410861_ookht",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.876Z"
+  },
+  {
+    "topicId": "opp_1786638410861_ookht",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.870Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:50.864Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.858Z"
+  },
+  {
+    "topicId": "opp_1786638410817_o6w3k",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.853Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.845Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.840Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.837Z"
+  },
+  {
+    "topicId": "opp_1786638410817_o6w3k",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.836Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:50.831Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:17.032Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:17.028Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:26:17.005Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:26:17.001Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.983Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.980Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.963Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.960Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.924Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.920Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.893Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.888Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.862Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.858Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:16.833Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:16.828Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.805Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.800Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.772Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.767Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.740Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.735Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.703Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.698Z"
+  },
+  {
+    "topicId": "opp_1786638376641_mb3ke",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.686Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:16.670Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:26:16.664Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.653Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.646Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:16.640Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:26:16.633Z"
+  },
+  {
+    "topicId": "opp_1786638376566_809l1",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.622Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.618Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.612Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.608Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.602Z"
+  },
+  {
+    "topicId": "opp_1786638376566_809l1",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.596Z"
+  },
+  {
+    "topicId": "opp_1786638376566_809l1",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.592Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:26:16.577Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:25:39.924Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:25:39.920Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:25:39.902Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:25:39.897Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.878Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.873Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.852Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.847Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.824Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.820Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.797Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.792Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.747Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.742Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:25:39.718Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:25:39.713Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.687Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.682Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.658Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.654Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.618Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.610Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.558Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.548Z"
+  },
+  {
+    "topicId": "opp_1786638339477_crkv4",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.517Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:25:39.510Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:25:39.504Z"
+  },
+  {
+    "topicId": "opp_1786638339477_crkv4",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.498Z"
+  },
+  {
+    "topicId": "opp_1786638339477_crkv4",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.494Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.488Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.483Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:25:39.476Z"
+  },
+  {
+    "topicId": "opp_1786638339414_hat6a",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.466Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.456Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.455Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.450Z"
+  },
+  {
+    "topicId": "opp_1786638339414_hat6a",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.444Z"
+  },
+  {
+    "topicId": "opp_1786638339414_hat6a",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.439Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:25:39.429Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:53.506Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:53.502Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:53.485Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:53.480Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.462Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.457Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.439Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.432Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.414Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.410Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.395Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.390Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.372Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.368Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:53.351Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:53.346Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.326Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.321Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.304Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.297Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.280Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.273Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.256Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.251Z"
+  },
+  {
+    "topicId": "opp_1786638293190_16i4s",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.236Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:53.232Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:53.227Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.224Z"
+  },
+  {
+    "topicId": "opp_1786638293190_16i4s",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.220Z"
+  },
+  {
+    "topicId": "opp_1786638293190_16i4s",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.214Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:53.201Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:53.196Z"
+  },
+  {
+    "topicId": "opp_1786638293127_676y8",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.179Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.172Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.169Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.168Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.163Z"
+  },
+  {
+    "topicId": "opp_1786638293127_676y8",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.158Z"
+  },
+  {
+    "topicId": "opp_1786638293127_676y8",
+    "conceptTitle": "OpenAI GPT-4o — Omni Model with Native Audio, Vision & Real-Time Capabilities",
+    "diagramType": "OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "hash": "openaigpt4oomnimodelwithnativeaudiovisionrealtimecapabilities_OpenAI GPT-4o — Omni Model with  Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.152Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:53.143Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:46.479Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:46.477Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:46.461Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:46.457Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.443Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.441Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.429Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.427Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.416Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.414Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.404Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.402Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.390Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.387Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:46.379Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:46.377Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.368Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.366Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.357Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.355Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.346Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.343Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.330Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.327Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:46.315Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:46.312Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:46.301Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:46.299Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.287Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:46.284Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:30.290Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:30.288Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:30.278Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-13T16:24:30.276Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.266Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.263Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.217Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.215Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.205Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.204Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.195Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.193Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.185Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.182Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:30.175Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:30.173Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.164Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.162Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.154Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.152Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.145Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.143Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.136Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.134Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:30.126Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:24:30.125Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:30.116Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:24:30.114Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.107Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-13T16:24:30.104Z"
+  },
+  {
+    "topicId": "t_5",
+    "conceptTitle": "RAG vs Long-Context LLMs: Latency, Cost, and Retrieval Trade-Offs",
+    "diagramType": "RAG vs Long-Context LLMs Architecture Blueprint",
+    "hash": "ragvslongcontextllmslatencycostandretrievaltradeoffs_RAG vs Long-Context LLMs Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.656Z"
+  },
+  {
+    "topicId": "t_5",
+    "conceptTitle": "RAG vs Long-Context LLMs: Latency, Cost, and Retrieval Trade-Offs",
+    "diagramType": "RAG vs Long-Context LLMs Architecture Blueprint",
+    "hash": "ragvslongcontextllmslatencycostandretrievaltradeoffs_RAG vs Long-Context LLMs Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.648Z"
+  },
+  {
+    "topicId": "t_4",
+    "conceptTitle": "eBPF Observability & Kernel-Level LMs: Latency, Cost, and Retrieval Trade-Offs",
+    "diagramType": "RAG vs Long-Context LLMs Architecture Blueprint",
+    "hash": "ragvslongcontextllmslatencycostandretrievaltradeoffs_RAG vs Long-Context LLMs Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.648Z"
+  },
+  {
+    "topicId": "t_4",
+    "conceptTitle": "eBPF Observability & Kernel-Level Traffic Tracing in Kubernetes",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "ebpfobservabilitykernelleveltraffictracinginkubernetes_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:10:34.622Z"
+  },
+  {
+    "topicId": "t_4",
+    "conceptTitle": "eBPF Observability & Kernel-Level Traffic Tracing in Kubernetes",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "ebpfobservabilitykernelleveltraffictracinginkubernetes_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-13T16:10:34.614Z"
+  },
+  {
+    "topicId": "t_3",
+    "conceptTitle": "React 19 Compiler Optimization & Server Actions in Enterprise SaaS",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19compileroptimizationserveractionsinenterprisesaas_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:10:34.591Z"
+  },
+  {
+    "topicId": "t_3",
+    "conceptTitle": "React 19 Compiler Optimization & Server Actions in Enterprise SaaS",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19compileroptimizationserveractionsinenterprisesaas_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-13T16:10:34.583Z"
+  },
+  {
+    "topicId": "t_2",
+    "conceptTitle": "Redis Cache Invalidation & Eventual Consistency in Distributed Systems",
+    "diagramType": "Redis Cache Invalidation & Event Architecture Blueprint",
+    "hash": "rediscacheinvalidationeventualconsistencyindistributedsystems_Redis Cache Invalidation & Event Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.507Z"
+  },
+  {
+    "topicId": "t_2",
+    "conceptTitle": "Redis Cache Invalidation & Eventual Consistency in Distributed Systems",
+    "diagramType": "Redis Cache Invalidation & Event Architecture Blueprint",
+    "hash": "rediscacheinvalidationeventualconsistencyindistributedsystems_Redis Cache Invalidation & Event Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.501Z"
+  },
+  {
+    "topicId": "t_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.427Z"
+  },
+  {
+    "topicId": "t_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-13T16:10:34.419Z"
+  },
+  {
     "topicId": "opp_1786547707831_q29pc",
     "conceptTitle": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization",
     "diagramType": "NVIDIA NIM Microservices & Enterprise GPU Inference Optimization Vector Flow Map",

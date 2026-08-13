@@ -8,13 +8,65 @@
 [![React 19](https://img.shields.io/badge/React-19.0-cyan?style=for-the-badge&logo=react)](https://react.dev/)
 [![Live Intelligence](https://img.shields.io/badge/Intelligence-Live%20APIs-brightgreen?style=for-the-badge&logo=rss)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
 
-Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies **multi-layer trending safeguards** to guarantee only genuinely trending, non-repetitive content ever reaches publication.
+Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies **STAR + Human Engineering Storytelling**, **Visual RAG Pattern Retrieval**, **14–30 Day Visual Diversity Memory**, and **multi-layer quality safeguards** to guarantee only authentic, senior-level, visually distinct content reaches publication.
 
 ---
 
 ## 🚀 Key Features & Architectural Capabilities
 
-### 1. 🌐 Live Intelligence Feed Engine (Real-Time, No Static Data)
+### 1. 📖 STAR + Human Engineering Storytelling Pipeline
+
+The daily writing pipeline generates authentic, human engineering stories using the **STAR framework** internally as reasoning architecture without ever exposing formulaic headers:
+
+```text
+S = Situation   (Context, stakes, trigger)
+T = Task        (Engineering objective & hard constraints)
+A = Action      (Approaches considered, chosen approach, decision moment, trade-offs)
+R = Result      (Outcome, telemetry evidence, senior insight, when not to use)
+```
+
+- **Two-Stage Content Generation**:
+  - **Stage 1 (Engineering Reasoning Agent)**: Generates structured `STARStory` JSON containing context, decision moments, failure recovery paths, telemetry metrics, and senior trade-offs.
+  - **Stage 2 (Senior Technical Writer Agent)**: Consumes `STARStory` and transforms it into natural engineering prose following the assigned `FormatStyle` and `StoryMode`.
+- **Zero Rigid Formatting**: Strictly prohibits literal headers (`"Situation:"`, `"Task:"`) and emoji bullet step numbers (`1️⃣ Observation:`, `2️⃣ Problem:`...).
+- **10 Rotated Story Modes**: `FAILURE_STORY`, `DECISION_STORY`, `DEBUGGING_STORY`, `PERFORMANCE_STORY`, `ARCHITECTURE_STORY`, `BUILD_IN_PUBLIC`, `TECH_DISCOVERY`, `CONTRARIAN_OBSERVATION`, `BEFORE_AFTER`, `PRODUCTION_REALITY`.
+- **7 Rotated Format Styles**: `NARRATIVE_PARAGRAPHS`, `MINIMAL_BULLETS`, `BEFORE_AFTER_LAYOUT`, `SHORT_DIALOGUE`, `TECHNICAL_NOTE`, `STORY_FIRST`, `ARCHITECTURE_FIRST`.
+- **7-Day Pattern Exclusion Memory**: Rotates story modes, format layouts, hook structures, and CTAs across 7 consecutive days to guarantee structural variety.
+- **Boredom & Story Quality Evaluators**: Evaluates structural, hook, vocabulary, topic, CTA repetition, predictability, and genericness (`BoredomScore`). Automatically rejects content exceeding boredom threshold (> 35).
+
+---
+
+### 2. 🎨 Visual Intelligence Agent & Visual RAG Knowledge Store
+
+To prevent repetitive images (e.g. dark backgrounds, generic AI robots, laptop illustrations), the platform features an independent **Visual Intelligence Agent** (`VisualIntelligenceAgent`) backed by a **Visual RAG Knowledge Store**:
+
+```text
+ContentOpportunity → STAR Story → Visual Intelligence Agent → Visual RAG Retrieval → Visual Pattern Extraction → 14-30 Day Visual Memory Check → Dynamic Format Rotation → Structured Prompt → Platform Blueprinting → Visual Review Agent → Decision Gate
+```
+
+- **Visual RAG Knowledge Store (`VisualRAGStore`)**:
+  - Retrieves structural visual metadata (`VISUAL_METADATA`: composition, diagram layout, information density, visual purpose, color strategy) from high-performing technical posts (OpenAI, Anthropic, Google AI, Netflix Tech Blog, Uber Engineering, AWS Architecture).
+  - **No Copyrighted Artwork Stored**: Stores design pattern references, not artwork or images.
+- **Visual Pattern Extractor**:
+  - Dynamically extracts composition (11 layouts: centered, split-screen, left/right, pipeline, layered architecture, flowchart, timeline, before/after, etc.), visual type (20 dynamic formats), information density (minimal, medium, high), and visual purpose.
+- **14–30 Day Visual Diversity Memory (`RecentVisualMemoryStore`)**:
+  - Stores past visual metadata (`visual_memory.json`). Computes `VisualRepetitionScore`.
+  - Automatically triggers format and color palette rotation if repetition score exceeds 35.
+- **Visual + STAR Story Alignment Engine**:
+  - Evaluates `VisualStoryAlignmentScore` (0–100) ensuring representation of Situation, Task, Action, and Result (minimum 80% alignment required).
+- **Color & Layout Strategy Rotation**:
+  - Rotates across light technical blueprint, dark contrast, monochrome architecture, neutral documentation, green terminal, warm editorial, and high-contrast diagram styles.
+- **Anti-AI Cliché Enforcement**:
+  - Enforces strict negative prompts prohibiting generic robots, humanoids, floating glowing brains, and futuristic city stock imagery.
+- **Platform-Differentiated Visuals**:
+  - **LinkedIn**: Mobile-first, immediate hook clarity, high-contrast readable diagram nodes.
+  - **Dev.to**: Deep technical documentation blueprint with code and state relationships.
+- **Visual Review Agent (`VisualReviewAgent`)**:
+  - Audits visual quality across 11 criteria and enforces rejection/regeneration gates (`VisualStoryAlignmentScore >= 80`, `VisualRepetitionScore <= 35`, `VisualQualityScore >= 85`).
+
+---
+
+### 3. 🌐 Live Intelligence Feed Engine (Real-Time, No Static Data)
 
 Every pipeline run fetches **live data** from seven concurrent source categories:
 
@@ -470,6 +522,19 @@ npm run dev
 ---
 
 ## 📋 Changelog
+
+### v3.0 — STAR Storytelling Pipeline & Visual RAG Intelligence (Aug 2026)
+- **NEW**: Two-stage **STAR + Human Engineering Storytelling Pipeline** (`EngineeringReasoningAgent` + `TechnicalWriterAgent`).
+- **NEW**: 10 `StoryModes` and 7 `FormatStyles` with strict anti-formulaic rules (no literal headers `"Situation:"` or rigid emoji numbers `1️⃣`).
+- **NEW**: 7-Day Pattern Exclusion Memory for story angles, format layouts, hooks, and CTAs (`WritingMemoryTracker`).
+- **NEW**: `BoredomScore` & `StoryQualityScore` evaluators rejecting post repetition (> 35 boredom threshold).
+- **NEW**: Independent **Visual Intelligence Agent** (`VisualIntelligenceAgent`) and **Visual Quality Review Agent** (`VisualReviewAgent`).
+- **NEW**: **Visual RAG Knowledge Store** (`VisualRAGStore`) retrieving structural visual metadata (`VISUAL_METADATA`) from top engineering publications (OpenAI, Anthropic, Google, Netflix, Uber, AWS).
+- **NEW**: **14–30 Day Visual Diversity Memory** (`RecentVisualMemoryStore`) with automatic format/color strategy rotation when `VisualRepetitionScore > 35`.
+- **NEW**: `VisualStoryAlignmentScore` (0–100) guaranteeing visual representation of Situation, Task, Action, and Result (>= 80% alignment required).
+- **NEW**: Platform-differentiated image blueprinting (LinkedIn mobile-first vs Dev.to deep architecture).
+- **NEW**: Anti-AI Cliché Enforcement rejecting stock robots, humanoids, glowing brains, and futuristic city art.
+- **NEW**: 10-day dry run verification suite with 100% test pass rate across 38 unit & integration tests.
 
 ### v2.0 — Live Intelligence & Trending Safeguards (Aug 2026)
 - **NEW**: All 4 source collectors upgraded to live APIs — no more static hardcoded data

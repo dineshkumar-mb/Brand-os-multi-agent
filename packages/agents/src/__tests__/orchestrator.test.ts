@@ -106,7 +106,7 @@ describe("Agent Swarm Orchestrator & Smoke Tests", () => {
       if (req.taskType === "research") {
         return { text: JSON.stringify({ summary: "summary", key_insights: [], code_snippets: [] }) };
       }
-      if (req.taskType === "linkedin_writer") {
+      if (req.taskType === "linkedin_writer" || req.taskType === "senior_engineering_writer") {
         return {
           text: JSON.stringify({
             title: "Short Title",

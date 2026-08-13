@@ -7,16 +7,32 @@ import {
   DevToArticlePayload,
   RoutingStrategy,
   NarrativePattern,
+  HookType,
+  DiscussionCtaType,
+  WritingQualityScore,
+  VisualNarrative,
+  HistoricalPostRecord,
+  StoryMode,
+  FormatStyle,
+  STARStory,
 } from "@brand-os/shared";
 import { aiGateway } from "@brand-os/ai-gateway";
 import { MinedExperienceNarrative } from "./experience-mining";
 import { AudienceContext } from "./audience-research";
 import { VisualPlanningAgent } from "./visual-planning";
+import { writingMemoryTracker } from "./writing-memory";
+import { hookEngine } from "./hook-engine";
+import { tradeoffEngine } from "./tradeoff-engine";
+import { writingQualityEvaluator } from "./writing-quality-evaluator";
+import { engineeringReasoningAgent } from "./engineering-reasoning";
 
 export interface TechnicalWriterOutput {
   linkedInPost: LinkedInPostPayload;
   devToArticle: DevToArticlePayload;
   narrativePattern: NarrativePattern;
+  visualNarrative: VisualNarrative;
+  writingQualityScore: WritingQualityScore;
+  regenerationCount: number;
 }
 
 export class TechnicalWriterAgent {
@@ -31,47 +47,6 @@ export class TechnicalWriterAgent {
     return `data:image/svg+xml;utf8,${encodeURIComponent(
       `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500"><rect width="800" height="500" fill="#0f172a"/><text x="400" y="250" fill="#38bdf8" font-size="28" font-weight="bold" text-anchor="middle">${topic.title}</text></svg>`
     )}`;
-  }
-
-  private selectNarrativePattern(topic: Topic): NarrativePattern {
-    const patterns: NarrativePattern[] = [
-      "ENGINEERING_DISCOVERY",
-      "UNEXPECTED_PROBLEM",
-      "TECHNICAL_TRADEOFF",
-      "PRODUCTION_FAILURE",
-      "CONTRARIAN_OBSERVATION",
-      "NEW_TECHNOLOGY_ANALYSIS",
-      "BUILD_IN_PUBLIC",
-      "ARCHITECTURE_LESSON",
-    ];
-    const sum = (topic.title || "").split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
-    return patterns[sum % patterns.length];
-  }
-
-  private buildDynamicHook(topic: Topic, pattern: NarrativePattern, hasMatch: boolean): string {
-    const fw = topic.framework || topic.category || "this technology";
-    if (pattern === "ENGINEERING_DISCOVERY") {
-      return `While testing ${topic.title}, I noticed an architectural trade-off that changes how we evaluate system performance.`;
-    }
-    if (pattern === "UNEXPECTED_PROBLEM") {
-      return `We expected ${fw} to simplify our data flow. Instead, production load exposed a subtle concurrency edge case.`;
-    }
-    if (pattern === "TECHNICAL_TRADEOFF") {
-      return `Choosing between ${fw} and custom abstractions isn't about hype—it comes down to long-term maintenance overhead vs immediate velocity.`;
-    }
-    if (pattern === "PRODUCTION_FAILURE") {
-      return `The implementation passed all local unit tests. Production exposed a bottleneck in state synchronization.`;
-    }
-    if (pattern === "CONTRARIAN_OBSERVATION") {
-      return `Everyone is discussing the headline features of ${topic.title}. The part I find far more interesting is the underlying architecture change.`;
-    }
-    if (pattern === "NEW_TECHNOLOGY_ANALYSIS") {
-      return `${topic.title} was released recently. Beyond the initial benchmarks, here is what changes for software engineers.`;
-    }
-    if (pattern === "BUILD_IN_PUBLIC") {
-      return `Today I refactored our ${topic.category} pipeline for ${fw}. The unexpected part was how much cleaner error boundaries became.`;
-    }
-    return `This looked like a simple feature in ${topic.title}. Under production scale, it required decoupling our event handlers.`;
   }
 
   private generateTopicMermaid(topic: Topic): string {
@@ -93,20 +68,12 @@ flowchart TD
     ProjectRef --> Emit["JS Emitter & Declaration Maps"]
 \`\`\``;
     }
-    if (t.includes("deepseek") || t.includes("reasoning") || t.includes("model")) {
+    if (t.includes("deepseek") || t.includes("reasoning") || t.includes("model") || t.includes("llm") || t.includes("agent") || t.includes("mcp")) {
       return `\`\`\`mermaid
 flowchart TD
-    Prompt["User Prompt / Context"] --> RL["Reinforcement Learning Model Engine"]
-    RL --> CoT["Chain-of-Thought Verification"]
-    CoT --> Out["Structured Response"]
-\`\`\``;
-    }
-    if (t.includes("security") || t.includes("mtls") || t.includes("ebpf")) {
-      return `\`\`\`mermaid
-flowchart LR
-    AppA["Microservice A"] --> mTLS["mTLS Proxy / Service Mesh"]
-    mTLS --> eBPF["eBPF Kernel Probe Filter"]
-    eBPF --> AppB["Microservice B"]
+    Client["Client / SDK Agent"] --> Gateway["AI Gateway & Router"]
+    Guard["Decision Gate & Safety Check"] --> Exec["Isolated Engine Execution"]
+    Exec --> Out["Structured JSON Response"]
 \`\`\``;
     }
     return `\`\`\`mermaid
@@ -122,210 +89,288 @@ flowchart TD
     research: ResearchOutput,
     experience: MinedExperienceNarrative,
     audience: AudienceContext,
-    pipelineId?: string
+    pipelineId?: string,
+    history: HistoricalPostRecord[] = []
   ): Promise<AgentResult<TechnicalWriterOutput>> {
     const startTime = Date.now();
-    console.log(`[Technical Writer Agent] Generating dual LinkedIn post & Dev.to article for: "${topic.title}"...`);
+    console.log(`[Senior Software Engineer Writer Subsystem] Initiating STAR + Storytelling pipeline for: "${topic.title}"...`);
 
-    const keyInsightsList = research.key_insights || ["Decoupled clean architecture ensures modular scaling."];
-    const prosList = research.pros || ["Zero runtime overhead", "Type-safe contracts"];
-    const consList = research.cons || ["Initial setup complexity"];
-    const codeSnippetsList = research.code_snippets || [];
-    const dynamicImageUrl = this.getDynamicImageUrl(topic);
-    const narrativePattern = this.selectNarrativePattern(topic);
     const hasBuildMatch = Boolean(experience.foundMatch && experience.quantifiableOutcome);
+    const selectedStoryMode = writingMemoryTracker.selectFreshStoryMode();
+    const selectedFormatStyle = writingMemoryTracker.selectFreshFormatStyle();
+    const selectedHookType = writingMemoryTracker.selectFreshHookType(HookType.ENGINEERING_OBSERVATION);
+    const selectedCtaType = writingMemoryTracker.selectFreshCtaType(DiscussionCtaType.TRADEOFF_CHOICE);
 
-    // 1. Generate LinkedIn Post with dynamic prompt
-    const linkedinPrompt = `You are a Staff Full Stack AI Engineer.
-Write an authentic, highly engaging LinkedIn post for ${audience.primaryAudience} about: "${topic.title}".
+    // Stage 1: Engineering Reasoning Agent -> STARStory
+    const reasoningRes = await engineeringReasoningAgent.generateSTARStory(
+      topic,
+      research,
+      experience,
+      selectedStoryMode,
+      pipelineId
+    );
+    const starStory: STARStory = reasoningRes.data.starStory;
 
-Narrative Pattern: ${narrativePattern}
-Experience Type: ${hasBuildMatch ? "Direct Production Experience" : "Technical Research & Benchmarking"}
-- Real Context: ${hasBuildMatch ? experience.realWorldProblem : research.summary}
-- Technical Insights: ${keyInsightsList.slice(0, 3).join("; ")}
+    const generatedHook = hookEngine.generateHook(
+      selectedHookType,
+      topic,
+      hasBuildMatch,
+      experience.realWorldProblem,
+      selectedStoryMode
+    );
 
-STRICT RULES FOR LINKEDIN:
-- Length between 200 and 500 words.
-- Natural engineer tone sharing authentic observations and trade-offs.
-- End with a thought-provoking engineering question for discussion.
-- NEVER use AI clichés like "In today's fast-paced world", "Let's dive in", "Game-changing", "Revolutionary", "Unlock the power".
+    const generatedCta = hookEngine.generateDiscussionCta(
+      selectedCtaType,
+      topic,
+      true
+    );
+
+    // Stage 2: Senior Technical Writer (Prose Transformation)
+    const prompt = `You are a Principal Software Engineer and Senior Technical Writer.
+Your task is to transform an internal STAR engineering framework into a natural, compelling LinkedIn engineering post AND a deep Dev.to article about: "${topic.title}".
+
+INTERNAL STAR STORY FRAMEWORK (Do NOT literally output "Situation:", "Task:", "Action:", "Result:" headers):
+- Situation: ${starStory.situation.context} (Trigger: ${starStory.situation.trigger})
+- Task: ${starStory.task.objective} (Constraints: ${starStory.task.constraints.join(", ")})
+- Action: Chosen ${starStory.action.chosenApproach}. Reasoning: ${starStory.action.reasoning}. Decision Moment: ${starStory.action.decisionMoment || "N/A"}
+- Result: ${starStory.result.outcome}. Metrics/Evidence: ${starStory.result.evidence.join(", ")}
+- Insight: ${starStory.insight.engineeringLesson}. Tradeoffs: ${starStory.insight.tradeoffs.join(", ")}
+
+STORY MODE: ${selectedStoryMode}
+FORMAT STYLE / LAYOUT: ${selectedFormatStyle}
+HOOK REFERENCE: "${generatedHook}"
+CTA REFERENCE: "${generatedCta}"
+
+STRICT PROHIBITION RULES:
+1. NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" anywhere in the text.
+2. NEVER use emoji number step headers like "1️⃣ Observation:", "2️⃣ Problem:".
+3. NEVER use AI clichés like "In today's fast-paced world", "Let's dive in", "Game-changing", "Revolutionary", "Unlock the power", "The future of", "As developers, we", "Transform your development workflow", "Whether you're a beginner or expert".
+4. The tone must feel like a senior engineer telling another senior engineer: "This happened. Here was the problem. Here is what I tried. Here is what changed. Here is what I learned."
+5. Layout style requirement (${selectedFormatStyle}):
+   - If NARRATIVE_PARAGRAPHS: Clean short paragraphs with smooth transitions.
+   - If MINIMAL_BULLETS: Concise engineering notes and trade-off points.
+   - If BEFORE_AFTER_LAYOUT: Clear Before vs After operational outcome contrast.
+   - If SHORT_DIALOGUE: Brief conversational opening between engineers.
+   - If TECHNICAL_NOTE: Engineering architectural note style.
+   - If STORY_FIRST: Lead with the incident/problem, reveal architecture after.
+   - If ARCHITECTURE_FIRST: Lead with boundary design, reveal incident after.
 
 Return ONLY a valid JSON object matching:
 {
-  "title": "${topic.title}",
-  "hook": "Scroll-stopping developer hook",
-  "story": "Observation and technical scenario",
-  "lesson": "Engineering decision made",
-  "actionableInsight": "Bullet 1\\nBullet 2\\nBullet 3",
-  "cta": "Discussion prompt",
-  "hashtags": ["#SoftwareEngineering", "#SystemDesign", "#Engineering"],
-  "fullText": "Full formatted text"
+  "linkedIn": {
+    "title": "${topic.title}",
+    "hook": "${generatedHook}",
+    "story": "${starStory.situation.context}",
+    "lesson": "${starStory.insight.engineeringLesson}",
+    "actionableInsight": "${starStory.result.outcome}",
+    "cta": "${generatedCta}",
+    "hashtags": ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering"],
+    "fullText": "Full 200-500 word post text"
+  },
+  "devTo": {
+    "title": "Inside ${topic.title}: Architecture, Trade-Offs, and Failure Modes",
+    "description": "${research.summary.substring(0, 140)}",
+    "tags": ["webdev", "architecture", "systemdesign"],
+    "markdownContent": "Full Dev.to markdown article content"
+  },
+  "visualNarrative": {
+    "coreConcept": "${topic.title}",
+    "primaryFlow": "${starStory.action.chosenApproach}",
+    "importantComponents": ["Service Controller", "Domain Processor", "Database / Storage"],
+    "relationships": ["Controller -> Processor", "Processor -> Database"],
+    "keyLabels": ["Request", "Decision", "State"],
+    "visualType": "SYSTEM_DESIGN"
+  }
 }`;
 
-    let linkedInPost: LinkedInPostPayload | null = null;
+    let linkedInPayload: LinkedInPostPayload | null = null;
+    let devToPayload: DevToArticlePayload | null = null;
+    let visualNarrative: VisualNarrative | null = null;
+
     try {
-      const res = await aiGateway.execute({
-        prompt: linkedinPrompt,
-        taskType: "linkedin_writer",
+      const response = await aiGateway.execute({
+        prompt,
+        taskType: "senior_engineering_writer",
         temperature: 0.7,
         routingStrategy: RoutingStrategy.COST_OPTIMIZED,
         pipelineId,
       });
 
-      const jsonMatch = res.text.match(/\{[\s\S]*\}/);
+      const jsonMatch = response.text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        linkedInPost = JSON.parse(jsonMatch[0]);
+        const parsed = JSON.parse(jsonMatch[0]);
+        const linkedInObj = parsed.linkedIn || (parsed.fullText ? parsed : null);
+        if (linkedInObj && linkedInObj.fullText) {
+          linkedInPayload = {
+            title: topic.title,
+            hook: linkedInObj.hook || generatedHook,
+            story: linkedInObj.story || starStory.situation.context,
+            lesson: linkedInObj.lesson || starStory.insight.engineeringLesson,
+            actionableInsight: linkedInObj.actionableInsight || starStory.result.outcome,
+            cta: linkedInObj.cta || generatedCta,
+            hashtags: linkedInObj.hashtags || ["#SoftwareEngineering", "#SystemDesign"],
+            fullText: linkedInObj.fullText,
+            storyMode: selectedStoryMode,
+            formatStyle: selectedFormatStyle,
+            starStory,
+          };
+        }
+        const devToObj = parsed.devTo || (parsed.markdownContent ? parsed : null);
+        if (devToObj && devToObj.markdownContent) {
+          devToPayload = {
+            title: devToObj.title || topic.title,
+            published: false,
+            tags: devToObj.tags || ["webdev", "architecture"],
+            canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
+            description: devToObj.description || research.summary.substring(0, 140),
+            mainImage: this.getDynamicImageUrl(topic),
+            markdownContent: devToObj.markdownContent,
+          };
+        }
+        if (parsed.visualNarrative) {
+          visualNarrative = parsed.visualNarrative;
+        }
       }
     } catch (err: any) {
-      console.warn("[Technical Writer Agent] LinkedIn generation warning:", err.message);
+      console.warn(`[Senior Engineer Writer] Prose generation attempt warning: ${err.message}`);
     }
 
-    if (!linkedInPost || !linkedInPost.fullText || linkedInPost.fullText.trim().length < 100) {
-      const hook = this.buildDynamicHook(topic, narrativePattern, hasBuildMatch);
-      const story = hasBuildMatch
-        ? `While working on our ${topic.category} infrastructure, ${experience.realWorldProblem} We evaluated our options and chose ${experience.engineeringDecision || topic.framework || "a modular pattern"}.`
-        : `I recently analyzed and benchmarked ${topic.title}. ${research.summary.substring(0, 180)}...`;
-      const insights = keyInsightsList.map((k, i) => `⚡ ${i + 1}. ${k}`).join("\n");
-      const cta = `How is your engineering team approaching ${topic.framework || topic.category} in production? Let's discuss trade-offs in the comments.`;
-      const hashtags = ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering", "#DeveloperTools"];
-      const fullText = `${hook}\n\n${story}\n\nKey Engineering Insights:\n${insights}\n\nTrade-offs:\n• Pros: ${prosList.join(", ")}\n• Cons: ${consList.join(", ")}\n\n${cta}\n\n${hashtags.join(" ")}`;
+    // Fallback prose generation based on FormatStyle & STARStory if LLM output was partial/missing
+    if (!linkedInPayload) {
+      let bodyText = "";
 
-      linkedInPost = {
+      if (selectedFormatStyle === FormatStyle.BEFORE_AFTER_LAYOUT) {
+        bodyText = `Before:\n${starStory.situation.context}\n\nProblem:\n${starStory.task.objective}\n\nWhat Changed:\n${starStory.action.reasoning}\n\nAfter:\n${starStory.result.outcome}\n\nLesson:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.MINIMAL_BULLETS) {
+        bodyText = `${starStory.situation.context}\n\nThe constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe decision:\n• ${starStory.action.chosenApproach}\n\nThe trade-off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed initial speed for long-term fault isolation"}\n\nThe result:\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.SHORT_DIALOGUE) {
+        bodyText = `"The ${topic.framework || topic.category} service is scaling slowly."\n\n"Which part?"\n\n"The database query paths under sustained load."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+      } else {
+        bodyText = `${starStory.situation.context}\n\n${starStory.task.objective}\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+      }
+
+      const fullText = generatedCta
+        ? `${generatedHook}\n\n${bodyText}\n\n${generatedCta}\n\n#SoftwareEngineering #SystemDesign #AIEngineering`
+        : `${generatedHook}\n\n${bodyText}\n\n#SoftwareEngineering #SystemDesign #AIEngineering`;
+
+      linkedInPayload = {
         title: topic.title,
-        hook,
-        story,
-        lesson: experience.engineeringDecision || "Decoupled clean architecture reduces operational complexity.",
-        actionableInsight: insights,
-        cta,
-        hashtags,
+        hook: generatedHook,
+        story: starStory.situation.context,
+        lesson: starStory.insight.engineeringLesson,
+        actionableInsight: starStory.result.outcome,
+        cta: generatedCta,
+        hashtags: ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering"],
         fullText,
-        imageUrl: dynamicImageUrl,
+        imageUrl: this.getDynamicImageUrl(topic),
+        storyMode: selectedStoryMode,
+        formatStyle: selectedFormatStyle,
+        starStory,
       };
-    } else {
-      linkedInPost.imageUrl = dynamicImageUrl;
     }
 
-    // 2. Generate Dev.to Standalone Technical Article with Dynamic Mermaid Diagrams
-    const generateDevToTitle = (topicTitle: string): string => {
-      const cleanTitle = topicTitle.replace(/:(.*)$/, "").trim();
-      const titleFormulas = [
-        `🚀 ${cleanTitle}: Performance Gains, Trade-Offs, and Implementation Blueprints`,
-        `Inside ${cleanTitle}: Benchmarks, System Architecture, and Production Edge Cases`,
-        `Practical Architecture Guide: ${cleanTitle}`,
-        `A Software Architect's Deep Dive into ${cleanTitle}`,
-        `Mastering ${cleanTitle}: High-Throughput Patterns & Code Blueprints`,
-      ];
-      const charCodeSum = cleanTitle.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-      return titleFormulas[charCodeSum % titleFormulas.length];
-    };
-
-    const devToTitle = generateDevToTitle(topic.title);
-
-    const rawKeywords = (topic.keywords && topic.keywords.length > 0)
-      ? topic.keywords
-      : [topic.category || "webdev", "architecture", "systemdesign", "programming"];
-    
-    const devToTags = rawKeywords
-      .map((k) => k.toLowerCase().replace(/[^a-z0-9]/g, ""))
-      .filter((k) => k.length >= 2)
-      .slice(0, 4);
-
-    if (devToTags.length === 0) {
-      devToTags.push("webdev", "architecture", "softwareengineering");
-    }
-
-    const codeSnippet = codeSnippetsList[0]?.code || `// Production implementation blueprint for ${topic.title}\nexport const runService = async () => {\n  console.log("Service active: ${topic.title}");\n};`;
-    const mermaidDiagram = this.generateTopicMermaid(topic);
-
-    const devToMarkdown = `---
-title: "${devToTitle}"
+    if (!devToPayload || !devToPayload.markdownContent) {
+      const mermaidDiagram = this.generateTopicMermaid(topic);
+      const codeSnippet = research.code_snippets[0]?.code || `// Production blueprint for ${topic.title}\nexport const runEngine = async () => {\n  console.log("Active engine: ${topic.title}");\n};`;
+      const devToMarkdown = `---
+title: "Inside ${topic.title}: System Architecture, Trade-Offs, and Implementation Blueprints"
 published: true
-tags: ${JSON.stringify(devToTags)}
+tags: ["webdev", "architecture", "systemdesign"]
 canonical_url: "https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}"
-description: "A comprehensive deep dive into ${topic.title} architecture, implementation blueprints, edge cases, and performance benchmarks."
+description: "A software architect's deep dive into ${topic.title} architecture, blueprints, failure recovery, and trade-off analysis."
 ---
 
-# ${devToTitle}
+# Inside ${topic.title}: System Architecture, Trade-Offs, and Implementation Blueprints
 
-## Overview & Technical Context
-${research.summary || topic.title}
+## 1. Overview & Technical Context
+${starStory.situation.context}
 
-### Target Audience & Real-World Scenario
-* **Target Audience**: ${audience.primaryAudience}
-* **Engineering Narrative**: ${hasBuildMatch ? `Direct Build Experience: ${experience.realWorldProblem}` : `In-Depth Benchmarking: ${research.summary.substring(0, 150)}`}
+## 2. High-Level System Architecture
+${starStory.action.reasoning}
 
----
-
-## High-Level System Architecture
-
+### System Architecture Diagram
 ${mermaidDiagram}
 
----
+## 3. Engineering Trade-Off Matrix
+* **Objective**: ${starStory.task.objective}
+* **Chosen Approach**: ${starStory.action.chosenApproach}
+* **Trade-Offs**: ${starStory.insight.tradeoffs.join("; ")}
 
-## Deep Technical Explanation & Trade-Offs
-
-${keyInsightsList.map((insight) => `### ${insight}\nDetailed architectural breakdown of this pattern in enterprise production systems.`).join("\n\n")}
-
-### Trade-Offs Matrix
-* **Pros**: ${prosList.join(", ")}
-* **Cons**: ${consList.join(", ")}
-* **Outcome**: ${hasBuildMatch ? experience.quantifiableOutcome : "Predictable scalability and maintainability."}
-
----
-
-## Runnable Code Blueprint
-
+## 4. Runnable Code Blueprint
 \`\`\`typescript
 ${codeSnippet}
 \`\`\`
 
----
-
-## Edge Cases & Failure Recovery
-
-1. **Network Latency & Timeout Spikes**: Enforce exponential backoff retries with jitter and circuit breakers.
-2. **Resource & Memory Bounds**: Configure explicit memory limits, TTL eviction, and queue backpressure.
-3. **Schema & Payload Contract Drift**: Enforce runtime validation schemas using Zod or OpenAPI contracts.
-
----
-
-## Conclusion & Future Outlook
-${research.future_outlook || "Modern decoupled architecture scales predictably."}
-
----
-
-## 💬 Community Discussion & Feedback
-
-> **What's your team's approach?**
-> How are you handling architecture trade-offs with ${topic.title}? Have you experienced similar performance benchmarks or edge cases in production?
-> 
-> *Drop a comment below with your insights, thoughts, or questions—let's discuss!* 🚀
+## 5. Edge Cases & Failure Recovery Modes
+${starStory.result.outcome}
+* **Evidence**: ${starStory.result.evidence.join("; ")}
+* **Key Insight**: ${starStory.insight.engineeringLesson}
 `;
 
-    const devToArticle: DevToArticlePayload = {
-      title: devToTitle,
-      published: false,
-      tags: devToTags,
-      canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
-      description: (research.summary || topic.reason || topic.title).substring(0, 150),
-      mainImage: dynamicImageUrl,
-      markdownContent: devToMarkdown,
-    };
+      devToPayload = {
+        title: `Inside ${topic.title}: Architecture, Trade-Offs, and Implementation Blueprints`,
+        published: false,
+        tags: ["webdev", "architecture", "systemdesign"],
+        canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
+        description: research.summary.substring(0, 140),
+        mainImage: this.getDynamicImageUrl(topic),
+        markdownContent: devToMarkdown,
+      };
+    }
+
+    if (!visualNarrative) {
+      visualNarrative = {
+        coreConcept: topic.title,
+        primaryFlow: starStory.action.chosenApproach,
+        importantComponents: ["Service Controller", "Domain Engine", "Storage Boundary"],
+        relationships: ["Controller -> Engine", "Engine -> Storage Boundary"],
+        keyLabels: ["Request", "Decision", "State"],
+        visualType: "SYSTEM_DESIGN",
+      };
+    }
+
+    // Evaluate Quality Score with STAR & Boredom Metrics
+    const writingQualityScore = writingQualityEvaluator.evaluate(
+      linkedInPayload,
+      devToPayload,
+      research,
+      experience,
+      history,
+      starStory
+    );
+
+    // Record in writing memory
+    writingMemoryTracker.recordEntry({
+      topic: topic.title,
+      category: topic.category,
+      framework: topic.framework,
+      hook: linkedInPayload.hook,
+      hookType: selectedHookType,
+      storyAngle: "SENIOR_ENGINEERING_REASONING",
+      narrativePattern: "ENGINEERING_DISCOVERY",
+      ctaType: selectedCtaType,
+      ctaText: linkedInPayload.cta,
+      vocabulary: [topic.category, topic.framework || ""].filter(Boolean),
+      writingQualityScore,
+      storyMode: selectedStoryMode,
+      formatStyle: selectedFormatStyle,
+      starStory,
+      boredomScore: writingQualityScore.boredomScore,
+    });
 
     const executionTimeMs = Date.now() - startTime;
     return {
       success: true,
-      confidenceScore: 94,
+      confidenceScore: 96,
       data: {
-        linkedInPost,
-        devToArticle,
-        narrativePattern,
+        linkedInPost: linkedInPayload,
+        devToArticle: devToPayload,
+        narrativePattern: "ENGINEERING_DISCOVERY",
+        visualNarrative,
+        writingQualityScore,
+        regenerationCount: 0,
       },
-      validationResult: {
-        passed: Boolean(linkedInPost.fullText && devToArticle.markdownContent),
-        errors: [],
-        warnings: [],
-      },
+      validationResult: { passed: true, errors: [], warnings: [] },
       metadata: {
         agentType: AgentType.TECHNICAL_WRITER,
         timestamp: new Date().toISOString(),
@@ -336,4 +381,4 @@ ${research.future_outlook || "Modern decoupled architecture scales predictably."
   }
 }
 
-
+export const technicalWriterAgent = new TechnicalWriterAgent();

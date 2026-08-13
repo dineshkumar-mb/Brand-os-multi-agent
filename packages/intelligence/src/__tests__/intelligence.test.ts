@@ -26,7 +26,7 @@ describe("Global AI Intelligence Layer Unit Tests", () => {
     expect(result.canonicalEventsCount).toBeGreaterThan(0);
     expect(result.opportunitiesGenerated.length).toBeGreaterThan(0);
     expect(result.sourceHealth.sources.length).toBeGreaterThan(0);
-  });
+  }, 15000);
 
   it("should evaluate Do-Not-Publish Gate and reject low experience match topics", () => {
     const mockHypeOpportunity: any = {

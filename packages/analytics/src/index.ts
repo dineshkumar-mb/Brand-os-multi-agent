@@ -1,5 +1,45 @@
 import { HistoricalPostRecord, Platform } from "@brand-os/shared";
 
+export interface LinkedInProfileData {
+  id: string;
+  name: string;
+  headline: string;
+  vanityName: string;
+  profilePictureUrl: string;
+  followersCount: number;
+  connectionsCount: number;
+  totalPostsCount: number;
+  profileViewers90Days: number;
+  searchAppearancesWeek: number;
+  isRealApiData: boolean;
+}
+
+export interface TimeSeriesDataPoint {
+  name: string;
+  date: string;
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+  ctr: number;
+}
+
+export interface DashboardSummary {
+  kpis?: any;
+  totalPostsPublished?: number;
+  totalViews: number;
+  followersGained: number;
+  profileViewers?: number;
+  searchAppearances?: number;
+  totalLikes: number;
+  totalComments: number;
+  totalShares: number;
+  avgCTR: number;
+  topPerformingHooks?: string[];
+  lowestPerformingTopics?: string[];
+  learningRecommendations?: string[];
+}
+
 declare const process: any;
 declare const require: any;
 
