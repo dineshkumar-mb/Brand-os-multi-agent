@@ -283,12 +283,28 @@ export const VisualValidationResultSchema = z.object({
 });
 export type VisualValidationResult = z.infer<typeof VisualValidationResultSchema>;
 
+export interface TechnicalCredibilityResult {
+  passed: boolean;
+  evidenceFound: boolean;
+  unsupportedClaimsCount: number;
+  benchmarkClaimsVerified: boolean;
+  architectureClaimsVerified: boolean;
+  firstPersonClaimsVerified: boolean;
+  interviewDefensePassed: boolean;
+  evidenceAuthenticityScore: number; // 0 - 100
+  flaggedPhrases: string[];
+  rejectionReasons: string[];
+  suggestedRewrites: Array<{ original: string; suggested: string; reason: string }>;
+}
+
 export const DecisionGateResultSchema = z.object({
   approvedForPublishing: z.boolean(),
   decision: z.enum(["PUBLISH", "REGENERATE", "REJECT"]),
   gateCheckResults: z.object({
     topicFreshnessPassed: z.boolean(),
     technicalAccuracyPassed: z.boolean(),
+    credibilityGatePassed: z.boolean().optional(),
+    evidenceAuthenticityPassed: z.boolean().optional(),
     originalityPassed: z.boolean(),
     humanTonePassed: z.boolean(),
     audienceRelevancePassed: z.boolean(),
@@ -299,6 +315,16 @@ export const DecisionGateResultSchema = z.object({
     seoCompletenessPassed: z.boolean(),
   }),
   rejectionReasons: z.array(z.string()),
+  weightedScores: z.object({
+    evidenceAuthenticity: z.number(), // 30%
+    technicalAccuracy: z.number(),     // 20%
+    personalExperience: z.number(),   // 15%
+    engineeringDepth: z.number(),     // 15%
+    storytelling: z.number(),         // 10%
+    recruiterValue: z.number(),       // 5%
+    engagementPotential: z.number(),  // 5%
+    totalScore: z.number(),
+  }).optional(),
   actionRequired: z.string().optional(),
 });
 export type DecisionGateResult = z.infer<typeof DecisionGateResultSchema>;
@@ -520,7 +546,13 @@ export interface PortfolioMetrics {
 }
 
 export interface ContentScore {
-  technicalAccuracyScore: number;
+  evidenceAuthenticityScore?: number; // 30%
+  technicalAccuracyScore: number;     // 20%
+  personalExperienceScore?: number;   // 15%
+  engineeringDepthScore?: number;     // 15%
+  storytellingScore?: number;         // 10%
+  recruiterValueScore?: number;       // 5%
+  engagementPotentialScore?: number;  // 5%
   originalityScore: number;
   humanToneScore: number;
   audienceRelevanceScore: number;
@@ -925,6 +957,13 @@ export const WritingQualityScoreSchema = z.object({
   careerSignal: z.number().min(0).max(100),
   discussionPotential: z.number().min(0).max(100),
   aiClicheScore: z.number().min(0).max(100),
+  evidenceAuthenticityScore: z.number().min(0).max(100).optional(),
+  personalExperienceScore: z.number().min(0).max(100).optional(),
+  engineeringDepthScore: z.number().min(0).max(100).optional(),
+  storytellingScore: z.number().min(0).max(100).optional(),
+  recruiterValueScore: z.number().min(0).max(100).optional(),
+  engagementPotentialScore: z.number().min(0).max(100).optional(),
+  weightedTotalScore: z.number().min(0).max(100).optional(),
   overall: z.number().min(0).max(100),
   boredomScore: BoredomScoreSchema.optional(),
   storyQualityScore: StoryQualityScoreSchema.optional(),

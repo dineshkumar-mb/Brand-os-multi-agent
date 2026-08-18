@@ -336,19 +336,26 @@ export class WritingQualityEvaluator {
     const boredomScore = this.evaluateBoredomScore(linkedInPost, historicalPosts);
     const storyQualityScore = this.evaluateStoryQualityScore(linkedInPost, starStory);
 
-    // 11. Overall Score calculation
-    const overall = Math.round(
-      clarity * 0.08 +
-      technicalDepth * 0.15 +
-      seniority * 0.18 +
-      authenticity * 0.15 +
-      originality * 0.10 +
-      narrativeQuality * 0.08 +
-      evidenceQuality * 0.10 +
-      readability * 0.06 +
-      careerSignal * 0.05 +
-      aiClicheScore * 0.05
+    // 11. 7-Dimension Weighted System Scores
+    const evidenceAuthenticityScore = Math.round(authenticity * 0.6 + evidenceQuality * 0.4);
+    const technicalAccuracyScore = Math.round(technicalDepth * 0.7 + clarity * 0.3);
+    const personalExperienceScore = experience?.foundMatch ? 95 : 65;
+    const engineeringDepthScore = Math.round(technicalDepth * 0.6 + seniority * 0.4);
+    const storytellingScore = Math.round(narrativeQuality * 0.5 + (storyQualityScore?.overall || 85) * 0.5);
+    const recruiterValueScore = careerSignal;
+    const engagementPotentialScore = discussionPotential;
+
+    const weightedTotalScore = Math.round(
+      evidenceAuthenticityScore * 0.30 +
+      technicalAccuracyScore * 0.20 +
+      personalExperienceScore * 0.15 +
+      engineeringDepthScore * 0.15 +
+      storytellingScore * 0.10 +
+      recruiterValueScore * 0.05 +
+      engagementPotentialScore * 0.05
     );
+
+    const overall = weightedTotalScore;
 
     return {
       clarity,
@@ -362,6 +369,13 @@ export class WritingQualityEvaluator {
       careerSignal,
       discussionPotential,
       aiClicheScore,
+      evidenceAuthenticityScore,
+      personalExperienceScore,
+      engineeringDepthScore,
+      storytellingScore,
+      recruiterValueScore,
+      engagementPotentialScore,
+      weightedTotalScore,
       overall,
       boredomScore,
       storyQualityScore,

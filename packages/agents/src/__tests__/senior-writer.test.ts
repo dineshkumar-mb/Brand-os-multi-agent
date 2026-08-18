@@ -214,7 +214,7 @@ describe("Senior Software Engineer Writing Agent Unit & Integration Tests", () =
     };
 
     const juniorScore = evaluator.evaluate(juniorPost as any);
-    const seniorScore = evaluator.evaluate(seniorPost as any);
+    const seniorScore = evaluator.evaluate(seniorPost as any, undefined, sampleResearch, sampleExperience as any);
 
     expect(seniorScore.seniority).toBeGreaterThan(juniorScore.seniority + 25);
     expect(seniorScore.technicalDepth).toBeGreaterThan(juniorScore.technicalDepth + 25);

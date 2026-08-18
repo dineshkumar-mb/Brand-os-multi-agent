@@ -8,13 +8,35 @@
 [![React 19](https://img.shields.io/badge/React-19.0-cyan?style=for-the-badge&logo=react)](https://react.dev/)
 [![Live Intelligence](https://img.shields.io/badge/Intelligence-Live%20APIs-brightgreen?style=for-the-badge&logo=rss)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
 
-Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies **STAR + Human Engineering Storytelling**, **Visual RAG Pattern Retrieval**, **14–30 Day Visual Diversity Memory**, and **multi-layer quality safeguards** to guarantee only authentic, senior-level, visually distinct content reaches publication.
+Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies a mandatory **Technical Credibility Gate**, **Weighted 7-Dimension Scoring System**, **STAR + Human Engineering Storytelling**, **Visual RAG Pattern Retrieval**, **14–30 Day Visual Diversity Memory**, and **multi-layer quality safeguards** to guarantee only authentic, senior-level, evidence-backed content reaches publication.
 
 ---
 
 ## 🚀 Key Features & Architectural Capabilities
 
-### 1. 📖 STAR + Human Engineering Storytelling Pipeline
+### 1. 🛡️ Mandatory Technical Credibility Gate & 7-Dimension Scoring System
+
+The system enforces strict technical credibility logic to eliminate AI-generated fluff and unsupported claims:
+
+- **Evidence First**: Identifies actual code, repository, benchmark, architecture, PR, issue, deployment log, experiment, or implementation behind every post. If no evidence exists, present topic as `EXPLORED_RESEARCH` rather than personally built or benchmarked.
+- **Strict 4-Category Taxonomy**: Never merges **Fact** (docs/specifications), **Experience** (actually implemented), **Experiment** (actually measured), and **Opinion** (architectural interpretation).
+- **Prohibited Invented Context**: Zero tolerance for invented context like `"our engineering team"`, `"production deployments"`, `"microservices"`, `"event buses"`, `"RPC"`, `"distributed state"`, `"circuit breakers"` when not supported by project context.
+- **Benchmark Claims Protocol**: `"I benchmarked X"` requires dataset/workload, baseline, environment, methodology, metric, result; missing items trigger rewrite to `"I explored X"`.
+- **First-Person Claims Proof Gate**: Flags `"I built"`, `"I implemented"`, `"I benchmarked"`, `"I optimized"`, `"I discovered"`, `"our team"`, `"we deployed"` when unsupported.
+- **"Can I defend this in an interview?" Test**: Rejects claims that cannot be defended in a senior technical interview.
+- **7-Dimension Weighted Scoring System**:
+  - `Evidence / Authenticity`: **30%**
+  - `Technical Accuracy`: **20%**
+  - `Personal Experience`: **15%**
+  - `Engineering Depth`: **15%**
+  - `Storytelling`: **10%**
+  - `Recruiter Value`: **5%**
+  - `Engagement Potential`: **5%**
+- **Hard Rule Enforcement**: If $\text{Evidence / Authenticity} < 70$, the post is **immediately REJECTED** regardless of total score (Publishing threshold $\ge 80/100$).
+
+---
+
+### 2. 📖 STAR + Human Engineering Storytelling Pipeline
 
 The daily writing pipeline generates authentic, human engineering stories using the **STAR framework** internally as reasoning architecture without ever exposing formulaic headers:
 
@@ -522,6 +544,15 @@ npm run dev
 ---
 
 ## 📋 Changelog
+
+### v3.5 — Technical Credibility Gate & 7-Dimension Weighted Scoring System (Aug 2026)
+- **NEW**: **Mandatory Technical Credibility Gate** enforcing Evidence First verification and interview defense test (`TechnicalReviewerAgent`).
+- **NEW**: **7-Dimension Weighted Scoring System** matrix: Evidence/Authenticity (30%), Technical Accuracy (20%), Personal Experience (15%), Engineering Depth (15%), Storytelling (10%), Recruiter Value (5%), Engagement Potential (5%).
+- **NEW**: **Hard Rejection Threshold Rule**: If Evidence / Authenticity $< 70$, post is **immediately REJECTED** regardless of total score (Publishing threshold $\ge 80/100$).
+- **NEW**: **Benchmark Claims Protocol**: `"I benchmarked X"` requires dataset, baseline, environment, methodology, metric, and result. Missing elements trigger auto-rewrite to `"I explored X"`.
+- **NEW**: **Prohibited Synthetic Context Filter**: Strips invented context (`"our engineering team"`, `"production deployments"`, `"microservices"`, `"event buses"`, `"RPC"`) when unsupported by code context.
+- **NEW**: **Exploratory Research Mode**: Replaces synthetic experience fallback in `ExperienceMiningAgent` with `EXPLORED_RESEARCH` mode when no matching project log exists.
+- **NEW**: Comprehensive unit test suite in `credibility-gate.test.ts` (100% test pass rate across 43 unit tests).
 
 ### v3.0 — STAR Storytelling Pipeline & Visual RAG Intelligence (Aug 2026)
 - **NEW**: Two-stage **STAR + Human Engineering Storytelling Pipeline** (`EngineeringReasoningAgent` + `TechnicalWriterAgent`).

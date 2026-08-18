@@ -73,11 +73,13 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
 
     let targetUrl = imageUrl;
     if (imageUrl.startsWith("data:image/svg+xml")) {
-      console.log(`[LinkedIn Publisher 🖼️] SVG detected. Converting to high-resolution PNG for LinkedIn feed compatibility...`);
-      targetUrl = "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1200&auto=format&fit=crop&q=80";
-    }
-
-    if (targetUrl.startsWith("data:")) {
+      console.log(`[LinkedIn Publisher 🖼️] Processing dynamic topic-aware SVG architecture diagram...`);
+      contentType = "image/svg+xml";
+      const parts = imageUrl.split(",");
+      const isBase64 = parts[0].includes("base64");
+      const svgString = isBase64 ? Buffer.from(parts[1], "base64").toString("utf-8") : decodeURIComponent(parts[1]);
+      imageBuffer = Buffer.from(svgString, "utf-8");
+    } else if (targetUrl.startsWith("data:")) {
       console.log(`[LinkedIn Publisher 🖼️] Processing dynamic Data URL image...`);
       const parts = targetUrl.split(",");
       const mimeMatch = parts[0].match(/data:(.*?);/);

@@ -110,9 +110,42 @@ export class DecisionGateAgent {
     const seoCompletenessPassed = article.tags.length > 0 && Boolean(article.description);
     if (!seoCompletenessPassed) rejectionReasons.push("SEO completeness check failed: Dev.to metadata or tags incomplete.");
 
+    // Gate 11: Technical Credibility Gate & Hard Authenticity Rule (Evidence / Authenticity >= 70)
+    const evidenceAuthenticityScore = post.writingQualityScore?.evidenceAuthenticityScore ?? techReview.evidenceAuthenticityScore ?? 80;
+    const credibilityGatePassed = techReview.credibilityGatePassed !== false && evidenceAuthenticityScore >= 70;
+    if (!credibilityGatePassed) {
+      rejectionReasons.push(`Technical Credibility Gate check failed: Evidence / Authenticity score is ${evidenceAuthenticityScore}% (Hard threshold >= 70%). Post rejected regardless of total score.`);
+    }
+
+    // 7-Dimension Weighted System Scoring
+    const weightedEvidence = evidenceAuthenticityScore;
+    const weightedTechAcc = techReview.accuracyScore || 90;
+    const weightedPersonalExp = post.writingQualityScore?.personalExperienceScore || 75;
+    const weightedEngDepth = post.writingQualityScore?.engineeringDepthScore || 85;
+    const weightedStorytelling = post.writingQualityScore?.storytellingScore || 80;
+    const weightedRecruiterVal = post.writingQualityScore?.recruiterValueScore || 85;
+    const weightedEngagement = post.writingQualityScore?.engagementPotentialScore || 80;
+
+    const totalWeightedScore = Math.round(
+      weightedEvidence * 0.30 +
+      weightedTechAcc * 0.20 +
+      weightedPersonalExp * 0.15 +
+      weightedEngDepth * 0.15 +
+      weightedStorytelling * 0.10 +
+      weightedRecruiterVal * 0.05 +
+      weightedEngagement * 0.05
+    );
+
+    const thresholdPassed = totalWeightedScore >= 80;
+    if (!thresholdPassed) {
+      rejectionReasons.push(`Publishing threshold check failed: Total weighted score is ${totalWeightedScore}/100 (Threshold >= 80/100).`);
+    }
+
     const approvedForPublishing =
       topicFreshnessPassed &&
       technicalAccuracyPassed &&
+      credibilityGatePassed &&
+      thresholdPassed &&
       originalityPassed &&
       humanTonePassed &&
       audienceRelevancePassed &&
@@ -122,17 +155,16 @@ export class DecisionGateAgent {
       visualValidationPassed &&
       seoCompletenessPassed;
 
-    const decision: DecisionGateResult["decision"] = approvedForPublishing ? "PUBLISH" : "REGENERATE";
+    const decision: DecisionGateResult["decision"] = approvedForPublishing ? "PUBLISH" : "REJECT";
     const actionRequired = approvedForPublishing ? "Dispatch to Publisher Agent" : `Revise content: ${rejectionReasons.join("; ")}`;
 
     const topicFreshnessScore = Math.round(topic.score);
     const originalityScore = Math.round((1 - originality.overallSimilarityScore) * 100);
     const humanToneScore = Math.max(70, 100 - clichésRemoved * 5);
     const visualAlignmentScore = visualValidation.alignmentScore;
-    const careerSignalScore = 90;
 
     console.log(
-      `[DECISION_GATE] topicFreshness=${topicFreshnessScore} originality=${originalityScore} humanTone=${humanToneScore} visualAlignment=${visualAlignmentScore} careerSignal=${careerSignalScore} decision=${decision}`
+      `[DECISION_GATE] topicFreshness=${topicFreshnessScore} credibility=${evidenceAuthenticityScore} totalWeighted=${totalWeightedScore} decision=${decision}`
     );
 
     const executionTimeMs = Date.now() - startTime;
@@ -145,6 +177,8 @@ export class DecisionGateAgent {
         gateCheckResults: {
           topicFreshnessPassed,
           technicalAccuracyPassed,
+          credibilityGatePassed,
+          evidenceAuthenticityPassed: credibilityGatePassed,
           originalityPassed,
           humanTonePassed,
           audienceRelevancePassed,
@@ -153,6 +187,16 @@ export class DecisionGateAgent {
           platformOptimizationPassed,
           visualValidationPassed,
           seoCompletenessPassed,
+        },
+        weightedScores: {
+          evidenceAuthenticity: weightedEvidence,
+          technicalAccuracy: weightedTechAcc,
+          personalExperience: weightedPersonalExp,
+          engineeringDepth: weightedEngDepth,
+          storytelling: weightedStorytelling,
+          recruiterValue: weightedRecruiterVal,
+          engagementPotential: weightedEngagement,
+          totalScore: totalWeightedScore,
         },
         rejectionReasons,
         actionRequired,

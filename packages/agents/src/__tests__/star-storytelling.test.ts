@@ -137,7 +137,7 @@ describe("STAR + Human Engineering Storytelling Test Suite", () => {
       { ...boringPost, writingQualityScore: { clarity: 80, technicalDepth: 50, seniority: 50, authenticity: 70, originality: 70, narrativeQuality: 50, evidenceQuality: 50, readability: 70, careerSignal: 50, discussionPotential: 50, aiClicheScore: 0, overall: 50, boredomScore: boredom } },
       { title: testTopic.title, description: "desc", published: false, tags: ["webdev"], canonicalUrl: "https://test.com", markdownContent: "content" },
       { passed: true, overallSimilarityScore: 0.1, breakdown: { titleSimilarity: 0, hookSimilarity: 0, technologyOverlap: 0, ctaSimilarity: 0, structureSimilarity: 0 }, rejectionReasons: [] },
-      { passed: true, accuracyScore: 90, syntaxValid: true, frameworkVersionValid: true, tradeoffsAddressed: true, securityChecksPassed: true, reviewNotes: [] },
+      { passed: true, accuracyScore: 90, syntaxValid: true, frameworkVersionValid: true, tradeoffsAddressed: true, securityChecksPassed: true, credibilityGatePassed: true, evidenceAuthenticityScore: 90, reviewNotes: [] },
       { alignedWithArticle: true, alignmentScore: 90, categoryMatch: true, logoAccuracyPassed: true, feedbackNotes: [] },
       1
     );

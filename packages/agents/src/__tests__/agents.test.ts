@@ -108,8 +108,21 @@ describe("17-Agent Personal Brand Intelligence System Unit Tests", () => {
     expect(result.data.relatedConcepts).toContain("Tool Calling");
   });
 
-  it("ExperienceMiningAgent should extract authentic production narratives", () => {
-    const agent = new ExperienceMiningAgent();
+  it("ExperienceMiningAgent should extract authentic production narratives when log matches", () => {
+    const sampleLog = {
+      id: "exp_1",
+      title: "MCP Architecture",
+      category: "Agentic AI",
+      description: "Built MCP server for agent tool calling.",
+      technologiesUsed: ["MCP", "TypeScript"],
+      challengesFaced: ["Schema validation overhead"],
+      solutionApproach: "Standardized JSON-RPC contracts.",
+      metricsOrOutcome: "Reduced serialization latency by 40%.",
+      keyLessons: ["Schema discipline"],
+      tradeoffs: ["Boilerplate vs safety"],
+      createdAt: new Date().toISOString(),
+    };
+    const agent = new ExperienceMiningAgent([sampleLog]);
     const result = agent.mineExperience(sampleTopic);
     expect(result.success).toBe(true);
     expect(result.data.foundMatch).toBe(true);
@@ -227,7 +240,7 @@ describe("17-Agent Personal Brand Intelligence System Unit Tests", () => {
       breakdown: { titleSimilarity: 0.1, hookSimilarity: 0.1, technologyOverlap: 0, ctaSimilarity: 0, structureSimilarity: 0.1 },
       rejectionReasons: [],
     };
-    const techReview = { syntaxValid: true, frameworkVersionValid: true, tradeoffsAddressed: true, securityChecksPassed: true, accuracyScore: 95, passed: true, reviewNotes: [] };
+    const techReview = { syntaxValid: true, frameworkVersionValid: true, tradeoffsAddressed: true, securityChecksPassed: true, credibilityGatePassed: true, evidenceAuthenticityScore: 95, accuracyScore: 95, passed: true, reviewNotes: [] };
     const visualValidation = { alignedWithArticle: true, alignmentScore: 95, categoryMatch: true, logoAccuracyPassed: true, feedbackNotes: [] };
 
     const result = agent.evaluateDecision(sampleTopic, post, article, originality, techReview, visualValidation, 0);

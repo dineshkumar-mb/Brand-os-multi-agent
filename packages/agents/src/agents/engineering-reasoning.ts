@@ -41,21 +41,21 @@ Generate an internal STAR (Situation, Task, Action, Result, Insight) engineering
 
 STORY MODE: ${storyMode}
 CATEGORY/FRAMEWORK: ${topic.category} (${topic.framework || "N/A"})
-REAL-WORLD EXPERIENCE MATCH: ${hasBuildMatch ? `DIRECT EXPERIENCE: ${experience.realWorldProblem} -> ${experience.quantifiableOutcome}` : "RESEARCH BENCHMARK ONLY"}
+REAL-WORLD EXPERIENCE MATCH: ${hasBuildMatch ? `DIRECT EXPERIENCE: ${experience.realWorldProblem} -> ${experience.quantifiableOutcome}` : "NO PROJECT EXPERIENCE MATCH (Strict Exploratory / Analysis Mode)"}
 RESEARCH SUMMARY: ${research.summary}
 TECHNICAL INSIGHTS: ${research.key_insights.slice(0, 4).join("; ")}
 PRIMARY TRADEOFF: ${primaryTradeoff.name} (Chosen: ${primaryTradeoff.chosen} vs Sacrificed: ${primaryTradeoff.sacrificed})
 
-STRICT REASONING REQUIREMENTS:
-1. SITUATION: Establish concrete context and a curiosity-inducing engineering trigger. Avoid background filler like "Recently I was working on...". Make it specific (e.g. "The API worked at 20 requests/sec. At 200, PostgreSQL became the bottleneck.").
-2. TASK: Define the exact engineering constraint or dilemma (e.g. "Maintain sub-50ms latency without inflating cloud infrastructure costs.").
-3. ACTION: Detail the engineering decisions. Must include:
-   - Approaches considered (e.g. Approach A vs Approach B)
-   - Rejected approaches and why
-   - The Decision Moment (where you pivoted or chose B over A)
-   - Reasoning based on trade-offs, state drift, concurrency, or observability.
-4. RESULT: Define real evidence or metrics (or qualified qualitative result like "Failure became observable instead of silent").
-5. INSIGHT: Formulate a senior engineering lesson (e.g. "Caching is an architectural ownership decision, not just a performance tweak.").
+STRICT REASONING & TECHNICAL CREDIBILITY REQUIREMENTS:
+${hasBuildMatch 
+      ? `1. SITUATION: Base on the matched engineering experience. Use real metrics/context provided.
+2. ACTION: Explain technical decisions and trade-offs faced.
+3. RESULT: Cite actual verified outcomes (${experience.quantifiableOutcome}).` 
+      : `1. SITUATION: Analyze the architecture and core engineering challenges of ${topic.title}. Do NOT claim "I built", "I benchmarked", or "our production team". Use "I explored" or "Analyzing the architecture of...".
+2. ACTION: Compare design patterns (Approach A vs Approach B) based on official documentation and technical specifications.
+3. RESULT: State qualitative architectural trade-offs, not invented p99 benchmarks or fake telemetry metrics.`
+    }
+INSIGHT: Formulate a senior engineering lesson based on trade-offs.
 
 Return ONLY a valid JSON object matching:
 {
@@ -71,23 +71,23 @@ Return ONLY a valid JSON object matching:
     "successCriteria": ["Criteria 1", "Criteria 2"]
   },
   "action": {
-    "approachesConsidered": ["Option A: Caching full response", "Option B: Caching key lookups only"],
+    "approachesConsidered": ["Option A: Approach A", "Option B: Approach B"],
     "chosenApproach": "Option B",
-    "rejectedApproaches": ["Option A due to complex cache invalidation"],
-    "reasoning": "Decoupling state ownership kept the database as truth.",
-    "decisionMoment": "The moment tests passed but invalidation edge cases appeared.",
-    "implementation": "Specific architectural layout or strategy used",
-    "debugging": "What unexpected behavior occurred during testing"
+    "rejectedApproaches": ["Option A due to trade-offs"],
+    "reasoning": "Technical rationale",
+    "decisionMoment": "Key architectural choice moment",
+    "implementation": "Specific pattern or strategy",
+    "debugging": "Considerations during evaluation"
   },
   "result": {
-    "outcome": "Measurable or observable outcome",
-    "metrics": ["p99 latency improved by 40%", "Zero silent failures"],
-    "evidence": ["Production telemetry log verification", "Load test results"]
+    "outcome": "Measurable or qualitative architectural outcome",
+    "metrics": ["Key trade-off outcome"],
+    "evidence": ["Documentation and spec references"]
   },
   "insight": {
     "engineeringLesson": "Deeper architectural lesson",
-    "tradeoffs": ["Sacrificed immediate setup speed for fault isolation"],
-    "whenNotToUse": ["When request volume is low and simple monolith fits"]
+    "tradeoffs": ["Chosen vs Sacrificed"],
+    "whenNotToUse": ["When alternative approach fits better"]
   }
 }`;
 
@@ -116,63 +116,114 @@ Return ONLY a valid JSON object matching:
     // Fallback STARStory construction if LLM output is missing or incomplete
     if (!starStory) {
       const tech = topic.framework || topic.category || topic.title;
-      starStory = {
-        situation: {
-          context: hasBuildMatch && experience.realWorldProblem
-            ? `While running our ${topic.category} workload, ${experience.realWorldProblem}`
-            : `The ${tech} service performed cleanly under unit test loads. Under sustained concurrency, the boundary between database query execution and application state began to break down.`,
-          trigger: `Request throughput scaled past baseline limits, exposing a subtle bottleneck in state synchronization.`,
-          stakes: `Risk of thread pool starvation, increased p99 latency, and degraded system availability under peak loads.`,
-          curiosityTension: `The code was functionally correct, but the architecture was fragile under load.`,
-        },
-        task: {
-          objective: `Eliminate the execution bottleneck without introducing unmanageable operational complexity or single points of failure.`,
-          constraints: [
-            `Must keep PostgreSQL / database as the ultimate source of truth`,
-            `Must prevent cascading retry storms during downstream failure`,
-            `Must maintain strict type safety and schema compatibility`,
-          ],
-          successCriteria: [
-            `Deterministic error handling under network partition`,
-            `Sub-50ms p99 latency under 5x normal traffic`,
-          ],
-        },
-        action: {
-          approachesConsidered: [
-            `Approach A: Naive full-response caching at the API edge`,
-            `Approach B: Selective state caching with explicit invalidation triggers and decoupled query paths`,
-          ],
-          chosenApproach: `Approach B: Selective query-level caching paired with explicit failure boundaries.`,
-          rejectedApproaches: [
-            `Approach A: Rejected because invalidating nested aggregate objects across distributed workers would create stale data bugs.`,
-          ],
-          reasoning: `Decoupling cache ownership from response serialization preserves database integrity while relieving read pressure on heavy lookup paths.`,
-          decisionMoment: `The initial implementation passed functional tests, but inspecting cache invalidation edge cases revealed that full-response caching would hide upstream database drift. That was the pivot point to rewrite the caching boundary.`,
-          implementation: `Introduced a bounded in-memory cache layer with fallback read-through to the database and explicit circuit breaking.`,
-          debugging: `During staging load tests, a silent timeout occurred when the cache hit rate dropped to zero. We added explicit fallback telemetry to isolate the drop.`,
-        },
-        result: {
-          outcome: `The system sustained 3x higher throughput with zero unhandled exceptions.`,
-          metrics: [
-            hasBuildMatch && experience.quantifiableOutcome ? experience.quantifiableOutcome : `p99 latency stabilized at 38ms`,
-            `Zero stale state read incidents reported in staging telemetry`,
-          ],
-          evidence: [
-            `Load testing telemetry logs`,
-            `Distributed trace breakdown showing reduced database lock contention`,
-          ],
-        },
-        insight: {
-          engineeringLesson: `Caching is not a simple performance patch—it is an architectural commitment regarding state ownership and invalidation boundaries.`,
-          tradeoffs: [
-            `Chosen: ${primaryTradeoff.chosen}`,
-            `Sacrificed: ${primaryTradeoff.sacrificed}`,
-          ],
-          whenNotToUse: [
-            `Avoid this complexity for low-throughput CRUD services where direct database queries meet SLAs effortlessly.`,
-          ],
-        },
-      };
+      if (hasBuildMatch) {
+        starStory = {
+          situation: {
+            context: `While engineering our ${topic.category} system, ${experience.realWorldProblem}`,
+            trigger: `Request throughput scaled past baseline limits, exposing a subtle bottleneck.`,
+            stakes: `Risk of degraded system availability and increased response latency under peak load.`,
+            curiosityTension: `The code was functionally correct, but the architecture was fragile under load.`,
+          },
+          task: {
+            objective: `Eliminate the bottleneck without introducing unmanageable operational complexity.`,
+            constraints: [
+              `Must keep main database as source of truth`,
+              `Must maintain type safety and schema compatibility`,
+            ],
+            successCriteria: [
+              `Deterministic error handling`,
+              `Improved system stability under load`,
+            ],
+          },
+          action: {
+            approachesConsidered: [
+              `Approach A: Full response caching`,
+              `Approach B: Selective state caching with explicit invalidation triggers`,
+            ],
+            chosenApproach: `Approach B: Selective query-level caching paired with explicit failure boundaries.`,
+            rejectedApproaches: [
+              `Approach A: Rejected because invalidating nested aggregate objects across workers creates stale data bugs.`,
+            ],
+            reasoning: `Decoupling cache ownership preserves data integrity while relieving pressure on heavy lookup paths.`,
+            decisionMoment: `Testing invalidation edge cases revealed that full-response caching hid state drift. That was the pivot point to rewrite boundaries.`,
+            implementation: `Introduced bounded cache layer with fallback read-through and circuit breaking.`,
+            debugging: `Identified cache hit rate drop during load testing and added explicit telemetry.`,
+          },
+          result: {
+            outcome: `System stability improved with zero silent failure regressions.`,
+            metrics: [
+              experience.quantifiableOutcome || `p99 latency stabilized at target SLA`,
+            ],
+            evidence: [
+              `Telemetry log verification`,
+            ],
+          },
+          insight: {
+            engineeringLesson: `Caching is an architectural commitment regarding state ownership and invalidation boundaries.`,
+            tradeoffs: [
+              `Chosen: ${primaryTradeoff.chosen}`,
+              `Sacrificed: ${primaryTradeoff.sacrificed}`,
+            ],
+            whenNotToUse: [
+              `Avoid this complexity for low-throughput CRUD services where direct database queries meet SLAs effortlessly.`,
+            ],
+          },
+        };
+      } else {
+        // Exploratory research fallback without invented first-person or benchmark claims
+        starStory = {
+          situation: {
+            context: `Evaluating architectural trade-offs in ${tech} for scalable system design.`,
+            trigger: `Selecting optimal design patterns before building enterprise integration boundaries.`,
+            stakes: `Preventing tight coupling and unmaintainable state management as complexity scales.`,
+            curiosityTension: `Simple implementations scale fast initially, but architectural flaws compound over time.`,
+          },
+          task: {
+            objective: `Analyze ${tech} implementation patterns and evaluate engineering trade-offs.`,
+            constraints: [
+              `Adhere to official specs and specifications`,
+              `Maintain strict service boundary separation`,
+            ],
+            successCriteria: [
+              `Clear documentation of trade-offs`,
+              `Defined failure isolation strategy`,
+            ],
+          },
+          action: {
+            approachesConsidered: [
+              `Pattern A: Monolithic synchronous coupling`,
+              `Pattern B: Explicit schema validation and decoupled message boundaries`,
+            ],
+            chosenApproach: `Pattern B: Explicit schema validation at service boundaries.`,
+            rejectedApproaches: [
+              `Pattern A: Rejected due to cascading failure risks and hidden state drift.`,
+            ],
+            reasoning: `Decoupling service state prevents cascading failures and simplifies debugging.`,
+            decisionMoment: `Comparing failure recovery modes showed that decoupled boundaries isolate faults cleanly.`,
+            implementation: `Structured evaluation based on official specs and architectural patterns.`,
+            debugging: `Identified potential edge cases in retry loops and fallback handlers.`,
+          },
+          result: {
+            outcome: `Established clear architectural trade-off principles for ${tech}.`,
+            metrics: [
+              `Trade-off analysis complete: ${primaryTradeoff.chosen} chosen over ${primaryTradeoff.sacrificed}.`,
+            ],
+            evidence: [
+              `Official framework specifications and architecture documentation`,
+            ],
+          },
+          insight: {
+            engineeringLesson: `Architectural choices must prioritize fault isolation and explicit boundary contracts over day-1 setup speed.`,
+            tradeoffs: [
+              `Chosen: ${primaryTradeoff.chosen}`,
+              `Sacrificed: ${primaryTradeoff.sacrificed}`,
+            ],
+            whenNotToUse: [
+              `Do not over-engineer when simple monolithic abstractions satisfy all business requirements.`,
+            ],
+          },
+        };
+      }
     }
 
     const executionTimeMs = Date.now() - startTime;

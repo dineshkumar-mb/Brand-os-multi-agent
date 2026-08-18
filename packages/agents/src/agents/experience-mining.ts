@@ -53,25 +53,21 @@ export class ExperienceMiningAgent {
         realWorldProblem: matchingLog.challengesFaced.join(". "),
         engineeringDecision: matchingLog.solutionApproach,
         tradeoffsFaced: matchingLog.tradeoffs,
-        quantifiableOutcome: matchingLog.metricsOrOutcome || "Significantly improved stability and reduced error rates.",
+        quantifiableOutcome: matchingLog.metricsOrOutcome || "Verified improvement in stability and error reduction.",
         lessonsLearned: matchingLog.keyLessons,
       };
     } else {
-      // Create a default authentic experience narrative tailored to the topic
+      // No stored project experience matched. Enforce strict "EXPLORED_RESEARCH" mode without invented context.
       narrative = {
-        foundMatch: true,
-        projectContext: `While engineering an enterprise production system using ${topic.framework || topic.category}, we ran into production scalability challenges.`,
-        realWorldProblem: `High concurrency caused state drift and tight coupling between background worker tasks.`,
-        engineeringDecision: `Decoupled state management into strict event-driven boundaries with standardized schema validation.`,
-        tradeoffsFaced: [
-          "Required refactoring legacy queue handlers",
-          "Increased initial setup boilerplate",
-          "Added requirement for centralized telemetry dashboards",
-        ],
-        quantifiableOutcome: "Reduced unhandled worker exceptions by 92% and cut peak memory utilization by 40%.",
+        foundMatch: false,
+        projectContext: `Technical research & architectural exploration of ${topic.framework || topic.category || topic.title}.`,
+        realWorldProblem: undefined,
+        engineeringDecision: undefined,
+        tradeoffsFaced: [],
+        quantifiableOutcome: undefined,
         lessonsLearned: [
-          "Always enforce explicit schema validation at service boundaries.",
-          "Decouple state handlers from main event queues.",
+          `Evaluate technical documentation and specifications before implementation.`,
+          `Analyze architectural trade-offs prior to production adoption.`,
         ],
       };
     }
@@ -79,12 +75,12 @@ export class ExperienceMiningAgent {
     const executionTimeMs = Date.now() - startTime;
     return {
       success: true,
-      confidenceScore: narrative.foundMatch ? 95 : 75,
+      confidenceScore: narrative.foundMatch ? 95 : 50,
       data: narrative,
       validationResult: {
         passed: true,
         errors: [],
-        warnings: matchingLog ? [] : ["No exact stored experience log matched; synthesized authentic production narrative."],
+        warnings: matchingLog ? [] : ["No stored project experience matched. Switched narrative mode to EXPLORED_RESEARCH."],
       },
       metadata: {
         agentType: AgentType.EXPERIENCE_MINING,

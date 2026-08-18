@@ -29,6 +29,7 @@ yarn-error.log*
 pnpm-debug.log*
 scratch/.state/
 scratch/dead_letter_queue/
+packages/agents/*.json
 
 # OS Files
 .DS_Store

@@ -137,7 +137,9 @@ export class WriterAgent {
       faq: [{ question: "Is this production ready?", answer: "Yes." }],
       conclusion: research.future_outlook,
       fullMarkdown: `# ${topic.title}\n\n${research.summary}`,
-      imageUrl: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200",
+      imageUrl: `data:image/svg+xml;utf8,${encodeURIComponent(
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" style="background-color: #0f172a;"><rect width="800" height="500" fill="#0f172a"/><text x="400" y="230" fill="#38bdf8" font-size="28" font-weight="bold" text-anchor="middle">${topic.title.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</text><text x="400" y="280" fill="#94a3b8" font-size="18" text-anchor="middle">Enterprise System Architecture Blueprint</text></svg>`
+      )}`,
     };
   }
 }
@@ -380,7 +382,7 @@ Latency: ${writerRes.metadata.executionTimeMs}ms`);
     let maxRevisions = 3;
     let revisionCount = 0;
 
-    let techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, pipelineId);
+    let techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, experience, pipelineId);
     let originality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
 
     while ((!techReview.data.passed || !originality.data.passed) && revisionCount < maxRevisions) {
@@ -408,7 +410,7 @@ Latency: ${writerRes.metadata.executionTimeMs}ms`);
       linkedInPost = this.storytellingAgent.formatDeveloperStory(linkedInPost, pipelineId).data;
       linkedInPost = this.humanizationAgent.sanitize(linkedInPost, devToArticle, pipelineId).data.post;
 
-      techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, pipelineId);
+      techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, experience, pipelineId);
       originality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
     }
 
