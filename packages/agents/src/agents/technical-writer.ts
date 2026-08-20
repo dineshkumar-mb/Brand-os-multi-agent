@@ -258,7 +258,7 @@ Return ONLY a valid JSON object matching:
       } else if (selectedFormatStyle === FormatStyle.CODE_WALKTHROUGH) {
         bodyText = `CODE ANATOMY: ${topic.title}\n\nThe Bottleneck:\n${starStory.situation.trigger}\n\nThe Refactoring Step:\n${starStory.action.implementation || starStory.action.reasoning}\n\nProduction Impact:\n${starStory.result.outcome}\n\nSenior Developer Rule:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.FAILED_EXPERIMENT) {
-        bodyText = `WHAT WENT WRONG ON OUR FIRST 3 ATTEMPTS:\n\nAttempt 1-2:\n${starStory.action.rejectedApproaches[0] || starStory.situation.curiosityTension}\n\nAttempt 3 (Final Architecture):\n${starStory.action.chosenApproach}\n\nMeasured Recovery:\n${starStory.result.outcome}\n\nLesson Learned:\n${starStory.insight.engineeringLesson}`;
+        bodyText = `WHAT WENT WRONG ON OUR FIRST 3 ATTEMPTS:\n\nAttempt 1-2:\n${starStory.action.rejectedApproaches?.[0] || starStory.situation.curiosityTension}\n\nAttempt 3 (Final Architecture):\n${starStory.action.chosenApproach}\n\nMeasured Recovery:\n${starStory.result.outcome}\n\nLesson Learned:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.SYSTEM_DESIGN_BREAKDOWN) {
         bodyText = `SYSTEM DESIGN BREAKDOWN: ${topic.title}\n\n1. Input Traffic & Constraints:\n${starStory.situation.context}\n\n2. Core Engineering Challenge:\n${starStory.task.objective}\n\n3. System Design Choice:\n${starStory.action.chosenApproach}\n\n4. Verified Outcome:\n${starStory.result.outcome}\n\n5. Architectural Design Invariant:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.NEW_TECH_PERSONAL_EXPERIMENT) {
