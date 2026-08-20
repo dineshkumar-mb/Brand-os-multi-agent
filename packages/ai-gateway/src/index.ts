@@ -1522,46 +1522,47 @@ export class AIGateway {
             },
           };
         } else {
-          // Fallback / General Software Engineering
+          // Fallback / General Software Engineering — dynamicized per topicTitle
+          const topicSlug = (topicTitle || "Software Architecture").replace(/[^a-zA-Z0-9\s]/g, "");
           starPayload = {
             situation: {
-              context: "Refactoring system boundaries to improve service maintainability and code testability.",
-              trigger: "A simple feature addition required modifying code across three separate packages, indicating tight coupling.",
-              stakes: "Increased regression risk and slower velocity as the development team expands.",
-              curiosityTension: "The codebase was technically correct, but module relationships had become hard to trace.",
+              context: `Refactoring architectural boundaries around ${topicSlug} to improve service maintainability and isolation bounds.`,
+              trigger: `Integrating ${topicSlug} required modifying internal execution modules, signaling hidden domain coupling.`,
+              stakes: "Increased regression risks and delayed deployment velocity across engineering teams.",
+              curiosityTension: `The ${topicSlug} implementation functioned correctly, but internal contracts were tightly bound.`,
             },
             task: {
-              objective: "Redesign module interfaces to ensure loose coupling and independent deployability.",
-              constraints: ["Must maintain backwards compatibility with client endpoints", "Cannot stop active feature delivery during refactoring"],
-              successCriteria: ["Modules testable in isolation", "Clear contract boundaries defined"],
+              objective: `Decouple the ${topicSlug} domain to establish explicit schema-driven boundaries.`,
+              constraints: ["Maintain backward compatibility for active API callers", "Zero downtime during system boundary migration"],
+              successCriteria: [`${topicSlug} module testable in isolation`, "Deterministic schema contracts enforced"],
             },
             action: {
               approachesConsidered: [
-                "Option A: Creating a shared utility package for common components",
-                "Option B: Defining explicit domain boundaries with strict schema-driven contracts"
+                `Option A: Wrapping ${topicSlug} in shared helper utilities`,
+                `Option B: Defining explicit domain boundaries for ${topicSlug} with schema validation`
               ],
-              chosenApproach: "Option B: Schema-driven modular boundaries with decoupled domain execution paths.",
+              chosenApproach: `Option B: Schema-driven modular boundaries for ${topicSlug} with decoupled domain execution.`,
               rejectedApproaches: [
-                "Option A rejected because shared libraries often collect unrelated code, hiding dependency coupling"
+                `Option A rejected: shared helper functions obscure ${topicSlug} dependency graphs and introduce hidden side-effects`
               ],
-              reasoning: "By enforcing strict domain boundaries and schema validation, changes to one service do not impact downstream execution.",
-              decisionMoment: "Spending three days fixing regression errors in a helper file was the trigger to decouple modules.",
-              implementation: "Refactored the application directory structure into independent domain packages with explicit export boundaries.",
-              debugging: "Validated boundaries using dependency graph checkers to verify zero circular imports.",
+              reasoning: `By enforcing strict boundaries for ${topicSlug}, changes to adjacent microservices do not propagate failures.`,
+              decisionMoment: `Debugging unexpected side-effects in ${topicSlug} during load testing was the forcing function.`,
+              implementation: `Isolated ${topicSlug} into an independent execution domain with schema-checked parameter interfaces.`,
+              debugging: "Verified module isolation using static analysis and automated dependency graph checks.",
             },
             result: {
-              outcome: "Achieved clean domain separation; packages compile independently and regression incidents dropped by 75%.",
-              metrics: ["Zero circular package imports", "Regression incidents reduced by 75%", "Package compile speed increased by 2x"],
-              evidence: ["CI build logs showing independent compile steps", "Git commit history showing lower files modified per change"],
+              outcome: `Achieved complete domain separation for ${topicSlug}; compile times dropped and regressions decreased by 80%.`,
+              metrics: [`80% reduction in ${topicSlug} regression incidents`, "Independent module build verification"],
+              evidence: ["CI/CD compilation log metrics", "Module interface audit traces"],
             },
             insight: {
-              engineeringLesson: "System complexity is managed at the boundaries. Clear, strict interface contracts are the only way to scale codebases across multiple engineers.",
+              engineeringLesson: `Domain complexity in ${topicSlug} must be controlled at component boundaries via explicit schemas.`,
               tradeoffs: [
-                "Chosen: Schema-driven modular boundaries",
-                "Sacrificed: Immediate implementation velocity — required writing interface schemas before writing code"
+                `Chosen: Schema-driven boundaries for ${topicSlug}`,
+                "Sacrificed: Initial setup speed — required upfront schema design before feature code"
               ],
               whenNotToUse: [
-                "Do not add package boundaries for small CLI tools or proof-of-concept projects where speed is the only metric that matters"
+                `Do not build complex domain boundaries for disposable scripts or prototype implementations of ${topicSlug}`
               ],
             },
           };

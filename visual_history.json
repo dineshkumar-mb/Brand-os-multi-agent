@@ -1,5 +1,159 @@
 [
   {
+    "topicId": "cand_14_1787244829712",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:49.751Z"
+  },
+  {
+    "topicId": "cand_14_1787244829712",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:49.730Z"
+  },
+  {
+    "topicId": "cand_17_1787244828581",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:48.637Z"
+  },
+  {
+    "topicId": "cand_17_1787244828581",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:48.604Z"
+  },
+  {
+    "topicId": "cand_17_1787244826260",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:46.302Z"
+  },
+  {
+    "topicId": "cand_17_1787244826260",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:46.275Z"
+  },
+  {
+    "topicId": "cand_31_1787244824976",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:45.009Z"
+  },
+  {
+    "topicId": "cand_31_1787244824976",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:44.985Z"
+  },
+  {
+    "topicId": "cand_31_1787244822907",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:42.947Z"
+  },
+  {
+    "topicId": "cand_31_1787244822907",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:42.920Z"
+  },
+  {
+    "topicId": "cand_32_1787244820043",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:40.080Z"
+  },
+  {
+    "topicId": "cand_32_1787244820043",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:40.056Z"
+  },
+  {
+    "topicId": "cand_30_1787244819720",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:39.756Z"
+  },
+  {
+    "topicId": "cand_30_1787244819720",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:39.734Z"
+  },
+  {
+    "topicId": "cand_30_1787244818875",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:38.912Z"
+  },
+  {
+    "topicId": "cand_30_1787244818875",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:38.888Z"
+  },
+  {
+    "topicId": "cand_33_1787244815122",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:35.235Z"
+  },
+  {
+    "topicId": "cand_33_1787244815122",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:35.166Z"
+  },
+  {
+    "topicId": "cand_32_1787244814970",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:35.059Z"
+  },
+  {
+    "topicId": "cand_32_1787244814960",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:35.045Z"
+  },
+  {
+    "topicId": "cand_32_1787244814970",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:35.003Z"
+  },
+  {
+    "topicId": "cand_32_1787244814960",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:53:34.985Z"
+  },
+  {
     "topicId": "cand_29_1787244639037",
     "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",

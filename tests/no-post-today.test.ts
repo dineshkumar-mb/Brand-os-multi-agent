@@ -72,13 +72,24 @@ describe("NO_POST_TODAY Policy & Diagnostic Outputs", () => {
       publishedAt: new Date().toISOString(),
     });
 
-    // Also populate with general fallback topics
+    // Also populate with all fallback candidates to ensure total topic saturation
     const generalTopics = [
       "Greatness Is Forged by Limitation",
       "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
       "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
       "My AI Content Journey",
-      "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback"
+      "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+      "Docker Desktop 4.38", "Node.js 22 LTS", "Vite 6", "TypeScript 5.7",
+      "Redis Streams for Multi-Agent Workflows", "DeepSeek R1 Model Release",
+      "ClickHouse/ClickHouse", "Building Custom MCP Servers",
+      "Architecting Enterprise LLM Gateways", "Zero-CVE Container Hardening",
+      "Eliminating CI Compilation Bottlenecks", "V8 Memory Leak Profiling",
+      "Topological Graph Solvers", "Transitive Dependency Auditing",
+      "The layout engine wasn't broken by complex CSS. It was destroyed by bad DOM assumptions...",
+      "The hardest part of LLM orchestration wasn't prompt tuning. It was fallback latency...",
+      "The most dangerous production bug in microservices isn't a crash. It's subtle memory growth...",
+      "Stop blaming your ORM for slow database queries...",
+      "The most useful part of Build Tools wasn't the headline feature. It was the failure handling..."
     ];
 
     generalTopics.forEach((t, i) => {

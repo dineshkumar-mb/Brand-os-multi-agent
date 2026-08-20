@@ -1,5 +1,637 @@
 [
   {
+    "topic": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "category": "Python",
+    "framework": "TypeScript",
+    "hook": "The most useful part of TypeScript wasn't the headline feature.\n\nIt was the failure handling.",
+    "hookType": "ENGINEERING_OBSERVATION",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TRADEOFF_CHOICE",
+    "ctaText": "Would you keep the cache here, or move this responsibility directly into the core service boundary?",
+    "vocabulary": [
+      "Python",
+      "TypeScript"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 71,
+      "seniority": 85,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 20,
+      "readability": 88,
+      "careerSignal": 78,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 62,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 77,
+      "storytellingScore": 92,
+      "recruiterValueScore": 78,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 78,
+      "overall": 78,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "TECH_DISCOVERY",
+    "formatStyle": "NARRATIVE_PARAGRAPHS",
+    "starStory": {
+      "situation": {
+        "context": "Routing concurrent LLM request streams across third-party model providers.",
+        "trigger": "Upstream rate limit exceptions (429) halted active background generation pipelines.",
+        "stakes": "Failed content pipelines leading to missing publication windows and queue blocks.",
+        "curiosityTension": "Provider APIs claimed high availability, but failed under burst traffic."
+      },
+      "task": {
+        "objective": "Create a resilient, multi-provider gateway router supporting dynamic model fallbacks.",
+        "constraints": [
+          "Maintain chat context history stability",
+          "Zero prompt storage in database to preserve privacy"
+        ],
+        "successCriteria": [
+          "Request execution success above 99.9%",
+          "Failover switches completed under 100ms"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Scaling timeout thresholds and exponential retry loops",
+          "Option B: Building a tiered model routing proxy with auto-failover groups"
+        ],
+        "chosenApproach": "Option B: Multi-provider dynamic fallback gateway with token bucket tracking.",
+        "rejectedApproaches": [
+          "Option A rejected: retry backoffs accumulate latency, blocking active agent threads for minutes"
+        ],
+        "reasoning": "We chose Tiered routing with fa because Architectural simplicity (requires routing state machine and fallback handling created unacceptable latency spikes during outages.",
+        "decisionMoment": "A 47-minute provider service disruption halting the full pipeline was the trigger.",
+        "implementation": "Built a proxy router switching targets dynamically based on realtime error rates.",
+        "debugging": "Mocked 429 response packets under load to verify trigger response paths."
+      },
+      "result": {
+        "outcome": "Pipeline execution reliability increased to 99.94%, API cost reduced by 34%.",
+        "metrics": [
+          "99.94% pipeline uptime",
+          "34% API token cost savings"
+        ],
+        "evidence": [
+          "API gateway latency reports",
+          "Compute bill allocation logs"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "External model APIs must be treated as volatile endpoints. Dynamic failover routing is essential for core workflows.",
+        "tradeoffs": [
+          "Chosen: Tiered routing with fa",
+          "Sacrificed: Architectural simplicity (requires routing state machine and fallback handling"
+        ],
+        "whenNotToUse": [
+          "Do not deploy dynamic failovers for offline batch processes where delay is acceptable."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1787244829733_cvyfj",
+    "timestamp": "2026-08-20T16:53:49.733Z"
+  },
+  {
+    "topic": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "category": "C++",
+    "framework": "Databases",
+    "hook": "Adding a cache made the system less reliable.",
+    "hookType": "BUILD_EXPERIENCE",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "DESIGN_CHANGE",
+    "ctaText": "Would you optimize for latency or cost here if request volume doubled?",
+    "vocabulary": [
+      "C++",
+      "Databases"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 77,
+      "seniority": 85,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 20,
+      "readability": 88,
+      "careerSignal": 81,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 62,
+      "personalExperienceScore": 65,
+      "engineeringDepthScore": 80,
+      "storytellingScore": 92,
+      "recruiterValueScore": 81,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 75,
+      "overall": 75,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "CONTRARIAN_OBSERVATION",
+    "formatStyle": "ENGINEERING_RETROSPECTIVE",
+    "starStory": {
+      "situation": {
+        "context": "Refactoring system boundaries to improve service maintainability and code testability.",
+        "trigger": "A simple feature addition required modifying code across three separate packages, indicating tight coupling.",
+        "stakes": "Increased regression risk and slower velocity as the development team expands.",
+        "curiosityTension": "The codebase was technically correct, but module relationships had become hard to trace."
+      },
+      "task": {
+        "objective": "Redesign module interfaces to ensure loose coupling and independent deployability.",
+        "constraints": [
+          "Must maintain backwards compatibility with client endpoints",
+          "Cannot stop active feature delivery during refactoring"
+        ],
+        "successCriteria": [
+          "Modules testable in isolation",
+          "Clear contract boundaries defined"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Creating a shared utility package for common components",
+          "Option B: Defining explicit domain boundaries with strict schema-driven contracts"
+        ],
+        "chosenApproach": "Option B: Schema-driven modular boundaries with decoupled domain execution paths.",
+        "rejectedApproaches": [
+          "Option A rejected because shared libraries often collect unrelated code, hiding dependency coupling"
+        ],
+        "reasoning": "By enforcing strict domain boundaries and schema validation, changes to one service do not impact downstream execution.",
+        "decisionMoment": "Spending three days fixing regression errors in a helper file was the trigger to decouple modules.",
+        "implementation": "Refactored the application directory structure into independent domain packages with explicit export boundaries.",
+        "debugging": "Validated boundaries using dependency graph checkers to verify zero circular imports."
+      },
+      "result": {
+        "outcome": "Achieved clean domain separation; packages compile independently and regression incidents dropped by 75%.",
+        "metrics": [
+          "Zero circular package imports",
+          "Regression incidents reduced by 75%",
+          "Package compile speed increased by 2x"
+        ],
+        "evidence": [
+          "CI build logs showing independent compile steps",
+          "Git commit history showing lower files modified per change"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "System complexity is managed at the boundaries. Clear, strict interface contracts are the only way to scale codebases across multiple engineers.",
+        "tradeoffs": [
+          "Chosen: Schema-driven modular boundaries",
+          "Sacrificed: Immediate implementation velocity — required writing interface schemas before writing code"
+        ],
+        "whenNotToUse": [
+          "Do not add package boundaries for small CLI tools or proof-of-concept projects where speed is the only metric that matters"
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1787244826280_fd8cb",
+    "timestamp": "2026-08-20T16:53:46.280Z"
+  },
+  {
+    "topic": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "hook": "I could make this architecture simpler.\n\nI deliberately didn't.",
+    "hookType": "ARCHITECTURE_QUESTION",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "OPTIMIZATION_PRIORITY",
+    "ctaText": "At what point would you introduce a queue instead of synchronous retry loops?",
+    "vocabulary": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 77,
+      "seniority": 85,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 90,
+      "readability": 88,
+      "careerSignal": 81,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 90,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 80,
+      "storytellingScore": 92,
+      "recruiterValueScore": 81,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 88,
+      "overall": 88,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "DECISION_STORY",
+    "formatStyle": "BUILD_IN_PUBLIC",
+    "starStory": {
+      "situation": {
+        "context": "Operating high-throughput Node.js application gateways handling persistent client connections.",
+        "trigger": "Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.",
+        "stakes": "Intermittent client disconnections and dropped payloads during container recycles.",
+        "curiosityTension": "Traditional log monitoring showed normal throughput, hiding the internal memory build-up."
+      },
+      "task": {
+        "objective": "Locate the leak source and stabilize container heap usage under 512MB.",
+        "constraints": [
+          "Must monitor heap allocations without blocking server execution",
+          "Cannot modify V8 collection intervals"
+        ],
+        "successCriteria": [
+          "Flat memory utilization patterns under load",
+          "Zero OOM container restarts"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Scheduling nightly container restarts to mask the memory leak",
+          "Option B: Generating V8 heap snapshot diffs under load using clinic.js profiling"
+        ],
+        "chosenApproach": "Option B: heap snapshot comparison to locate persistent closure scopes.",
+        "rejectedApproaches": [
+          "Option A rejected: scheduled restarts hide structural bugs and disconnect active users"
+        ],
+        "reasoning": "We chose  over Immediate strict consistency during cache propagation windows because heap diffs show exactly which references are not garbage collected.",
+        "decisionMoment": "An OOM crash during peak transaction throughput was the trigger to dump memory.",
+        "implementation": "Refactored EventListener registers in middleware to prevent closures from capturing scopes.",
+        "debugging": "Generated load with autocannon while capturing memory dumps in staging."
+      },
+      "result": {
+        "outcome": "Memory growth eliminated. Process restart interval extended from daily to 30-day rolling cycles. P99 latency improved by 18ms.",
+        "metrics": [
+          "Zero OOM container crashes",
+          "Restart interval extended to 30 days"
+        ],
+        "evidence": [
+          "Prometheus memory monitors",
+          "V8 heapdump file reports"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "JavaScript leaks are reference leaks. Closure scopes are the most common source of memory growth under load.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Immediate strict consistency during cache propagation windows"
+        ],
+        "whenNotToUse": [
+          "Do not profile memory for short-lived worker scripts where execution terminates quickly."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1787244822925_vojga",
+    "timestamp": "2026-08-20T16:53:42.925Z"
+  },
+  {
+    "topic": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "hook": "This looked like a minor feature addition in TypeScript 5.7.\n\nUnder closer analysis, it required re-evaluating three separate service boundaries.",
+    "hookType": "ARCHITECTURE_BOUNDARY",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TRADEOFF_CHOICE",
+    "ctaText": "Would you keep the cache here, or move this responsibility directly into the core service boundary?",
+    "vocabulary": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 77,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 20,
+      "readability": 88,
+      "careerSignal": 89,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 62,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 86,
+      "storytellingScore": 92,
+      "recruiterValueScore": 89,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 80,
+      "overall": 80,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "BUILD_IN_PUBLIC",
+    "formatStyle": "BENCHMARK_ANALYSIS",
+    "starStory": {
+      "situation": {
+        "context": "Compiling a large pnpm monorepo structure holding twelve nested library modules.",
+        "trigger": "CI build workers ran full type checking runs for every single branch pull request.",
+        "stakes": "Developer feedback loops stretched past eight minutes, slowing rollout velocity.",
+        "curiosityTension": "We had enabled incremental cache flags, but tsc kept resolving the full dependency graph."
+      },
+      "task": {
+        "objective": "Set up strict compilation boundaries in the composite package structure.",
+        "constraints": [
+          "Enforce global strict compiler validation",
+          "No bypass build shortcuts on pull requests"
+        ],
+        "successCriteria": [
+          "Warm builds complete under two minutes",
+          "Clean isolation of package changes"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Splitting internal packages into separate git repositories",
+          "Option B: RESTructuring type check layers using tsconfig Project References"
+        ],
+        "chosenApproach": "Option B: Compiler reference hierarchy with incremental declaration mapping.",
+        "rejectedApproaches": [
+          "Option A rejected: splitting codebases creates version synchronization debt across services"
+        ],
+        "reasoning": "We chose  over Unified client-only state management simplicity because project references let tsc read cached declaration maps directly.",
+        "decisionMoment": "Seeing build queues bottlenecked by tsc checks during a minor readme revision was the pivot.",
+        "implementation": "Refactored tsconfig structures to link output dependencies explicitly via declaration maps.",
+        "debugging": "Analyzed tsbuildinfo cached records to ensure incremental cache hits were preserved."
+      },
+      "result": {
+        "outcome": "CI type check time reduced from 8.5 minutes to 1.8 minutes (78% speedup).",
+        "metrics": [
+          "78% compilation speedup",
+          "Warm builds reduced to 1.8 minutes"
+        ],
+        "evidence": [
+          "Build container execution logs",
+          "tsconfig reference maps"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Monorepo scaling requires compiler isolation. Without references, compiler workloads grow linearly with codebase size.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Unified client-only state management simplicity"
+        ],
+        "whenNotToUse": [
+          "Do not configure references for small projects where compile times are negligible."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1787244818891_64pel",
+    "timestamp": "2026-08-20T16:53:38.891Z"
+  },
+  {
+    "topic": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "category": "Docker",
+    "framework": "DevOps",
+    "hook": "The code was correct.\n\nThe system was still wrong.",
+    "hookType": "TRADEOFF",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TEAM_PRACTICE",
+    "ctaText": "What would you instrument before shipping this architecture change to production?",
+    "vocabulary": [
+      "Docker",
+      "DevOps"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 71,
+      "seniority": 95,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 30,
+      "readability": 88,
+      "careerSignal": 83,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 66,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 81,
+      "storytellingScore": 88,
+      "recruiterValueScore": 83,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 79,
+      "overall": 79,
+      "boredomScore": {
+        "structuralRepetition": 80,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 20
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 65,
+        "decisionQuality": 95,
+        "technicalDepth": 70,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 86
+      }
+    },
+    "storyMode": "FAILURE_STORY",
+    "formatStyle": "MINIMAL_BULLETS",
+    "starStory": {
+      "situation": {
+        "context": "Maintaining container security compliance across multi-architecture production images.",
+        "trigger": "A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.",
+        "stakes": "Potential exploit vectors in public-facing registry repositories.",
+        "curiosityTension": "Our Dockerfile was written correctly, but the underlying layers inherited vulnerabilities we didn't specify."
+      },
+      "task": {
+        "objective": "Eliminate all critical CVEs while keeping the build pipeline execution under three minutes.",
+        "constraints": [
+          "Must support both amd64 and arm64 targets",
+          "No bloated runtime tooling in production images"
+        ],
+        "successCriteria": [
+          "Zero CVE alerts on build",
+          "Image size reduced by over 60%"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Layer-by-layer cleanup of Ubuntu base images",
+          "Option B: Migrating to distroless minimal runtimes with Buildx multi-arch compilation"
+        ],
+        "chosenApproach": "Option B: Multi-stage distroless base image transition with Buildx target isolation.",
+        "rejectedApproaches": [
+          "Option A rejected because manual package pruning is brittle and hard to maintain across node pools"
+        ],
+        "reasoning": "Distroless images strip the package manager and shell, removing the execution surface for common exploit binaries.",
+        "decisionMoment": "Comparing the vulnerability footprint showed distroless dropped CVEs from 27 to 0 instantly.",
+        "implementation": "Created a multi-stage Dockerfile splitting source build from final packaging, utilizing Buildx target arguments.",
+        "debugging": "Used ephemeral debug sidecars to inspect container filesystems without adding tools to the target image."
+      },
+      "result": {
+        "outcome": "Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities.",
+        "metrics": [
+          "91% footprint reduction",
+          "Zero CVEs",
+          "Multi-arch builds automated in CI"
+        ],
+        "evidence": [
+          "SonarQube vulnerability report",
+          "Docker Registry image footprint logs"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Secure container design means shipping only execution binaries. Strip the shell, strip the package manager, and limit the run surface.",
+        "tradeoffs": [
+          "Chosen: Distroless minimal runtimes",
+          "Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging"
+        ],
+        "whenNotToUse": [
+          "Do not use distroless if you run legacy scripts that depend heavily on bash execution in the runtime environment"
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 80,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 20
+    },
+    "id": "wm_1787244815014_sfks2",
+    "timestamp": "2026-08-20T16:53:35.014Z"
+  },
+  {
     "topic": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "category": "Vite",
     "framework": "Build Tools",
