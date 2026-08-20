@@ -1,5 +1,32 @@
 [
   {
+    "id": "urn:li:share:261798607",
+    "title": "My AI Content Journey",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "ai",
+    "supportingTech": [
+      "Dev.to",
+      "ai"
+    ],
+    "keywords": [
+      "Dev.to",
+      "ai"
+    ],
+    "hook": "Adding a cache made the system less reliable.",
+    "fullText": "Adding a cache made the system less reliable. Context: Automating structured engineering content pipelines using agentic workflows. (Trigger: Generated developer narratives exhibited repetitive vocabulary patterns and cliches.) Goal: Design a lexical humanization filter and semantic novelty verification loop. (Constraints: Must execute under standard pipeline cycle bounds, Do not modify the underlying model parameters) Decision: Option B: Multi-gate validation pipeline with lexical sanitizers and memory tracking Tradeoff: Chosen: Runtime validation gates, Sacrificed: Execution speed — added secondary verification step before api dispatch Outcome: Topic overlap dropped; maximum similarity scores stabilized well below thirty percent (42% vs 78%) Conclusion: AI generation requires deterministic validation gates Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #MyEngineering",
+    "publishedAt": "2026-08-20T16:54:14.259Z",
+    "engagementMetrics": {
+      "impressions": 197,
+      "reactions": 36,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 2
+    }
+  },
+  {
     "id": "urn:li:share:571616199",
     "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "platform": "LINKEDIN",

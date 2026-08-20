@@ -1,5 +1,131 @@
 [
   {
+    "topic": "My AI Content Journey",
+    "category": "Dev.to",
+    "framework": "ai",
+    "hook": "Adding a cache made the system less reliable.",
+    "hookType": "ARCHITECTURE_QUESTION",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TRADEOFF_CHOICE",
+    "ctaText": "Would you keep the cache here, or move this responsibility directly into the core service boundary?",
+    "vocabulary": [
+      "Dev.to",
+      "ai"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 71,
+      "seniority": 75,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 30,
+      "readability": 88,
+      "careerSignal": 73,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 66,
+      "personalExperienceScore": 65,
+      "engineeringDepthScore": 73,
+      "storytellingScore": 89,
+      "recruiterValueScore": 73,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 73,
+      "overall": 73,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 65,
+        "decisionQuality": 95,
+        "technicalDepth": 70,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 87
+      }
+    },
+    "storyMode": "CONTRARIAN_OBSERVATION",
+    "formatStyle": "CODE_WALKTHROUGH",
+    "starStory": {
+      "situation": {
+        "context": "Automating structured engineering content pipelines using agentic workflows.",
+        "trigger": "Generated developer narratives exhibited repetitive vocabulary patterns and cliches.",
+        "stakes": "Diminished developer brand credibility and high semantic similarity across sequential posts.",
+        "curiosityTension": "Each prompt call had distinct inputs, but the LLM default weights output similar structures."
+      },
+      "task": {
+        "objective": "Design a lexical humanization filter and semantic novelty verification loop.",
+        "constraints": [
+          "Must execute under standard pipeline cycle bounds",
+          "Do not modify the underlying model parameters"
+        ],
+        "successCriteria": [
+          "Jaccard similarity between posts under 30%",
+          "Removal of 100% of defined AI cliches"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Restructuring parent system prompts to warn against duplication",
+          "Option B: Building post-generation check gates for clichés and Jaccard distance calculation"
+        ],
+        "chosenApproach": "Option B: Multi-gate validation pipeline with lexical sanitizers and memory tracking.",
+        "rejectedApproaches": [
+          "Option A rejected: negative constraints in LLM prompts are routinely ignored under complex outputs"
+        ],
+        "reasoning": "Checking results at runtime allows the pipeline to execute corrections or skip publishing dynamically.",
+        "decisionMoment": "Observing similar hooks on consecutive days was the forcing function for a post-check gate.",
+        "implementation": "Added humanization and originality checkers acting as final filters before publishing.",
+        "debugging": "Ran simulations across multiple days to verify Jaccard coefficients and cliché removal counts."
+      },
+      "result": {
+        "outcome": "Topic overlap dropped; maximum similarity scores stabilized well below thirty percent.",
+        "metrics": [
+          "Zero exact topic repetitions",
+          "Boredom scores improved by 80%"
+        ],
+        "evidence": [
+          "Originality check logs",
+          "Lexical validation reports"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "AI generation requires deterministic validation gates. Never publish raw LLM output without programmatically verifying content constraints.",
+        "tradeoffs": [
+          "Chosen: Runtime validation gates",
+          "Sacrificed: Execution speed — added secondary verification step before api dispatch"
+        ],
+        "whenNotToUse": [
+          "Do not add verification gates for internal debugging helpers where formatting checks are non-critical"
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1787244854235_v0vqr",
+    "timestamp": "2026-08-20T16:54:14.235Z"
+  },
+  {
     "topic": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "category": "Vite",
     "framework": "Build Tools",

@@ -242,13 +242,31 @@ Return ONLY a valid JSON object matching:
       let bodyText = "";
 
       if (selectedFormatStyle === FormatStyle.BEFORE_AFTER_LAYOUT) {
-        bodyText = `Before:\n${starStory.situation.context}\n\nProblem:\n${starStory.task.objective}\n\nWhat Changed:\n${starStory.action.reasoning}\n\nAfter:\n${starStory.result.outcome}\n\nLesson:\n${starStory.insight.engineeringLesson}`;
+        bodyText = `BEFORE:\n${starStory.situation.context}\n\nPROBLEM:\n${starStory.task.objective}\n\nWHAT CHANGED:\n${starStory.action.reasoning}\n\nAFTER:\n${starStory.result.outcome}\n\nLESSON:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.MINIMAL_BULLETS) {
-        bodyText = `${starStory.situation.context}\n\nThe constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe decision:\n• ${starStory.action.chosenApproach}\n\nThe trade-off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed initial speed for long-term fault isolation"}\n\nThe result:\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+        bodyText = `${starStory.situation.context}\n\nThe Constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\n• ${starStory.action.chosenApproach}\n\nThe Trade-Off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.SHORT_DIALOGUE) {
-        bodyText = `"The ${topic.framework || topic.category} service is scaling slowly."\n\n"Which part?"\n\n"The database query paths under sustained load."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+        bodyText = `"Why is the ${topic.framework || topic.category} pipeline failing under load?"\n\n"The database query paths are locking connection pools."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.PRODUCTION_INCIDENT) {
+        bodyText = `INCIDENT POSTMORTEM: ${topic.title}\n\nContext:\n${starStory.situation.context}\n\nFailure Trigger:\n${starStory.situation.trigger}\n\nResolution & Fix:\n${starStory.action.implementation || starStory.action.reasoning}\n\nObserved Metrics:\n${starStory.result.outcome}\n\nSystem Guardrails:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.ARCHITECTURE_EVOLUTION) {
+        bodyText = `EVOLUTION OF OUR ${topic.category.toUpperCase()} PIPELINE:\n\nPhase 1 (Legacy):\n${starStory.situation.curiosityTension}\n\nPhase 2 (Architectural Pivot):\n${starStory.action.chosenApproach}\n\nPhase 3 (Production Gains):\n${starStory.result.outcome}\n\nCore Architecture Rule:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.TECHNICAL_MYTH) {
+        bodyText = `MYTH: Adding more servers fixes ${topic.title} bottlenecks.\n\nFACT: ${starStory.situation.trigger}\n\nOur Evaluation:\n${starStory.action.reasoning}\n\nWhat Really Worked:\n${starStory.result.outcome}\n\nEngineering Takeaway:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.TRADEOFF_DEBATE) {
+        bodyText = `THE HARD ARCHITECTURAL TRADEOFF:\n\nOption A (${starStory.action.approachesConsidered[0] || "Standard approach"}):\n- Fast setup, but high operational risk.\n\nOption B (${starStory.action.chosenApproach}):\n- ${starStory.action.reasoning}\n\nWhy we chose Option B:\n${starStory.result.outcome}\n\nArchitectural Boundary:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.CODE_WALKTHROUGH) {
+        bodyText = `CODE ANATOMY: ${topic.title}\n\nThe Bottleneck:\n${starStory.situation.trigger}\n\nThe Refactoring Step:\n${starStory.action.implementation || starStory.action.reasoning}\n\nProduction Impact:\n${starStory.result.outcome}\n\nSenior Developer Rule:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.FAILED_EXPERIMENT) {
+        bodyText = `WHAT WENT WRONG ON OUR FIRST 3 ATTEMPTS:\n\nAttempt 1-2:\n${starStory.action.rejectedApproaches[0] || starStory.situation.curiosityTension}\n\nAttempt 3 (Final Architecture):\n${starStory.action.chosenApproach}\n\nMeasured Recovery:\n${starStory.result.outcome}\n\nLesson Learned:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.SYSTEM_DESIGN_BREAKDOWN) {
+        bodyText = `SYSTEM DESIGN BREAKDOWN: ${topic.title}\n\n1. Input Traffic & Constraints:\n${starStory.situation.context}\n\n2. Core Engineering Challenge:\n${starStory.task.objective}\n\n3. System Design Choice:\n${starStory.action.chosenApproach}\n\n4. Verified Outcome:\n${starStory.result.outcome}\n\n5. Architectural Design Invariant:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.NEW_TECH_PERSONAL_EXPERIMENT) {
+        bodyText = `BENCHMARKING ${topic.title.toUpperCase()} IN STAGING:\n\nWhy we tested it:\n${starStory.situation.trigger}\n\nWhat surprised us:\n${starStory.action.reasoning}\n\nStaging Results:\n${starStory.result.outcome}\n\nProduction Verdict:\n${starStory.insight.engineeringLesson}`;
+      } else if (selectedFormatStyle === FormatStyle.ENGINEERING_RETROSPECTIVE) {
+        bodyText = `6-MONTH RETROSPECTIVE: ${topic.title}\n\nWhat we started with:\n${starStory.situation.context}\n\nWhat we changed:\n${starStory.action.reasoning}\n\nCurrent Production Health:\n${starStory.result.outcome}\n\nWhat we would do differently:\n${starStory.insight.engineeringLesson}`;
       } else {
-        bodyText = `${starStory.situation.context}\n\n${starStory.task.objective}\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
+        bodyText = `${starStory.situation.context}\n\nEngineering Challenge:\n${starStory.task.objective}\n\nArchitectural Fix:\n${starStory.action.reasoning}\n\nProduction Outcome:\n${starStory.result.outcome}\n\nKey Takeaway:\n${starStory.insight.engineeringLesson}`;
       }
 
       const fullText = generatedCta
