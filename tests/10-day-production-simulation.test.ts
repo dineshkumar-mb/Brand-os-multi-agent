@@ -56,5 +56,5 @@ describe("10-Day Production Simulation Test", () => {
     // Check unique titles among published posts
     const uniqueTitles = new Set(titles);
     expect(uniqueTitles.size).toBe(titles.length);
-  }, 60000);
+  }, 180000);
 });

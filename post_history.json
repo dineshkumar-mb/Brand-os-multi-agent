@@ -1,5 +1,32 @@
 [
   {
+    "id": "urn:li:share:820365543",
+    "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "platform": "LINKEDIN",
+    "category": "Vite",
+    "framework": "Build Tools",
+    "supportingTech": [
+      "Vite",
+      "Build Tools"
+    ],
+    "keywords": [
+      "Vite",
+      "Build Tools"
+    ],
+    "hook": "I thought the database was slow. It wasn't.",
+    "fullText": "I thought the database was slow. It wasn't. Server-side rendering frontend components under selective client hydration paths. (Trigger: Hydration errors caused sudden screen layout shifts and broken button handlers.) Separate client hydration scripts and establish deterministic layout bounds. (Constraints: Preserve component library layout interfaces, No slow client-only wrappers on core pages) We resolved this by using Option B: Hydration boundaries configuration using Environment API transforms, accepting the tradeoff: Chosen: Decoupled module boundarie, Sacrificed: Initial day-1 velocity. This yielded: Time to interactive for critical routes reduced by 1 (42% improvement, 78% reduction). Hydration requires clear structural boundaries Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #FederatingEngineering",
+    "publishedAt": "2026-08-20T16:50:39.091Z",
+    "engagementMetrics": {
+      "impressions": 183,
+      "reactions": 39,
+      "comments": 3,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 6,
+      "followersGained": 4
+    }
+  },
+  {
     "id": "urn:li:share:537748080",
     "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "platform": "LINKEDIN",
