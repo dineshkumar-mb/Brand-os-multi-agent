@@ -1,5 +1,145 @@
 [
   {
+    "topicId": "cand_29_1787244848054",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:08.111Z"
+  },
+  {
+    "topicId": "cand_29_1787244848054",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:08.067Z"
+  },
+  {
+    "topicId": "cand_22_1787244847208",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:07.252Z"
+  },
+  {
+    "topicId": "cand_22_1787244847208",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:07.224Z"
+  },
+  {
+    "topicId": "cand_29_1787244843878",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:03.923Z"
+  },
+  {
+    "topicId": "cand_29_1787244843878",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:03.893Z"
+  },
+  {
+    "topicId": "cand_23_1787244842783",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:02.836Z"
+  },
+  {
+    "topicId": "cand_23_1787244842783",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:02.806Z"
+  },
+  {
+    "topicId": "cand_23_1787244840575",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:00.616Z"
+  },
+  {
+    "topicId": "cand_23_1787244840575",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:54:00.592Z"
+  },
+  {
+    "topicId": "cand_21_1787244839223",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:59.265Z"
+  },
+  {
+    "topicId": "cand_21_1787244839223",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:59.239Z"
+  },
+  {
+    "topicId": "cand_21_1787244836992",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:57.045Z"
+  },
+  {
+    "topicId": "cand_21_1787244836992",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:53:57.012Z"
+  },
+  {
+    "topicId": "cand_15_1787244835611",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:55.652Z"
+  },
+  {
+    "topicId": "cand_15_1787244835611",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:55.630Z"
+  },
+  {
+    "topicId": "cand_15_1787244833781",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:53.828Z"
+  },
+  {
+    "topicId": "cand_15_1787244833781",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:53.803Z"
+  },
+  {
+    "topicId": "cand_14_1787244832340",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:52.388Z"
+  },
+  {
+    "topicId": "cand_14_1787244832340",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:53:52.356Z"
+  },
+  {
     "topicId": "cand_14_1787244829712",
     "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
     "diagramType": "TypeScript 5.7 Project References",

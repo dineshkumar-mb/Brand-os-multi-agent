@@ -1,5 +1,275 @@
 [
   {
+    "id": "urn:li:share:571616199",
+    "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "platform": "LINKEDIN",
+    "category": "Vite",
+    "framework": "Build Tools",
+    "supportingTech": [
+      "Vite",
+      "Build Tools"
+    ],
+    "keywords": [
+      "Vite",
+      "Build Tools"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. Server-side rendering frontend components under selective client hydration paths. (Trigger: Hydration errors caused sudden screen layout shifts and broken button handlers.) Separate client hydration scripts and establish deterministic layout bounds. (Constraints: Preserve component library layout interfaces, No slow client-only wrappers on core pages) We resolved this by using Option B: Hydration boundaries configuration using Environment API transforms, accepting the tradeoff: Chosen: Decoupled module boundarie, Sacrificed: Initial day-1 velocity. This yielded: Time to interactive for critical routes reduced by 1 (42% improvement, 78% reduction). Hydration requires clear structural boundaries What would you instrument before shipping this architecture change to production? #SoftwareEngineering #SystemDesign #FederatingEngineering",
+    "publishedAt": "2026-08-20T16:54:08.120Z",
+    "engagementMetrics": {
+      "impressions": 121,
+      "reactions": 21,
+      "comments": 6,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:915590802",
+    "title": "My AI Content Journey",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "ai",
+    "supportingTech": [
+      "Dev.to",
+      "ai"
+    ],
+    "keywords": [
+      "Dev.to",
+      "ai"
+    ],
+    "hook": "The code was correct. The system was still wrong.",
+    "fullText": "The code was correct. The system was still wrong. Automating structured engineering content pipelines using agentic workflows. (Trigger: Generated developer narratives exhibited repetitive vocabulary patterns and cliches.) Design a lexical humanization filter and semantic novelty verification loop. (Constraints: Must execute under standard pipeline cycle bounds, Do not modify the underlying model parameters) We resolved this by using Option B: Multi-gate validation pipeline with lexical sanitizers and memory tracking, accepting the tradeoff: Chosen: Runtime validation gates, Sacrificed: Execution speed — added secondary verification step before api dispatch. This yielded: Topic overlap dropped; maximum similarity scores stabilized well below thirty percent (42% improvement, 78% reduction). AI generation requires deterministic validation gates Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #MyEngineering",
+    "publishedAt": "2026-08-20T16:54:07.257Z",
+    "engagementMetrics": {
+      "impressions": 156,
+      "reactions": 29,
+      "comments": 3,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 8,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:556332293",
+    "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "platform": "LINKEDIN",
+    "category": "Vite",
+    "framework": "Build Tools",
+    "supportingTech": [
+      "Vite",
+      "Build Tools"
+    ],
+    "keywords": [
+      "Vite",
+      "Build Tools"
+    ],
+    "hook": "There were two technically sound ways to structure Build Tools. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure Build Tools. Neither option was free. Server-side rendering frontend components under selective client hydration paths. (Trigger: Hydration errors caused sudden screen layout shifts and broken button handlers.) Constraint: Separate client hydration scripts and establish deterministic layout bounds. (Constraints: Preserve component library layout interfaces, No slow client-only wrappers on core pages) Approach: Option B: Hydration boundaries configuration using Environment API transforms Tradeoff: Chosen: Decoupled module boundarie, Sacrificed: Initial day-1 velocity Time to interactive for critical routes reduced by 1 (42% / 78%) Lesson: Hydration requires clear structural boundaries What would you instrument before shipping this architecture change to production? #SoftwareEngineering #SystemDesign #FederatingEngineering",
+    "publishedAt": "2026-08-20T16:54:03.928Z",
+    "engagementMetrics": {
+      "impressions": 187,
+      "reactions": 34,
+      "comments": 6,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 9,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:790107506",
+    "title": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "devchallenge",
+    "supportingTech": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "keywords": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "hook": "I thought the database was slow. It wasn't.",
+    "fullText": "I thought the database was slow. It wasn't. Securing LLM-driven generation interfaces from user input attack queries. (Trigger: Adversarial input payloads bypassed system prompt guidelines in test environments.) Build an automated security verification suite to audit system prompts on CI. (Constraints: Must test both direct and indirect injection vectors, Minimize latency overhead on user requests) We resolved this by using Option B: Automated adversarial prompt testing suite using injection taxonomy, accepting the tradeoff: Chosen: Automated injection tests, Sacrificed: Early setup convenience — required building taxomony files before coding. This yielded: Identified and patched three critical prompt vulnerability paths before merge (42% improvement, 78% reduction). Prompt boundaries must be tested programmatically Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #BuildingEngineering",
+    "publishedAt": "2026-08-20T16:54:02.846Z",
+    "engagementMetrics": {
+      "impressions": 209,
+      "reactions": 16,
+      "comments": 5,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 7,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:308254058",
+    "title": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "devchallenge",
+    "supportingTech": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "keywords": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "hook": "Our integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our integration test suite was completely green. The workflow still failed under real load. Securing LLM-driven generation interfaces from user input attack queries. (Trigger: Adversarial input payloads bypassed system prompt guidelines in test environments.) Constraint: Build an automated security verification suite to audit system prompts on CI. (Constraints: Must test both direct and indirect injection vectors, Minimize latency overhead on user requests) Approach: Option B: Automated adversarial prompt testing suite using injection taxonomy Tradeoff: Chosen: Automated injection tests, Sacrificed: Early setup convenience — required building taxomony files before coding Identified and patched three critical prompt vulnerability paths before merge (42% / 78%) Lesson: Prompt boundaries must be tested programmatically Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #BuildingEngineering",
+    "publishedAt": "2026-08-20T16:54:00.619Z",
+    "engagementMetrics": {
+      "impressions": 195,
+      "reactions": 18,
+      "comments": 6,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:976883421",
+    "title": "Greatness Is Forged by Limitation",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "ai",
+    "supportingTech": [
+      "Dev.to",
+      "ai"
+    ],
+    "keywords": [
+      "Dev.to",
+      "ai"
+    ],
+    "hook": "Most discussions about Greatness Is Forged by Limitation focus on initial setup speed. Very few talk about what happens when downstream services fail silently.",
+    "fullText": "Most discussions about Greatness Is Forged by Limitation focus on initial setup speed. Very few talk about what happens when downstream services fail silently. Refactoring system boundaries to improve service maintainability and code testability. (Trigger: A simple feature addition required modifying code across three separate packages, indicating tight coupling.) Redesign module interfaces to ensure loose coupling and independent deployability. (Constraints: Must maintain backwards compatibility with client endpoints, Cannot stop active feature delivery during refactoring) We resolved this by using Option B: Schema-driven modular boundaries with decoupled domain execution paths, accepting the tradeoff: Chosen: Schema-driven modular boundaries, Sacrificed: Immediate implementation velocity — required writing interface schemas before writing code. This yielded: Achieved clean domain separation; packages compile independently and regression incidents dropped by 75% (75% improvement, 75% reduction). System complexity is managed at the boundaries How do you handle this failure mode in your systems when downstream services stall? #SoftwareEngineering #SystemDesign #GreatnessEngineering",
+    "publishedAt": "2026-08-20T16:53:59.270Z",
+    "engagementMetrics": {
+      "impressions": 217,
+      "reactions": 37,
+      "comments": 3,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 12,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:354807655",
+    "title": "Greatness Is Forged by Limitation",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "ai",
+    "supportingTech": [
+      "Dev.to",
+      "ai"
+    ],
+    "keywords": [
+      "Dev.to",
+      "ai"
+    ],
+    "hook": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure.",
+    "fullText": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure. Refactoring system boundaries to improve service maintainability and code testability. (Trigger: A simple feature addition required modifying code across three separate packages, indicating tight coupling.) Redesign module interfaces to ensure loose coupling and independent deployability. (Constraints: Must maintain backwards compatibility with client endpoints, Cannot stop active feature delivery during refactoring) We resolved this by using Option B: Schema-driven modular boundaries with decoupled domain execution paths, accepting the tradeoff: Chosen: Schema-driven modular boundaries, Sacrificed: Immediate implementation velocity — required writing interface schemas before writing code. This yielded: Achieved clean domain separation; packages compile independently and regression incidents dropped by 75% (75% improvement, 75% reduction). System complexity is managed at the boundaries What tradeoffs have you made when forged by limitation? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #GreatnessEngineering",
+    "publishedAt": "2026-08-20T16:53:57.051Z",
+    "engagementMetrics": {
+      "impressions": 243,
+      "reactions": 38,
+      "comments": 6,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 7,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:896582011",
+    "title": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "platform": "LINKEDIN",
+    "category": "Rust",
+    "framework": "TypeScript",
+    "supportingTech": [
+      "Rust",
+      "TypeScript"
+    ],
+    "keywords": [
+      "Rust",
+      "TypeScript"
+    ],
+    "hook": "I could make this architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this architecture simpler. I deliberately didn't. Compiling production Rust microservices using nested third-party packages. (Trigger: CI build servers flagged unexpected network calls from cargo build tasks.) Constraint: Isolate compilation scripts and sandbox cargo build tasks. (Constraints: Support official cargo package environments, No source code modifications in third-party libraries) Approach: Option B: Isolated CI container compilation paired with cargo-sandbox policy rules Tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling Detected and blocked 2 supply-chain compromised crates before merging (42% / 78%) Lesson: Build tools are execution vulnerabilities Where would your team draw the boundary between stateful caching and the database source of truth in this architecture? #SoftwareEngineering #SystemDesign #AuditingEngineering",
+    "publishedAt": "2026-08-20T16:53:55.657Z",
+    "engagementMetrics": {
+      "impressions": 150,
+      "reactions": 33,
+      "comments": 4,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:505606038",
+    "title": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "platform": "LINKEDIN",
+    "category": "Rust",
+    "framework": "TypeScript",
+    "supportingTech": [
+      "Rust",
+      "TypeScript"
+    ],
+    "keywords": [
+      "Rust",
+      "TypeScript"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. Compiling production Rust microservices using nested third-party packages. (Trigger: CI build servers flagged unexpected network calls from cargo build tasks.) Isolate compilation scripts and sandbox cargo build tasks. (Constraints: Support official cargo package environments, No source code modifications in third-party libraries) We resolved this by using Option B: Isolated CI container compilation paired with cargo-sandbox policy rules, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Detected and blocked 2 supply-chain compromised crates before merging (42% improvement, 78% reduction). Build tools are execution vulnerabilities Where would your team draw the boundary between stateful caching and the database source of truth in this architecture? #SoftwareEngineering #SystemDesign #AuditingEngineering",
+    "publishedAt": "2026-08-20T16:53:53.836Z",
+    "engagementMetrics": {
+      "impressions": 261,
+      "reactions": 26,
+      "comments": 3,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 6,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:498836583",
+    "title": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "platform": "LINKEDIN",
+    "category": "Python",
+    "framework": "TypeScript",
+    "supportingTech": [
+      "Python",
+      "TypeScript"
+    ],
+    "keywords": [
+      "Python",
+      "TypeScript"
+    ],
+    "hook": "The most useful part of TypeScript wasn't the headline feature. It was the failure handling.",
+    "fullText": "The most useful part of TypeScript wasn't the headline feature. It was the failure handling. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-08-20T16:53:52.394Z",
+    "engagementMetrics": {
+      "impressions": 135,
+      "reactions": 26,
+      "comments": 6,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 9,
+      "followersGained": 4
+    }
+  },
+  {
     "id": "urn:li:share:350995105",
     "title": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
     "platform": "LINKEDIN",
