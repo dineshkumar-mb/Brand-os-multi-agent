@@ -1,5 +1,140 @@
 [
   {
+    "id": "urn:li:share:310716990",
+    "title": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "platform": "LINKEDIN",
+    "category": "HackerNews",
+    "framework": "Rust",
+    "supportingTech": [
+      "HackerNews",
+      "Rust"
+    ],
+    "keywords": [
+      "HackerNews",
+      "Rust"
+    ],
+    "hook": "I could make this architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this architecture simpler. I deliberately didn't. Compiling production Rust microservices using nested third-party packages. (Trigger: CI build servers flagged unexpected network calls from cargo build tasks.) Isolate compilation scripts and sandbox cargo build tasks. (Constraints: Support official cargo package environments, No source code modifications in third-party libraries) We resolved this by using Option B: Isolated CI container compilation paired with cargo-sandbox policy rules, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Detected and blocked 2 supply-chain compromised crates before merging (42% improvement, 78% reduction). Build tools are execution vulnerabilities At what point would you introduce a queue instead of synchronous retry loops? #SoftwareEngineering #SystemDesign #AuditingEngineering",
+    "publishedAt": "2026-08-20T16:50:10.323Z",
+    "engagementMetrics": {
+      "impressions": 255,
+      "reactions": 35,
+      "comments": 3,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 5,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:719885720",
+    "title": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "platform": "LINKEDIN",
+    "category": "HackerNews",
+    "framework": "Rust",
+    "supportingTech": [
+      "HackerNews",
+      "Rust"
+    ],
+    "keywords": [
+      "HackerNews",
+      "Rust"
+    ],
+    "hook": "I could make this architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this architecture simpler. I deliberately didn't. Compiling production Rust microservices using nested third-party packages. (Trigger: CI build servers flagged unexpected network calls from cargo build tasks.) Isolate compilation scripts and sandbox cargo build tasks. (Constraints: Support official cargo package environments, No source code modifications in third-party libraries) We resolved this by using Option B: Isolated CI container compilation paired with cargo-sandbox policy rules, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Detected and blocked 2 supply-chain compromised crates before merging (42% improvement, 78% reduction). Build tools are execution vulnerabilities At what point would you introduce a queue instead of synchronous retry loops? #SoftwareEngineering #SystemDesign #AuditingEngineering",
+    "publishedAt": "2026-08-20T16:50:10.311Z",
+    "engagementMetrics": {
+      "impressions": 187,
+      "reactions": 35,
+      "comments": 2,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 8,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:517519074",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters.",
+    "fullText": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters. Context: Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Goal: Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) Decision: Option B: Compiler reference hierarchy with incremental declaration mapping Tradeoff: Chosen: , Sacrificed: Unified client-only state management simplicity Outcome: CI type check time reduced from 8 (78% vs 78%) Conclusion: Monorepo scaling requires compiler isolation Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-08-20T16:50:02.983Z",
+    "engagementMetrics": {
+      "impressions": 160,
+      "reactions": 23,
+      "comments": 3,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 5,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:873680486",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "I thought the database was slow. It wasn't.",
+    "fullText": "I thought the database was slow. It wasn't. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: , Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 78% reduction). Monorepo scaling requires compiler isolation Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-08-20T16:50:02.973Z",
+    "engagementMetrics": {
+      "impressions": 131,
+      "reactions": 21,
+      "comments": 6,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 11,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:450373111",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "There were two technically sound ways to structure Backend Engineering. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure Backend Engineering. Neither option was free. Context: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Goal: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Decision: Option B: heap snapshot comparison to locate persistent closure scopes Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Outcome: Memory growth eliminated (18ms vs 18ms) Conclusion: JavaScript leaks are reference leaks What would you instrument before shipping this architecture change to production? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-08-20T16:49:57.783Z",
+    "engagementMetrics": {
+      "impressions": 176,
+      "reactions": 17,
+      "comments": 2,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 7,
+      "followersGained": 2
+    }
+  },
+  {
     "id": "urn:li:share:975853064",
     "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
     "platform": "LINKEDIN",
