@@ -1,5 +1,89 @@
 [
   {
+    "topicId": "cand_34_1787244636815",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:36.899Z"
+  },
+  {
+    "topicId": "cand_34_1787244636815",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:36.824Z"
+  },
+  {
+    "topicId": "cand_14_1787244635701",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:50:35.771Z"
+  },
+  {
+    "topicId": "cand_14_1787244635701",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:50:35.731Z"
+  },
+  {
+    "topicId": "cand_28_1787244631952",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:31.993Z"
+  },
+  {
+    "topicId": "cand_28_1787244631952",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:31.966Z"
+  },
+  {
+    "topicId": "cand_28_1787244631906",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:31.937Z"
+  },
+  {
+    "topicId": "cand_28_1787244631906",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:31.914Z"
+  },
+  {
+    "topicId": "cand_26_1787244625699",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:25.738Z"
+  },
+  {
+    "topicId": "cand_26_1787244625699",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:50:25.710Z"
+  },
+  {
+    "topicId": "cand_15_1787244619427",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:50:19.472Z"
+  },
+  {
+    "topicId": "cand_15_1787244619427",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:50:19.445Z"
+  },
+  {
     "topicId": "cand_24_1787244610277",
     "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
     "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",

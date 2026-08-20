@@ -1,5 +1,167 @@
 [
   {
+    "id": "urn:li:share:537748080",
+    "title": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "platform": "LINKEDIN",
+    "category": "Vite",
+    "framework": "Build Tools",
+    "supportingTech": [
+      "Vite",
+      "Build Tools"
+    ],
+    "keywords": [
+      "Vite",
+      "Build Tools"
+    ],
+    "hook": "The most useful part of Build Tools wasn't the headline feature. It was the failure handling.",
+    "fullText": "The most useful part of Build Tools wasn't the headline feature. It was the failure handling. Server-side rendering frontend components under selective client hydration paths. (Trigger: Hydration errors caused sudden screen layout shifts and broken button handlers.) Separate client hydration scripts and establish deterministic layout bounds. (Constraints: Preserve component library layout interfaces, No slow client-only wrappers on core pages) We resolved this by using Option B: Hydration boundaries configuration using Environment API transforms, accepting the tradeoff: Chosen: Decoupled module boundarie, Sacrificed: Initial day-1 velocity. This yielded: Time to interactive for critical routes reduced by 1 (42% improvement, 78% reduction). Hydration requires clear structural boundaries How do you handle this failure mode in your systems when downstream services stall? #SoftwareEngineering #SystemDesign #FederatingEngineering",
+    "publishedAt": "2026-08-20T16:50:36.907Z",
+    "engagementMetrics": {
+      "impressions": 189,
+      "reactions": 23,
+      "comments": 6,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 5,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:992918094",
+    "title": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "platform": "LINKEDIN",
+    "category": "Python",
+    "framework": "TypeScript",
+    "supportingTech": [
+      "Python",
+      "TypeScript"
+    ],
+    "keywords": [
+      "Python",
+      "TypeScript"
+    ],
+    "hook": "Most discussions about Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback focus on initial setup speed. Very few talk about what happens when downstream services fail silently.",
+    "fullText": "Most discussions about Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback focus on initial setup speed. Very few talk about what happens when downstream services fail silently. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints How do you handle this failure mode in your systems when downstream services stall? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-08-20T16:50:35.779Z",
+    "engagementMetrics": {
+      "impressions": 240,
+      "reactions": 19,
+      "comments": 2,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:587067223",
+    "title": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "devchallenge",
+    "supportingTech": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "keywords": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "hook": "Adding a cache made the system less reliable.",
+    "fullText": "Adding a cache made the system less reliable. Context: Securing LLM-driven generation interfaces from user input attack queries. (Trigger: Adversarial input payloads bypassed system prompt guidelines in test environments.) Goal: Build an automated security verification suite to audit system prompts on CI. (Constraints: Must test both direct and indirect injection vectors, Minimize latency overhead on user requests) Decision: Option B: Automated adversarial prompt testing suite using injection taxonomy Tradeoff: Chosen: Automated injection tests, Sacrificed: Early setup convenience — required building taxomony files before coding Outcome: Identified and patched three critical prompt vulnerability paths before merge (42% vs 78%) Conclusion: Prompt boundaries must be tested programmatically Where would your team draw the boundary between stateful caching and the database source of truth in this architecture? #SoftwareEngineering #SystemDesign #BuildingEngineering",
+    "publishedAt": "2026-08-20T16:50:31.999Z",
+    "engagementMetrics": {
+      "impressions": 122,
+      "reactions": 16,
+      "comments": 4,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 5,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:742258873",
+    "title": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "devchallenge",
+    "supportingTech": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "keywords": [
+      "Dev.to",
+      "devchallenge"
+    ],
+    "hook": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure.",
+    "fullText": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure. Before: Securing LLM-driven generation interfaces from user input attack queries. (Trigger: Adversarial input payloads bypassed system prompt guidelines in test environments.) Target: Build an automated security verification suite to audit system prompts on CI. (Constraints: Must test both direct and indirect injection vectors, Minimize latency overhead on user requests) Change: Option B: Automated adversarial prompt testing suite using injection taxonomy After: Identified and patched three critical prompt vulnerability paths before merge Tradeoff: Chosen: Automated injection tests, Sacrificed: Early setup convenience — required building taxomony files before coding Prompt boundaries must be tested programmatically Where would your team draw the boundary between stateful caching and the database source of truth in this architecture? #SoftwareEngineering #SystemDesign #BuildingEngineering",
+    "publishedAt": "2026-08-20T16:50:31.943Z",
+    "engagementMetrics": {
+      "impressions": 226,
+      "reactions": 38,
+      "comments": 3,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 8,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:598388681",
+    "title": "Greatness Is Forged by Limitation",
+    "platform": "LINKEDIN",
+    "category": "Dev.to",
+    "framework": "ai",
+    "supportingTech": [
+      "Dev.to",
+      "ai"
+    ],
+    "keywords": [
+      "Dev.to",
+      "ai"
+    ],
+    "hook": "I expected ai to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts.",
+    "fullText": "I expected ai to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts. Refactoring system boundaries to improve service maintainability and code testability. (Trigger: A simple feature addition required modifying code across three separate packages, indicating tight coupling.) Constraint: Redesign module interfaces to ensure loose coupling and independent deployability. (Constraints: Must maintain backwards compatibility with client endpoints, Cannot stop active feature delivery during refactoring) Approach: Option B: Schema-driven modular boundaries with decoupled domain execution paths Tradeoff: Chosen: Schema-driven modular boundaries, Sacrificed: Immediate implementation velocity — required writing interface schemas before writing code Achieved clean domain separation; packages compile independently and regression incidents dropped by 75% (75% / 75%) Lesson: System complexity is managed at the boundaries Would you keep the cache here, or move this responsibility directly into the core service boundary? #SoftwareEngineering #SystemDesign #GreatnessEngineering",
+    "publishedAt": "2026-08-20T16:50:25.743Z",
+    "engagementMetrics": {
+      "impressions": 159,
+      "reactions": 34,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 10,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:618473707",
+    "title": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "Open Source",
+    "supportingTech": [
+      "TypeScript",
+      "Open Source"
+    ],
+    "keywords": [
+      "TypeScript",
+      "Open Source"
+    ],
+    "hook": "While refactoring our TypeScript infrastructure, I ran into a state consistency problem I didn't expect.",
+    "fullText": "While refactoring our TypeScript infrastructure, I ran into a state consistency problem I didn't expect. Resolving hierarchical dependency structures in content organization trees. (Trigger: A single updates triggered a revalidation storm, blocking database connection pools.) Design a deterministic graph resolution engine that runs in constant time. (Constraints: Must detect circular dependencies at authoring time, No blocking locks on active read channels) We resolved this by using Option B: Memory-mapped Directed Acyclic Graph resolver using topological sorted node indexes, accepting the tradeoff: Chosen: In-memory DAG solver, Sacrificed: Database simplicity — required explicit application-level graph synchronization. This yielded: Graph resolution time dropped from 340ms to 28ms, and revalidation events decreased by 87% (340ms improvement, 28ms reduction). Relational databases are poor graph processors Would you optimize for latency or cost here if request volume doubled? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-08-20T16:50:19.478Z",
+    "engagementMetrics": {
+      "impressions": 211,
+      "reactions": 24,
+      "comments": 2,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 13,
+      "followersGained": 5
+    }
+  },
+  {
     "id": "urn:li:share:310716990",
     "title": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
     "platform": "LINKEDIN",
