@@ -73,8 +73,19 @@ export class ExperienceMatcherEngine {
       evidence: matchedEvidence,
     };
   }
+
+  public findMatchingExperience(category: string, title: string, tags: string[] = []): { found: boolean; matchScore: number } {
+    const textToMatch = `${title} ${category} ${tags.join(" ")}`.toLowerCase();
+    const eventMatch = this.matchExperience({ title, summary: category, tags } as any);
+    const matchScore = eventMatch.matchPercentage / 100;
+    return {
+      found: eventMatch.evidence.length > 0,
+      matchScore,
+    };
+  }
 }
 
 export const experienceMatcherEngine = new ExperienceMatcherEngine();
+export const experienceMatcher = experienceMatcherEngine;
 
 

@@ -22,6 +22,8 @@ export * from "./knowledge/experience-matcher.js";
 export * from "./ranking/topic-scorer.js";
 export * from "./ranking/content-opportunity.js";
 export * from "./ranking/do-not-publish.js";
+export * from "./ranking/fresh-trend-discovery.js";
+export * from "./ranking/candidate-competition-engine.js";
 export * from "./provenance/evidence-tracker.js";
 export * from "./provenance/career-attribution.js";
 

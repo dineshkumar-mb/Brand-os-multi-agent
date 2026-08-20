@@ -15,6 +15,7 @@ import {
   StoryMode,
   FormatStyle,
   STARStory,
+  WritingContext,
 } from "@brand-os/shared";
 import { aiGateway } from "@brand-os/ai-gateway";
 import { MinedExperienceNarrative } from "./experience-mining";
@@ -90,7 +91,8 @@ flowchart TD
     experience: MinedExperienceNarrative,
     audience: AudienceContext,
     pipelineId?: string,
-    history: HistoricalPostRecord[] = []
+    history: HistoricalPostRecord[] = [],
+    writingContext?: WritingContext
   ): Promise<AgentResult<TechnicalWriterOutput>> {
     const startTime = Date.now();
     console.log(`[Senior Software Engineer Writer Subsystem] Initiating STAR + Storytelling pipeline for: "${topic.title}"...`);

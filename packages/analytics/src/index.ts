@@ -125,6 +125,11 @@ export class PostHistoryTracker {
     }
   }
 
+  public clearHistory() {
+    this.history = [];
+    this.saveHistory();
+  }
+
   public getHistory(): HistoricalPostRecord[] {
     this.loadHistory();
     return this.history;

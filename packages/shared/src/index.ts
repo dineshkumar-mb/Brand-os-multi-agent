@@ -18,6 +18,17 @@ export enum PublishMode {
   AUTO = "AUTO",
 }
 
+export enum PostStatus {
+  DRAFT = "DRAFT",
+  PENDING_REVIEW = "PENDING_REVIEW",
+  APPROVED = "APPROVED",
+  SCHEDULED = "SCHEDULED",
+  PUBLISHING = "PUBLISHING",
+  PUBLISHED = "PUBLISHED",
+  FAILED = "FAILED",
+  REJECTED = "REJECTED",
+}
+
 export enum ModelProvider {
   OPENAI = "OPENAI",
   GEMINI = "GEMINI",
@@ -25,6 +36,65 @@ export enum ModelProvider {
   OPENROUTER = "OPENROUTER",
   NVIDIA_NIM = "NVIDIA_NIM",
   OLLAMA = "OLLAMA",
+}
+
+export enum SourceAuthorityLevel {
+  LEVEL_1_PRIMARY = 1, // Official company labs, primary repository, official documentation
+  LEVEL_2_SECONDARY = 2, // Technical publication, peer-reviewed paper, engineering blog
+  LEVEL_2_TECHNICAL = 2, // Legacy alias for secondary technical sources
+  LEVEL_3_COMMUNITY = 3, // Hacker News, Dev.to, Reddit engineering subs
+  LEVEL_4_DISCOVERY = 4, // Aggregators, social feeds, discovery signals
+}
+
+export enum VisualType {
+  ARCHITECTURE_DIAGRAM = "ARCHITECTURE_DIAGRAM",
+  SYSTEM_FLOW = "SYSTEM_FLOW",
+  DEBUGGING_TIMELINE = "DEBUGGING_TIMELINE",
+  BENCHMARK_CHART = "BENCHMARK_CHART",
+  CODE_ANNOTATION = "CODE_ANNOTATION",
+  DATA_FLOW = "DATA_FLOW",
+  BEFORE_AFTER_ARCHITECTURE = "BEFORE_AFTER_ARCHITECTURE",
+  DECISION_MATRIX = "DECISION_MATRIX",
+  FAILURE_ANALYSIS = "FAILURE_ANALYSIS",
+  TIMELINE = "TIMELINE",
+  COMPONENT_MAP = "COMPONENT_MAP",
+  DISTRIBUTED_SYSTEM_DIAGRAM = "DISTRIBUTED_SYSTEM_DIAGRAM",
+  CONCEPTUAL_ILLUSTRATION = "CONCEPTUAL_ILLUSTRATION",
+  TECHNICAL_COMPARISON = "TECHNICAL_COMPARISON",
+  MINIMAL_ENGINEERING_POSTER = "MINIMAL_ENGINEERING_POSTER",
+}
+
+export enum FormatStyle {
+  PRODUCTION_INCIDENT = "PRODUCTION_INCIDENT",
+  DEBUGGING_STORY = "DEBUGGING_STORY",
+  ARCHITECTURE_DECISION = "ARCHITECTURE_DECISION",
+  BEFORE_AFTER_LAYOUT = "BEFORE_AFTER_LAYOUT",
+  PERFORMANCE_INVESTIGATION = "PERFORMANCE_INVESTIGATION",
+  FAILED_EXPERIMENT = "FAILED_EXPERIMENT",
+  TRADEOFF_DEBATE = "TRADEOFF_DEBATE",
+  BUILD_IN_PUBLIC = "BUILD_IN_PUBLIC",
+  SYSTEM_DESIGN_BREAKDOWN = "SYSTEM_DESIGN_BREAKDOWN",
+  TECHNICAL_MYTH = "TECHNICAL_MYTH",
+  CODE_WALKTHROUGH = "CODE_WALKTHROUGH",
+  ENGINEERING_RETROSPECTIVE = "ENGINEERING_RETROSPECTIVE",
+  NEW_TECH_PERSONAL_EXPERIMENT = "NEW_TECH_PERSONAL_EXPERIMENT",
+  BENCHMARK_ANALYSIS = "BENCHMARK_ANALYSIS",
+  ARCHITECTURE_EVOLUTION = "ARCHITECTURE_EVOLUTION",
+
+  // Legacy fallback aliases
+  NARRATIVE_PARAGRAPHS = "NARRATIVE_PARAGRAPHS",
+  MINIMAL_BULLETS = "MINIMAL_BULLETS",
+  SHORT_DIALOGUE = "SHORT_DIALOGUE",
+  TECHNICAL_NOTE = "TECHNICAL_NOTE",
+  STORY_FIRST = "STORY_FIRST",
+  ARCHITECTURE_FIRST = "ARCHITECTURE_FIRST",
+}
+
+export enum RoutingStrategy {
+  COST_OPTIMIZED = "COST_OPTIMIZED",
+  LOWEST_LATENCY = "LOWEST_LATENCY",
+  ACCURACY_FIRST = "ACCURACY_FIRST",
+  BALANCED = "BALANCED",
 }
 
 export enum AgentType {
@@ -68,24 +138,6 @@ export enum AgentType {
   HASHTAG_GENERATOR = "HASHTAG_GENERATOR",
   ANALYTICS = "ANALYTICS",
   LEARNING = "LEARNING",
-}
-
-export enum PostStatus {
-  DRAFT = "DRAFT",
-  PENDING_REVIEW = "PENDING_REVIEW",
-  APPROVED = "APPROVED",
-  SCHEDULED = "SCHEDULED",
-  PUBLISHING = "PUBLISHING",
-  PUBLISHED = "PUBLISHED",
-  FAILED = "FAILED",
-  REJECTED = "REJECTED",
-}
-
-export enum RoutingStrategy {
-  COST_OPTIMIZED = "COST_OPTIMIZED",
-  LOWEST_LATENCY = "LOWEST_LATENCY",
-  ACCURACY_FIRST = "ACCURACY_FIRST",
-  BALANCED = "BALANCED",
 }
 
 export enum AgentEvent {
@@ -146,6 +198,231 @@ export const CONTENT_DIVERSITY_CATEGORIES = [
 ] as const;
 
 export type ContentCategory = (typeof CONTENT_DIVERSITY_CATEGORIES)[number] | string;
+
+export interface EvidenceProvenance {
+  source?: string;
+  sourceId?: string;
+  sourceName?: string;
+  sourceType?: string;
+  url?: string;
+  sourceLevel?: SourceAuthorityLevel;
+  authorityLevel?: SourceAuthorityLevel;
+  publicationDate?: string;
+  retrievedAt?: string;
+  claim?: string;
+  claimVerified?: boolean;
+  citationText?: string;
+  verificationStatus?: "VERIFIED" | "UNVERIFIED" | "REJECTED";
+}
+
+export interface CandidateOpportunityScores {
+  careerRelevance: number;
+  personalExperienceMatch: number;
+  technicalImportance: number;
+  sourceAuthority: number;
+  originality: number;
+  trendVelocity: number;
+  contentGap: number;
+  developerAdoption: number;
+  freshness: number;
+  topicNovelty: number;
+  proofAvailability: number;
+  engineeringTension: number;
+  careerDifferentiation: number;
+  overallScore: number;
+}
+
+
+
+export interface EngineeringProblem {
+  problem: string;
+  affectedSystems: string[];
+  engineeringTensions: string[];
+  technicalConcepts: string[];
+  possibleArchitectureAngles: string[];
+}
+
+export interface WhyYouContext {
+  industryEvent: string;
+  personalExperience: ExperienceEvidence[];
+  architectureDecision?: string;
+  technicalInterpretation: string;
+  proof: EvidenceProvenance[];
+  careerSignal: string;
+}
+
+export interface WritingContext {
+  event: any;
+  engineeringProblem: string;
+  personalExperience: ExperienceEvidence[];
+  architectureDecision: {
+    options: string[];
+    chosen: string;
+    rejected: string[];
+    reason: string;
+  };
+  evidence: EvidenceProvenance[];
+  result?: {
+    metric: string;
+    before?: string;
+    after?: string;
+  };
+  audience: AudiencePersona;
+  format: FormatStyle;
+  previousFormats: FormatStyle[];
+  previousHooks: string[];
+  previousVisualTypes: VisualType[];
+}
+
+export interface MultiDimensionalVisualRecord {
+  id: string;
+  topicTitle: string;
+  visualType: VisualType;
+  visualConcept: string;
+  composition: string;
+  layout: string;
+  subject: string;
+  metaphor: string;
+  diagramStructure: string;
+  colorStructure: string;
+  visualHash: string;
+  createdAt: string;
+}
+
+export interface DailyIntelligenceSummary {
+  signalsScanned: number;
+  verifiedEvents: number;
+  freshEvents: number;
+  novelOpportunities: number;
+  experienceMatches: number;
+  careerQualified: number;
+  winnerTitle?: string;
+  scores?: CandidateOpportunityScores;
+  whyWinner?: string;
+}
+
+export interface CandidateOpportunityRecord {
+  candidateId: string;
+  title: string;
+  category: string;
+  framework?: string;
+  engineeringProblem?: string;
+  scores: CandidateOpportunityScores;
+  noveltyScore: number;
+  freshnessScore: number;
+  experienceMatchScore: number;
+  careerScore: number;
+  sourceAuthorityScore: number;
+  contentGapScore: number;
+  trendVelocityScore: number;
+  proofAvailabilityScore: number;
+  engineeringTensionScore: number;
+  careerDifferentiationScore: number;
+  rejectionReasons: string[];
+}
+
+export interface Top5MatrixResult {
+  winner: CandidateOpportunityRecord;
+  alternatives: CandidateOpportunityRecord[];
+  whyWinner: string;
+  whyNotCandidate2?: string;
+  whyNotCandidate3?: string;
+  whyNotCandidate4?: string;
+  whyNotCandidate5?: string;
+}
+
+export interface QualityGateResult {
+  gateName?: string;
+  passed: boolean;
+  score?: number;
+  threshold?: number;
+  details?: string;
+  topicNovelty?: number;
+  trendFreshness?: number;
+  humanWriting?: number;
+  technicalDepth?: number;
+  careerSignal?: number;
+  sourceAuthority?: number;
+  visualNovelty?: number;
+  originality?: number;
+  experienceMatch?: number;
+  contextDiversity?: number;
+  proofAvailability?: number;
+  engineeringTension?: number;
+  careerDifferentiation?: number;
+  overallContentQualityScore?: number;
+  rejectionReasons?: string[];
+}
+
+export interface PipelineExecutionTrace {
+  runId: string;
+  timestamp: string;
+  candidatesCollected: number;
+  candidatePipeline: {
+    afterDeduplication: number;
+    afterVerification: number;
+    afterFreshness: number;
+    afterCooldown: number;
+    afterExperienceMatch: number;
+    topFive: number;
+  };
+  winner: {
+    title: string;
+    score: number;
+  };
+  alternatives: CandidateOpportunityRecord[];
+  whyWinner: string;
+  writing: {
+    format: string;
+    hookType: string;
+    starStructure: boolean;
+  };
+  visual: {
+    type: string;
+    noveltyScore: number;
+  };
+  quality: QualityGateResult;
+  decision: "PUBLISH" | "NO_POST_TODAY";
+}
+
+export type VisualPlan = VisualPlanBlueprint;
+
+export type DailyGenerationResult =
+  | {
+      status: "POST_READY";
+      pipelineId: string;
+      topic: Topic;
+      writingContext: WritingContext;
+      linkedInPost: LinkedInPostPayload;
+      devToArticle: DevToArticlePayload;
+      visualPlan: VisualPlan;
+      qualityGateResult?: QualityGateResult;
+      executionTrace: PipelineExecutionTrace;
+      dailyIntelligenceSummary: DailyIntelligenceSummary;
+      review?: any;
+      publishResult?: any;
+      originality?: any;
+      techReview?: any;
+      factCheck?: any;
+      decisionGate?: any;
+    }
+  | {
+      status: "NO_POST_TODAY";
+      pipelineId: string;
+      reason: string;
+      candidatesEvaluated: number;
+      strongestCandidate?: CandidateOpportunityRecord;
+      missingSignals: string[];
+      dailyIntelligenceSummary: DailyIntelligenceSummary;
+      topic?: Topic | null;
+      linkedInPost?: null;
+      devToArticle?: null;
+      qualityGateResult?: QualityGateResult;
+      executionTrace?: PipelineExecutionTrace;
+      review?: any;
+      decisionGate?: any;
+      factCheck?: any;
+    };
 
 export const TARGET_AUDIENCES = [
   "Recruiters",
@@ -390,16 +667,6 @@ export enum StoryMode {
   PRODUCTION_REALITY = "PRODUCTION_REALITY",
 }
 
-export enum FormatStyle {
-  NARRATIVE_PARAGRAPHS = "NARRATIVE_PARAGRAPHS",
-  MINIMAL_BULLETS = "MINIMAL_BULLETS",
-  BEFORE_AFTER_LAYOUT = "BEFORE_AFTER_LAYOUT",
-  SHORT_DIALOGUE = "SHORT_DIALOGUE",
-  TECHNICAL_NOTE = "TECHNICAL_NOTE",
-  STORY_FIRST = "STORY_FIRST",
-  ARCHITECTURE_FIRST = "ARCHITECTURE_FIRST",
-}
-
 export const LinkedInPostPayloadSchema = z.object({
   title: z.string(),
   hook: z.string(),
@@ -572,14 +839,6 @@ export interface DecisionResult {
   actionRequired?: string;
 }
 
-export interface QualityGateResult {
-  gateName: string;
-  passed: boolean;
-  score: number;
-  threshold: number;
-  details?: string;
-}
-
 // ==========================================
 // TECHNICAL DIAGRAM & INFOGRAPHIC TYPES
 // ==========================================
@@ -628,13 +887,6 @@ export interface VisualPlanBlueprint {
 // ==========================================
 // GLOBAL AI INTELLIGENCE LAYER CONTRACTS
 // ==========================================
-
-export enum SourceAuthorityLevel {
-  LEVEL_1_PRIMARY = 1,     // Official docs, API refs, release posts, official repos, official blogs
-  LEVEL_2_TECHNICAL = 2,   // Research papers, maintainer discussions, benchmarks, engineering blogs
-  LEVEL_3_COMMUNITY = 3,   // Hacker News, Reddit, Dev.to, GitHub discussions
-  LEVEL_4_DISCOVERY = 4,   // Social media, aggregators, third-party blogs
-}
 
 export type SourceCategory =
   | "OFFICIAL_LAB"
@@ -699,11 +951,20 @@ export interface ExperienceEvidence {
   relevanceScore: number;
   overlapDescription: string;
   technologiesUsed: string[];
+  problem?: string;
+  context?: string;
+  action?: string;
+  decision?: string;
+  result?: string;
+  evidence?: string[];
+  technologies?: string[];
 }
 
 export interface AudiencePersona {
   role: string;
   relevanceReason: string;
+  targetPainPoints?: string[];
+  keyMotivations?: string[];
 }
 
 export type ContentAngle =
@@ -717,17 +978,6 @@ export type ContentAngle =
   | "COST_ANALYSIS"
   | "SECURITY_IMPLICATIONS"
   | "PERSONAL_EXPERIMENT";
-
-export interface EvidenceProvenance {
-  sourceId: string;
-  sourceName: string;
-  sourceType: string;
-  url?: string;
-  retrievedAt: string;
-  authorityLevel: SourceAuthorityLevel;
-  claimVerified: boolean;
-  citationText: string;
-}
 
 export interface ContentOpportunity {
   id: string;

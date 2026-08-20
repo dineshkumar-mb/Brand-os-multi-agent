@@ -558,4 +558,65 @@ model EvidenceProvenanceRecord {
   @@map("evidence_provenance_records")
 }
 
+model ContentGenerationRun {
+  id                    String   @id @default(uuid())
+  runId                 String   @unique
+  candidatesCollected   Int
+  selectedTopicTitle    String?
+  selectedCategory      String?
+  topFiveCandidates     Json     @default("[]")
+  winnerReason          String?  @db.Text
+  writingFormat         String?
+  hookType              String?
+  visualType            String?
+  visualNoveltyScore    Float    @default(0.0)
+  qualityGatePassed     Boolean  @default(false)
+  qualityScores         Json     @default("{}")
+  decision              String   @default("NO_POST_TODAY")
+  rejectionReasons      String[] @default([])
+  createdAt             DateTime @default(now())
+
+  @@map("content_generation_runs")
+}
+
+model TopicSimilarityRecord {
+  id                  String   @id @default(uuid())
+  candidateTitle      String
+  historicalPostTitle String
+  semanticSimilarity  Float
+  lexicalSimilarity   Float
+  conceptSimilarity   Float
+  angleSimilarity     Float
+  isRejected          Boolean  @default(false)
+  createdAt           DateTime @default(now())
+
+  @@map("topic_similarity_records")
+}
+
+model VisualHistoryRecord {
+  id            String   @id @default(uuid())
+  postId        String?
+  topicId       String?
+  visualType    String
+  layout        String
+  subject       String
+  prompt        String   @db.Text
+  visualHash    String
+  embedding     Json?
+  createdAt     DateTime @default(now())
+
+  @@map("visual_history_records")
+}
+
+model ExperienceUsageRecord {
+  id            String   @id @default(uuid())
+  experienceId  String
+  postId        String?
+  topicTitle    String
+  usedAt        DateTime @default(now())
+
+  @@map("experience_usage_records")
+}
+
+
 
