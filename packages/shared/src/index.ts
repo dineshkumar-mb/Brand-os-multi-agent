@@ -39,7 +39,8 @@ export enum ModelProvider {
 }
 
 export enum SourceAuthorityLevel {
-  LEVEL_1_PRIMARY = 1, // Official company labs, primary repository, official documentation
+  LEVEL_1_ADVANCED = 1, // Advanced Level: Official company labs, primary repository, official documentation
+  LEVEL_1_PRIMARY = 1, // Primary Level alias
   LEVEL_2_SECONDARY = 2, // Technical publication, peer-reviewed paper, engineering blog
   LEVEL_2_TECHNICAL = 2, // Legacy alias for secondary technical sources
   LEVEL_3_COMMUNITY = 3, // Hacker News, Dev.to, Reddit engineering subs
