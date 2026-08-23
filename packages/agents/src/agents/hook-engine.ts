@@ -16,19 +16,19 @@ export class HookEngine {
 
     // Mode-specific override options if storyMode is provided
     if (storyMode === StoryMode.FAILURE_STORY) {
-      return `The code was correct.\n\nThe system was still wrong.`;
+      return `The ${cleanTitle} implementation was technically correct.\n\nThe system was still wrong under load.`;
     }
     if (storyMode === StoryMode.PERFORMANCE_STORY) {
-      return `I thought the database was slow.\n\nIt wasn't.`;
+      return `I thought our ${techName} query path was slow.\n\nIt wasn't.`;
     }
     if (storyMode === StoryMode.CONTRARIAN_OBSERVATION) {
-      return `Adding a cache made the system less reliable.`;
+      return `Adding a cache layer to ${cleanTitle} made the system less reliable.`;
     }
     if (storyMode === StoryMode.TECH_DISCOVERY) {
-      return `The most useful part of ${techName} wasn't the headline feature.\n\nIt was the failure handling.`;
+      return `The most useful part of ${techName} wasn't the headline feature.\n\nIt was the failure handling design.`;
     }
     if (storyMode === StoryMode.DECISION_STORY) {
-      return `I could make this architecture simpler.\n\nI deliberately didn't.`;
+      return `I could make this ${cleanTitle} architecture simpler.\n\nI deliberately didn't.`;
     }
 
     switch (hookType) {
@@ -36,10 +36,10 @@ export class HookEngine {
         return `I expected ${techName} to be a straightforward integration.\n\nThe actual engineering challenge turned out to be how state transitions are handled across bounded contexts.`;
 
       case HookType.UNEXPECTED_FAILURE:
-        return `Our integration test suite was completely green.\n\nThe workflow still failed under real load.`;
+        return `Our ${cleanTitle} integration test suite was completely green.\n\nThe workflow still failed under real load.`;
 
       case HookType.ARCHITECTURE_QUESTION:
-        return `When should an engineering architecture give up on synchronous execution?`;
+        return `When should an engineering architecture for ${cleanTitle} give up on synchronous execution?`;
 
       case HookType.CONTRARIAN_OBSERVATION:
         return `Most discussions about ${cleanTitle} focus on initial setup speed.\n\nVery few talk about what happens when downstream services fail silently.`;
@@ -83,28 +83,29 @@ export class HookEngine {
     }
 
     const tech = topic.framework || topic.category || "this architecture";
+    const cleanTitle = topic.title.replace(/:(.*)$/, "").trim();
 
     switch (ctaType) {
       case DiscussionCtaType.TRADEOFF_CHOICE:
-        return `Would you keep the cache here, or move this responsibility directly into the core service boundary?`;
+        return `How does your team handle the ${cleanTitle} trade-off when scaling ${tech} under load?`;
 
       case DiscussionCtaType.BOUNDARY_QUESTION:
-        return `Where would your team draw the boundary between stateful caching and the database source of truth in this architecture?`;
+        return `Where would your team draw the boundary between stateful caching and the ${tech} database source of truth in ${cleanTitle}?`;
 
       case DiscussionCtaType.PRODUCTION_FAILURE_CHECK:
-        return `How do you handle this failure mode in your systems when downstream services stall?`;
+        return `How do you handle this ${cleanTitle} failure mode in your ${tech} systems when downstream services stall?`;
 
       case DiscussionCtaType.OPTIMIZATION_PRIORITY:
-        return `At what point would you introduce a queue instead of synchronous retry loops?`;
+        return `At what point in ${cleanTitle} would you introduce a queue instead of synchronous retry loops for ${tech}?`;
 
       case DiscussionCtaType.DESIGN_CHANGE:
-        return `Would you optimize for latency or cost here if request volume doubled?`;
+        return `Would you optimize ${cleanTitle} for latency or cost here if ${tech} request volume doubled?`;
 
       case DiscussionCtaType.TEAM_PRACTICE:
-        return `What would you instrument before shipping this architecture change to production?`;
+        return `What telemetry would you instrument before shipping this ${cleanTitle} change for ${tech} to production?`;
 
       default:
-        return `Would you choose the simpler architecture or the more resilient one here?`;
+        return `Would you choose the simpler ${cleanTitle} architecture or the more resilient ${tech} pattern here?`;
     }
   }
 }

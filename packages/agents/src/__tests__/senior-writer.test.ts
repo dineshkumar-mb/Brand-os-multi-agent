@@ -50,7 +50,7 @@ describe("Senior Software Engineer Writing Agent Unit & Integration Tests", () =
         description: "Standardized tool handler"
       }
     ],
-    statistics: ["Reduces integration boilerplate by 60%"],
+    statistics: ["Reduces integration boilerplate by 60%", "Achieved 80% regression reduction"],
     citations: [{ title: "MCP Specification", url: "https://modelcontextprotocol.io", source: "Official Docs" }],
   };
 

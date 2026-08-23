@@ -1,5 +1,2483 @@
 [
   {
+    "topicId": "cand_18_1787491891481",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:31.747Z"
+  },
+  {
+    "topicId": "cand_18_1787491891481",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:31.628Z"
+  },
+  {
+    "topicId": "cand_27_1787491887427",
+    "conceptTitle": "The Reasoning Ledger: Remembering Decisions, Not Just Data",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "thereasoningledgerrememberingdecisionsnotjustdata_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:31:27.754Z"
+  },
+  {
+    "topicId": "cand_27_1787491887427",
+    "conceptTitle": "The Reasoning Ledger: Remembering Decisions, Not Just Data",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "thereasoningledgerrememberingdecisionsnotjustdata_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:31:27.522Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:24.983Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:31:24.802Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:24.542Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:24.354Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:24.093Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.838Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.738Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.698Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.657Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:31:23.585Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:31:23.501Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.435Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:23.332Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.223Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:31:23.065Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:23.020Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:22.675Z"
+  },
+  {
+    "topicId": "cand_29_1787491881758",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "Architecting Resilient Multi-Pro Architecture Blueprint",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_Architecting Resilient Multi-Pro Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:22.543Z"
+  },
+  {
+    "topicId": "cand_14_1787491882387",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:22.500Z"
+  },
+  {
+    "topicId": "cand_29_1787491881758",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "Architecting Resilient Multi-Pro Architecture Blueprint",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_Architecting Resilient Multi-Pro Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:22.391Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:22.128Z"
+  },
+  {
+    "topicId": "cand_14_1787491880689",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:22.029Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:21.817Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:21.686Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:21.565Z"
+  },
+  {
+    "topicId": "cand_14_1787491880689",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:21.476Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:21.453Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:21.131Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:21.092Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:31:21.052Z"
+  },
+  {
+    "topicId": "cand_14_1787491880689",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:31:20.934Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:20.864Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:20.832Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:20.434Z"
+  },
+  {
+    "topicId": "cand_28_1787491877067",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:17.370Z"
+  },
+  {
+    "topicId": "cand_28_1787491877067",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:17.218Z"
+  },
+  {
+    "topicId": "cand_35_1787491871366",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:11.583Z"
+  },
+  {
+    "topicId": "cand_35_1787491871366",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-23T13:31:11.412Z"
+  },
+  {
+    "topicId": "cand_24_1787491856864",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-23T13:30:57.224Z"
+  },
+  {
+    "topicId": "cand_24_1787491856864",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-23T13:30:56.933Z"
+  },
+  {
+    "topicId": "cand_16_1787491851693",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:52.097Z"
+  },
+  {
+    "topicId": "cand_16_1787491851693",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:51.980Z"
+  },
+  {
+    "topicId": "cand_32_1787491846561",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:30:46.802Z"
+  },
+  {
+    "topicId": "cand_32_1787491846561",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:30:46.659Z"
+  },
+  {
+    "topicId": "cand_33_1787491845482",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:30:45.693Z"
+  },
+  {
+    "topicId": "cand_33_1787491845482",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:30:45.511Z"
+  },
+  {
+    "topicId": "cand_31_1787491841840",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:42.021Z"
+  },
+  {
+    "topicId": "cand_31_1787491841840",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:41.870Z"
+  },
+  {
+    "topicId": "cand_34_1787491838481",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:38.908Z"
+  },
+  {
+    "topicId": "cand_34_1787491838481",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:30:38.629Z"
+  },
+  {
+    "topicId": "cand_33_1787491835553",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:30:35.991Z"
+  },
+  {
+    "topicId": "cand_33_1787491835553",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:30:35.828Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:39.627Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:28:39.467Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:39.260Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:39.063Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:38.776Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:38.521Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:38.241Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:38.096Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:37.952Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:37.833Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:37.688Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:28:37.615Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:37.223Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:37.187Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:37.059Z"
+  },
+  {
+    "topicId": "cand_14_1787491716860",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:36.978Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:28:36.935Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:36.895Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:36.825Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:36.661Z"
+  },
+  {
+    "topicId": "cand_14_1787491715505",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:36.457Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:28:36.362Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:35.965Z"
+  },
+  {
+    "topicId": "cand_14_1787491715505",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:35.825Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:35.654Z"
+  },
+  {
+    "topicId": "cand_14_1787491715505",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:28:35.611Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:35.574Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:35.423Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:28:35.260Z"
+  },
+  {
+    "topicId": "cand_14_1787491480592",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:41.026Z"
+  },
+  {
+    "topicId": "cand_14_1787491480592",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:40.727Z"
+  },
+  {
+    "topicId": "cand_14_1787491479873",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:40.323Z"
+  },
+  {
+    "topicId": "cand_14_1787491479873",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:40.075Z"
+  },
+  {
+    "topicId": "cand_14_1787491479873",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:39.935Z"
+  },
+  {
+    "topicId": "cand_28_1787491464313",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:24.651Z"
+  },
+  {
+    "topicId": "cand_28_1787491464313",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:24.482Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:09.858Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:24:09.762Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:09.626Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:09.465Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:09.277Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:09.067Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.963Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:24:08.834Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.704Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.593Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.394Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.290Z"
+  },
+  {
+    "topicId": "cand_14_1787491448046",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:08.204Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:08.088Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:08.019Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:24:07.901Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hainer Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:24:07.901Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:24:07.866Z"
+  },
+  {
+    "topicId": "cand_14_1787491446705",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:07.824Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:07.698Z"
+  },
+  {
+    "topicId": "cand_14_1787491446705",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:07.454Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:24:07.279Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:24:07.196Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:07.095Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.998Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.914Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.767Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.727Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.578Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:24:06.479Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:38.021Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:21:37.785Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:37.580Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:37.413Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:37.237Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:37.063Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.999Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.941Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:21:36.773Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.669Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.613Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:21:36.510Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.450Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.288Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:36.196Z"
+  },
+  {
+    "topicId": "cand_14_1787491295548",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:36.108Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:21:36.074Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:36.011Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:35.780Z"
+  },
+  {
+    "topicId": "cand_14_1787491295548",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:35.744Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:35.604Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:35.469Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:21:35.441Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:35.279Z"
+  },
+  {
+    "topicId": "cand_14_1787491294827",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:35.249Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:35.006Z"
+  },
+  {
+    "topicId": "cand_14_1787491294827",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:34.974Z"
+  },
+  {
+    "topicId": "cand_14_1787491294827",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:21:34.936Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:34.880Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:34.793Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:34.691Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:34.598Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:21:09.538Z"
+  },
+  {
+    "topicId": "cand_27_1787491252157",
+    "conceptTitle": "The Reasoning Ledger: Remembering Decisions, Not Just Data",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "thereasoningledgerrememberingdecisionsnotjustdata_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:20:52.556Z"
+  },
+  {
+    "topicId": "cand_27_1787491252157",
+    "conceptTitle": "The Reasoning Ledger: Remembering Decisions, Not Just Data",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "thereasoningledgerrememberingdecisionsnotjustdata_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:20:52.308Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:51.615Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:51.508Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:51.411Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:20:51.301Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:51.273Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:20:51.213Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:20:51.136Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:51.003Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:50.938Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:50.852Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:50.732Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:50.696Z"
+  },
+  {
+    "topicId": "cand_29_1787491247885",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "Architecting Resilient Multi-Pro Architecture Blueprint",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_Architecting Resilient Multi-Pro Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:48.230Z"
+  },
+  {
+    "topicId": "cand_29_1787491247885",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "Architecting Resilient Multi-Pro Architecture Blueprint",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_Architecting Resilient Multi-Pro Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:48.018Z"
+  },
+  {
+    "topicId": "cand_35_1787491244147",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:44.454Z"
+  },
+  {
+    "topicId": "cand_35_1787491244147",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:44.325Z"
+  },
+  {
+    "topicId": "cand_28_1787491240379",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:40.639Z"
+  },
+  {
+    "topicId": "cand_28_1787491240379",
+    "conceptTitle": "My first website said \"Don't commit without context.\" I never committed it at all.",
+    "diagramType": "My first website said \"Don't com Architecture Blueprint",
+    "hash": "myfirstwebsitesaiddontcommitwithoutcontextinevercommitteditatall_My first website said \"Don't com Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:40.471Z"
+  },
+  {
+    "topicId": "cand_24_1787491236386",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:36.826Z"
+  },
+  {
+    "topicId": "cand_24_1787491236386",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:36.545Z"
+  },
+  {
+    "topicId": "cand_16_1787491232676",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:20:32.904Z"
+  },
+  {
+    "topicId": "cand_16_1787491232676",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:20:32.782Z"
+  },
+  {
+    "topicId": "cand_32_1787491228814",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:29.083Z"
+  },
+  {
+    "topicId": "cand_32_1787491228814",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:28.905Z"
+  },
+  {
+    "topicId": "cand_31_1787491224938",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:20:25.189Z"
+  },
+  {
+    "topicId": "cand_31_1787491224938",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:20:25.031Z"
+  },
+  {
+    "topicId": "cand_33_1787491218732",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:20:19.139Z"
+  },
+  {
+    "topicId": "cand_33_1787491218732",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:20:18.942Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:16.850Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-08-23T13:20:16.517Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:19:46.406Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-23T13:19:46.277Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:46.138Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:46.048Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.938Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.838Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.708Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:19:45.562Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.413Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.298Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.210Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:45.115Z"
+  },
+  {
+    "topicId": "s3",
+    "conceptTitle": "TypeScript 5.7 Project References",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "typescript57projectreferences_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-23T13:19:44.998Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-23T13:19:44.884Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-08-23T13:19:44.739Z"
+  },
+  {
+    "topicId": "cand_21_1787245326883",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:02:06.982Z"
+  },
+  {
+    "topicId": "cand_21_1787245326883",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:02:06.915Z"
+  },
+  {
+    "topicId": "cand_21_1787245326113",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:02:06.179Z"
+  },
+  {
+    "topicId": "cand_21_1787245326113",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:02:06.134Z"
+  },
+  {
+    "topicId": "cand_15_1787245323575",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:03.625Z"
+  },
+  {
+    "topicId": "cand_15_1787245323575",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:03.595Z"
+  },
+  {
+    "topicId": "cand_15_1787245322686",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:02.725Z"
+  },
+  {
+    "topicId": "cand_15_1787245322686",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:02.703Z"
+  },
+  {
+    "topicId": "cand_14_1787245320213",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:00.255Z"
+  },
+  {
+    "topicId": "cand_14_1787245320213",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:02:00.227Z"
+  },
+  {
+    "topicId": "cand_14_1787245319416",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:59.466Z"
+  },
+  {
+    "topicId": "cand_14_1787245319416",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:59.433Z"
+  },
+  {
+    "topicId": "cand_17_1787245316065",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:56.108Z"
+  },
+  {
+    "topicId": "cand_17_1787245316065",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:56.078Z"
+  },
+  {
+    "topicId": "cand_17_1787245315932",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:55.971Z"
+  },
+  {
+    "topicId": "cand_17_1787245315932",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:55.945Z"
+  },
+  {
+    "topicId": "cand_31_1787245312679",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:52.720Z"
+  },
+  {
+    "topicId": "cand_31_1787245312680",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:01:52.690Z"
+  },
+  {
+    "topicId": "cand_32_1787245309100",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:01:49.144Z"
+  },
+  {
+    "topicId": "cand_32_1787245309100",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:01:49.112Z"
+  },
+  {
+    "topicId": "cand_30_1787245309070",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:49.082Z"
+  },
+  {
+    "topicId": "cand_30_1787245309030",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:49.057Z"
+  },
+  {
+    "topicId": "cand_30_1787245309030",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:49.037Z"
+  },
+  {
+    "topicId": "cand_32_1787245303524",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:01:43.590Z"
+  },
+  {
+    "topicId": "cand_33_1787245303446",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:43.552Z"
+  },
+  {
+    "topicId": "cand_33_1787245303446",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:01:43.489Z"
+  },
+  {
+    "topicId": "cand_32_1787245303295",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:01:43.365Z"
+  },
+  {
+    "topicId": "cand_32_1787245303295",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:01:43.321Z"
+  },
+  {
+    "topicId": "cand_22_1787245236885",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:36.930Z"
+  },
+  {
+    "topicId": "cand_22_1787245236881",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:36.923Z"
+  },
+  {
+    "topicId": "cand_22_1787245236885",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:36.900Z"
+  },
+  {
+    "topicId": "cand_22_1787245236881",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:36.894Z"
+  },
+  {
+    "topicId": "cand_29_1787245233609",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:33.643Z"
+  },
+  {
+    "topicId": "cand_29_1787245233609",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:33.618Z"
+  },
+  {
+    "topicId": "cand_29_1787245233303",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:33.343Z"
+  },
+  {
+    "topicId": "cand_29_1787245233303",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:33.315Z"
+  },
+  {
+    "topicId": "cand_23_1787245230037",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:30.075Z"
+  },
+  {
+    "topicId": "cand_23_1787245230037",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:30.049Z"
+  },
+  {
+    "topicId": "cand_23_1787245229686",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:29.722Z"
+  },
+  {
+    "topicId": "cand_23_1787245229686",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:29.698Z"
+  },
+  {
+    "topicId": "cand_21_1787245226438",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:26.482Z"
+  },
+  {
+    "topicId": "cand_21_1787245226438",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:26.453Z"
+  },
+  {
+    "topicId": "cand_21_1787245226111",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:26.159Z"
+  },
+  {
+    "topicId": "cand_21_1787245226111",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:26.131Z"
+  },
+  {
+    "topicId": "cand_15_1787245222899",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:22.944Z"
+  },
+  {
+    "topicId": "cand_15_1787245222899",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:22.916Z"
+  },
+  {
+    "topicId": "cand_15_1787245222582",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:22.625Z"
+  },
+  {
+    "topicId": "cand_15_1787245222582",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:22.598Z"
+  },
+  {
+    "topicId": "cand_14_1787245219309",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:19.363Z"
+  },
+  {
+    "topicId": "cand_14_1787245219309",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:19.329Z"
+  },
+  {
+    "topicId": "cand_17_1787245215880",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:15.920Z"
+  },
+  {
+    "topicId": "cand_17_1787245215880",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:15.894Z"
+  },
+  {
+    "topicId": "cand_17_1787245215539",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:15.582Z"
+  },
+  {
+    "topicId": "cand_17_1787245215539",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:15.553Z"
+  },
+  {
+    "topicId": "cand_31_1787245212498",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:12.539Z"
+  },
+  {
+    "topicId": "cand_31_1787245212498",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:12.510Z"
+  },
+  {
+    "topicId": "cand_31_1787245211335",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:11.373Z"
+  },
+  {
+    "topicId": "cand_31_1787245211335",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T17:00:11.346Z"
+  },
+  {
+    "topicId": "cand_30_1787245208865",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:08.909Z"
+  },
+  {
+    "topicId": "cand_30_1787245208865",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:08.880Z"
+  },
+  {
+    "topicId": "cand_30_1787245207351",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:07.390Z"
+  },
+  {
+    "topicId": "cand_30_1787245207351",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T17:00:07.366Z"
+  },
+  {
+    "topicId": "cand_32_1787245206014",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:06.070Z"
+  },
+  {
+    "topicId": "cand_32_1787245206014",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:06.042Z"
+  },
+  {
+    "topicId": "cand_32_1787245201412",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:01.453Z"
+  },
+  {
+    "topicId": "cand_32_1787245201412",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:01.427Z"
+  },
+  {
+    "topicId": "cand_32_1787245201106",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:01.197Z"
+  },
+  {
+    "topicId": "cand_32_1787245201106",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T17:00:01.139Z"
+  },
+  {
+    "topicId": "cand_29_1787245131606",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:51.640Z"
+  },
+  {
+    "topicId": "cand_29_1787245131606",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:51.615Z"
+  },
+  {
+    "topicId": "cand_27_1787245130776",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:50.815Z"
+  },
+  {
+    "topicId": "cand_27_1787245130776",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:50.789Z"
+  },
+  {
+    "topicId": "cand_23_1787245128096",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:48.133Z"
+  },
+  {
+    "topicId": "cand_23_1787245128096",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:48.106Z"
+  },
+  {
+    "topicId": "cand_34_1787245127402",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:47.442Z"
+  },
+  {
+    "topicId": "cand_34_1787245127402",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:47.411Z"
+  },
+  {
+    "topicId": "cand_14_1787245124652",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:44.694Z"
+  },
+  {
+    "topicId": "cand_14_1787245124652",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:44.668Z"
+  },
+  {
+    "topicId": "cand_28_1787245123841",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:43.880Z"
+  },
+  {
+    "topicId": "cand_28_1787245123841",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:43.856Z"
+  },
+  {
+    "topicId": "cand_17_1787245121401",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:41.450Z"
+  },
+  {
+    "topicId": "cand_17_1787245121401",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:41.422Z"
+  },
+  {
+    "topicId": "cand_26_1787245118675",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:38.721Z"
+  },
+  {
+    "topicId": "cand_26_1787245118675",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:38.691Z"
+  },
+  {
+    "topicId": "cand_26_1787245117796",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:37.840Z"
+  },
+  {
+    "topicId": "cand_26_1787245117796",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:37.812Z"
+  },
+  {
+    "topicId": "cand_23_1787245115221",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:35.265Z"
+  },
+  {
+    "topicId": "cand_23_1787245115221",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:35.239Z"
+  },
+  {
+    "topicId": "cand_23_1787245114240",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:34.291Z"
+  },
+  {
+    "topicId": "cand_23_1787245114240",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency S Architecture Blueprint",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency S Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:34.250Z"
+  },
+  {
+    "topicId": "cand_15_1787245111845",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:31.885Z"
+  },
+  {
+    "topicId": "cand_15_1787245111845",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:31.859Z"
+  },
+  {
+    "topicId": "cand_15_1787245110603",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:30.645Z"
+  },
+  {
+    "topicId": "cand_15_1787245110603",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:30.620Z"
+  },
+  {
+    "topicId": "cand_31_1787245108151",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:28.186Z"
+  },
+  {
+    "topicId": "cand_31_1787245108151",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:28.161Z"
+  },
+  {
+    "topicId": "cand_31_1787245106652",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:26.685Z"
+  },
+  {
+    "topicId": "cand_31_1787245106652",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:58:26.660Z"
+  },
+  {
+    "topicId": "cand_30_1787245102782",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:22.834Z"
+  },
+  {
+    "topicId": "cand_30_1787245102782",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:22.798Z"
+  },
+  {
+    "topicId": "cand_30_1787245101452",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:21.498Z"
+  },
+  {
+    "topicId": "cand_30_1787245101452",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:21.463Z"
+  },
+  {
+    "topicId": "cand_32_1787245101410",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:21.452Z"
+  },
+  {
+    "topicId": "cand_32_1787245101410",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:21.425Z"
+  },
+  {
+    "topicId": "cand_32_1787245098205",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:18.256Z"
+  },
+  {
+    "topicId": "cand_32_1787245098205",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:18.227Z"
+  },
+  {
+    "topicId": "cand_32_1787245096605",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:16.681Z"
+  },
+  {
+    "topicId": "cand_32_1787245096605",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:58:16.635Z"
+  },
+  {
+    "topicId": "cand_15_1787245096466",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:16.578Z"
+  },
+  {
+    "topicId": "cand_15_1787245096466",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:58:16.523Z"
+  },
+  {
+    "topicId": "cand_22_1787245016718",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:56.782Z"
+  },
+  {
+    "topicId": "cand_22_1787245016718",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:56.740Z"
+  },
+  {
+    "topicId": "cand_22_1787245015715",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:55.764Z"
+  },
+  {
+    "topicId": "cand_22_1787245015715",
+    "conceptTitle": "My AI Content Journey",
+    "diagramType": "My AI Content Journey Architecture Blueprint",
+    "hash": "myaicontentjourney_My AI Content Journey Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:55.734Z"
+  },
+  {
+    "topicId": "cand_29_1787245013214",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:53.249Z"
+  },
+  {
+    "topicId": "cand_29_1787245013214",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:53.222Z"
+  },
+  {
+    "topicId": "cand_29_1787245011727",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:51.763Z"
+  },
+  {
+    "topicId": "cand_29_1787245011727",
+    "conceptTitle": "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
+    "diagramType": "Federating Multi-Environment Bui Architecture Blueprint",
+    "hash": "federatingmultienvironmentbuildpipelineswithoutfullserversiderenderingrearchitectures_Federating Multi-Environment Bui Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:51.737Z"
+  },
+  {
+    "topicId": "cand_23_1787245009652",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:49.706Z"
+  },
+  {
+    "topicId": "cand_23_1787245009652",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:49.669Z"
+  },
+  {
+    "topicId": "cand_23_1787245008202",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:48.242Z"
+  },
+  {
+    "topicId": "cand_23_1787245008202",
+    "conceptTitle": "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
+    "diagramType": "Building Adversarial Red-Team Te Architecture Blueprint",
+    "hash": "buildingadversarialredteamtestsuitesforllmpromptinjectionvulnerabilities_Building Adversarial Red-Team Te Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:48.218Z"
+  },
+  {
+    "topicId": "cand_21_1787245006227",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:46.284Z"
+  },
+  {
+    "topicId": "cand_21_1787245006227",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:46.250Z"
+  },
+  {
+    "topicId": "cand_21_1787245004108",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:44.162Z"
+  },
+  {
+    "topicId": "cand_21_1787245004108",
+    "conceptTitle": "Greatness Is Forged by Limitation",
+    "diagramType": "Greatness Is Forged by Limitatio Architecture Blueprint",
+    "hash": "greatnessisforgedbylimitation_Greatness Is Forged by Limitatio Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:44.124Z"
+  },
+  {
+    "topicId": "cand_15_1787245002176",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:42.213Z"
+  },
+  {
+    "topicId": "cand_15_1787245002176",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:42.191Z"
+  },
+  {
+    "topicId": "cand_15_1787244999876",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:39.921Z"
+  },
+  {
+    "topicId": "cand_15_1787244999876",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:39.893Z"
+  },
+  {
+    "topicId": "cand_14_1787244998422",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:38.461Z"
+  },
+  {
+    "topicId": "cand_14_1787244998422",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:38.437Z"
+  },
+  {
+    "topicId": "cand_14_1787244996539",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:36.576Z"
+  },
+  {
+    "topicId": "cand_14_1787244996539",
+    "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "architectingresilientmultiproviderllmgatewayroutingwithcostoptimizedfallback_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:36.553Z"
+  },
+  {
+    "topicId": "cand_17_1787244993245",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:33.289Z"
+  },
+  {
+    "topicId": "cand_17_1787244993245",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:33.265Z"
+  },
+  {
+    "topicId": "cand_17_1787244992892",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:32.930Z"
+  },
+  {
+    "topicId": "cand_17_1787244992892",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:32.904Z"
+  },
+  {
+    "topicId": "cand_31_1787244989300",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:29.339Z"
+  },
+  {
+    "topicId": "cand_31_1787244989300",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-20T16:56:29.312Z"
+  },
+  {
+    "topicId": "cand_32_1787244985564",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:25.608Z"
+  },
+  {
+    "topicId": "cand_32_1787244985564",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:25.577Z"
+  },
+  {
+    "topicId": "cand_30_1787244985530",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:25.566Z"
+  },
+  {
+    "topicId": "cand_30_1787244985524",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:25.562Z"
+  },
+  {
+    "topicId": "cand_30_1787244985530",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:25.539Z"
+  },
+  {
+    "topicId": "cand_30_1787244985524",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:25.534Z"
+  },
+  {
+    "topicId": "cand_33_1787244982032",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:22.122Z"
+  },
+  {
+    "topicId": "cand_33_1787244982032",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:56:22.070Z"
+  },
+  {
+    "topicId": "cand_32_1787244981827",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:21.917Z"
+  },
+  {
+    "topicId": "cand_32_1787244981818",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:21.905Z"
+  },
+  {
+    "topicId": "cand_32_1787244981827",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:21.859Z"
+  },
+  {
+    "topicId": "cand_32_1787244981818",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-20T16:56:21.842Z"
+  },
+  {
     "topicId": "cand_22_1787244854220",
     "conceptTitle": "My AI Content Journey",
     "diagramType": "My AI Content Journey Architecture Blueprint",
@@ -1247,6 +3725,13 @@
   },
   {
     "topicId": "cand_16_1787243377112",
+    "conceptTitle": "Designing Dety Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-20T16:29:37.271Z"
+  },
+  {
+    "topicId": "cand_16_1787243377112",
     "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
     "diagramType": "TypeScript 5.7 Project References",
     "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
@@ -1531,13 +4016,6 @@
     "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
     "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
     "createdAt": "2026-08-20T16:20:20.995Z"
-  },
-  {
-    "topicId": "cand_31_1787242815662",
-    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
-    "diagramType": "TypeScript 5.7 Project References",
-    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
-    "createdAt": "2026-08-20T16:20:15.791Z"
   },
   {
     "topicId": "cand_31_1787242815662",

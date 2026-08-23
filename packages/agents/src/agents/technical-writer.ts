@@ -269,9 +269,10 @@ Return ONLY a valid JSON object matching:
         bodyText = `${starStory.situation.context}\n\nEngineering Challenge:\n${starStory.task.objective}\n\nArchitectural Fix:\n${starStory.action.reasoning}\n\nProduction Outcome:\n${starStory.result.outcome}\n\nKey Takeaway:\n${starStory.insight.engineeringLesson}`;
       }
 
+      const topicTag = `#${(topic.framework || topic.category || "Tech").replace(/[^a-zA-Z0-9]/g, "")}`;
       const fullText = generatedCta
-        ? `${generatedHook}\n\n${bodyText}\n\n${generatedCta}\n\n#SoftwareEngineering #SystemDesign #AIEngineering`
-        : `${generatedHook}\n\n${bodyText}\n\n#SoftwareEngineering #SystemDesign #AIEngineering`;
+        ? `${generatedHook}\n\n${bodyText}\n\n${generatedCta}\n\n${topicTag}`
+        : `${generatedHook}\n\n${bodyText}\n\n${topicTag}`;
 
       linkedInPayload = {
         title: topic.title,
@@ -280,7 +281,7 @@ Return ONLY a valid JSON object matching:
         lesson: starStory.insight.engineeringLesson,
         actionableInsight: starStory.result.outcome,
         cta: generatedCta,
-        hashtags: ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering"],
+        hashtags: [topicTag],
         fullText,
         imageUrl: this.getDynamicImageUrl(topic),
         storyMode: selectedStoryMode,
