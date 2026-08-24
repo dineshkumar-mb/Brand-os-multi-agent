@@ -1,5 +1,75 @@
 [
   {
+    "topicId": "t4",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformance_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-24T15:15:47.325Z"
+  },
+  {
+    "topicId": "t3",
+    "conceptTitle": "Docker Buildx & Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxcontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-24T15:15:47.315Z"
+  },
+  {
+    "topicId": "t2",
+    "conceptTitle": "DeepSeek R1 Reasoning Pipeline Architecture",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "deepseekr1reasoningpipelinearchitecture_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-24T15:15:47.302Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-24T15:15:47.287Z"
+  },
+  {
+    "topicId": "t4",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformance_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-24T15:14:44.992Z"
+  },
+  {
+    "topicId": "t3",
+    "conceptTitle": "Docker Buildx & Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxcontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-24T15:14:44.983Z"
+  },
+  {
+    "topicId": "t2",
+    "conceptTitle": "DeepSeek R1 Reasoning Pipeline Architecture",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "deepseekr1reasoningpipelinearchitecture_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-08-24T15:14:44.942Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "react19nextjs15serveractionswithzeroboilerplatecompileroptimization_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-24T15:14:44.927Z"
+  },
+  {
+    "topicId": "cand_24_1787584401812",
+    "conceptTitle": "Operationalizing Continuous Vulnerability Detection in Production Container Registries",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "operationalizingcontinuousvulnerabilitydetectioninproductioncontainerregistries_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-24T15:13:22.983Z"
+  },
+  {
+    "topicId": "cand_24_1787584401812",
+    "conceptTitle": "Operationalizing Continuous Vulnerability Detection in Production Container Registries",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "operationalizingcontinuousvulnerabilitydetectioninproductioncontainerregistries_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-24T15:13:22.904Z"
+  },
+  {
     "topicId": "cand_28_1787582900640",
     "conceptTitle": "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
     "diagramType": "Architecting Resilient Multi-Pro Architecture Blueprint",
