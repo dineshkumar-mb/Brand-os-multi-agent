@@ -17,13 +17,21 @@ async function main() {
       pipelineId,
     });
 
+    if (result.status === "NO_POST_TODAY") {
+      console.log("\n=======================================================");
+      console.log("ℹ️ PIPELINE RETURNED NO_POST_TODAY SAFE EXIT");
+      console.log("=======================================================");
+      console.log(`Reason: ${result.reason}`);
+      return;
+    }
+
     console.log("\n=======================================================");
     console.log("✅ AGENT SWARM EXECUTION COMPLETE!");
     console.log("=======================================================");
-    console.log(`📌 Topic Title: "${result.topic.title}"`);
-    console.log(`🔥 Selected Hook: "${result.linkedInPost.hook}"`);
-    console.log(`🖼️ Attached Diagram Image URL (First 100 chars): ${result.linkedInPost.imageUrl?.substring(0, 100)}...`);
-    console.log(`🎯 Decision Gate Status: ${result.decisionGate.decision} (Approved: ${result.decisionGate.approvedForPublishing})`);
+    console.log(`📌 Topic Title: "${result.topic?.title}"`);
+    console.log(`🔥 Selected Hook: "${result.linkedInPost?.hook}"`);
+    console.log(`🖼️ Attached Diagram Image URL (First 100 chars): ${result.linkedInPost?.imageUrl?.substring(0, 100)}...`);
+    console.log(`🎯 Quality Gate Status: ${result.qualityGateResult?.passed ? "APPROVED" : "REJECTED"} (Quality Score: ${result.qualityGateResult?.overallContentQualityScore}/100)`);
 
     if (result.publishResult) {
       console.log("\n📢 PUBLISH RESULT:");

@@ -15,7 +15,11 @@ async function processQueue() {
 
     console.log("[Worker Service] Executing Daily Content Swarm Pipeline...");
     const result = await agentOrchestrator.executePipeline({ autoPublish: true });
-    console.log("[Worker Service] Daily Content Pipeline completed & published successfully with score:", result.review.overallScore);
+    if (result.status === "NO_POST_TODAY") {
+      console.log("[Worker Service] Daily Content Pipeline triggered NO_POST_TODAY safe exit:", result.reason);
+    } else {
+      console.log("[Worker Service] Daily Content Pipeline completed & published successfully with score:", result.review?.overallScore || result.qualityGateResult?.overallContentQualityScore);
+    }
   } catch (err: any) {
     console.error("[Worker Service] Worker execution error:", err.message);
   }

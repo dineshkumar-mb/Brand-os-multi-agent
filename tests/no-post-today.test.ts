@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { agentOrchestrator } from "../packages/agents/src/index";
 import { postHistoryTracker } from "../packages/analytics/src/index";
+import { candidateCompetitionEngine } from "../packages/intelligence/src/index";
 import { Platform } from "../packages/shared/src/index";
 
 describe("NO_POST_TODAY Policy & Diagnostic Outputs", () => {
@@ -85,10 +86,10 @@ describe("NO_POST_TODAY Policy & Diagnostic Outputs", () => {
       "Architecting Enterprise LLM Gateways", "Zero-CVE Container Hardening",
       "Eliminating CI Compilation Bottlenecks", "V8 Memory Leak Profiling",
       "Topological Graph Solvers", "Transitive Dependency Auditing",
-      "The layout engine wasn't broken by complex CSS. It was destroyed by bad DOM assumptions...",
-      "The hardest part of LLM orchestration wasn't prompt tuning. It was fallback latency...",
-      "The most dangerous production bug in microservices isn't a crash. It's subtle memory growth...",
-      "Stop blaming your ORM for slow database queries...",
+      "Designing a Reasoning Ledger Record",
+      "Operationalizing Continuous Vulnerability Detection in Production Container Registries",
+      "Executable Is a SQLite Database",
+      "React 19 & Next.js 15 Server Actions with Zero-Boilerplate Compiler Optimization",
       "The most useful part of Build Tools wasn't the headline feature. It was the failure handling..."
     ];
 
@@ -97,12 +98,29 @@ describe("NO_POST_TODAY Policy & Diagnostic Outputs", () => {
         id: `p_gen_${i}`,
         title: t,
         platform: Platform.LINKEDIN,
-        category: "AI Engineering",
-        framework: "Architecture",
-        supportingTech: ["Architecture"],
-        keywords: ["Architecture"],
+        category: t,
+        framework: t,
+        supportingTech: [t, "Reasoning", "DeepSeek", "Security", "DevOps", "Database"],
+        keywords: [t, "Reasoning", "Ledger", "DeepSeek"],
         hook: "...",
-        fullText: `Details about ${t} with tradeoffs and data metrics in production systems.`,
+        fullText: `Details about ${t} with tradeoffs, reasoning ledger record, deepseek models, container vulnerability detection, sqlite database, and data metrics in production systems.`,
+        publishedAt: new Date().toISOString(),
+      });
+    });
+
+    // Dynamically collect current candidates and add them to history so total semantic collision occurs
+    const compRes = await candidateCompetitionEngine.collectAndRankCandidates(postHistoryTracker.getHistory());
+    compRes.allEvaluatedCandidates.forEach((cand, i) => {
+      postHistoryTracker.addPublishedPost({
+        id: `p_live_${i}`,
+        title: cand.title,
+        platform: Platform.LINKEDIN,
+        category: cand.framework || "AI Engineering",
+        framework: cand.framework || "Architecture",
+        supportingTech: [cand.framework || "Architecture"],
+        keywords: [cand.title],
+        hook: "...",
+        fullText: `Detailed analysis of ${cand.title} with architecture tradeoffs and code examples.`,
         publishedAt: new Date().toISOString(),
       });
     });

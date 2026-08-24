@@ -182,6 +182,31 @@ async function main() {
       pipelineId,
       publishMode: mode as any,
     });
+
+    if (swarmResult.status === "NO_POST_TODAY") {
+      const reason = swarmResult.reason || "Safe exit triggered (NO_POST_TODAY policy)";
+      logStructured("WARN", "no_post_today", `Safe exit triggered: ${reason}`, { pipelineId });
+
+      writeGitHubStepSummary(
+        `## ℹ️ Pipeline Completed (NO_POST_TODAY Policy)\n\n${reason}\n\n- **Topic**: ${swarmResult.topic?.title || "N/A"}\n- **Candidates Evaluated**: ${swarmResult.candidatesEvaluated || 0}`
+      );
+
+      if (executionRecord) {
+        await prisma.pipelineExecution.update({
+          where: { id: pipelineId },
+          data: { status: "SKIPPED", error: reason }
+        }).catch(() => {});
+      }
+
+      writeGitHubOutput("status", "no_post_today");
+      writeGitHubOutput("topic", swarmResult.topic?.title || "N/A");
+      writeGitHubOutput("reason", reason);
+
+      console.log(`\n==========================================================`);
+      console.log(` ⏭️ PIPELINE COMPLETED (NO_POST_TODAY SAFE EXIT)         `);
+      console.log(`==========================================================`);
+      return;
+    }
     
     // Update State: QUALITY_PASSED with Replay data
     if (executionRecord) {
@@ -191,14 +216,10 @@ async function main() {
           status: "QUALITY_PASSED",
           promptPayload: JSON.parse(JSON.stringify({
             topic: swarmResult.topic,
-            research: {
-              summary: swarmResult.research.summary,
-              key_insights_count: swarmResult.research.key_insights.length,
-            },
           })),
           generatedContent: JSON.parse(JSON.stringify({
             linkedInPost: swarmResult.linkedInPost,
-            mediumArticle: swarmResult.mediumArticle,
+            devToArticle: swarmResult.devToArticle,
           })),
         }
       }).catch(() => executionRecord);
@@ -213,16 +234,25 @@ async function main() {
     throw swarmErr;
   }
 
-  logStructured("INFO", "trend_discovery", `Primary Topic: "${swarmResult.topic.title}" (Score: ${swarmResult.topic.score})`, { pipelineId });
-  logStructured("INFO", "fact_verification", `Fact Check Score: ${swarmResult.factCheck.confidenceScore}% (Passed: ${swarmResult.factCheck.factCheckPassed})`, { pipelineId });
-  logStructured("INFO", "quality_review", `Quality Gate Score: ${swarmResult.review.overallScore}/100 (Passed: ${swarmResult.review.passedThreshold})`, { pipelineId });
+  logStructured("INFO", "trend_discovery", `Primary Topic: "${swarmResult.topic?.title}" (Score: ${swarmResult.topic?.score})`, { pipelineId });
+  if (swarmResult.factCheck) {
+    logStructured("INFO", "fact_verification", `Fact Check Score: ${swarmResult.factCheck.confidenceScore}% (Passed: ${swarmResult.factCheck.factCheckPassed})`, { pipelineId });
+  }
+  if (swarmResult.review) {
+    logStructured("INFO", "quality_review", `Quality Gate Score: ${swarmResult.review.overallScore}/100 (Passed: ${swarmResult.review.passedThreshold})`, { pipelineId });
+  } else if (swarmResult.qualityGateResult) {
+    logStructured("INFO", "quality_review", `Quality Gate Score: ${swarmResult.qualityGateResult.overallContentQualityScore}/100 (Passed: ${swarmResult.qualityGateResult.passed})`, { pipelineId });
+  }
 
   console.log("\n----------------------------------------------------------");
   console.log(" 📄 GENERATED TRENDING LINKEDIN POST PAYLOAD              ");
   console.log("----------------------------------------------------------");
-  console.log(`Title: ${swarmResult.linkedInPost.title}`);
-  console.log(`Hook: ${swarmResult.linkedInPost.hook}`);
-  console.log(`\nFull Text:\n${swarmResult.linkedInPost.fullText}`);
+  if (swarmResult.linkedInPost) {
+    console.log(`Title: ${swarmResult.linkedInPost.title}`);
+    console.log(`Hook: ${swarmResult.linkedInPost.hook}`);
+    console.log(`\nFull Text:\n${swarmResult.linkedInPost.fullText}`);
+  }
+  console.log("----------------------------------------------------------");
   console.log("----------------------------------------------------------");
 
   // Stage 3: Idempotency Deduplication Check
