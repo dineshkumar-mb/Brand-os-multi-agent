@@ -186,17 +186,18 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
       const orgEnv = process.env.LINKEDIN_ORGANIZATION_ID?.trim();
       const personEnv = process.env.LINKEDIN_PERSON_URN?.trim();
 
-      let explicitUrn: string | null = null;
-      if (orgEnv) {
-        explicitUrn = orgEnv.startsWith("urn:") ? orgEnv : `urn:li:organization:${orgEnv}`;
-      } else if (personEnv) {
-        explicitUrn = personEnv.startsWith("urn:") ? personEnv : `urn:li:person:${personEnv}`;
-      }
-
       const authorsToTry: string[] = [];
-      if (explicitUrn) authorsToTry.push(explicitUrn);
+      if (personEnv) {
+        authorsToTry.push(personEnv.startsWith("urn:") ? personEnv : `urn:li:person:${personEnv}`);
+      }
       if (memberPersonUrn && !authorsToTry.includes(memberPersonUrn)) {
         authorsToTry.push(memberPersonUrn);
+      }
+      if (orgEnv) {
+        const orgUrn = orgEnv.startsWith("urn:") ? orgEnv : `urn:li:organization:${orgEnv}`;
+        if (!authorsToTry.includes(orgUrn)) {
+          authorsToTry.push(orgUrn);
+        }
       }
 
       // Strict failure if live posting is requested but no author URN can be resolved
