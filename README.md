@@ -203,6 +203,16 @@ Structured daily logs (`[TREND_SCAN]`, `[TOPIC_FILTER]`, `[VISUAL_FILTER]`, `[DE
 
 ---
 
+### 8. 📲 Real-Time Automation Status & Telegram Notification System
+- **Real-Time Telegram Alerts**: Instant HTML-formatted notification delivery directly to Telegram chats via Telegram Bot API (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
+- **Multi-Channel Dispatcher**: Supports concurrent delivery across Telegram, Webhooks (Discord, Slack), and Email.
+- **Execution Lifecycle Monitoring**: Emits status alerts on automation start, pipeline success (`SUCCESS`), quality threshold safe exit (`NO_POST_TODAY`), and uncaught exceptions (`ERROR`).
+- **Automation Health API**: `GET /api/v1/automation/status` returns runner health and recent execution history.
+- **Test Alert Integration**: Built-in `POST /api/v1/notifications/test` endpoint and UI button on the Settings page for instant channel verification.
+
+---
+
+
 ## 📐 System Architecture Diagram
 
 ```mermaid

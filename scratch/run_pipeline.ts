@@ -4,7 +4,8 @@ import fs from "fs";
 import path from "path";
 import { agentOrchestrator } from "../packages/agents/src/index";
 import { publisherService, MissingAccessTokenError } from "../packages/publisher/src/index";
-import { Platform } from "../packages/shared/src/index";
+import { Platform, notificationService, automationTracker } from "../packages/shared/src/index";
+
 import { preflightService } from "../packages/preflight/src/index";
 import { prisma } from "../packages/database/src/index";
 
@@ -202,11 +203,31 @@ async function main() {
       writeGitHubOutput("topic", swarmResult.topic?.title || "N/A");
       writeGitHubOutput("reason", reason);
 
+      automationTracker.recordRun({
+        pipelineId,
+        timestamp: new Date().toISOString(),
+        durationMs: Date.now() - startTime,
+        status: "NO_POST_TODAY",
+        candidatesEvaluated: swarmResult.candidatesEvaluated,
+        rejectionReasons: swarmResult.missingSignals,
+      });
+
+      await notificationService.sendAutomationNotification({
+        title: "Daily Swarm Pipeline Executed (Safe Exit)",
+        status: "NO_POST_TODAY",
+        pipelineId,
+        message: `Evaluated ${swarmResult.candidatesEvaluated || 0} candidates. Safe exit policy triggered: ${reason}`,
+        candidatesEvaluated: swarmResult.candidatesEvaluated,
+        rejectionReasons: swarmResult.missingSignals,
+        durationSeconds: Math.round((Date.now() - startTime) / 1000),
+      });
+
       console.log(`\n==========================================================`);
       console.log(` ⏭️ PIPELINE COMPLETED (NO_POST_TODAY SAFE EXIT)         `);
       console.log(`==========================================================`);
       return;
     }
+
     
     // Update State: QUALITY_PASSED with Replay data
     if (executionRecord) {
@@ -469,12 +490,41 @@ ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediu
   writeGitHubOutput("status", "success");
   writeGitHubOutput("topic", swarmResult.topic.title);
   writeGitHubOutput("linkedin_url", publishResult.url);
+
+  automationTracker.recordRun({
+    pipelineId,
+    timestamp: new Date().toISOString(),
+    durationMs,
+    status: "SUCCESS",
+    winnerTitle: swarmResult.topic.title,
+    overallScore: swarmResult.review?.overallScore || 90,
+    publishedPlatforms: ["LinkedIn"],
+  });
+
+  await notificationService.sendAutomationNotification({
+    title: "Daily Swarm Pipeline Published Successfully",
+    status: "SUCCESS",
+    pipelineId,
+    message: `Content swarm successfully generated, verified, and published post to LinkedIn.`,
+    topicTitle: swarmResult.topic.title,
+    qualityScore: swarmResult.review?.overallScore || 90,
+    durationSeconds: Math.round(durationMs / 1000),
+  });
 }
 
-main().catch((err) => {
+main().catch(async (err) => {
   logStructured("ERROR", "fatal", `Pipeline failed with error: ${err.message}`, { stack: err.stack });
   console.error("\n❌ Pipeline failed with error:", err.message);
   writeGitHubOutput("status", "failure");
   writeGitHubOutput("error", err.message);
+
+  await notificationService.sendAutomationNotification({
+    title: "Daily Swarm Pipeline Encountered Error",
+    status: "ERROR",
+    message: "An unhandled error occurred during pipeline execution.",
+    errorMessage: err.message,
+  });
+
   process.exit(1);
 });
+

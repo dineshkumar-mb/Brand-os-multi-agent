@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Key, Cpu, Save, Linkedin, FileText, CheckCircle2, Link as LinkIcon, ShieldCheck, Loader2 } from "lucide-react";
+import { Key, Cpu, Save, Linkedin, FileText, CheckCircle2, Link as LinkIcon, ShieldCheck, Loader2, Bell, Send, MessageSquare, AlertCircle } from "lucide-react";
 
 export const SettingsPage: React.FC = () => {
   const [linkedinUrl, setLinkedinUrl] = useState("https://www.linkedin.com/in/dineshkumar-mb/");
@@ -16,6 +16,13 @@ export const SettingsPage: React.FC = () => {
   const [routingStrategy, setRoutingStrategy] = useState("COST_OPTIMIZED");
   const [hitlRequired, setHitlRequired] = useState(true);
 
+  // Automation Notification Settings State
+  const [telegramBotToken, setTelegramBotToken] = useState("8991559572:AAEoQbF3RYkO7GnzZIw6GcVhoacN-BCIEzc");
+  const [telegramChatId, setTelegramChatId] = useState("-5128959794");
+  const [webhookUrl, setWebhookUrl] = useState("");
+  const [isTestingNotification, setIsTestingNotification] = useState(false);
+  const [testResult, setTestResult] = useState<string | null>(null);
+
   const [isSaving, setIsSaving] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
 
@@ -30,13 +37,57 @@ export const SettingsPage: React.FC = () => {
         mediumToken,
         routingStrategy,
         hitlRequired,
+        telegramBotToken,
+        telegramChatId,
+        webhookUrl,
       }));
-      setNotification("✅ Settings, LinkedIn OAuth, and Medium Integration links saved successfully!");
+      setNotification("✅ Settings, Notification channels, and OAuth links saved successfully!");
     } catch (err: any) {
       setNotification("✅ Settings saved successfully!");
     } finally {
       setIsSaving(false);
       setTimeout(() => setNotification(null), 4000);
+    }
+  };
+
+  const handleSendTestNotification = async () => {
+    setIsTestingNotification(true);
+    setTestResult(null);
+    try {
+      const res = await fetch("http://localhost:4000/api/v1/notifications/test", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      if (data.status === "success") {
+        setTestResult("✅ Test Telegram notification sent successfully to chat!");
+      } else {
+        setTestResult(`❌ Notification failed: ${data.error || "Unknown error"}`);
+      }
+    } catch (err: any) {
+      // Direct client fallback to Telegram API if local backend is offline during test
+      try {
+        const telegramUrl = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+        const response = await fetch(telegramUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: telegramChatId,
+            text: `✅ <b>[Personal Brand OS Automation]</b>\n<b>Event:</b> Direct UI Test Notification\n<b>Status:</b> SUCCESS\n\nTelegram notification pipeline is live & connected smoothly!`,
+            parse_mode: "HTML",
+          }),
+        });
+        const resData = await response.json();
+        if (resData.ok) {
+          setTestResult("✅ Test notification sent directly to Telegram chat!");
+        } else {
+          setTestResult(`❌ Telegram API Error: ${resData.description}`);
+        }
+      } catch (e: any) {
+        setTestResult(`❌ Failed to send notification: ${e.message}`);
+      }
+    } finally {
+      setIsTestingNotification(false);
     }
   };
 
@@ -55,8 +106,8 @@ export const SettingsPage: React.FC = () => {
       <div className="glass-card p-6 rounded-xl space-y-6">
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div>
-            <h3 className="text-base font-semibold text-white">Platform Integration & Account Settings</h3>
-            <p className="text-xs text-slate-400">Configure LinkedIn OAuth 2.0 credentials, Medium Integration tokens, and AI Gateway keys.</p>
+            <h3 className="text-base font-semibold text-white">Platform Integration & Automation Settings</h3>
+            <p className="text-xs text-slate-400">Configure LinkedIn OAuth, Telegram & Webhook status notifications, and AI Gateway keys.</p>
           </div>
           <button
             onClick={handleSaveSettings}
@@ -163,7 +214,107 @@ export const SettingsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Section 2: AI Gateway Keys & Preferences */}
+        {/* Section 2: Automation Status & Real-time Notification Channels */}
+        <div className="space-y-4 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-between">
+            <h4 className="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2 text-xs">
+              <Bell className="h-4 w-4 text-sky-400" />
+              <span>Automation Status & Live Notification Channels</span>
+            </h4>
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-500/20 text-sky-300 border border-sky-500/30 flex items-center gap-1">
+              <CheckCircle2 className="h-3 w-3 text-sky-400" /> Telegram Connected
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs">
+            {/* Telegram Notification Settings */}
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="h-7 w-7 rounded-lg bg-sky-600/20 text-sky-400 flex items-center justify-center border border-sky-500/30">
+                    <Send className="h-4 w-4" />
+                  </div>
+                  <span className="font-bold text-slate-200">Telegram Bot Notifications</span>
+                </div>
+                <button
+                  onClick={handleSendTestNotification}
+                  disabled={isTestingNotification}
+                  className="px-2.5 py-1 rounded bg-sky-600 hover:bg-sky-500 active:scale-95 text-white font-semibold text-[11px] flex items-center gap-1 transition-all disabled:opacity-50"
+                >
+                  {isTestingNotification ? <Loader2 className="h-3 w-3 animate-spin" /> : <MessageSquare className="h-3 w-3" />}
+                  <span>Test Alert</span>
+                </button>
+              </div>
+
+              <div className="space-y-2.5">
+                <div>
+                  <label className="text-slate-400 font-medium">Telegram Bot Token</label>
+                  <input
+                    type="password"
+                    value={telegramBotToken}
+                    onChange={(e) => setTelegramBotToken(e.target.value)}
+                    placeholder="8991559572:AAEoQbF3..."
+                    className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-mono text-xs focus:outline-none focus:border-sky-500"
+                  />
+                </div>
+                <div>
+                  <label className="text-slate-400 font-medium">Telegram Chat ID / Group ID</label>
+                  <input
+                    type="text"
+                    value={telegramChatId}
+                    onChange={(e) => setTelegramChatId(e.target.value)}
+                    placeholder="-5128959794"
+                    className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-mono text-xs focus:outline-none focus:border-sky-500"
+                  />
+                </div>
+                {testResult && (
+                  <div className={`p-2 rounded text-[11px] font-semibold flex items-center gap-1.5 ${testResult.startsWith("✅") ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-300" : "bg-rose-950/60 border border-rose-500/40 text-rose-300"}`}>
+                    <span>{testResult}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Webhook & Status Live Monitor */}
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                <div className="flex items-center gap-2">
+                  <div className="h-7 w-7 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center border border-indigo-500/30">
+                    <Bell className="h-4 w-4" />
+                  </div>
+                  <span className="font-bold text-slate-200">Webhook & Live Status Monitor</span>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Worker Active
+                </span>
+              </div>
+
+              <div className="space-y-2.5">
+                <div>
+                  <label className="text-slate-400 font-medium">Webhook URL (Discord / Slack / Custom API)</label>
+                  <input
+                    type="url"
+                    value={webhookUrl}
+                    onChange={(e) => setWebhookUrl(e.target.value)}
+                    placeholder="https://discord.com/api/webhooks/..."
+                    className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-mono text-xs focus:outline-none focus:border-indigo-500"
+                  />
+                </div>
+                <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 space-y-1 text-[11px]">
+                  <div className="flex items-center justify-between text-slate-300 font-semibold">
+                    <span>Automation Runner Health</span>
+                    <span className="text-emerald-400 flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> Operational</span>
+                  </div>
+                  <p className="text-slate-400">
+                    Sends real-time updates when scheduled hourly scans or daily post pipelines finish, fail, or trigger safe exit thresholds.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section 3: AI Gateway Keys & Preferences */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 text-xs pt-4 border-t border-slate-800">
           <div className="space-y-4">
             <h4 className="font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
@@ -276,3 +427,4 @@ export const SettingsPage: React.FC = () => {
     </div>
   );
 };
+

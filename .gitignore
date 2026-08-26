@@ -1,9 +1,11 @@
 # Environment & Secrets (CRITICAL: NEVER COMMIT REAL KEYS)
 .env
+.env.example
 .env.local
 .env.*.local
 *.pem
 *.key
+
 
 # Node Modules & Package Manager Caches
 node_modules/
