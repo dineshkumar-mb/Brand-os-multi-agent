@@ -117,36 +117,44 @@ export class NotificationService {
     }
   }
 
+  private escapeHtml(str: string): string {
+    if (!str) return "";
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
   public async sendAutomationNotification(payload: NotificationPayload): Promise<{ telegram: boolean; webhook: boolean }> {
     const { status, title, pipelineId, message, topicTitle, qualityScore, candidatesEvaluated, rejectionReasons, errorMessage, durationSeconds } = payload;
 
     const emoji = status === "SUCCESS" ? "✅" : status === "NO_POST_TODAY" ? "⚠️" : status === "ERROR" ? "❌" : "ℹ️";
     
     let formattedText = `${emoji} <b>[Personal Brand OS Automation]</b>\n`;
-    formattedText += `<b>Event:</b> ${title}\n`;
-    formattedText += `<b>Status:</b> ${status}\n`;
-    if (pipelineId) formattedText += `<b>Pipeline ID:</b> <code>${pipelineId}</code>\n`;
+    formattedText += `<b>Event:</b> ${this.escapeHtml(title)}\n`;
+    formattedText += `<b>Status:</b> ${this.escapeHtml(status)}\n`;
+    if (pipelineId) formattedText += `<b>Pipeline ID:</b> <code>${this.escapeHtml(pipelineId)}</code>\n`;
     if (durationSeconds) formattedText += `<b>Duration:</b> ${durationSeconds}s\n`;
     if (candidatesEvaluated !== undefined) formattedText += `<b>Candidates Evaluated:</b> ${candidatesEvaluated}\n`;
     
     if (topicTitle) {
-      formattedText += `<b>Selected Topic:</b> "${topicTitle}"\n`;
+      formattedText += `<b>Selected Topic:</b> "${this.escapeHtml(topicTitle)}"\n`;
     }
     if (qualityScore !== undefined) {
       formattedText += `<b>Overall Quality Score:</b> <b>${qualityScore}/100</b>\n`;
     }
 
-    formattedText += `\n${message}\n`;
+    formattedText += `\n${this.escapeHtml(message)}\n`;
 
     if (rejectionReasons && rejectionReasons.length > 0) {
       formattedText += `\n<b>Quality Rejection Reasons:</b>\n`;
       rejectionReasons.forEach((r) => {
-        formattedText += `• <code>${r}</code>\n`;
+        formattedText += `• <code>${this.escapeHtml(r)}</code>\n`;
       });
     }
 
     if (errorMessage) {
-      formattedText += `\n<b>Error Details:</b>\n<code>${errorMessage.substring(0, 300)}</code>\n`;
+      formattedText += `\n<b>Error Details:</b>\n<code>${this.escapeHtml(errorMessage.substring(0, 300))}</code>\n`;
     }
 
     formattedText += `\n<i>Time: ${new Date().toLocaleString()}</i>`;
