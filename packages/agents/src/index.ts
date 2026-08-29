@@ -632,23 +632,38 @@ export class AgentOrchestrator {
     const audienceRes = this.audienceResearchAgent.analyzeAudience(selectedTopic, pipelineId);
 
     const writingContext: WritingContext = {
-      topic: selectedTopic,
-      targetAudience: audienceRes.data.primaryPersona || "Full-Stack AI Engineers",
-      narrativePattern: "BUILD_IN_PUBLIC",
-      targetLengthWords: 350,
-      visualTypeNeeded: VisualType.ARCHITECTURE_DIAGRAM,
-      researchSummary: research.summary,
-      minedExperience: {
-        foundMatch: true,
-        projectContext: experience.description,
-        realWorldProblem: experience.challengesFaced[0],
-        engineeringDecision: experience.solutionApproach,
-        tradeoffsFaced: experience.tradeoffs,
-        quantifiableOutcome: experience.metricsOrOutcome,
-        lessonsLearned: experience.keyLessons,
+      event: { title: selectedTopic.title, summary: research.summary, sourceLevel: 1 },
+      engineeringProblem: selectedTopic.title,
+      personalExperience: [{
+        experienceId: `exp_fallback_${Date.now()}`,
+        title: selectedTopic.title,
+        relevanceScore: 100,
+        overlapDescription: experience.description,
+        technologiesUsed: selectedTopic.supportingTech,
+        problem: experience.challengesFaced[0],
+        context: experience.description,
+        action: experience.solutionApproach,
+        decision: experience.solutionApproach,
+        result: experience.metricsOrOutcome,
+        technologies: selectedTopic.supportingTech,
+      }],
+      architectureDecision: {
+        options: [experience.solutionApproach, "Manual / Non-automated Workarounds"],
+        chosen: experience.solutionApproach,
+        rejected: ["Manual / Non-automated Workarounds"],
+        reason: experience.keyLessons[0] || "Ensures reliability and scalability",
       },
-      engineeringTensions: experience.tradeoffs,
-      codeSnippetOrArchitecture: `// Active Engineering Project: ${selectedTopic.title}\n// Tech Stack: ${selectedTopic.supportingTech.join(", ")}\n// Outcome: ${experience.metricsOrOutcome}`,
+      evidence: [{ source: selectedTopic.title, authorityLevel: 1 }],
+      audience: {
+        role: audienceRes.data?.primaryAudience || "Senior Engineers",
+        relevanceReason: audienceRes.data?.whyAudienceCares || "Production engineering relevance",
+        targetPainPoints: audienceRes.data?.keyPainPoints || [],
+        keyMotivations: ["System Architecture", "Performance Optimization"],
+      },
+      format: FormatStyle.BUILD_IN_PUBLIC,
+      previousFormats: [],
+      previousHooks: [],
+      previousVisualTypes: [],
     };
 
     const minedExp = {
@@ -756,7 +771,7 @@ export class AgentOrchestrator {
         starStructure: true,
       },
       visual: {
-        type: visualPlan.diagramType || "ARCHITECTURE_DIAGRAM",
+        type: (visualPlan as any).diagramType || visualPlan.diagramSpec?.title || "ARCHITECTURE_DIAGRAM",
         noveltyScore: 95,
       },
       quality: qualityGateResult,

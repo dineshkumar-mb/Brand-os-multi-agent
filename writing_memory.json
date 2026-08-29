@@ -1,5 +1,131 @@
 [
   {
+    "topic": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "hook": "There were two technically sound ways to structure Backend Engineering.\n\nNeither option was free.",
+    "hookType": "TRADEOFF",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TEAM_PRACTICE",
+    "ctaText": "What telemetry would you instrument before shipping this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services change for Backend Engineering to production?",
+    "vocabulary": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 89,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 90,
+      "readability": 88,
+      "careerSignal": 95,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 90,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 93,
+      "storytellingScore": 92,
+      "recruiterValueScore": 95,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 92,
+      "overall": 92,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "BUILD_IN_PUBLIC",
+    "formatStyle": "SYSTEM_DESIGN_BREAKDOWN",
+    "starStory": {
+      "situation": {
+        "context": "Operating high-throughput Node.js application gateways handling persistent client connections.",
+        "trigger": "Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.",
+        "stakes": "Intermittent client disconnections and dropped payloads during container recycles.",
+        "curiosityTension": "Traditional log monitoring showed normal throughput, hiding the internal memory build-up."
+      },
+      "task": {
+        "objective": "Locate the leak source and stabilize container heap usage under 512MB.",
+        "constraints": [
+          "Must monitor heap allocations without blocking server execution",
+          "Cannot modify V8 collection intervals"
+        ],
+        "successCriteria": [
+          "Flat memory utilization patterns under load",
+          "Zero OOM container restarts"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Scheduling nightly container restarts to mask the memory leak",
+          "Option B: Generating V8 heap snapshot diffs under load using clinic.js profiling"
+        ],
+        "chosenApproach": "Option B: heap snapshot comparison to locate persistent closure scopes.",
+        "rejectedApproaches": [
+          "Option A rejected: scheduled restarts hide structural bugs and disconnect active users"
+        ],
+        "reasoning": "We chose  over Immediate strict consistency during cache propagation windows because heap diffs show exactly which references are not garbage collected.",
+        "decisionMoment": "An OOM crash during peak transaction throughput was the trigger to dump memory.",
+        "implementation": "Refactored EventListener registers in middleware to prevent closures from capturing scopes.",
+        "debugging": "Generated load with autocannon while capturing memory dumps in staging."
+      },
+      "result": {
+        "outcome": "Memory growth eliminated. Process restart interval extended from daily to 30-day rolling cycles. P99 latency improved by 18ms.",
+        "metrics": [
+          "Zero OOM container crashes",
+          "Restart interval extended to 30 days"
+        ],
+        "evidence": [
+          "Prometheus memory monitors",
+          "V8 heapdump file reports"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "JavaScript leaks are reference leaks. Closure scopes are the most common source of memory growth under load.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Immediate strict consistency during cache propagation windows"
+        ],
+        "whenNotToUse": [
+          "Do not profile memory for short-lived worker scripts where execution terminates quickly."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1788016490645_p0nvk",
+    "timestamp": "2026-08-29T15:14:50.645Z"
+  },
+  {
     "topic": "torvalds/linux — Linux kernel source tree Built with C.",
     "category": "C",
     "framework": "Architecture",

@@ -1,5 +1,19 @@
 [
   {
+    "topicId": "cand_32_1788016490625",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-29T15:14:50.680Z"
+  },
+  {
+    "topicId": "cand_32_1788016490625",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-29T15:14:50.639Z"
+  },
+  {
     "topicId": "cand_23_1788016241279",
     "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
     "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",

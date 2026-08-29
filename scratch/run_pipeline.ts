@@ -347,7 +347,7 @@ async function main() {
   if (mediumToken) {
     logStructured("INFO", "publisher", `Dispatching article to Medium Publisher in [${mode}] mode...`, { pipelineId });
     try {
-      mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.mediumArticle, { mode: mode as any });
+      mediumPublishResult = await publisherService.publish(Platform.MEDIUM, swarmResult.devToArticle, { mode: mode as any });
       if (mediumPublishResult.success) {
         logStructured("INFO", "publisher", `Medium article published successfully!`, { url: mediumPublishResult.url, mode: mediumPublishResult.mode, pipelineId });
       } else {
@@ -364,7 +364,7 @@ async function main() {
   if (devtoApiKey || mode === PublishMode.LIVE) {
     logStructured("INFO", "publisher", `Dispatching article to Dev.to Publisher in [${mode}] mode...`, { pipelineId });
     try {
-      devtoPublishResult = await publisherService.publish(Platform.DEVTO, swarmResult.mediumArticle, { mode: mode as any });
+      devtoPublishResult = await publisherService.publish(Platform.DEVTO, swarmResult.devToArticle, { mode: mode as any });
       if (devtoPublishResult.success) {
         logStructured("INFO", "publisher", `Dev.to article published successfully!`, { url: devtoPublishResult.url, mode: devtoPublishResult.mode, pipelineId });
       } else {
