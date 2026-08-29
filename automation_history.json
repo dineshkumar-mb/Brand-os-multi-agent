@@ -1,0 +1,13 @@
+[
+  {
+    "pipelineId": "32fb4822-f851-4eea-9044-b0770554b1b7",
+    "timestamp": "2026-08-29T15:09:47.574Z",
+    "durationMs": 43514,
+    "status": "SUCCESS",
+    "winnerTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "overallScore": 85,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  }
+]

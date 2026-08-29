@@ -4,7 +4,8 @@ import fs from "fs";
 import path from "path";
 import { agentOrchestrator } from "../packages/agents/src/index";
 import { publisherService, MissingAccessTokenError } from "../packages/publisher/src/index";
-import { Platform, notificationService, automationTracker } from "../packages/shared/src/index";
+import { Platform } from "../packages/shared/src/index";
+import { notificationService, automationTracker } from "../packages/shared/src/notification-service";
 
 import { preflightService } from "../packages/preflight/src/index";
 import { prisma } from "../packages/database/src/index";

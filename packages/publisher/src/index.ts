@@ -488,10 +488,10 @@ export class MediumPublisherAdapter implements IPublisherAdapter {
               Accept: "application/json",
             },
             body: JSON.stringify({
-              title: content.title || "Technical Insights & Architecture Blueprint",
+              title: content?.title || "Technical Insights & Architecture Blueprint",
               contentFormat: "markdown",
-              content: content.fullMarkdown || content.fullText || `${content.title}\n\n${content.introduction || ""}`,
-              tags: (content.seoKeywords || content.hashtags || ["technology", "software-engineering", "typescript"]).slice(0, 5),
+              content: content?.fullMarkdown || content?.fullText || `${content?.title || "Technical Post"}\n\n${content?.introduction || ""}`,
+              tags: (content?.seoKeywords || content?.hashtags || ["technology", "software-engineering", "typescript"]).slice(0, 5),
               publishStatus: "public",
             }),
           });
@@ -637,7 +637,7 @@ export class DevtoPublisherAdapter implements IPublisherAdapter {
 
         try {
           console.log("[Dev.to Publisher 📝] Publishing article via Dev.to REST API...");
-          const cleanTags = (content.seoKeywords || content.hashtags || ["technology", "typescript", "webdev"])
+          const cleanTags = (content?.seoKeywords || content?.hashtags || ["technology", "typescript", "webdev"])
             .map((t: string) => t.replace(/[^a-zA-Z0-9]/g, "").toLowerCase())
             .filter(Boolean)
             .slice(0, 4);
@@ -651,7 +651,7 @@ export class DevtoPublisherAdapter implements IPublisherAdapter {
             },
             body: JSON.stringify({
               article: {
-                title: content.title || "Technical Architecture & System Insights",
+                title: content?.title || "Technical Architecture & System Insights",
                 published: true,
                 body_markdown: content.fullMarkdown || content.fullText || `${content.title}\n\n${content.introduction || ""}`,
                 tags: cleanTags,

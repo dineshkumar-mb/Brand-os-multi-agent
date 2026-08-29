@@ -129,6 +129,7 @@ describe("NO_POST_TODAY Policy & Diagnostic Outputs", () => {
       autoPublish: false,
       pipelineId: "no_post_test_novelty",
       historicalPosts: postHistoryTracker.getHistory(),
+      allowFallbackProject: false,
     });
 
     expect(res.status).toBe("NO_POST_TODAY");

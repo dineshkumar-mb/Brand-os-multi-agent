@@ -105,7 +105,22 @@ export class NotificationService {
 
       const resData = await response.json();
       if (!resData.ok) {
-        console.error("[NotificationService] Telegram API error:", resData.description);
+        console.error("[NotificationService] Telegram HTML message failed, attempting plain-text fallback. Error:", resData.description);
+        const plainText = text.replace(/<[^>]*>/g, "");
+        const fallbackRes = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: plainText,
+            disable_web_page_preview: true,
+          }),
+        });
+        const fallbackData = await fallbackRes.json();
+        if (fallbackData.ok) {
+          console.log("[NotificationService] Telegram notification delivered successfully via plain-text fallback.");
+          return { success: true };
+        }
         return { success: false, error: resData.description };
       }
 

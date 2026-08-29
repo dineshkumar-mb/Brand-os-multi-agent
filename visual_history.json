@@ -1,5 +1,89 @@
 [
   {
+    "topicId": "cand_23_1788016241279",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:10:42.379Z"
+  },
+  {
+    "topicId": "cand_23_1788016241279",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:10:42.153Z"
+  },
+  {
+    "topicId": "cand_23_1788016159864",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:09:20.757Z"
+  },
+  {
+    "topicId": "cand_23_1788016159864",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:09:20.506Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-08-29T15:08:36.536Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-08-29T15:08:36.444Z"
+  },
+  {
+    "topicId": "cand_23_1788016115064",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:08:36.102Z"
+  },
+  {
+    "topicId": "cand_23_1788016115064",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:08:35.930Z"
+  },
+  {
+    "topicId": "cand_23_1788016033974",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:07:15.074Z"
+  },
+  {
+    "topicId": "cand_23_1788016033974",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-29T15:07:14.911Z"
+  },
+  {
+    "topicId": "cand_31_1788015951016",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-29T15:05:51.285Z"
+  },
+  {
+    "topicId": "cand_31_1788015951016",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-29T15:05:51.132Z"
+  },
+  {
     "topicId": "cand_28_1787675558148",
     "conceptTitle": "What Do You Do While AI Codes?",
     "diagramType": "What Do You Do While AI Codes? Architecture Blueprint",
