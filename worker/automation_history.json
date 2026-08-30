@@ -1,0 +1,13 @@
+[
+  {
+    "pipelineId": "pl_rdg2aw1yh",
+    "timestamp": "2026-08-30T12:59:03.313Z",
+    "durationMs": 10499,
+    "status": "SUCCESS",
+    "winnerTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "overallScore": 91,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  }
+]

@@ -1,0 +1,30 @@
+[
+  {
+    "topicId": "cand_27_1788094847553",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T13:00:47.601Z"
+  },
+  {
+    "topicId": "cand_27_1788094847553",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T13:00:47.573Z"
+  },
+  {
+    "topicId": "cand_18_1788094820106",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-30T13:00:20.222Z"
+  },
+  {
+    "topicId": "cand_18_1788094820106",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Designing Columnar Analytics Sch Architecture Blueprint",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Designing Columnar Analytics Sch Architecture Blueprint",
+    "createdAt": "2026-08-30T13:00:20.168Z"
+  }
+]

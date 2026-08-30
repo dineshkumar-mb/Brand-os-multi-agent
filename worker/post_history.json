@@ -1,0 +1,88 @@
+[
+  {
+    "id": "urn:li:share:841936626",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design. Before: Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Target: Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) Change: Option B: Multi-stage distroless base image transition with Buildx target isolation After: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities Tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging Secure container design means shipping only execution binaries How does your team handle the Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images trade-off when scaling DevOps under load? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-08-30T12:59:03.305Z",
+    "engagementMetrics": {
+      "impressions": 237,
+      "reactions": 24,
+      "comments": 3,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 11,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:7486750714623414272",
+    "title": "Building an Autonomous Multi-Agent Personal Brand OS",
+    "platform": "LINKEDIN",
+    "category": "Agentic AI",
+    "framework": "MCP",
+    "supportingTech": [
+      "TypeScript",
+      "Node.js",
+      "Redis"
+    ],
+    "keywords": [
+      "Multi-Agent",
+      "MCP",
+      "AI OS",
+      "TypeScript"
+    ],
+    "hook": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.",
+    "fullText": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.\n\nWe refactored our pipeline to use decoupled event-driven architecture.\n\nKey Engineering Takeaways:\n⚡ 1. Standardize JSON-RPC tool schemas.\n⚡ 2. Enforce strict Decision Gate verification before publishing.\n\nHow is your team handling agent state drift?",
+    "publishedAt": "2026-08-25T12:58:51.888Z",
+    "engagementMetrics": {
+      "impressions": 342,
+      "reactions": 42,
+      "comments": 12,
+      "shares": 6,
+      "saves": 4,
+      "profileVisits": 18,
+      "followersGained": 12
+    }
+  },
+  {
+    "id": "urn:li:share:7486717437455900672",
+    "title": "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+    "platform": "LINKEDIN",
+    "category": "React",
+    "framework": "React 19",
+    "supportingTech": [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS"
+    ],
+    "keywords": [
+      "React 19",
+      "Compiler",
+      "Server Actions"
+    ],
+    "hook": "Stop writing repetitive form mutations in React. React 19 server actions change everything.",
+    "fullText": "Stop writing repetitive form mutations in React. React 19 server actions change everything.\n\nWe refactored 40+ forms into zero-boilerplate async server mutations.\n\nKey Takeaways:\n⚡ 1. Zero client-side JS overhead for form hooks.\n⚡ 2. Automatic optimistic updates.\n\nWhat has been your experience with React 19 in production?",
+    "publishedAt": "2026-08-24T12:58:51.888Z",
+    "engagementMetrics": {
+      "impressions": 512,
+      "reactions": 64,
+      "comments": 18,
+      "shares": 9,
+      "saves": 8,
+      "profileVisits": 20,
+      "followersGained": 15
+    }
+  }
+]

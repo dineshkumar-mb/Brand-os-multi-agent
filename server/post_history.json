@@ -1,0 +1,115 @@
+[
+  {
+    "id": "urn:li:share:850159120",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design. Context: Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Goal: Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) Decision: Option B: Multi-stage distroless base image transition with Buildx target isolation Tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging Outcome: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (42% vs 78%) Conclusion: Secure container design means shipping only execution binaries Would you optimize Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images for latency or cost here if DevOps request volume doubled? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-08-30T13:00:47.606Z",
+    "engagementMetrics": {
+      "impressions": 220,
+      "reactions": 39,
+      "comments": 2,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:220071406",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "I expected Databases to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts.",
+    "fullText": "I expected Databases to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 80% reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How does your team handle the Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale trade-off when scaling Databases under load? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-08-30T13:00:20.230Z",
+    "engagementMetrics": {
+      "impressions": 158,
+      "reactions": 37,
+      "comments": 4,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 9,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:7486750714623414272",
+    "title": "Building an Autonomous Multi-Agent Personal Brand OS",
+    "platform": "LINKEDIN",
+    "category": "Agentic AI",
+    "framework": "MCP",
+    "supportingTech": [
+      "TypeScript",
+      "Node.js",
+      "Redis"
+    ],
+    "keywords": [
+      "Multi-Agent",
+      "MCP",
+      "AI OS",
+      "TypeScript"
+    ],
+    "hook": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.",
+    "fullText": "Building production multi-agent swarms taught our team a hard lesson about state boundaries.\n\nWe refactored our pipeline to use decoupled event-driven architecture.\n\nKey Engineering Takeaways:\n⚡ 1. Standardize JSON-RPC tool schemas.\n⚡ 2. Enforce strict Decision Gate verification before publishing.\n\nHow is your team handling agent state drift?",
+    "publishedAt": "2026-08-25T12:58:57.646Z",
+    "engagementMetrics": {
+      "impressions": 342,
+      "reactions": 42,
+      "comments": 12,
+      "shares": 6,
+      "saves": 4,
+      "profileVisits": 18,
+      "followersGained": 12
+    }
+  },
+  {
+    "id": "urn:li:share:7486717437455900672",
+    "title": "React 19 Actions & Compiler Optimization in Enterprise SaaS",
+    "platform": "LINKEDIN",
+    "category": "React",
+    "framework": "React 19",
+    "supportingTech": [
+      "Next.js",
+      "TypeScript",
+      "TailwindCSS"
+    ],
+    "keywords": [
+      "React 19",
+      "Compiler",
+      "Server Actions"
+    ],
+    "hook": "Stop writing repetitive form mutations in React. React 19 server actions change everything.",
+    "fullText": "Stop writing repetitive form mutations in React. React 19 server actions change everything.\n\nWe refactored 40+ forms into zero-boilerplate async server mutations.\n\nKey Takeaways:\n⚡ 1. Zero client-side JS overhead for form hooks.\n⚡ 2. Automatic optimistic updates.\n\nWhat has been your experience with React 19 in production?",
+    "publishedAt": "2026-08-24T12:58:57.646Z",
+    "engagementMetrics": {
+      "impressions": 512,
+      "reactions": 64,
+      "comments": 18,
+      "shares": 9,
+      "saves": 8,
+      "profileVisits": 20,
+      "followersGained": 15
+    }
+  }
+]
