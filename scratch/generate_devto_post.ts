@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
 import { agentOrchestrator } from "../packages/agents/src/index";
 
@@ -16,25 +15,29 @@ async function main() {
     console.log("\n=======================================================");
     console.log("✅ AGENT SWARM EXECUTION SUCCESSFUL!");
     console.log("=======================================================");
-    console.log(`📌 Base Topic Title: "${result.topic.title}"`);
-    console.log(`✨ New Dynamic DEV.to Title: "${result.devToArticle?.title}"`);
-    console.log(`🏷️ DEV.to Tags: ${JSON.stringify(result.devToArticle?.tags)}`);
-    console.log(`🎯 Quality Gate: ${result.decisionGate?.decision} (Approved: ${result.decisionGate?.approvedForPublishing})`);
+    if (result.status === "POST_READY") {
+      console.log(`📌 Base Topic Title: "${result.topic.title}"`);
+      console.log(`✨ New Dynamic DEV.to Title: "${result.devToArticle?.title}"`);
+      console.log(`🏷️ DEV.to Tags: ${JSON.stringify(result.devToArticle?.tags)}`);
+      console.log(`🎯 Quality Gate: ${result.decisionGate?.decision} (Approved: ${result.decisionGate?.approvedForPublishing})`);
 
-    console.log("\n=======================================================");
-    console.log("📝 GENERATED DEV.TO MARKDOWN ARTICLE");
-    console.log("=======================================================");
-    console.log(result.devToArticle?.markdownContent);
-
-    if (result.publishResult) {
       console.log("\n=======================================================");
-      console.log("📢 PUBLISHING STATUS");
+      console.log("📝 GENERATED DEV.TO MARKDOWN ARTICLE");
       console.log("=======================================================");
-      console.log(`- Success: ${result.publishResult.success}`);
-      console.log(`- Platform: ${result.publishResult.platform}`);
-      console.log(`- Mode: ${result.publishResult.mode}`);
-      console.log(`- URL: ${result.publishResult.url}`);
-      console.log(`- Message: ${result.publishResult.message}`);
+      console.log(result.devToArticle?.markdownContent);
+
+      if (result.publishResult) {
+        console.log("\n=======================================================");
+        console.log("📢 PUBLISHING STATUS");
+        console.log("=======================================================");
+        console.log(`- Success: ${result.publishResult.success}`);
+        console.log(`- Platform: ${result.publishResult.platform}`);
+        console.log(`- Mode: ${result.publishResult.mode}`);
+        console.log(`- URL: ${result.publishResult.url}`);
+        console.log(`- Message: ${result.publishResult.message}`);
+      }
+    } else {
+      console.log(`ℹ️ Pipeline Result: ${result.status} - ${result.reason}`);
     }
 
   } catch (err: any) {

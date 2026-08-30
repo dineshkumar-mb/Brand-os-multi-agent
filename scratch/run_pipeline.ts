@@ -502,14 +502,17 @@ ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediu
     publishedPlatforms: ["LinkedIn"],
   });
 
+  const isSim = publishResult.mode === "SIMULATION";
   await notificationService.sendAutomationNotification({
-    title: "Daily Swarm Pipeline Published Successfully",
+    title: isSim ? "Daily Swarm Pipeline Executed (Simulation Sandbox)" : "Daily Swarm Pipeline Published Successfully",
     status: "SUCCESS",
     pipelineId,
-    message: `Content swarm successfully generated, verified, and published post to LinkedIn.`,
+    message: isSim ? "Content swarm generated and tested post payload in Simulation Mode." : "Content swarm successfully generated, verified, and published post to LinkedIn.",
     topicTitle: swarmResult.topic.title,
     qualityScore: swarmResult.review?.overallScore || 90,
     durationSeconds: Math.round(durationMs / 1000),
+    publishMode: publishResult.mode,
+    postUrl: publishResult.url,
   });
 }
 

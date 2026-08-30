@@ -74,6 +74,8 @@ export interface NotificationPayload {
   rejectionReasons?: string[];
   errorMessage?: string;
   durationSeconds?: number;
+  publishMode?: string;
+  postUrl?: string;
 }
 
 export class NotificationService {
@@ -99,7 +101,7 @@ export class NotificationService {
           chat_id: chatId,
           text,
           parse_mode: "HTML",
-          disable_web_page_preview: true,
+          disable_web_page_preview: false,
         }),
       });
 
@@ -113,7 +115,7 @@ export class NotificationService {
           body: JSON.stringify({
             chat_id: chatId,
             text: plainText,
-            disable_web_page_preview: true,
+            disable_web_page_preview: false,
           }),
         });
         const fallbackData = await fallbackRes.json();
@@ -141,13 +143,17 @@ export class NotificationService {
   }
 
   public async sendAutomationNotification(payload: NotificationPayload): Promise<{ telegram: boolean; webhook: boolean }> {
-    const { status, title, pipelineId, message, topicTitle, qualityScore, candidatesEvaluated, rejectionReasons, errorMessage, durationSeconds } = payload;
+    const { status, title, pipelineId, message, topicTitle, qualityScore, candidatesEvaluated, rejectionReasons, errorMessage, durationSeconds, publishMode, postUrl } = payload;
 
-    const emoji = status === "SUCCESS" ? "✅" : status === "NO_POST_TODAY" ? "⚠️" : status === "ERROR" ? "❌" : "ℹ️";
+    const isSimulation = publishMode?.toUpperCase() === "SIMULATION";
+    const emoji = status === "SUCCESS" ? (isSimulation ? "🧪" : "✅") : status === "NO_POST_TODAY" ? "⚠️" : status === "ERROR" ? "❌" : "ℹ️";
     
-    let formattedText = `${emoji} <b>[Personal Brand OS Automation]</b>\n`;
+    let formattedText = `${emoji} <b>[Personal Brand OS ${isSimulation ? "(SIMULATION)" : "Automation"}]</b>\n`;
     formattedText += `<b>Event:</b> ${this.escapeHtml(title)}\n`;
     formattedText += `<b>Status:</b> ${this.escapeHtml(status)}\n`;
+    if (publishMode) {
+      formattedText += `<b>Publish Mode:</b> ${isSimulation ? "🧪 SIMULATION (Not posted live)" : "🌐 LIVE"}\n`;
+    }
     if (pipelineId) formattedText += `<b>Pipeline ID:</b> <code>${this.escapeHtml(pipelineId)}</code>\n`;
     if (durationSeconds) formattedText += `<b>Duration:</b> ${durationSeconds}s\n`;
     if (candidatesEvaluated !== undefined) formattedText += `<b>Candidates Evaluated:</b> ${candidatesEvaluated}\n`;
@@ -157,6 +163,9 @@ export class NotificationService {
     }
     if (qualityScore !== undefined) {
       formattedText += `<b>Overall Quality Score:</b> <b>${qualityScore}/100</b>\n`;
+    }
+    if (postUrl) {
+      formattedText += `<b>LinkedIn Post URL:</b> <a href="${this.escapeHtml(postUrl)}">${this.escapeHtml(postUrl)}</a>\n`;
     }
 
     formattedText += `\n${this.escapeHtml(message)}\n`;

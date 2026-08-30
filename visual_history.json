@@ -1,5 +1,187 @@
 [
   {
+    "topicId": "cand_23_1788089436013",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:36.065Z"
+  },
+  {
+    "topicId": "cand_23_1788089436013",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:36.031Z"
+  },
+  {
+    "topicId": "cand_15_1788089431950",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:30:32.011Z"
+  },
+  {
+    "topicId": "cand_15_1788089431950",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:30:31.976Z"
+  },
+  {
+    "topicId": "cand_32_1788089428468",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:28.513Z"
+  },
+  {
+    "topicId": "cand_32_1788089428468",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:28.481Z"
+  },
+  {
+    "topicId": "cand_31_1788089425265",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:30:25.313Z"
+  },
+  {
+    "topicId": "cand_31_1788089425265",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:30:25.279Z"
+  },
+  {
+    "topicId": "cand_32_1788089421544",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:21.610Z"
+  },
+  {
+    "topicId": "cand_33_1788089421526",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T11:30:21.591Z"
+  },
+  {
+    "topicId": "cand_32_1788089421544",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:30:21.568Z"
+  },
+  {
+    "topicId": "cand_33_1788089421526",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T11:30:21.553Z"
+  },
+  {
+    "topicId": "cand_23_1788088207479",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-30T11:10:07.627Z"
+  },
+  {
+    "topicId": "cand_23_1788088207479",
+    "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
+    "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",
+    "hash": "torvaldslinuxlinuxkernelsourcetreebuiltwithc_torvalds/linux — Linux kernel so Architecture Blueprint",
+    "createdAt": "2026-08-30T11:10:07.514Z"
+  },
+  {
+    "topicId": "cand_15_1788088202798",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:10:02.994Z"
+  },
+  {
+    "topicId": "cand_15_1788088202798",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:10:02.861Z"
+  },
+  {
+    "topicId": "cand_32_1788088197809",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:09:57.969Z"
+  },
+  {
+    "topicId": "cand_32_1788088197809",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:09:57.866Z"
+  },
+  {
+    "topicId": "cand_31_1788088192948",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:09:53.106Z"
+  },
+  {
+    "topicId": "cand_31_1788088192948",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T11:09:52.997Z"
+  },
+  {
+    "topicId": "cand_32_1788088188107",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:09:48.302Z"
+  },
+  {
+    "topicId": "cand_32_1788088188107",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:09:48.179Z"
+  },
+  {
+    "topicId": "cand_33_1788088187892",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T11:09:48.130Z"
+  },
+  {
+    "topicId": "cand_33_1788088187892",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Docker Buildx & Container Hardening",
+    "createdAt": "2026-08-30T11:09:47.975Z"
+  },
+  {
+    "topicId": "cand_32_1788087952487",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:05:52.732Z"
+  },
+  {
+    "topicId": "cand_32_1788087952487",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T11:05:52.609Z"
+  },
+  {
     "topicId": "cand_32_1788016490625",
     "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
     "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",

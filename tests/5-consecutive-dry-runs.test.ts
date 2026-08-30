@@ -23,7 +23,7 @@ describe("5 Consecutive Daily Content Intelligence Pipeline Runs", () => {
         historicalPosts: currentHistory,
       });
 
-      if (res.topic && res.topic.title && !currentHistory.some((h) => h.title === res.topic.title)) {
+      if (res.status === "POST_READY" && res.topic && res.topic.title && !currentHistory.some((h) => h.title === res.topic.title)) {
         postHistoryTracker.addPublishedPost({
           id: `dry_post_${day}`,
           title: res.topic.title,

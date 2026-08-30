@@ -49,10 +49,12 @@ describe("Active Project Fallback Post Pipeline", () => {
     });
 
     expect(res.status).toBe("POST_READY");
-    expect(res.topic).toBeDefined();
-    expect(res.topic.title).toBeDefined();
-    expect(res.linkedInPost).toBeDefined();
-    expect(res.linkedInPost.fullText.length).toBeGreaterThan(100);
-    expect(res.qualityGateResult?.passed).toBe(true);
+    if (res.status === "POST_READY") {
+      expect(res.topic).toBeDefined();
+      expect(res.topic.title).toBeDefined();
+      expect(res.linkedInPost).toBeDefined();
+      expect(res.linkedInPost.fullText.length).toBeGreaterThan(100);
+      expect(res.qualityGateResult?.passed).toBe(true);
+    }
   }, 60000);
 });

@@ -1,5 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config";
 
 import { publisherService } from "../packages/publisher/src/index";
 import { Platform, LinkedInPostPayload } from "../packages/shared/src/index";

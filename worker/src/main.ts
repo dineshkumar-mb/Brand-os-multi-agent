@@ -55,14 +55,26 @@ async function processQueue() {
         publishedPlatforms: ["LinkedIn"],
       });
 
+      const pubResult = result.publishResult;
+      const pubMode = pubResult?.mode || process.env.PUBLISH_MODE || "LIVE";
+      const isSim = pubMode.toUpperCase() === "SIMULATION";
+      const title = isSim
+        ? "Daily Content Pipeline Executed (Simulation Sandbox)"
+        : "Daily Content Pipeline Published Successfully";
+      const message = isSim
+        ? "Content swarm generated and tested post payload in Simulation Mode."
+        : "Content swarm successfully generated, verified, and auto-published post to LinkedIn.";
+
       await notificationService.sendAutomationNotification({
-        title: "Daily Content Pipeline Published Successfully",
+        title,
         status: "SUCCESS",
         pipelineId: result.pipelineId,
-        message: `Content swarm successfully generated, verified, and auto-published post to LinkedIn.`,
+        message,
         topicTitle: result.topic?.title,
         qualityScore: overallScore,
         durationSeconds,
+        publishMode: pubMode,
+        postUrl: pubResult?.url,
       });
     }
   } catch (err: any) {
