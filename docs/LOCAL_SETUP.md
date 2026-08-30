@@ -1,4 +1,4 @@
-# Personal Brand OS — Local Setup & Development Guide
+# Brand-os-multi-agent — Local Setup & Development Guide
 
 This guide details how to run the enterprise multi-agent platform locally according to industry standards.
 
@@ -7,7 +7,7 @@ This guide details how to run the enterprise multi-agent platform locally accord
 ## 📂 Industrial Monorepo Folder Structure
 
 ```text
-personal-brand-os/
+Brand-os-multi-agent/
 ├── client/                     # React 19 + Vite Frontend SaaS Application (formerly apps/web)
 │   ├── src/                    # UI Components, Pages, and REST/SSE Services
 │   ├── index.html

@@ -3,6 +3,638 @@
     "topic": "torvalds/linux — Linux kernel source tree Built with C.",
     "category": "C",
     "framework": "Architecture",
+    "hook": "The most useful part of Architecture wasn't the headline feature.\n\nIt was the failure handling design.",
+    "hookType": "NEW_TECHNOLOGY",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TEAM_PRACTICE",
+    "ctaText": "What telemetry would you instrument before shipping this torvalds/linux — Linux kernel source tree Built with C. change for Architecture to production?",
+    "vocabulary": [
+      "C",
+      "Architecture"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 83,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 30,
+      "readability": 88,
+      "careerSignal": 92,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 66,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 90,
+      "storytellingScore": 87,
+      "recruiterValueScore": 92,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 83,
+      "overall": 83,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 65,
+        "decisionQuality": 95,
+        "technicalDepth": 70,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 84
+      }
+    },
+    "storyMode": "TECH_DISCOVERY",
+    "formatStyle": "BENCHMARK_ANALYSIS",
+    "starStory": {
+      "situation": {
+        "context": "Compiling production Rust microservices using nested third-party packages.",
+        "trigger": "CI build servers flagged unexpected network calls from cargo build tasks.",
+        "stakes": "Potential credential theft or injection of compromised binaries in build layers.",
+        "curiosityTension": "Core libraries were audited, but a transitive build script had compilation access."
+      },
+      "task": {
+        "objective": "Isolate compilation scripts and sandbox cargo build tasks.",
+        "constraints": [
+          "Support official cargo package environments",
+          "No source code modifications in third-party libraries"
+        ],
+        "successCriteria": [
+          "Sandboxed build environments on CI",
+          "Automated dependency verification"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Forking and maintaining all dependencies locally",
+          "Option B: Sandboxing build execution and setting up cargo-vet policies"
+        ],
+        "chosenApproach": "Option B: Isolated CI container compilation paired with cargo-sandbox policy rules.",
+        "rejectedApproaches": [
+          "Option A rejected: local forks create massive maintenance overhead and block updates"
+        ],
+        "reasoning": "We chose Decoupled module boundarie over Initial day-1 velocity because sandboxed builds block egress networking during compiling.",
+        "decisionMoment": "Finding a build script making outbound requests was the catalyst to lock compiles.",
+        "implementation": "Built container templates that execute compile jobs inside network-locked virtual targets.",
+        "debugging": "Ran compilations while tracing container network activity."
+      },
+      "result": {
+        "outcome": "Detected and blocked 2 supply-chain compromised crates before merging. SBOM generation now automated for every release.",
+        "metrics": [
+          "2 supply-chain blocks",
+          "100% dependency sandboxing"
+        ],
+        "evidence": [
+          "CI container audit reports",
+          "Dependency check compliance lists"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Build tools are execution vulnerabilities. Sandbox compilation scripts to prevent runtime exploits.",
+        "tradeoffs": [
+          "Chosen: Decoupled module boundarie",
+          "Sacrificed: Initial day-1 velocity"
+        ],
+        "whenNotToUse": [
+          "Do not sandbox minor local helper tasks where build script access is trusted."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1788090052659_wz6xw",
+    "timestamp": "2026-08-30T11:40:52.659Z"
+  },
+  {
+    "topic": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "category": "TypeScript",
+    "framework": "Open Source",
+    "hook": "Most discussions about Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution focus on initial setup speed.\n\nVery few talk about what happens when downstream services fail silently.",
+    "hookType": "CONTRARIAN_OBSERVATION",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TRADEOFF_CHOICE",
+    "ctaText": "How does your team handle the Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution trade-off when scaling Open Source under load?",
+    "vocabulary": [
+      "TypeScript",
+      "Open Source"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 83,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 30,
+      "readability": 88,
+      "careerSignal": 92,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 66,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 90,
+      "storytellingScore": 92,
+      "recruiterValueScore": 92,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 83,
+      "overall": 83,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "ARCHITECTURE_STORY",
+    "formatStyle": "SYSTEM_DESIGN_BREAKDOWN",
+    "starStory": {
+      "situation": {
+        "context": "Resolving hierarchical dependency structures in content organization trees.",
+        "trigger": "A single updates triggered a revalidation storm, blocking database connection pools.",
+        "stakes": "Slow client response times when loading hierarchical course directories or system DAGs.",
+        "curiosityTension": "We used recursive database queries, but deep trees caused exponential latency growth."
+      },
+      "task": {
+        "objective": "Design a deterministic graph resolution engine that runs in constant time.",
+        "constraints": [
+          "Must detect circular dependencies at authoring time",
+          "No blocking locks on active read channels"
+        ],
+        "successCriteria": [
+          "Constant-time query latency",
+          "Precise cache invalidation bounds"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Relational graph queries via SQL CTEs",
+          "Option B: In-memory topological sort with content-addressed cache key matching"
+        ],
+        "chosenApproach": "Option B: Memory-mapped Directed Acyclic Graph resolver using topological sorted node indexes.",
+        "rejectedApproaches": [
+          "Option A rejected because relational database CTEs incur high join overhead on deep nesting hierarchies"
+        ],
+        "reasoning": "By sorting nodes topologically in memory and caching invalidation paths, we resolve tree segments in linear time O(V+E).",
+        "decisionMoment": "Seeing a circular dependency crash the production server during a course publishing event was the signal to implement static checks.",
+        "implementation": "Built an explicit DAG solver in TypeScript, utilizing Tarjan's strongly connected components algorithm for cycle checks.",
+        "debugging": "Wrote comprehensive suite of unit tests simulating nested trees, cycle chains, and branch splits."
+      },
+      "result": {
+        "outcome": "Graph resolution time dropped from 340ms to 28ms, and revalidation events decreased by 87%.",
+        "metrics": [
+          "91% query speedup",
+          "Zero circular dependencies reached production",
+          "Memory overhead stayed under 15MB"
+        ],
+        "evidence": [
+          "Load testing execution flamegraphs",
+          "Vitest test suite logs"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Relational databases are poor graph processors. Move graph logic to memory-mapped DAG structures with cycle detection on the write path.",
+        "tradeoffs": [
+          "Chosen: In-memory DAG solver",
+          "Sacrificed: Database simplicity — required explicit application-level graph synchronization"
+        ],
+        "whenNotToUse": [
+          "Do not build an in-memory resolver if your hierarchy is simple, static, and nested only 1 or 2 levels deep"
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1788090048969_tn1z0",
+    "timestamp": "2026-08-30T11:40:48.970Z"
+  },
+  {
+    "topic": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "hook": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct.\n\nThe system was still wrong under load.",
+    "hookType": "UNEXPECTED_FAILURE",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "PRODUCTION_FAILURE_CHECK",
+    "ctaText": "How do you handle this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services failure mode in your Backend Engineering systems when downstream services stall?",
+    "vocabulary": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 83,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 90,
+      "readability": 88,
+      "careerSignal": 92,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 90,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 90,
+      "storytellingScore": 92,
+      "recruiterValueScore": 92,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 90,
+      "overall": 90,
+      "boredomScore": {
+        "structuralRepetition": 80,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 20
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "FAILURE_STORY",
+    "formatStyle": "MINIMAL_BULLETS",
+    "starStory": {
+      "situation": {
+        "context": "Operating high-throughput Node.js application gateways handling persistent client connections.",
+        "trigger": "Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.",
+        "stakes": "Intermittent client disconnections and dropped payloads during container recycles.",
+        "curiosityTension": "Traditional log monitoring showed normal throughput, hiding the internal memory build-up."
+      },
+      "task": {
+        "objective": "Locate the leak source and stabilize container heap usage under 512MB.",
+        "constraints": [
+          "Must monitor heap allocations without blocking server execution",
+          "Cannot modify V8 collection intervals"
+        ],
+        "successCriteria": [
+          "Flat memory utilization patterns under load",
+          "Zero OOM container restarts"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Scheduling nightly container restarts to mask the memory leak",
+          "Option B: Generating V8 heap snapshot diffs under load using clinic.js profiling"
+        ],
+        "chosenApproach": "Option B: heap snapshot comparison to locate persistent closure scopes.",
+        "rejectedApproaches": [
+          "Option A rejected: scheduled restarts hide structural bugs and disconnect active users"
+        ],
+        "reasoning": "We chose  over Immediate strict consistency during cache propagation windows because heap diffs show exactly which references are not garbage collected.",
+        "decisionMoment": "An OOM crash during peak transaction throughput was the trigger to dump memory.",
+        "implementation": "Refactored EventListener registers in middleware to prevent closures from capturing scopes.",
+        "debugging": "Generated load with autocannon while capturing memory dumps in staging."
+      },
+      "result": {
+        "outcome": "Memory growth eliminated. Process restart interval extended from daily to 30-day rolling cycles. P99 latency improved by 18ms.",
+        "metrics": [
+          "Zero OOM container crashes",
+          "Restart interval extended to 30 days"
+        ],
+        "evidence": [
+          "Prometheus memory monitors",
+          "V8 heapdump file reports"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "JavaScript leaks are reference leaks. Closure scopes are the most common source of memory growth under load.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Immediate strict consistency during cache propagation windows"
+        ],
+        "whenNotToUse": [
+          "Do not profile memory for short-lived worker scripts where execution terminates quickly."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 80,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 20
+    },
+    "id": "wm_1788090045139_i9uql",
+    "timestamp": "2026-08-30T11:40:45.139Z"
+  },
+  {
+    "topic": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "hook": "Adding a cache layer to Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos made the system less reliable.",
+    "hookType": "PERFORMANCE",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "BOUNDARY_QUESTION",
+    "ctaText": "Where would your team draw the boundary between stateful caching and the TypeScript 5.7 database source of truth in Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos?",
+    "vocabulary": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 83,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 20,
+      "readability": 88,
+      "careerSignal": 92,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 62,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 90,
+      "storytellingScore": 92,
+      "recruiterValueScore": 92,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 82,
+      "overall": 82,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "CONTRARIAN_OBSERVATION",
+    "formatStyle": "NARRATIVE_PARAGRAPHS",
+    "starStory": {
+      "situation": {
+        "context": "Compiling a large pnpm monorepo structure holding twelve nested library modules.",
+        "trigger": "CI build workers ran full type checking runs for every single branch pull request.",
+        "stakes": "Developer feedback loops stretched past eight minutes, slowing rollout velocity.",
+        "curiosityTension": "We had enabled incremental cache flags, but tsc kept resolving the full dependency graph."
+      },
+      "task": {
+        "objective": "Set up strict compilation boundaries in the composite package structure.",
+        "constraints": [
+          "Enforce global strict compiler validation",
+          "No bypass build shortcuts on pull requests"
+        ],
+        "successCriteria": [
+          "Warm builds complete under two minutes",
+          "Clean isolation of package changes"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Splitting internal packages into separate git repositories",
+          "Option B: RESTructuring type check layers using tsconfig Project References"
+        ],
+        "chosenApproach": "Option B: Compiler reference hierarchy with incremental declaration mapping.",
+        "rejectedApproaches": [
+          "Option A rejected: splitting codebases creates version synchronization debt across services"
+        ],
+        "reasoning": "We chose  over Unified client-only state management simplicity because project references let tsc read cached declaration maps directly.",
+        "decisionMoment": "Seeing build queues bottlenecked by tsc checks during a minor readme revision was the pivot.",
+        "implementation": "Refactored tsconfig structures to link output dependencies explicitly via declaration maps.",
+        "debugging": "Analyzed tsbuildinfo cached records to ensure incremental cache hits were preserved."
+      },
+      "result": {
+        "outcome": "CI type check time reduced from 8.5 minutes to 1.8 minutes (78% speedup).",
+        "metrics": [
+          "78% compilation speedup",
+          "Warm builds reduced to 1.8 minutes"
+        ],
+        "evidence": [
+          "Build container execution logs",
+          "tsconfig reference maps"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Monorepo scaling requires compiler isolation. Without references, compiler workloads grow linearly with codebase size.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Unified client-only state management simplicity"
+        ],
+        "whenNotToUse": [
+          "Do not configure references for small projects where compile times are negligible."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1788090041479_wu4eu",
+    "timestamp": "2026-08-30T11:40:41.480Z"
+  },
+  {
+    "topic": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "category": "Docker",
+    "framework": "DevOps",
+    "hook": "I could make this Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images architecture simpler.\n\nI deliberately didn't.",
+    "hookType": "ENGINEERING_OBSERVATION",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "TRADEOFF_CHOICE",
+    "ctaText": "How does your team handle the Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images trade-off when scaling DevOps under load?",
+    "vocabulary": [
+      "Docker",
+      "DevOps"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 77,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 60,
+      "readability": 88,
+      "careerSignal": 89,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 78,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 86,
+      "storytellingScore": 88,
+      "recruiterValueScore": 89,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 85,
+      "overall": 85,
+      "boredomScore": {
+        "structuralRepetition": 0,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 0
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 65,
+        "decisionQuality": 95,
+        "technicalDepth": 70,
+        "resultStrength": 95,
+        "authenticity": 90,
+        "seniority": 75,
+        "starCompleteness": 98,
+        "overall": 86
+      }
+    },
+    "storyMode": "DECISION_STORY",
+    "formatStyle": "BEFORE_AFTER_LAYOUT",
+    "starStory": {
+      "situation": {
+        "context": "Maintaining container security compliance across multi-architecture production images.",
+        "trigger": "A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.",
+        "stakes": "Potential exploit vectors in public-facing registry repositories.",
+        "curiosityTension": "Our Dockerfile was written correctly, but the underlying layers inherited vulnerabilities we didn't specify."
+      },
+      "task": {
+        "objective": "Eliminate all critical CVEs while keeping the build pipeline execution under three minutes.",
+        "constraints": [
+          "Must support both amd64 and arm64 targets",
+          "No bloated runtime tooling in production images"
+        ],
+        "successCriteria": [
+          "Zero CVE alerts on build",
+          "Image size reduced by over 60%"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Layer-by-layer cleanup of Ubuntu base images",
+          "Option B: Migrating to distroless minimal runtimes with Buildx multi-arch compilation"
+        ],
+        "chosenApproach": "Option B: Multi-stage distroless base image transition with Buildx target isolation.",
+        "rejectedApproaches": [
+          "Option A rejected because manual package pruning is brittle and hard to maintain across node pools"
+        ],
+        "reasoning": "Distroless images strip the package manager and shell, removing the execution surface for common exploit binaries.",
+        "decisionMoment": "Comparing the vulnerability footprint showed distroless dropped CVEs from 27 to 0 instantly.",
+        "implementation": "Created a multi-stage Dockerfile splitting source build from final packaging, utilizing Buildx target arguments.",
+        "debugging": "Used ephemeral debug sidecars to inspect container filesystems without adding tools to the target image."
+      },
+      "result": {
+        "outcome": "Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities.",
+        "metrics": [
+          "91% footprint reduction",
+          "Zero CVEs",
+          "Multi-arch builds automated in CI"
+        ],
+        "evidence": [
+          "SonarQube vulnerability report",
+          "Docker Registry image footprint logs"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Secure container design means shipping only execution binaries. Strip the shell, strip the package manager, and limit the run surface.",
+        "tradeoffs": [
+          "Chosen: Distroless minimal runtimes",
+          "Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging"
+        ],
+        "whenNotToUse": [
+          "Do not use distroless if you run legacy scripts that depend heavily on bash execution in the runtime environment"
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 0,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 0
+    },
+    "id": "wm_1788090037885_ceyin",
+    "timestamp": "2026-08-30T11:40:37.885Z"
+  },
+  {
+    "topic": "torvalds/linux — Linux kernel source tree Built with C.",
+    "category": "C",
+    "framework": "Architecture",
     "hook": "I thought our Architecture query path was slow.\n\nIt wasn't.",
     "hookType": "TRADEOFF",
     "storyAngle": "SENIOR_ENGINEERING_REASONING",

@@ -1,4 +1,4 @@
-# Personal Brand OS
+# Brand-os-multi-agent
 
 > **Autonomous Multi-Agent AI Platform for Daily Technical Content Intelligence, Live GitHub Trending & Official LLM Provider Monitoring, Dynamic Architecture Visuals & Selective Personal Brand Automation (LinkedIn + Dev.to)**
 
@@ -422,7 +422,7 @@ The platform features **dynamic dual-environment API routing**:
 ## 🏛️ Enterprise Monorepo Folder Structure
 
 ```text
-personal-brand-os/
+Brand-os-multi-agent/
 ├── api/                        # Vercel Serverless Function API Entry Point
 │   └── index.ts
 │
