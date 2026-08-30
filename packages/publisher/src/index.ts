@@ -294,8 +294,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
               const extId = resData.id || `urn:li:share:${Date.now()}`;
               
               // Extract numeric ID from ugcPost URN and construct canonical update URL
-              const numericId = extId.split(":").pop() || "";
-              const articleUrl = `https://www.linkedin.com/feed/update/urn:li:activity:${numericId}`;
+              const articleUrl = `https://www.linkedin.com/feed/update/${extId}`;
               const latencyMs = Date.now() - startTime;
               analyticsService.recordPublishedPost({ id: extId, title: content.title || "LinkedIn Post" });
 
@@ -392,7 +391,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
       success: true,
       platform: Platform.LINKEDIN,
       externalId: simId,
-      url: `https://www.linkedin.com/feed/update/urn:li:activity:${simId.split(":").pop()}`,
+      url: `https://www.linkedin.com/feed/update/${simId}`,
       publishedAt: new Date().toISOString(),
       mode: "SIMULATION",
       retries: 0,

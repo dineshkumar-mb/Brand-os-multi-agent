@@ -46,7 +46,7 @@ describe("Publisher Adaptors & Failover Tests", () => {
 
     expect(result.success).toBe(true);
     expect(result.externalId).toBe("urn:li:ugcPost:888777666");
-    expect(result.url).toBe("https://www.linkedin.com/feed/update/urn:li:activity:888777666");
+    expect(result.url).toBe("https://www.linkedin.com/feed/update/urn:li:ugcPost:888777666");
     expect(result.rawResponse).toEqual(mockResponsePayload);
   });
 
