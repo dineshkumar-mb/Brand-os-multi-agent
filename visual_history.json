@@ -1,5 +1,19 @@
 [
   {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-08-30T13:05:53.390Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-08-30T13:05:53.331Z"
+  },
+  {
     "topicId": "cand_23_1788094662542",
     "conceptTitle": "torvalds/linux — Linux kernel source tree Built with C.",
     "diagramType": "torvalds/linux — Linux kernel so Architecture Blueprint",

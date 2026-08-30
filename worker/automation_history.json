@@ -1,5 +1,27 @@
 [
   {
+    "pipelineId": "pl_dvoeugmhj",
+    "timestamp": "2026-08-30T13:13:29.341Z",
+    "durationMs": 10082,
+    "status": "SUCCESS",
+    "winnerTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "overallScore": 88,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
+    "pipelineId": "pl_5iiu0404l",
+    "timestamp": "2026-08-30T13:07:28.543Z",
+    "durationMs": 9216,
+    "status": "SUCCESS",
+    "winnerTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "overallScore": 89,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
     "pipelineId": "pl_rdg2aw1yh",
     "timestamp": "2026-08-30T12:59:03.313Z",
     "durationMs": 10499,

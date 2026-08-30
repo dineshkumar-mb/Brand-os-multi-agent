@@ -1,5 +1,33 @@
 [
   {
+    "topicId": "cand_31_1788095609209",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T13:13:29.320Z"
+  },
+  {
+    "topicId": "cand_31_1788095609209",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Me Architecture Blueprint",
+    "createdAt": "2026-08-30T13:13:29.273Z"
+  },
+  {
+    "topicId": "cand_31_1788095248494",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T13:07:28.537Z"
+  },
+  {
+    "topicId": "cand_31_1788095248494",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-08-30T13:07:28.522Z"
+  },
+  {
     "topicId": "cand_32_1788094743186",
     "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
     "diagramType": "Docker Buildx & Container Hardening",

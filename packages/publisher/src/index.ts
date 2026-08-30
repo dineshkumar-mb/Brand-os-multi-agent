@@ -73,12 +73,8 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
 
     let targetUrl = imageUrl;
     if (imageUrl.startsWith("data:image/svg+xml")) {
-      console.log(`[LinkedIn Publisher 🖼️] Processing dynamic topic-aware SVG architecture diagram...`);
-      contentType = "image/svg+xml";
-      const parts = imageUrl.split(",");
-      const isBase64 = parts[0].includes("base64");
-      const svgString = isBase64 ? Buffer.from(parts[1], "base64").toString("utf-8") : decodeURIComponent(parts[1]);
-      imageBuffer = Buffer.from(svgString, "utf-8");
+      console.warn(`[LinkedIn Publisher ⚠️] LinkedIn feedshare-image API requires raster images (PNG/JPEG). Skipping SVG upload to ensure post renders cleanly...`);
+      return null;
     } else if (targetUrl.startsWith("data:")) {
       console.log(`[LinkedIn Publisher 🖼️] Processing dynamic Data URL image...`);
       const parts = targetUrl.split(",");
@@ -293,7 +289,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
               const resData: any = await response.json();
               const extId = resData.id || `urn:li:share:${Date.now()}`;
               
-              // Extract numeric ID from ugcPost URN and construct canonical update URL
+              // Construct canonical update URL using exact URN returned by LinkedIn API
               const articleUrl = `https://www.linkedin.com/feed/update/${extId}`;
               const latencyMs = Date.now() - startTime;
               analyticsService.recordPublishedPost({ id: extId, title: content.title || "LinkedIn Post" });
@@ -387,11 +383,12 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
     const latencyMs = Date.now() - startTime;
     analyticsService.recordPublishedPost({ id: simId, title: content.title || "LinkedIn Post" });
 
+    const numericSimId = simId.split(":").pop() || simId;
     return {
       success: true,
       platform: Platform.LINKEDIN,
       externalId: simId,
-      url: `https://www.linkedin.com/feed/update/${simId}`,
+      url: `https://www.linkedin.com/feed/update/urn:li:activity:${numericSimId}`,
       publishedAt: new Date().toISOString(),
       mode: "SIMULATION",
       retries: 0,

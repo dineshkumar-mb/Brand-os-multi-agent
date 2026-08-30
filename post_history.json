@@ -1,5 +1,39 @@
 [
   {
+    "id": "urn:li:share:7499814663933673472",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "When should an engineering architecture for Architecting a Resilient Multi-Provider LLM Gateway give up on synchronous execution?",
+    "fullText": "When should an engineering architecture for Architecting a Resilient Multi-Provider LLM Gateway give up on synchronous execution? Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints Where would your team draw the boundary between stateful caching and the LLM Gateway Router database source of truth in Architecting a Resilient Multi-Provider LLM Gateway? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-08-30T13:05:56.546Z",
+    "engagementMetrics": {
+      "impressions": 238,
+      "reactions": 31,
+      "comments": 5,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 4
+    }
+  },
+  {
     "id": "urn:li:share:747601755",
     "title": "torvalds/linux — Linux kernel source tree Built with C.",
     "platform": "LINKEDIN",
