@@ -72,9 +72,25 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
     let contentType = "image/png";
 
     let targetUrl = imageUrl;
-    if (imageUrl.startsWith("data:image/svg+xml")) {
-      console.warn(`[LinkedIn Publisher ⚠️] LinkedIn feedshare-image API requires raster images (PNG/JPEG). Skipping SVG upload to ensure post renders cleanly...`);
-      return null;
+    if (targetUrl.startsWith("data:image/svg+xml") || targetUrl.trim().startsWith("<svg")) {
+      console.log(`[LinkedIn Publisher 🖼️] Rasterizing SVG diagram to high-resolution PNG asset...`);
+      try {
+        let svgString = targetUrl;
+        if (targetUrl.startsWith("data:image/svg+xml")) {
+          const parts = targetUrl.split(",");
+          const isBase64 = parts[0].includes("base64");
+          svgString = isBase64 ? Buffer.from(parts[1], "base64").toString("utf-8") : decodeURIComponent(parts[1]);
+        }
+        const { Resvg } = require("@resvg/resvg-js");
+        const resvg = new Resvg(svgString, { fitTo: { mode: "width", value: 1200 } });
+        const pngData = resvg.render();
+        imageBuffer = pngData.asPng();
+        contentType = "image/png";
+        console.log(`[LinkedIn Publisher 🎨] Successfully rasterized SVG to PNG binary (${imageBuffer.length} bytes)`);
+      } catch (err: any) {
+        console.warn(`[LinkedIn Publisher ⚠️] Failed to rasterize SVG diagram to PNG:`, err.message);
+        return null;
+      }
     } else if (targetUrl.startsWith("data:")) {
       console.log(`[LinkedIn Publisher 🖼️] Processing dynamic Data URL image...`);
       const parts = targetUrl.split(",");
@@ -204,6 +220,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
       }
 
       const imageUrl = content.imageUrl?.trim();
+      const isHttpUrl = imageUrl?.startsWith("http://") || imageUrl?.startsWith("https://");
 
       for (const author of authorsToTry) {
         let assetUrn: string | null = null;
@@ -215,7 +232,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
           shareCommentary: {
             text: `${content.title || ""}\n\n${content.fullText || ""}`,
           },
-          shareMediaCategory: assetUrn ? "IMAGE" : imageUrl ? "ARTICLE" : "NONE",
+          shareMediaCategory: assetUrn ? "IMAGE" : isHttpUrl ? "ARTICLE" : "NONE",
         };
 
         if (assetUrn) {
@@ -228,7 +245,7 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
               },
             },
           ];
-        } else if (imageUrl) {
+        } else if (isHttpUrl) {
           shareContent.media = [
             {
               status: "READY",
@@ -638,6 +655,7 @@ export class DevtoPublisherAdapter implements IPublisherAdapter {
             .filter(Boolean)
             .slice(0, 4);
 
+          const isHttpUrl = content.imageUrl && (content.imageUrl.startsWith("http://") || content.imageUrl.startsWith("https://"));
           const res = await fetch("https://dev.to/api/articles", {
             method: "POST",
             headers: {
@@ -651,7 +669,7 @@ export class DevtoPublisherAdapter implements IPublisherAdapter {
                 published: true,
                 body_markdown: content.fullMarkdown || content.fullText || `${content.title}\n\n${content.introduction || ""}`,
                 tags: cleanTags,
-                main_image: content.imageUrl || undefined,
+                main_image: isHttpUrl ? content.imageUrl : undefined,
               },
             }),
           });

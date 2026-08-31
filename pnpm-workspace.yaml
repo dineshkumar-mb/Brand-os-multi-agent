@@ -5,21 +5,8 @@ packages:
   - 'packages/*'
 
 allowBuilds:
-  '@parcel/watcher': set this to true or false
-  '@playwright/browser-chromium': set this to true or false
   '@prisma/client': true
   '@prisma/engines': true
   '@swc/core': true
-  better-sqlite3: set this to true or false
-  bun: set this to true or false
-  core-js: set this to true or false
   esbuild: true
-  keytar: set this to true or false
-  koffi: set this to true or false
-  libxmljs2: set this to true or false
-  onnxruntime-node: set this to true or false
   prisma: true
-  protobufjs: set this to true or false
-  sharp: set this to true or false
-  tls-client-node: set this to true or false
-  unrs-resolver: set this to true or false
