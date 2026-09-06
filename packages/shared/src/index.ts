@@ -120,6 +120,8 @@ export enum AgentType {
   VISUAL_REVIEWER = "VISUAL_REVIEWER",
   IMAGE_RELEVANCE_CHECK = "IMAGE_RELEVANCE_CHECK",
   POST_HISTORY_DEDUPLICATION = "POST_HISTORY_DEDUPLICATION",
+  LINKEDIN_ALGORITHM_AUDITOR = "LINKEDIN_ALGORITHM_AUDITOR",
+  LINKEDIN_COMMENT_DRAFTER = "LINKEDIN_COMMENT_DRAFTER",
   PUBLISHER = "PUBLISHER",
   CONTINUOUS_LEARNING = "CONTINUOUS_LEARNING",
   DECISION_GATE = "DECISION_GATE",
@@ -159,6 +161,8 @@ export enum AgentEvent {
   ORIGINALITY_PASSED = "OriginalityPassed",
   IMAGE_RELEVANCE_VERIFIED = "ImageRelevanceVerified",
   POST_DEDUPLICATION_PASSED = "PostDeduplicationPassed",
+  LINKEDIN_ALGORITHM_AUDITED = "LinkedInAlgorithmAudited",
+  LINKEDIN_COMMENT_DRAFTED = "LinkedInCommentDrafted",
   APPROVED = "Approved",
   PUBLISHED = "Published",
   ANALYTICS_UPDATED = "AnalyticsUpdated",
@@ -362,6 +366,29 @@ export interface PostDeduplicationResult {
   rejectionReasons: string[];
 }
 
+export interface LinkedInAlgorithmAuditResult {
+  passed: boolean;
+  score: number; // 0 - 100
+  seeMoreFoldPassed: boolean;
+  firstLineCharCount: number;
+  hasLinkPenaltyHazard: boolean;
+  externalUrlsFound: string[];
+  paragraphSpacingPassed: boolean;
+  maxParagraphLines: number;
+  hashtagCountPassed: boolean;
+  hashtagCount: number;
+  characterLengthPassed: boolean;
+  characterCount: number;
+  rejectionReasons: string[];
+  suggestions: string[];
+}
+
+export interface LinkedInCommentDraftResult {
+  commentText: string;
+  angle: "TECHNICAL_COUNTEREXAMPLE" | "TELEMETRY_INSIGHT" | "TRADEOFF_QUESTION" | "REINFORCE_EXPERIENCE";
+  targetAudienceRole: string;
+}
+
 export interface QualityGateResult {
   gateName?: string;
   passed: boolean;
@@ -378,6 +405,7 @@ export interface QualityGateResult {
   originality?: number;
   imageRelevance?: number;
   postDeduplication?: number;
+  linkedinAlgorithm?: number;
   experienceMatch?: number;
   contextDiversity?: number;
   proofAvailability?: number;
@@ -624,6 +652,7 @@ export const DecisionGateResultSchema = z.object({
     visualValidationPassed: z.boolean(),
     imageRelevancePassed: z.boolean().optional(),
     postDeduplicationPassed: z.boolean().optional(),
+    linkedinAlgorithmPassed: z.boolean().optional(),
     seoCompletenessPassed: z.boolean(),
   }),
   rejectionReasons: z.array(z.string()),
@@ -1159,6 +1188,12 @@ export enum HookType {
   TRADEOFF = "TRADEOFF",
   PERFORMANCE = "PERFORMANCE",
   ARCHITECTURE_BOUNDARY = "ARCHITECTURE_BOUNDARY",
+  METRIC_BREAKDOWN = "METRIC_BREAKDOWN",
+  HARD_TRUTH = "HARD_TRUTH",
+  CURIOSITY_GAP = "CURIOSITY_GAP",
+  ARCHITECTURAL_PARADOX = "ARCHITECTURAL_PARADOX",
+  BEFORE_AFTER_TRANSFORMATION = "BEFORE_AFTER_TRANSFORMATION",
+  TELEMETRY_TRAP = "TELEMETRY_TRAP",
 }
 
 export enum DiscussionCtaType {

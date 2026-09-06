@@ -114,10 +114,10 @@ describe("Senior Software Engineer Writing Agent Unit & Integration Tests", () =
       engine.generateHook(ht, sampleTopic, true, sampleExperience.realWorldProblem)
     );
 
-    // All 10 hook types should generate non-empty, distinct hooks
-    expect(generatedHooks.length).toBe(10);
+    // All viral hook types should generate non-empty, distinct hooks
+    expect(generatedHooks.length).toBeGreaterThanOrEqual(10);
     const uniqueHooks = new Set(generatedHooks);
-    expect(uniqueHooks.size).toBe(10);
+    expect(uniqueHooks.size).toBe(generatedHooks.length);
   });
 
   it("3. HookEngine should generate rotated technical discussion CTAs", () => {

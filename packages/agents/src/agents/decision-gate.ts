@@ -6,6 +6,7 @@ import {
   VisualValidationResult,
   ImageRelevanceResult,
   PostDeduplicationResult,
+  LinkedInAlgorithmAuditResult,
   Topic,
   LinkedInPostPayload,
   DevToArticlePayload,
@@ -23,10 +24,11 @@ export class DecisionGateAgent {
     clichésRemoved: number,
     pipelineId?: string,
     imageRelevance?: ImageRelevanceResult,
-    postDeduplication?: PostDeduplicationResult
+    postDeduplication?: PostDeduplicationResult,
+    linkedinAlgorithmAudit?: LinkedInAlgorithmAuditResult
   ): AgentResult<DecisionGateResult> {
     const startTime = Date.now();
-    console.log(`[Decision Gate Agent] Evaluating 12 Quality Gates for topic "${topic?.title || "N/A"}"...`);
+    console.log(`[Decision Gate Agent] Evaluating 14 Quality Gates for topic "${topic?.title || "N/A"}"...`);
 
     const rejectionReasons: string[] = [];
 
@@ -51,6 +53,7 @@ export class DecisionGateAgent {
             visualValidationPassed: false,
             imageRelevancePassed: false,
             postDeduplicationPassed: false,
+            linkedinAlgorithmPassed: false,
             seoCompletenessPassed: false,
           },
           rejectionReasons,
@@ -128,6 +131,12 @@ export class DecisionGateAgent {
       rejectionReasons.push(...postDeduplication.rejectionReasons);
     }
 
+    // Gate 14: LinkedIn Algorithm Pre-Publish Audit Check
+    const linkedinAlgorithmPassed = linkedinAlgorithmAudit ? linkedinAlgorithmAudit.passed && linkedinAlgorithmAudit.score >= 80 : true;
+    if (!linkedinAlgorithmPassed && linkedinAlgorithmAudit) {
+      rejectionReasons.push(...linkedinAlgorithmAudit.rejectionReasons);
+    }
+
     // Gate 13: Technical Credibility Gate & Hard Authenticity Rule (Evidence / Authenticity >= 70)
     const evidenceAuthenticityScore = post.writingQualityScore?.evidenceAuthenticityScore ?? techReview.evidenceAuthenticityScore ?? 80;
     const credibilityGatePassed = techReview.credibilityGatePassed !== false && evidenceAuthenticityScore >= 70;
@@ -173,6 +182,7 @@ export class DecisionGateAgent {
       visualValidationPassed &&
       imageRelevancePassed &&
       postDeduplicationPassed &&
+      linkedinAlgorithmPassed &&
       seoCompletenessPassed;
 
     const decision: DecisionGateResult["decision"] = approvedForPublishing ? "PUBLISH" : "REJECT";
@@ -208,6 +218,7 @@ export class DecisionGateAgent {
           visualValidationPassed,
           imageRelevancePassed,
           postDeduplicationPassed,
+          linkedinAlgorithmPassed,
           seoCompletenessPassed,
         },
         weightedScores: {

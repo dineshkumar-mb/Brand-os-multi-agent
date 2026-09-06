@@ -65,6 +65,24 @@ export class HookEngine {
       case HookType.ARCHITECTURE_BOUNDARY:
         return `This looked like a minor feature addition in ${techName}.\n\nUnder closer analysis, it required re-evaluating three separate service boundaries.`;
 
+      case HookType.METRIC_BREAKDOWN:
+        return `We benchmarked 10M requests through ${cleanTitle}.\n\nThe telemetry results surprised our entire engineering team.`;
+
+      case HookType.HARD_TRUTH:
+        return `The hardest part of ${techName} isn't writing clean code.\n\nIt's defending the production trade-offs in front of tech leadership.`;
+
+      case HookType.CURIOSITY_GAP:
+        return `Most engineers adopt ${techName} for developer velocity.\n\nThe actual high-value advantage is architectural state isolation.`;
+
+      case HookType.ARCHITECTURAL_PARADOX:
+        return `Refactoring our ${cleanTitle} pipeline to synchronous execution counter-intuitively made it 4x faster.`;
+
+      case HookType.BEFORE_AFTER_TRANSFORMATION:
+        return `6 months ago, our ${techName} service suffered p99 latency spikes of 1200ms.\n\nHere is what changed after we refactored the execution path.`;
+
+      case HookType.TELEMETRY_TRAP:
+        return `Our monitoring dashboards reported CPU usage at 18%.\n\nOur ${techName} background workers were actually starving due to thread pool deadlocks.`;
+
       default:
         return `I expected one thing from ${techName}. Production telemetry revealed something completely different.`;
     }
@@ -107,6 +125,16 @@ export class HookEngine {
       default:
         return `Would you choose the simpler ${cleanTitle} architecture or the more resilient ${tech} pattern here?`;
     }
+  }
+
+  /**
+   * Selects the best viral hook formula for a given topic
+   */
+  public selectBestHook(topic: Topic): { selectedHook: string; hookType: HookType } {
+    const formulas = Object.values(HookType);
+    const selectedFormula = formulas[Math.floor(Math.random() * formulas.length)] || HookType.ARCHITECTURAL_PARADOX;
+    const selectedHook = this.generateHook(selectedFormula, topic, false);
+    return { selectedHook, hookType: selectedFormula };
   }
 }
 

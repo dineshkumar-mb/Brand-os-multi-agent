@@ -48,6 +48,8 @@ export * from "./agents/engineering-reasoning";
 export * from "./agents/fallback-project-engine";
 export * from "./agents/image-relevance";
 export * from "./agents/post-deduplication";
+export * from "./agents/linkedin-algorithm-auditor";
+export * from "./agents/linkedin-comment-drafter";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";
@@ -76,6 +78,8 @@ import { DiversityReportAgent } from "./agents/diversity-report";
 import { fallbackProjectEngine } from "./agents/fallback-project-engine";
 import { ImageRelevanceVerificationAgent } from "./agents/image-relevance";
 import { PostHistoryDeduplicationAgent } from "./agents/post-deduplication";
+import { LinkedInAlgorithmAuditor } from "./agents/linkedin-algorithm-auditor";
+import { LinkedInCommentDrafterAgent } from "./agents/linkedin-comment-drafter";
 
 // ==========================================
 // DECOUPLED EVENT BUS & MEMORY
@@ -272,6 +276,8 @@ export class AgentOrchestrator {
   private diversityReportAgent = new DiversityReportAgent();
   private imageRelevanceAgent = new ImageRelevanceVerificationAgent();
   private postDeduplicationAgent = new PostHistoryDeduplicationAgent();
+  private linkedinAlgorithmAuditor = new LinkedInAlgorithmAuditor();
+  private linkedinCommentDrafterAgent = new LinkedInCommentDrafterAgent();
 
   public async executePipeline(options: {
     autoPublish?: boolean;
@@ -472,6 +478,11 @@ export class AgentOrchestrator {
       pipelineId
     );
 
+    const linkedinAlgorithmRes = this.linkedinAlgorithmAuditor.auditPostForAlgorithm(
+      linkedInPost,
+      pipelineId
+    );
+
     const decisionGateRes = this.decisionGateAgent.evaluateDecision(
       selectedTopic,
       linkedInPost,
@@ -482,7 +493,8 @@ export class AgentOrchestrator {
       humanRes.data.clichésRemoved,
       pipelineId,
       imageRelevanceRes.data,
-      postDeduplicationRes.data
+      postDeduplicationRes.data,
+      linkedinAlgorithmRes.data
     );
 
     // Layer 5: Career Signal & Multi-Gate Mandatory Evaluator
@@ -512,6 +524,7 @@ export class AgentOrchestrator {
     if (experienceMatch < 30) rejectionReasons.push(`ExperienceMatch ${experienceMatch} < mandatory threshold 30`);
     if (!imageRelevanceRes.data.passed) rejectionReasons.push(...imageRelevanceRes.data.rejectionReasons);
     if (!postDeduplicationRes.data.passed) rejectionReasons.push(...postDeduplicationRes.data.rejectionReasons);
+    if (!linkedinAlgorithmRes.data.passed) rejectionReasons.push(...linkedinAlgorithmRes.data.rejectionReasons);
 
     const passedAllGates =
       rejectionReasons.length === 0 &&
@@ -519,10 +532,11 @@ export class AgentOrchestrator {
       originality.data.passed &&
       imageRelevanceRes.data.passed &&
       postDeduplicationRes.data.passed &&
+      linkedinAlgorithmRes.data.passed &&
       decisionGateRes.data.approvedForPublishing;
 
     const overallContentQualityScore = Math.round(
-      (topicNovelty + trendFreshness + humanWriting + technicalDepth + careerSignal + sourceAuthority + visualNovelty + originalityScore + imageRelevanceRes.data.relevanceScore + Math.round((1 - postDeduplicationRes.data.overallSimilarityScore) * 100) + experienceMatch + contextDiversity + proofAvailability + engineeringTension + careerDifferentiation) / 15
+      (topicNovelty + trendFreshness + humanWriting + technicalDepth + careerSignal + sourceAuthority + visualNovelty + originalityScore + imageRelevanceRes.data.relevanceScore + Math.round((1 - postDeduplicationRes.data.overallSimilarityScore) * 100) + linkedinAlgorithmRes.data.score + experienceMatch + contextDiversity + proofAvailability + engineeringTension + careerDifferentiation) / 16
     );
 
     const qualityGateResult: QualityGateResult = {
@@ -537,6 +551,7 @@ export class AgentOrchestrator {
       originality: originalityScore,
       imageRelevance: imageRelevanceRes.data.relevanceScore,
       postDeduplication: Math.round((1 - postDeduplicationRes.data.overallSimilarityScore) * 100),
+      linkedinAlgorithm: linkedinAlgorithmRes.data.score,
       experienceMatch,
       contextDiversity,
       proofAvailability,
