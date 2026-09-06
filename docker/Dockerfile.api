@@ -2,7 +2,7 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-RUN corepack enable && corepack prepare pnpm@9 --activate
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml* tsconfig.json ./
 COPY packages/ ./packages/
@@ -10,7 +10,7 @@ COPY server/ ./server/
 
 RUN pnpm install --no-frozen-lockfile
 RUN pnpm --filter @brand-os/database db:generate
-RUN pnpm --filter @brand-os/api build
+RUN pnpm -r build
 
 FROM node:22-alpine AS runner
 WORKDIR /app
@@ -22,4 +22,5 @@ COPY --from=builder /app/server/dist ./dist
 COPY --from=builder /app/packages ./packages
 
 EXPOSE 4000
+USER node
 CMD ["node", "dist/main.js"]

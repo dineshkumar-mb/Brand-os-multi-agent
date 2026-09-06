@@ -62,6 +62,23 @@ services:
       - redis
       - chromadb
 
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.worker
+    container_name: brandos_worker
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/personal_brand_os?schema=public
+      - REDIS_URL=redis://redis:6379
+      - CHROMADB_URL=http://chromadb:8000
+    depends_on:
+      - postgres
+      - redis
+      - chromadb
+      - api
+
   web:
     build:
       context: .
