@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./swagger/swagger.config";
 import { authController } from "./controllers/auth.controller";
 import { gatewayController } from "./controllers/gateway.controller";
 import { agentsController } from "./controllers/agents.controller";
@@ -17,7 +19,7 @@ import { analyticsService } from "@brand-os/analytics";
 const app: Application = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(helmet());
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(cors({ origin: "*" }));
 app.use(express.json({ limit: "10mb" }));
 
@@ -26,6 +28,25 @@ app.use((req: Request, _res: Response, next) => {
   console.log(`[API] ${req.method} ${req.path}`);
   next();
 });
+
+// Interactive Swagger/OpenAPI Documentation Endpoints
+const enableSwagger = process.env.ENABLE_SWAGGER !== "false";
+if (enableSwagger) {
+  app.use(
+    "/api-docs",
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      customSiteTitle: "Personal Brand OS API Documentation",
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    })
+  );
+  app.get("/api-docs.json", (_req: Request, res: Response) => {
+    res.setHeader("Content-Type", "application/json");
+    res.send(swaggerSpec);
+  });
+}
 
 // Healthcheck & Telemetry
 app.get("/health", (_req: Request, res: Response) => {
