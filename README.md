@@ -1,6 +1,6 @@
 # Brand-os-multi-agent
 
-> **Autonomous Multi-Agent AI Platform for Daily Technical Content Intelligence, Live GitHub Trending & Official LLM Provider Monitoring, Dynamic Architecture Visuals & Selective Personal Brand Automation (LinkedIn + Dev.to)**
+> **Autonomous Multi-Agent AI Platform for Daily Technical Content Intelligence, LinkedIn Growth Engineering & Algorithm Optimization, Image Relevance & Deduplication Auditing, Live GitHub Trending & Official LLM Provider Monitoring, Dynamic Architecture Visuals & Selective Personal Brand Automation (LinkedIn + Dev.to)**
 
 [![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployed-success?style=for-the-badge&logo=vercel)](https://brand-os-multi-agent.vercel.app)
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?style=for-the-badge&logo=github)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
@@ -8,7 +8,7 @@
 [![React 19](https://img.shields.io/badge/React-19.0-cyan?style=for-the-badge&logo=react)](https://react.dev/)
 [![Live Intelligence](https://img.shields.io/badge/Intelligence-Live%20APIs-brightgreen?style=for-the-badge&logo=rss)](https://github.com/dineshkumar-mb/Brand-os-multi-agent)
 
-Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies a mandatory **Technical Credibility Gate**, **Weighted 7-Dimension Scoring System**, **STAR + Human Engineering Storytelling**, **Visual RAG Pattern Retrieval**, **14–30 Day Visual Diversity Memory**, and **multi-layer quality safeguards** to guarantee only authentic, senior-level, evidence-backed content reaches publication.
+Personal Brand OS is an enterprise-grade autonomous multi-agent platform designed for Staff Engineers, Tech Leaders, and Software Architects. It automatically discovers **live, real-time trending topics** from GitHub's daily trending repositories, official AI lab release feeds (OpenAI, Anthropic, Google, Meta, Mistral, DeepSeek, HuggingFace), Hacker News, and Dev.to — then applies a mandatory **Technical Credibility Gate**, **16 Tested LinkedIn Viral Hook Formulas**, **LinkedIn Pre-Publish Algorithm Auditor**, **Strategic Comment Drafter**, **Image Relevance & Post Deduplication Verification**, **Weighted 7-Dimension Scoring System**, **STAR + Human Engineering Storytelling**, **Visual RAG Pattern Retrieval**, **14–30 Day Visual Diversity Memory**, and **14 multi-layer quality safeguards** to guarantee only authentic, senior-level, evidence-backed content reaches publication.
 
 ---
 
@@ -33,6 +33,30 @@ The system enforces strict technical credibility logic to eliminate AI-generated
   - `Recruiter Value`: **5%**
   - `Engagement Potential`: **5%**
 - **Hard Rule Enforcement**: If $\text{Evidence / Authenticity} < 70$, the post is **immediately REJECTED** regardless of total score (Publishing threshold $\ge 80/100$).
+
+---
+
+### 1.5 📈 LinkedIn Growth Engineering & Pre-Publish Algorithm Auditor
+
+To maximize organic reach, engineering engagement, and algorithm performance on LinkedIn, the platform incorporates a dedicated growth suite based on real-world platform reverse engineering:
+
+- **16 Tested Viral Hook Formulas (`HookEngine`)**:
+  - `PARADOX_QUESTION`, `METRIC_BREAKDOWN`, `HARD_TRUTH`, `CURIOSITY_GAP`, `ARCHITECTURAL_PARADOX`, `BEFORE_AFTER_TRANSFORMATION`, `TELEMETRY_TRAP`, `INCIDENT_POSTMORTEM`, `CONTRARIAN_BENCHMARK`, `MYTH_BUSTING`, `SYSTEM_DESIGN_LEAK`, `COST_VS_LATENCY_TRADEOFF`, `SENIOR_VS_JUNIOR_CHOICE`, `ARCHITECTURE_EVOLUTION`, `FAILED_PROD_DEPLOYMENT`, `PROD_FAILURE_CONFESSION`.
+- **LinkedIn Algorithm Pre-Publish Auditor (`LinkedInAlgorithmAuditor`)**:
+  - **Mobile See-More Fold Protection**: Validates first line length (<210 chars) to prevent truncation before users click "...see more".
+  - **Inline External Link Hazard Mitigation**: Detects inline URLs in post text and flags reach penalty hazard (LinkedIn penalizes posts with inline external links by -40% to -60% reach reduction). Auto-suggests moving links to the first comment section.
+  - **Wall-of-Text Line Spacing Audit**: Enforces mobile readability by capping consecutive line paragraphs at 3 lines max.
+  - **Hashtag Optimization Guard**: Enforces 2-4 targeted technical hashtags (flags >5 hashtags to avoid spam filters).
+  - **Character Count Sweet Spot**: Ensures post text stays within 800–2,100 characters.
+- **LinkedIn Comment Drafter & Reply Handler (`LinkedInCommentDrafterAgent`)**:
+  - **Strategic First-Comment Additions**: Auto-drafts value-add first comments across 4 technical angles (`TECHNICAL_COUNTEREXAMPLE`, `TELEMETRY_INSIGHT`, `TRADEOFF_QUESTION`, `REINFORCE_EXPERIENCE`) to house external references and trigger discussion.
+  - **Peer Discussion Replies**: Generates thoughtful, technical replies to incoming developer comments.
+- **Image Relevance Verification Agent (`ImageRelevanceVerificationAgent`)**:
+  - Audits visual diagram text nodes, prompts, and specs to guarantee direct semantic alignment with the post topic (preventing domain mismatches like eBPF kernel diagrams attached to React UI posts).
+- **Post History Deduplication Agent (`PostHistoryDeduplicationAgent`)**:
+  - Checks exact title similarity, Jaccard lexical overlap, TF-IDF cosine semantic similarity, and technology framework cooldowns (3-day minimum cooldown per framework) against `post_history.json`.
+- **Gate 14 Pre-Publish Algorithm Audit Integration**:
+  - Enforces `linkedinAlgorithmPassed` in `DecisionGateAgent` and `AgentOrchestrator` before dispatching to publisher adapters.
 
 ---
 
@@ -554,6 +578,16 @@ npm run dev
 ---
 
 ## 📋 Changelog
+
+### v4.0 — LinkedIn Growth Engineering, Pre-Publish Algorithm Auditor & Multi-Agent QA (Sep 2026)
+- **NEW**: **16 Tested Viral Hook Formulas (`HookEngine`)**: Added metric breakdown, architectural paradox, telemetry trap, curiosity gap, before-after transformation, incident postmortem, contrarian benchmark, system design leak, and senior/junior choice hook formulas.
+- **NEW**: **LinkedIn Algorithm Pre-Publish Auditor Agent (`LinkedInAlgorithmAuditor`)**: Pre-publish audit preventing reach penalties (inline URL penalty hazard), mobile see-more fold truncation (<210 chars in line 1), wall-of-text spacing, and hashtag spam.
+- **NEW**: **LinkedIn Comment Drafter & Reply Handler Agent (`LinkedInCommentDrafterAgent`)**: Auto-drafts strategic first-comment additions across 4 angles (`TECHNICAL_COUNTEREXAMPLE`, `TELEMETRY_INSIGHT`, `TRADEOFF_QUESTION`, `REINFORCE_EXPERIENCE`) and peer discussion replies.
+- **NEW**: **Image Relevance Verification Agent (`ImageRelevanceVerificationAgent`)**: Audits visual text nodes and prompts to ensure 100% domain alignment with the post topic.
+- **NEW**: **Post History Deduplication Agent (`PostHistoryDeduplicationAgent`)**: Lexical + TF-IDF semantic cosine similarity deduplication with 3-day framework cooldown enforcement against `post_history.json`.
+- **NEW**: **Gate 14 Pre-Publish Algorithm Audit Integration**: Gate 14 evaluation in `DecisionGateAgent` and `AgentOrchestrator`.
+- **NEW**: **Production Docker & CI/CD Pipelines**: Production multi-stage root `Dockerfile` and GitHub Actions CI test suite execution.
+- **NEW**: 100% test pass rate across 61 master agent unit and integration tests.
 
 ### v3.5 — Technical Credibility Gate & 7-Dimension Weighted Scoring System (Aug 2026)
 - **NEW**: **Mandatory Technical Credibility Gate** enforcing Evidence First verification and interview defense test (`TechnicalReviewerAgent`).
