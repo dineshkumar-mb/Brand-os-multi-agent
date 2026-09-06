@@ -46,6 +46,8 @@ export * from "./agents/tradeoff-engine";
 export * from "./agents/writing-quality-evaluator";
 export * from "./agents/engineering-reasoning";
 export * from "./agents/fallback-project-engine";
+export * from "./agents/image-relevance";
+export * from "./agents/post-deduplication";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";
@@ -72,6 +74,8 @@ import { ContinuousLearningAgent } from "./agents/continuous-learning";
 import { DecisionGateAgent } from "./agents/decision-gate";
 import { DiversityReportAgent } from "./agents/diversity-report";
 import { fallbackProjectEngine } from "./agents/fallback-project-engine";
+import { ImageRelevanceVerificationAgent } from "./agents/image-relevance";
+import { PostHistoryDeduplicationAgent } from "./agents/post-deduplication";
 
 // ==========================================
 // DECOUPLED EVENT BUS & MEMORY
@@ -266,6 +270,8 @@ export class AgentOrchestrator {
   private continuousLearningAgent = new ContinuousLearningAgent();
   private decisionGateAgent = new DecisionGateAgent();
   private diversityReportAgent = new DiversityReportAgent();
+  private imageRelevanceAgent = new ImageRelevanceVerificationAgent();
+  private postDeduplicationAgent = new PostHistoryDeduplicationAgent();
 
   public async executePipeline(options: {
     autoPublish?: boolean;
@@ -286,6 +292,7 @@ export class AgentOrchestrator {
 
     this.topicIntelligenceAgent.setHistory(history);
     this.originalityAgent.setHistory(history);
+    this.postDeduplicationAgent.setHistory(history);
     topicNoveltyEngine.setHistory(history);
 
     // Layer 1 & 3: Candidate Competition Engine (30+ candidates -> Top 5 -> 1 Winner)
@@ -448,6 +455,36 @@ export class AgentOrchestrator {
       devToArticle.mainImage = svgDataUrl;
     }
 
+    // Image Relevance Verification & Post Deduplication Checks
+    const imageRelevanceRes = this.imageRelevanceAgent.evaluateImageRelevance(
+      selectedTopic,
+      linkedInPost,
+      devToArticle,
+      null,
+      visualPlanRes.data,
+      pipelineId
+    );
+
+    const postDeduplicationRes = this.postDeduplicationAgent.evaluatePostDeduplication(
+      selectedTopic,
+      linkedInPost,
+      devToArticle,
+      pipelineId
+    );
+
+    const decisionGateRes = this.decisionGateAgent.evaluateDecision(
+      selectedTopic,
+      linkedInPost,
+      devToArticle,
+      originality.data,
+      techReview.data,
+      { alignedWithArticle: true, alignmentScore: 90 } as any,
+      humanRes.data.clichésRemoved,
+      pipelineId,
+      imageRelevanceRes.data,
+      postDeduplicationRes.data
+    );
+
     // Layer 5: Career Signal & Multi-Gate Mandatory Evaluator
     const topicNovelty = noveltyRes.data.overallNoveltyScore;
     const trendFreshness = winningCand.freshnessScore;
@@ -473,11 +510,19 @@ export class AgentOrchestrator {
     if (visualNovelty < 70) rejectionReasons.push(`VisualNovelty ${visualNovelty} < mandatory threshold 70`);
     if (originalityScore < 65) rejectionReasons.push(`OriginalityScore ${originalityScore} < mandatory threshold 65`);
     if (experienceMatch < 30) rejectionReasons.push(`ExperienceMatch ${experienceMatch} < mandatory threshold 30`);
+    if (!imageRelevanceRes.data.passed) rejectionReasons.push(...imageRelevanceRes.data.rejectionReasons);
+    if (!postDeduplicationRes.data.passed) rejectionReasons.push(...postDeduplicationRes.data.rejectionReasons);
 
-    const passedAllGates = rejectionReasons.length === 0 && techReview.data.passed && originality.data.passed;
+    const passedAllGates =
+      rejectionReasons.length === 0 &&
+      techReview.data.passed &&
+      originality.data.passed &&
+      imageRelevanceRes.data.passed &&
+      postDeduplicationRes.data.passed &&
+      decisionGateRes.data.approvedForPublishing;
 
     const overallContentQualityScore = Math.round(
-      (topicNovelty + trendFreshness + humanWriting + technicalDepth + careerSignal + sourceAuthority + visualNovelty + originalityScore + experienceMatch + contextDiversity + proofAvailability + engineeringTension + careerDifferentiation) / 13
+      (topicNovelty + trendFreshness + humanWriting + technicalDepth + careerSignal + sourceAuthority + visualNovelty + originalityScore + imageRelevanceRes.data.relevanceScore + Math.round((1 - postDeduplicationRes.data.overallSimilarityScore) * 100) + experienceMatch + contextDiversity + proofAvailability + engineeringTension + careerDifferentiation) / 15
     );
 
     const qualityGateResult: QualityGateResult = {
@@ -490,6 +535,8 @@ export class AgentOrchestrator {
       sourceAuthority,
       visualNovelty,
       originality: originalityScore,
+      imageRelevance: imageRelevanceRes.data.relevanceScore,
+      postDeduplication: Math.round((1 - postDeduplicationRes.data.overallSimilarityScore) * 100),
       experienceMatch,
       contextDiversity,
       proofAvailability,

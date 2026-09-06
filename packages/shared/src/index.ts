@@ -118,6 +118,8 @@ export enum AgentType {
   VISUAL_PLANNING = "VISUAL_PLANNING",
   VISUAL_INTELLIGENCE = "VISUAL_INTELLIGENCE",
   VISUAL_REVIEWER = "VISUAL_REVIEWER",
+  IMAGE_RELEVANCE_CHECK = "IMAGE_RELEVANCE_CHECK",
+  POST_HISTORY_DEDUPLICATION = "POST_HISTORY_DEDUPLICATION",
   PUBLISHER = "PUBLISHER",
   CONTINUOUS_LEARNING = "CONTINUOUS_LEARNING",
   DECISION_GATE = "DECISION_GATE",
@@ -155,6 +157,8 @@ export enum AgentEvent {
   HUMANIZED = "Humanized",
   REVIEW_COMPLETED = "ReviewCompleted",
   ORIGINALITY_PASSED = "OriginalityPassed",
+  IMAGE_RELEVANCE_VERIFIED = "ImageRelevanceVerified",
+  POST_DEDUPLICATION_PASSED = "PostDeduplicationPassed",
   APPROVED = "Approved",
   PUBLISHED = "Published",
   ANALYTICS_UPDATED = "AnalyticsUpdated",
@@ -333,6 +337,31 @@ export interface Top5MatrixResult {
   whyNotCandidate5?: string;
 }
 
+export interface ImageRelevanceResult {
+  passed: boolean;
+  relevanceScore: number; // 0 - 100
+  keywordMatchRate: number; // 0 - 100
+  domainAlignmentScore: number; // 0 - 100
+  starStoryVisualAlignmentScore: number; // 0 - 100
+  matchedKeywords: string[];
+  missingKeywords: string[];
+  svgNodesInspected: number;
+  rejectionReasons: string[];
+}
+
+export interface PostDeduplicationResult {
+  passed: boolean;
+  overallSimilarityScore: number; // 0 - 1.0
+  titleSimilarityScore: number;
+  hookSimilarityScore: number;
+  bodySemanticSimilarity: number;
+  matchingPostId?: string;
+  matchingPostTitle?: string;
+  frameworkCooldownPassed: boolean;
+  cooldownViolations: string[];
+  rejectionReasons: string[];
+}
+
 export interface QualityGateResult {
   gateName?: string;
   passed: boolean;
@@ -347,6 +376,8 @@ export interface QualityGateResult {
   sourceAuthority?: number;
   visualNovelty?: number;
   originality?: number;
+  imageRelevance?: number;
+  postDeduplication?: number;
   experienceMatch?: number;
   contextDiversity?: number;
   proofAvailability?: number;
@@ -591,6 +622,8 @@ export const DecisionGateResultSchema = z.object({
     discussionPotentialPassed: z.boolean(),
     platformOptimizationPassed: z.boolean(),
     visualValidationPassed: z.boolean(),
+    imageRelevancePassed: z.boolean().optional(),
+    postDeduplicationPassed: z.boolean().optional(),
     seoCompletenessPassed: z.boolean(),
   }),
   rejectionReasons: z.array(z.string()),

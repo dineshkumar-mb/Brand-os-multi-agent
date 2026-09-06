@@ -1,5 +1,397 @@
 [
   {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-09-06T09:41:50.154Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-09-06T09:41:50.124Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:50.093Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:50.057Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:50.020Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.971Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.927Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-09-06T09:41:49.887Z"
+  },
+  {
+    "topicId": "cand_9_1788687709823",
+    "conceptTitle": "Dev.to rising tech",
+    "diagramType": "Dev.to rising tech Architecture Blueprint",
+    "hash": "devtorisingtech_Dev.to rising tech Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.865Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.836Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.782Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.771Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.740Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.722Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.696Z"
+  },
+  {
+    "topicId": "s4",
+    "conceptTitle": "Event-Driven SQS Queue Deduplication",
+    "diagramType": "Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "hash": "eventdrivensqsqueuededuplication_Event-Driven SQS Queue Deduplica Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.683Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.660Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.637Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.616Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-09-06T09:41:49.591Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.559Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-09-06T09:41:49.533Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-09-06T09:41:49.513Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.490Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.463Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.438Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.405Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.386Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-09-06T09:41:49.371Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "TypeScript 5.7 Project References",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_TypeScript 5.7 Project References",
+    "createdAt": "2026-09-06T09:39:51.791Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-09-06T09:39:51.762Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.726Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Day 2 Architecture Blueprint",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Day 2 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.689Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.619Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Me Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.578Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation ( Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.536Z"
+  },
+  {
+    "topicId": "cand_9_1788687591459",
+    "conceptTitle": "Dev.to rising tech",
+    "diagramType": "Dev.to rising tech Architecture Blueprint",
+    "hash": "devtorisingtech_Dev.to rising tech Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.503Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "kubernetespoddisruptionbudgets_Docker Buildx & Container Hardening",
+    "createdAt": "2026-09-06T09:39:51.489Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSocket Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.435Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.400Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimi Architecture Blueprint",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimi Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.384Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Architecting a Resilient Multi-P Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.349Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat De Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.331Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Day 10 Architecture Blueprint",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Day 10 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.277Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "Day 9 Architecture Blueprint",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_Day 9 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.260Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Day 8 Architecture Blueprint",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Day 8 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.228Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-09-06T09:39:51.197Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "Day 6 Architecture Blueprint",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_Day 6 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.169Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.147Z"
+  },
+  {
+    "topicId": "s2",
+    "conceptTitle": "Docker Buildx Rootless Hardening",
+    "diagramType": "Docker Buildx & Container Hardening",
+    "hash": "dockerbuildxrootlesshardening_Docker Buildx & Container Hardening",
+    "createdAt": "2026-09-06T09:39:51.133Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Reasoning Pipeline",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Reasoning Pipeline",
+    "createdAt": "2026-09-06T09:39:51.120Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "Day 3 Architecture Blueprint",
+    "hash": "day3postgresqllockcontentionunderp99spikes_Day 3 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.081Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Too Architecture Blueprint",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Too Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.065Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "Day 1 Architecture Blueprint",
+    "hash": "day1aiagentretryloopsbackpressure_Day 1 Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:51.029Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architectur Architecture Blueprint",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architectur Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:50.987Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP) Architecture Blueprint",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP) Architecture Blueprint",
+    "createdAt": "2026-09-06T09:39:50.971Z"
+  },
+  {
     "topicId": "proj_02_llm_gateway",
     "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
     "diagramType": "Architecting a Resilient Multi-P Architecture Blueprint",

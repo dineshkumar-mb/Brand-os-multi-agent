@@ -4,6 +4,8 @@ import {
   DecisionGateResult,
   OriginalityCheckResult,
   VisualValidationResult,
+  ImageRelevanceResult,
+  PostDeduplicationResult,
   Topic,
   LinkedInPostPayload,
   DevToArticlePayload,
@@ -19,10 +21,12 @@ export class DecisionGateAgent {
     techReview: TechnicalReviewResult,
     visualValidation: VisualValidationResult,
     clichésRemoved: number,
-    pipelineId?: string
+    pipelineId?: string,
+    imageRelevance?: ImageRelevanceResult,
+    postDeduplication?: PostDeduplicationResult
   ): AgentResult<DecisionGateResult> {
     const startTime = Date.now();
-    console.log(`[Decision Gate Agent] Evaluating 10 Quality Gates for topic "${topic?.title || "N/A"}"...`);
+    console.log(`[Decision Gate Agent] Evaluating 12 Quality Gates for topic "${topic?.title || "N/A"}"...`);
 
     const rejectionReasons: string[] = [];
 
@@ -45,6 +49,8 @@ export class DecisionGateAgent {
             discussionPotentialPassed: false,
             platformOptimizationPassed: false,
             visualValidationPassed: false,
+            imageRelevancePassed: false,
+            postDeduplicationPassed: false,
             seoCompletenessPassed: false,
           },
           rejectionReasons,
@@ -110,7 +116,19 @@ export class DecisionGateAgent {
     const seoCompletenessPassed = article.tags.length > 0 && Boolean(article.description);
     if (!seoCompletenessPassed) rejectionReasons.push("SEO completeness check failed: Dev.to metadata or tags incomplete.");
 
-    // Gate 11: Technical Credibility Gate & Hard Authenticity Rule (Evidence / Authenticity >= 70)
+    // Gate 11: Image Relevance Check
+    const imageRelevancePassed = imageRelevance ? imageRelevance.passed && imageRelevance.relevanceScore >= 80 : true;
+    if (!imageRelevancePassed && imageRelevance) {
+      rejectionReasons.push(...imageRelevance.rejectionReasons);
+    }
+
+    // Gate 12: Post History Deduplication Check
+    const postDeduplicationPassed = postDeduplication ? postDeduplication.passed && postDeduplication.overallSimilarityScore <= 0.35 : true;
+    if (!postDeduplicationPassed && postDeduplication) {
+      rejectionReasons.push(...postDeduplication.rejectionReasons);
+    }
+
+    // Gate 13: Technical Credibility Gate & Hard Authenticity Rule (Evidence / Authenticity >= 70)
     const evidenceAuthenticityScore = post.writingQualityScore?.evidenceAuthenticityScore ?? techReview.evidenceAuthenticityScore ?? 80;
     const credibilityGatePassed = techReview.credibilityGatePassed !== false && evidenceAuthenticityScore >= 70;
     if (!credibilityGatePassed) {
@@ -153,6 +171,8 @@ export class DecisionGateAgent {
       discussionPotentialPassed &&
       platformOptimizationPassed &&
       visualValidationPassed &&
+      imageRelevancePassed &&
+      postDeduplicationPassed &&
       seoCompletenessPassed;
 
     const decision: DecisionGateResult["decision"] = approvedForPublishing ? "PUBLISH" : "REJECT";
@@ -164,7 +184,7 @@ export class DecisionGateAgent {
     const visualAlignmentScore = visualValidation.alignmentScore;
 
     console.log(
-      `[DECISION_GATE] topicFreshness=${topicFreshnessScore} credibility=${evidenceAuthenticityScore} totalWeighted=${totalWeightedScore} decision=${decision}`
+      `[DECISION_GATE] topicFreshness=${topicFreshnessScore} credibility=${evidenceAuthenticityScore} totalWeighted=${totalWeightedScore} imageRelevance=${imageRelevance?.relevanceScore || 100} postDeduplicationPassed=${postDeduplicationPassed} decision=${decision}`
     );
 
     const executionTimeMs = Date.now() - startTime;
@@ -186,6 +206,8 @@ export class DecisionGateAgent {
           discussionPotentialPassed,
           platformOptimizationPassed,
           visualValidationPassed,
+          imageRelevancePassed,
+          postDeduplicationPassed,
           seoCompletenessPassed,
         },
         weightedScores: {
