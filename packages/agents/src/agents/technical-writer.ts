@@ -39,8 +39,8 @@ export interface TechnicalWriterOutput {
 export class TechnicalWriterAgent {
   private visualPlanner = new VisualPlanningAgent();
 
-  private getDynamicImageUrl(topic: Topic): string {
-    const plan = this.visualPlanner.createVisualPlan(topic);
+  private getDynamicImageUrl(topic: Topic, researchContext?: string): string {
+    const plan = this.visualPlanner.createVisualPlan(topic, undefined, researchContext);
     const svg = plan.data.renderedSvg;
     if (svg) {
       return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;

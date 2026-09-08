@@ -453,7 +453,12 @@ export class AgentOrchestrator {
 
     // Layer 4: Visual Novelty Agent (15 Visual Formats, vector embeddings, rotation)
     const visualNoveltyRes = visualNoveltyAgent.evaluateAndPlanVisual(selectedTopic, linkedInPost.fullText, pipelineId);
-    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(selectedTopic, pipelineId);
+    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(
+      selectedTopic,
+      pipelineId,
+      linkedInPost.fullText,
+      visualNoveltyRes.data.selectedVisualType
+    );
 
     if (visualPlanRes.data.renderedSvg) {
       const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;
@@ -754,7 +759,7 @@ export class AgentOrchestrator {
     const humanRes = this.humanizationAgent.sanitize(linkedInPost, devToArticle, pipelineId);
     linkedInPost = humanRes.data.post;
 
-    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(selectedTopic, pipelineId);
+    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(selectedTopic, pipelineId, linkedInPost.fullText);
     const visualPlan = visualPlanRes.data;
     if (visualPlanRes.data?.renderedSvg) {
       const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;

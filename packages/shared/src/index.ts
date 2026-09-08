@@ -912,14 +912,14 @@ export interface DiagramNode {
   label: string;
   sublabel?: string;
   icon?: "query" | "data" | "embedding" | "vector" | "vectordb" | "context" | "llm" | "response" | "cache" | "custom";
-  color?: "yellow" | "blue" | "green" | "purple" | "slate";
+  color?: "yellow" | "blue" | "green" | "purple" | "slate" | "red" | string;
 }
 
 export interface DiagramColumn {
   id: string;
   title: string;
   subtitle: string;
-  color: "blue" | "green" | "yellow" | "purple";
+  color: "blue" | "green" | "yellow" | "purple" | "red" | string;
   nodes: DiagramNode[];
   flowConnections?: Array<{ from: string; to: string; label?: string }>;
 }
@@ -927,7 +927,7 @@ export interface DiagramColumn {
 export interface DiagramSpec {
   title: string;
   columns: DiagramColumn[];
-  layoutStyle: "SIDE_BY_SIDE_COMPARISON" | "SINGLE_FLOWCHART" | "SYSTEM_DESIGN";
+  layoutStyle: "SIDE_BY_SIDE_COMPARISON" | "SINGLE_FLOWCHART" | "SYSTEM_DESIGN" | "BENCHMARK_CHART" | "SYSTEM_FLOW" | "FAILURE_ANALYSIS" | "DECISION_MATRIX" | string;
   colorPalette: string;
 }
 

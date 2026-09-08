@@ -1,5 +1,799 @@
 [
   {
+    "id": "urn:li:share:767798670",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Where would your team draw the boundary between stateful caching and the Distributed Systems database source of truth in Zero Duplicate Side Effects? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:28.137Z",
+    "engagementMetrics": {
+      "impressions": 163,
+      "reactions": 26,
+      "comments": 4,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 7,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:465064470",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Adding a cache layer to Zero Duplicate Side Effects made the system less reliable.",
+    "fullText": "Adding a cache layer to Zero Duplicate Side Effects made the system less reliable. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:27.898Z",
+    "engagementMetrics": {
+      "impressions": 244,
+      "reactions": 26,
+      "comments": 4,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 6,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:866487361",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:25.674Z",
+    "engagementMetrics": {
+      "impressions": 194,
+      "reactions": 33,
+      "comments": 6,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:729408987",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:25.341Z",
+    "engagementMetrics": {
+      "impressions": 260,
+      "reactions": 17,
+      "comments": 2,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:515876593",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I thought our Distributed Systems query path was slow. It wasn't.",
+    "fullText": "I thought our Distributed Systems query path was slow. It wasn't. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:23.255Z",
+    "engagementMetrics": {
+      "impressions": 151,
+      "reactions": 27,
+      "comments": 4,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 8,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:614191036",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "There were two technically sound ways to structure Distributed Systems. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure Distributed Systems. Neither option was free. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:22.919Z",
+    "engagementMetrics": {
+      "impressions": 240,
+      "reactions": 24,
+      "comments": 3,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 11,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:898521004",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:20.810Z",
+    "engagementMetrics": {
+      "impressions": 268,
+      "reactions": 19,
+      "comments": 5,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:459277128",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "6 months ago, our Distributed Systems service suffered p99 latency spikes of 1200ms. Here is what changed after we refactored the execution path.",
+    "fullText": "6 months ago, our Distributed Systems service suffered p99 latency spikes of 1200ms. Here is what changed after we refactored the execution path. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:20.425Z",
+    "engagementMetrics": {
+      "impressions": 252,
+      "reactions": 30,
+      "comments": 3,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 5,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:163540063",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Where would your team draw the boundary between stateful caching and the Distributed Systems database source of truth in Zero Duplicate Side Effects? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:17.602Z",
+    "engagementMetrics": {
+      "impressions": 172,
+      "reactions": 22,
+      "comments": 3,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 12,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:108709228",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:17.153Z",
+    "engagementMetrics": {
+      "impressions": 168,
+      "reactions": 17,
+      "comments": 4,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 13,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:307483532",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "There were two technically sound ways to structure Distributed Systems. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure Distributed Systems. Neither option was free. Before: A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Target: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Change: Option B: Redis-backed distributed atomic lock middleware After: Duplicate job execution dropped to 0%, queue throughput increased by 42% Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:14.257Z",
+    "engagementMetrics": {
+      "impressions": 163,
+      "reactions": 22,
+      "comments": 6,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 11,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:325803058",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I thought our Distributed Systems query path was slow. It wasn't.",
+    "fullText": "I thought our Distributed Systems query path was slow. It wasn't. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:14.252Z",
+    "engagementMetrics": {
+      "impressions": 248,
+      "reactions": 20,
+      "comments": 4,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 5,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:862862598",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Distributed Systems wasn't the headline feature. It was the failure handling design. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Constraint: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Approach: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% / 42%) Lesson: Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:13.338Z",
+    "engagementMetrics": {
+      "impressions": 200,
+      "reactions": 18,
+      "comments": 5,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 13,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:404102555",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Our monitoring dashboards reported CPU usage at 18%. Our Distributed Systems background workers were actually starving due to thread pool deadlocks.",
+    "fullText": "Our monitoring dashboards reported CPU usage at 18%. Our Distributed Systems background workers were actually starving due to thread pool deadlocks. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Constraint: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Approach: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% / 42%) Lesson: Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:11.581Z",
+    "engagementMetrics": {
+      "impressions": 184,
+      "reactions": 18,
+      "comments": 5,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 8,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:677191810",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I thought our Distributed Systems query path was slow. It wasn't.",
+    "fullText": "I thought our Distributed Systems query path was slow. It wasn't. Context: A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Goal: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Decision: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Outcome: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% vs 42%) Conclusion: Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:11.553Z",
+    "engagementMetrics": {
+      "impressions": 237,
+      "reactions": 18,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 7,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:879884228",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Adding a cache layer to Zero Duplicate Side Effects made the system less reliable.",
+    "fullText": "Adding a cache layer to Zero Duplicate Side Effects made the system less reliable. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:10.919Z",
+    "engagementMetrics": {
+      "impressions": 204,
+      "reactions": 32,
+      "comments": 3,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 12,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:727750176",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "6 months ago, our Distributed Systems service suffered p99 latency spikes of 1200ms. Here is what changed after we refactored the execution path.",
+    "fullText": "6 months ago, our Distributed Systems service suffered p99 latency spikes of 1200ms. Here is what changed after we refactored the execution path. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Where would your team draw the boundary between stateful caching and the Distributed Systems database source of truth in Zero Duplicate Side Effects? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:08.281Z",
+    "engagementMetrics": {
+      "impressions": 220,
+      "reactions": 36,
+      "comments": 6,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 13,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:155669173",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:08.156Z",
+    "engagementMetrics": {
+      "impressions": 260,
+      "reactions": 30,
+      "comments": 6,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 9,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:295347261",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The Zero Duplicate Side Effects implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Zero Duplicate Side Effects implementation was technically correct. The system was still wrong under load. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Where would your team draw the boundary between stateful caching and the Distributed Systems database source of truth in Zero Duplicate Side Effects? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:07.316Z",
+    "engagementMetrics": {
+      "impressions": 207,
+      "reactions": 33,
+      "comments": 3,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 10,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:994630434",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure.",
+    "fullText": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:05.770Z",
+    "engagementMetrics": {
+      "impressions": 148,
+      "reactions": 22,
+      "comments": 2,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 11,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:393153186",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "This looked like a minor feature addition in Distributed Systems. Under closer analysis, it required re-evaluating three separate service boundaries.",
+    "fullText": "This looked like a minor feature addition in Distributed Systems. Under closer analysis, it required re-evaluating three separate service boundaries. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Where would your team draw the boundary between stateful caching and the Distributed Systems database source of truth in Zero Duplicate Side Effects? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:04.977Z",
+    "engagementMetrics": {
+      "impressions": 256,
+      "reactions": 36,
+      "comments": 6,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 5,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:340957745",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Zero Duplicate Side Effects introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters.",
+    "fullText": "Zero Duplicate Side Effects introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-08T16:08:04.771Z",
+    "engagementMetrics": {
+      "impressions": 236,
+      "reactions": 31,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 9,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:562820740",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Architecting a Resilient Multi-Provider LLM Gateway introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters.",
+    "fullText": "Architecting a Resilient Multi-Provider LLM Gateway introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints Would you optimize Architecting a Resilient Multi-Provider LLM Gateway for latency or cost here if LLM Gateway Router request volume doubled? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-09-08T16:08:01.992Z",
+    "engagementMetrics": {
+      "impressions": 165,
+      "reactions": 19,
+      "comments": 2,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 10,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:728568682",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Our Architecting a Resilient Multi-Provider LLM Gateway integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our Architecting a Resilient Multi-Provider LLM Gateway integration test suite was completely green. The workflow still failed under real load. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints How does your team handle the Architecting a Resilient Multi-Provider LLM Gateway trade-off when scaling LLM Gateway Router under load? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-09-08T16:08:01.984Z",
+    "engagementMetrics": {
+      "impressions": 157,
+      "reactions": 17,
+      "comments": 5,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 8,
+      "followersGained": 4
+    }
+  },
+  {
     "id": "urn:li:share:7499814663933673472",
     "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
     "platform": "LINKEDIN",
