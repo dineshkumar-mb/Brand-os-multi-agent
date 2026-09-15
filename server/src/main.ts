@@ -86,13 +86,14 @@ brandos_ai_gateway_cost_usd_total 0.042
 });
 
 // Auth Public Routes
-app.post("/api/v1/auth/register", (req, res) => authController.register(req, res));
-app.post("/api/v1/auth/login", (req, res) => authController.login(req, res));
-app.post("/api/v1/auth/forgot-password", (req, res) => authController.forgotPassword(req, res));
-app.post("/api/v1/auth/reset-password", (req, res) => authController.resetPassword(req, res));
+app.post(["/api/v1/auth/register", "/v1/auth/register", "/auth/register"], (req, res) => authController.register(req, res));
+app.post(["/api/v1/auth/login", "/v1/auth/login", "/auth/login"], (req, res) => authController.login(req, res));
+app.post(["/api/v1/auth/forgot-password", "/v1/auth/forgot-password", "/auth/forgot-password"], (req, res) => authController.forgotPassword(req, res));
+app.post(["/api/v1/auth/reset-password", "/v1/auth/reset-password", "/auth/reset-password"], (req, res) => authController.resetPassword(req, res));
 
 // Auth Protected Profile Route
-app.get("/api/v1/auth/me", authMiddleware as any, (req: any, res) => authController.getProfile(req, res));
+app.get(["/api/v1/auth/me", "/v1/auth/me", "/auth/me"], authMiddleware as any, (req: any, res) => authController.getProfile(req, res));
+
 
 // AI Gateway Routes
 app.get("/api/v1/gateway/benchmarks", (req, res) => gatewayController.getBenchmarks(req, res));
