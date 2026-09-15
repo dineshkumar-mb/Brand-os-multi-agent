@@ -239,10 +239,10 @@ export class AnalyticsService {
         if (res.ok) {
           const userData: any = await res.json();
           return {
-            id: userData.sub || "urn:li:person:dinesh-kumar",
-            name: userData.name || "Dinesh Kumar M B",
+            id: userData.sub || "urn:li:person:user",
+            name: userData.name || "Staff AI Engineer",
             headline: "Full Stack AI Engineer | Multi-Agent Systems & System Architecture",
-            vanityName: userData.preferred_username || "dineshkumar-mb",
+            vanityName: userData.preferred_username || "profile",
             profilePictureUrl: userData.picture || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
             followersCount: 1122,
             connectionsCount: 500,
@@ -258,10 +258,10 @@ export class AnalyticsService {
     }
 
     return {
-      id: "urn:li:person:dineshkumar-mb",
-      name: "Dinesh Kumar M B",
+      id: "urn:li:person:user",
+      name: "Staff AI Engineer",
       headline: "Full Stack AI Engineer | Multi-Agent Systems & System Architecture",
-      vanityName: "dineshkumar-mb",
+      vanityName: "profile",
       profilePictureUrl: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400",
       followersCount: 1122,
       connectionsCount: 500,

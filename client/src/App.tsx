@@ -16,11 +16,13 @@ import { PublisherQueuePage } from "./pages/PublisherQueuePage";
 import { AnalyticsPage } from "./pages/AnalyticsPage";
 import { PluginsPage } from "./pages/PluginsPage";
 import { SettingsPage } from "./pages/SettingsPage";
-import { CheckCircle2 } from "lucide-react";
-
+import { AuthPage } from "./pages/AuthPage";
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { CheckCircle2, Cpu } from "lucide-react";
 import { api } from "./services/api";
 
-export default function App() {
+function MainAppContent() {
+  const { isAuthenticated, loading } = useAuth();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [copilotOpen, setCopilotOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -39,6 +41,23 @@ export default function App() {
       setPipelineSuccess(true);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="h-screen w-screen bg-slate-950 flex flex-col items-center justify-center text-slate-100 gap-4 font-sans">
+        <div className="h-12 w-12 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400 p-0.5 animate-pulse">
+          <div className="h-full w-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+            <Cpu className="h-6 w-6 text-indigo-400" />
+          </div>
+        </div>
+        <p className="text-xs font-mono text-slate-400 animate-pulse">Restoring Session & Security Context...</p>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <AuthPage />;
+  }
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-slate-950 text-slate-100 relative">
@@ -95,9 +114,15 @@ export default function App() {
         </div>
       </main>
 
-
       {copilotOpen && <AICopilotSidebar onClose={() => setCopilotOpen(false)} />}
     </div>
   );
 }
 
+export default function App() {
+  return (
+    <AuthProvider>
+      <MainAppContent />
+    </AuthProvider>
+  );
+}

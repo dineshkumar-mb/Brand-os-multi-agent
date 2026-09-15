@@ -1,5 +1,117 @@
 [
   {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-15T15:23:18.952Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-15T15:23:18.946Z"
+  },
+  {
+    "topicId": "cand_15_1789485798893",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Decision Matrix",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Decision Matrix",
+    "createdAt": "2026-09-15T15:23:18.932Z"
+  },
+  {
+    "topicId": "cand_15_1789485798893",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T15:23:18.916Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-15T15:03:29.880Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-15T15:03:29.866Z"
+  },
+  {
+    "topicId": "cand_15_1789484609730",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Benchmark",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Benchmark",
+    "createdAt": "2026-09-15T15:03:29.837Z"
+  },
+  {
+    "topicId": "cand_15_1789484609730",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T15:03:29.802Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "createdAt": "2026-09-15T14:58:30.546Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-15T14:58:30.539Z"
+  },
+  {
+    "topicId": "cand_15_1789484310472",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Pipeline Flow",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Pipeline Flow",
+    "createdAt": "2026-09-15T14:58:30.521Z"
+  },
+  {
+    "topicId": "cand_15_1789484310472",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T14:58:30.503Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Benchmark",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Benchmark",
+    "createdAt": "2026-09-15T14:24:36.669Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-15T14:24:36.665Z"
+  },
+  {
+    "topicId": "cand_15_1789482276624",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Decision Matrix",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Decision Matrix",
+    "createdAt": "2026-09-15T14:24:36.658Z"
+  },
+  {
+    "topicId": "cand_15_1789482276624",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T14:24:36.647Z"
+  },
+  {
     "topicId": "cand_31_1788095609209",
     "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
     "diagramType": "Diagnosing V8 GC Pressure and Me Architecture Blueprint",

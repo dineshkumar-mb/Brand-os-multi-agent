@@ -1,3 +1,20 @@
+import dotenv from "dotenv";
+import path from "path";
+import fs from "fs";
+
+const possibleEnvPaths = [
+  path.resolve(process.cwd(), ".env"),
+  path.resolve(process.cwd(), "../.env"),
+  path.resolve(__dirname, "../../.env"),
+  path.resolve(__dirname, "../../../.env"),
+];
+
+for (const envPath of possibleEnvPaths) {
+  if (fs.existsSync(envPath)) {
+    dotenv.config({ path: envPath, override: true });
+  }
+}
+
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -13,6 +30,7 @@ import { publishController } from "./controllers/publish.controller";
 import { analyticsController } from "./controllers/analytics.controller";
 import { pluginsController } from "./controllers/plugins.controller";
 import { errorHandler } from "./middleware/error.middleware";
+import { authMiddleware, authorize } from "./middleware/auth.middleware";
 import { aiGateway } from "@brand-os/ai-gateway";
 import { analyticsService } from "@brand-os/analytics";
 
@@ -67,19 +85,24 @@ brandos_ai_gateway_cost_usd_total 0.042
 `);
 });
 
-// Auth Routes
+// Auth Public Routes
+app.post("/api/v1/auth/register", (req, res) => authController.register(req, res));
 app.post("/api/v1/auth/login", (req, res) => authController.login(req, res));
-app.get("/api/v1/auth/me", (req, res) => authController.getProfile(req, res));
+app.post("/api/v1/auth/forgot-password", (req, res) => authController.forgotPassword(req, res));
+app.post("/api/v1/auth/reset-password", (req, res) => authController.resetPassword(req, res));
+
+// Auth Protected Profile Route
+app.get("/api/v1/auth/me", authMiddleware as any, (req: any, res) => authController.getProfile(req, res));
 
 // AI Gateway Routes
 app.get("/api/v1/gateway/benchmarks", (req, res) => gatewayController.getBenchmarks(req, res));
 app.get("/api/v1/gateway/logs", (req, res) => gatewayController.getLogs(req, res));
-app.post("/api/v1/gateway/execute", (req, res) => gatewayController.executePrompt(req, res));
+app.post("/api/v1/gateway/execute", authMiddleware as any, (req, res) => gatewayController.executePrompt(req, res));
 
-// Agents & Swarm Routes
+// Agents & Swarm Routes (Protected - ADMIN or TEAM_MEMBER)
 app.get("/api/v1/agents/status", (req, res) => agentsController.getStatus(req, res));
-app.post("/api/v1/agents/trigger", (req, res) => agentsController.triggerSwarm(req, res));
-app.post("/api/v1/agents/visual-diagram", (req, res) => agentsController.generateVisualDiagram(req, res));
+app.post("/api/v1/agents/trigger", authMiddleware as any, authorize("ADMIN", "TEAM_MEMBER") as any, (req, res) => agentsController.triggerSwarm(req, res));
+app.post("/api/v1/agents/visual-diagram", authMiddleware as any, (req, res) => agentsController.generateVisualDiagram(req, res));
 
 
 import { intelligenceController } from "./controllers/intelligence.controller";

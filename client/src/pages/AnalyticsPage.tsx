@@ -90,7 +90,7 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           <a
-            href={`https://www.linkedin.com/in/${profile.vanityName || "dineshkumar-mb"}`}
+            href={profile.vanityName ? `https://www.linkedin.com/in/${profile.vanityName}` : "#"}
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium transition shrink-0 self-start sm:self-auto"

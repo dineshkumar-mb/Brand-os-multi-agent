@@ -1,5 +1,131 @@
 [
   {
+    "topic": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "hook": "There were two technically sound ways to structure TypeScript 5.7.\n\nNeither option was free.",
+    "hookType": "TRADEOFF",
+    "storyAngle": "SENIOR_ENGINEERING_REASONING",
+    "narrativePattern": "ENGINEERING_DISCOVERY",
+    "ctaType": "BOUNDARY_QUESTION",
+    "ctaText": "Where would your team draw the boundary between stateful caching and the TypeScript 5.7 database source of truth in Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos?",
+    "vocabulary": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "writingQualityScore": {
+      "clarity": 92,
+      "technicalDepth": 83,
+      "seniority": 100,
+      "authenticity": 90,
+      "originality": 92,
+      "narrativeQuality": 90,
+      "evidenceQuality": 20,
+      "readability": 88,
+      "careerSignal": 92,
+      "discussionPotential": 92,
+      "aiClicheScore": 100,
+      "evidenceAuthenticityScore": 62,
+      "personalExperienceScore": 95,
+      "engineeringDepthScore": 90,
+      "storytellingScore": 92,
+      "recruiterValueScore": 92,
+      "engagementPotentialScore": 92,
+      "weightedTotalScore": 82,
+      "overall": 82,
+      "boredomScore": {
+        "structuralRepetition": 80,
+        "hookRepetition": 0,
+        "vocabularyRepetition": 0,
+        "topicRepetition": 0,
+        "ctaRepetition": 0,
+        "narrativePredictability": 0,
+        "genericness": 0,
+        "overall": 20
+      },
+      "storyQualityScore": {
+        "curiosity": 95,
+        "tension": 90,
+        "specificity": 95,
+        "decisionQuality": 95,
+        "technicalDepth": 100,
+        "resultStrength": 75,
+        "authenticity": 90,
+        "seniority": 95,
+        "starCompleteness": 98,
+        "overall": 93
+      }
+    },
+    "storyMode": "BUILD_IN_PUBLIC",
+    "formatStyle": "TECHNICAL_NOTE",
+    "starStory": {
+      "situation": {
+        "context": "Compiling a large pnpm monorepo structure holding twelve nested library modules.",
+        "trigger": "CI build workers ran full type checking runs for every single branch pull request.",
+        "stakes": "Developer feedback loops stretched past eight minutes, slowing rollout velocity.",
+        "curiosityTension": "We had enabled incremental cache flags, but tsc kept resolving the full dependency graph."
+      },
+      "task": {
+        "objective": "Set up strict compilation boundaries in the composite package structure.",
+        "constraints": [
+          "Enforce global strict compiler validation",
+          "No bypass build shortcuts on pull requests"
+        ],
+        "successCriteria": [
+          "Warm builds complete under two minutes",
+          "Clean isolation of package changes"
+        ]
+      },
+      "action": {
+        "approachesConsidered": [
+          "Option A: Splitting internal packages into separate git repositories",
+          "Option B: RESTructuring type check layers using tsconfig Project References"
+        ],
+        "chosenApproach": "Option B: Compiler reference hierarchy with incremental declaration mapping.",
+        "rejectedApproaches": [
+          "Option A rejected: splitting codebases creates version synchronization debt across services"
+        ],
+        "reasoning": "We chose  over Unified client-only state management simplicity because project references let tsc read cached declaration maps directly.",
+        "decisionMoment": "Seeing build queues bottlenecked by tsc checks during a minor readme revision was the pivot.",
+        "implementation": "Refactored tsconfig structures to link output dependencies explicitly via declaration maps.",
+        "debugging": "Analyzed tsbuildinfo cached records to ensure incremental cache hits were preserved."
+      },
+      "result": {
+        "outcome": "CI type check time reduced from 8.5 minutes to 1.8 minutes (78% speedup).",
+        "metrics": [
+          "78% compilation speedup",
+          "Warm builds reduced to 1.8 minutes"
+        ],
+        "evidence": [
+          "Build container execution logs",
+          "tsconfig reference maps"
+        ]
+      },
+      "insight": {
+        "engineeringLesson": "Monorepo scaling requires compiler isolation. Without references, compiler workloads grow linearly with codebase size.",
+        "tradeoffs": [
+          "Chosen: ",
+          "Sacrificed: Unified client-only state management simplicity"
+        ],
+        "whenNotToUse": [
+          "Do not configure references for small projects where compile times are negligible."
+        ]
+      }
+    },
+    "boredomScore": {
+      "structuralRepetition": 80,
+      "hookRepetition": 0,
+      "vocabularyRepetition": 0,
+      "topicRepetition": 0,
+      "ctaRepetition": 0,
+      "narrativePredictability": 0,
+      "genericness": 0,
+      "overall": 20
+    },
+    "id": "wm_1789482607254_mqb5b",
+    "timestamp": "2026-09-15T14:30:07.254Z"
+  },
+  {
     "topic": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
     "category": "Docker",
     "framework": "DevOps",

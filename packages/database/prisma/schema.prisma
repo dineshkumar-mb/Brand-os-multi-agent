@@ -72,20 +72,22 @@ enum Competition {
 }
 
 model User {
-  id           String        @id @default(uuid())
-  email        String        @unique
-  name         String
-  passwordHash String
-  role         Role          @default(USER)
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id                 String        @id @default(uuid())
+  email              String        @unique
+  name               String
+  passwordHash       String
+  role               Role          @default(USER)
+  resetToken         String?       @unique
+  resetTokenExpiry   DateTime?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 
-  profile      Profile?
-  settings     UserSettings?
-  posts        Post[]
-  articles     Article[]
-  apiKeys      EncryptedApiKey[]
-  auditLogs    AuditLog[]
+  profile            Profile?
+  settings           UserSettings?
+  posts              Post[]
+  articles           Article[]
+  apiKeys            EncryptedApiKey[]
+  auditLogs          AuditLog[]
 
   @@map("users")
 }

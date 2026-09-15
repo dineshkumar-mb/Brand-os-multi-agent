@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { ThumbsUp, MessageSquare, Share2, Sparkles, Send, Layers, CheckCircle2, Loader2, Save, Zap, Flame, Image as ImageIcon } from "lucide-react";
+import { ThumbsUp, MessageSquare, Share2, Sparkles, Send, Layers, CheckCircle2, Loader2, Save, Zap, Flame, Image as ImageIcon, Linkedin, FileText, Eye, RefreshCw, Sliders } from "lucide-react";
 import { api } from "../services/api";
+import { useAuth } from "../context/AuthContext";
 
 export const LinkedInStudioPage: React.FC = () => {
+  const { user } = useAuth();
+  const userName = user?.name || "Staff AI Engineer";
+  const userInitials = userName.split(" ").map((n) => n[0]).join("").substring(0, 2).toUpperCase();
   const [hook, setHook] = useState("RAG vs CAG: Stop building legacy architectures in 2026. Here is why CAG changes everything. 🚀");
   const [body, setBody] = useState(`RAG vs CAG: Stop building legacy architectures in 2026. Here is why CAG changes everything. 🚀\n\nLast week, our engineering team evaluated modern AI swarm architectures comparing Retrieval Augmented Generation (RAG) vs Cache Augmented Generation (CAG).\n\nThe results?\n⚡ 90% reduction in state retrieval latency\n🚀 3.4x faster time-to-first-token execution\n💡 100% KV cache hit rate across repetitive prompt workflows\n\nKey Differences (Refer Attached Architecture Diagram):\n1. RAG queries Vector DB on every request\n2. CAG pre-caches context into LLM KV store for instantaneous retrieval\n3. RAG + CAG hybrid maximizes accuracy while slashing latency!\n\nWhat is your team's strategy for adopting CAG in 2026? Drop your thoughts below! 👇\n\n#SystemDesign #RAG #CAG #AI #Architecture #TypeScript`);
 
@@ -154,14 +158,9 @@ export const LinkedInStudioPage: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-800 pb-3">
             <div className="flex items-center gap-2">
               <h3 className="text-sm font-semibold text-white">Viral Post Studio & Editor</h3>
-              <a
-                href="https://www.linkedin.com/in/dineshkumar-mb/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[10px] text-indigo-400 hover:underline font-mono flex items-center gap-1 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20"
-              >
-                linkedin.com/in/dineshkumar-mb ↗
-              </a>
+              <span className="text-[10px] text-indigo-400 font-mono flex items-center gap-1 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
+                Connected: {userName}
+              </span>
             </div>
             <span className="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
               <Zap className="h-3 w-3 text-emerald-400" /> Hook Score: {hookScore}/100
@@ -260,11 +259,11 @@ export const LinkedInStudioPage: React.FC = () => {
 
           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4 shadow-2xl">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white text-xs">
-                DM
+              <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center font-bold text-white text-xs shadow-md">
+                {userInitials}
               </div>
               <div>
-                <p className="text-xs font-bold text-white">Dineshkumar MB</p>
+                <p className="text-xs font-bold text-white">{userName}</p>
                 <p className="text-[10px] text-slate-400">Staff AI & Systems Architect • Just now • 🌐</p>
               </div>
             </div>

@@ -1,5 +1,32 @@
 [
   {
+    "id": "urn:li:share:953000890",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "There were two technically sound ways to structure TypeScript 5.7. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure TypeScript 5.7. Neither option was free. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Constraint: Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) Approach: Option B: Compiler reference hierarchy with incremental declaration mapping Tradeoff: Chosen: , Sacrificed: Unified client-only state management simplicity CI type check time reduced from 8 (78% / 78%) Lesson: Monorepo scaling requires compiler isolation Where would your team draw the boundary between stateful caching and the TypeScript 5.7 database source of truth in Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-09-15T14:30:07.292Z",
+    "engagementMetrics": {
+      "impressions": 149,
+      "reactions": 17,
+      "comments": 3,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 8,
+      "followersGained": 4
+    }
+  },
+  {
     "id": "urn:li:share:850159120",
     "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
     "platform": "LINKEDIN",

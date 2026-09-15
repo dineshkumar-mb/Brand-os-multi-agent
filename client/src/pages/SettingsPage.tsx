@@ -2,24 +2,26 @@ import React, { useState } from "react";
 import { Key, Cpu, Save, Linkedin, FileText, CheckCircle2, Link as LinkIcon, ShieldCheck, Loader2, Bell, Send, MessageSquare, AlertCircle } from "lucide-react";
 
 export const SettingsPage: React.FC = () => {
-  const [linkedinUrl, setLinkedinUrl] = useState("https://www.linkedin.com/in/dineshkumar-mb/");
-  const [linkedinClientId, setLinkedinClientId] = useState("linkedin_oauth_client_78910");
-  const [linkedinClientSecret, setLinkedinClientSecret] = useState("lk_secret_891238912893");
+  const storedConfig = JSON.parse(localStorage.getItem("brand_os_social_config") || "{}");
 
-  const [mediumUrl, setMediumUrl] = useState("https://medium.com/@staff-ai-engineer");
-  const [mediumToken, setMediumToken] = useState("2a0f89123891289318923891238912");
+  const [linkedinUrl, setLinkedinUrl] = useState(storedConfig.linkedinUrl || "");
+  const [linkedinClientId, setLinkedinClientId] = useState(storedConfig.linkedinClientId || "");
+  const [linkedinClientSecret, setLinkedinClientSecret] = useState(storedConfig.linkedinClientSecret || "");
 
-  const [openAiKey, setOpenAiKey] = useState("sk-proj-********************************");
-  const [geminiKey, setGeminiKey] = useState("AIzaSy-********************************");
-  const [anthropicKey, setAnthropicKey] = useState("sk-ant-********************************");
+  const [mediumUrl, setMediumUrl] = useState(storedConfig.mediumUrl || "");
+  const [mediumToken, setMediumToken] = useState(storedConfig.mediumToken || "");
 
-  const [routingStrategy, setRoutingStrategy] = useState("COST_OPTIMIZED");
-  const [hitlRequired, setHitlRequired] = useState(true);
+  const [openAiKey, setOpenAiKey] = useState(storedConfig.openAiKey || "");
+  const [geminiKey, setGeminiKey] = useState(storedConfig.geminiKey || "");
+  const [anthropicKey, setAnthropicKey] = useState(storedConfig.anthropicKey || "");
+
+  const [routingStrategy, setRoutingStrategy] = useState(storedConfig.routingStrategy || "COST_OPTIMIZED");
+  const [hitlRequired, setHitlRequired] = useState(storedConfig.hitlRequired !== undefined ? storedConfig.hitlRequired : true);
 
   // Automation Notification Settings State
-  const [telegramBotToken, setTelegramBotToken] = useState("8991559572:AAEoQbF3RYkO7GnzZIw6GcVhoacN-BCIEzc");
-  const [telegramChatId, setTelegramChatId] = useState("-5128959794");
-  const [webhookUrl, setWebhookUrl] = useState("");
+  const [telegramBotToken, setTelegramBotToken] = useState(storedConfig.telegramBotToken || "");
+  const [telegramChatId, setTelegramChatId] = useState(storedConfig.telegramChatId || "");
+  const [webhookUrl, setWebhookUrl] = useState(storedConfig.webhookUrl || "");
   const [isTestingNotification, setIsTestingNotification] = useState(false);
   const [testResult, setTestResult] = useState<string | null>(null);
 

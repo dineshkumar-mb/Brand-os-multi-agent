@@ -1,5 +1,6 @@
 import React from "react";
-import { RefreshCw, Bot, Menu } from "lucide-react";
+import { RefreshCw, Bot, Menu, LogOut, Shield } from "lucide-react";
+import { useAuth } from "../context/AuthContext";
 
 interface HeaderProps {
   activeTab: string;
@@ -18,6 +19,8 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleCopilot,
   onToggleMobileMenu,
 }) => {
+  const { user, logout } = useAuth();
+
   return (
     <header className="h-16 border-b border-slate-800/80 bg-slate-900/40 px-4 md:px-6 flex items-center justify-between backdrop-blur-xl shrink-0">
       <div className="flex items-center gap-3">
@@ -59,8 +62,28 @@ export const Header: React.FC<HeaderProps> = ({
           <Bot className="h-4 w-4 text-indigo-400" />
           <span className="hidden sm:inline">AI Copilot</span>
         </button>
+
+        {user && (
+          <div className="flex items-center gap-2 pl-2 border-l border-slate-800">
+            <div className="hidden lg:flex flex-col items-end text-right min-w-0">
+              <span className="text-xs font-semibold text-slate-200 truncate max-w-[130px]">{user.name}</span>
+              <span className="text-[10px] text-indigo-400 flex items-center gap-1 font-mono uppercase">
+                <Shield className="h-2.5 w-2.5 shrink-0" />
+                {user.role}
+              </span>
+            </div>
+            <button
+              onClick={logout}
+              title="Sign Out"
+              className="p-2 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-rose-950/40 hover:border-rose-800/60 text-slate-400 hover:text-rose-300 transition-all shrink-0"
+            >
+              <LogOut className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
     </header>
   );
 };
+
 

@@ -1,5 +1,49 @@
 [
   {
+    "pipelineId": "pl_jgfnabhkn",
+    "timestamp": "2026-09-15T15:23:18.955Z",
+    "durationMs": 30011,
+    "status": "SUCCESS",
+    "winnerTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
+    "pipelineId": "pl_c9k8nw3xr",
+    "timestamp": "2026-09-15T15:03:29.892Z",
+    "durationMs": 15489,
+    "status": "SUCCESS",
+    "winnerTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
+    "pipelineId": "pl_ohq6g6aij",
+    "timestamp": "2026-09-15T14:58:30.550Z",
+    "durationMs": 11514,
+    "status": "SUCCESS",
+    "winnerTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
+    "pipelineId": "pl_2msphdkz0",
+    "timestamp": "2026-09-15T14:24:36.673Z",
+    "durationMs": 9773,
+    "status": "SUCCESS",
+    "winnerTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
     "pipelineId": "pl_dvoeugmhj",
     "timestamp": "2026-08-30T13:13:29.341Z",
     "durationMs": 10082,

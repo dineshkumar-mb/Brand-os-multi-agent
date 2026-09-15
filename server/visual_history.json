@@ -1,5 +1,19 @@
 [
   {
+    "topicId": "cand_31_1789482607202",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "Eliminating CI Type-Check Bottleneck Decision Matrix",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_Eliminating CI Type-Check Bottleneck Decision Matrix",
+    "createdAt": "2026-09-15T14:30:07.272Z"
+  },
+  {
+    "topicId": "cand_31_1789482607202",
+    "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "diagramType": "Eliminating CI Type-Check Bottleneck Architecture",
+    "hash": "eliminatingcitypecheckbottlenecksinlargetypescriptmonorepos_Eliminating CI Type-Check Bottleneck Architecture",
+    "createdAt": "2026-09-15T14:30:07.247Z"
+  },
+  {
     "topicId": "cand_27_1788094847553",
     "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
     "diagramType": "Docker Buildx & Container Hardening",

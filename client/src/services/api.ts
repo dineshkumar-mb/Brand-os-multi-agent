@@ -22,6 +22,19 @@ export class ApiClient {
     this.token = localStorage.getItem("brand_os_token");
   }
 
+  public setToken(token: string | null) {
+    this.token = token;
+    if (token) {
+      localStorage.setItem("brand_os_token", token);
+    } else {
+      localStorage.removeItem("brand_os_token");
+    }
+  }
+
+  public getToken(): string | null {
+    return this.token;
+  }
+
   private async request<T = any>(endpoint: string, options: RequestInit = {}): Promise<T> {
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
@@ -43,6 +56,46 @@ export class ApiClient {
     }
 
     return await response.json();
+  }
+
+  public async login(email: string, password: string): Promise<{ token: string; user: any; message?: string }> {
+    const data = await this.request("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+    if (data.token) {
+      this.setToken(data.token);
+    }
+    return data;
+  }
+
+  public async register(name: string, email: string, password: string, role = "USER"): Promise<{ token: string; user: any; message?: string }> {
+    const data = await this.request("/auth/register", {
+      method: "POST",
+      body: JSON.stringify({ name, email, password, role }),
+    });
+    if (data.token) {
+      this.setToken(data.token);
+    }
+    return data;
+  }
+
+  public async forgotPassword(email: string): Promise<{ message: string; resetToken?: string }> {
+    return this.request("/auth/forgot-password", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    });
+  }
+
+  public async resetPassword(token: string, newPassword: string): Promise<{ message: string }> {
+    return this.request("/auth/reset-password", {
+      method: "POST",
+      body: JSON.stringify({ token, newPassword }),
+    });
+  }
+
+  public async getProfile(): Promise<any> {
+    return this.request("/auth/me");
   }
 
   public async getDashboard() {
