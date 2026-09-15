@@ -60,6 +60,18 @@ To maximize organic reach, engineering engagement, and algorithm performance on 
 
 ---
 
+### 1.8 🔐 Security, Authentication, Authorization (RBAC) & Resend Email Engine
+
+The platform incorporates an enterprise-grade security layer for API protection, user authentication, role authorization, and email dispatch:
+
+- **JWT Authentication & Passwords**: JWT access token authentication with 7-day expiration. Secure password hashing implemented using Node's standard `scrypt` crypto engine with 16-byte random salts and timing-safe equality verification.
+- **Role-Based Access Control (RBAC)**: Enforces role permissions across `ADMIN`, `TEAM_MEMBER`, and `USER` roles. Route middleware (`authorize('ADMIN', 'TEAM_MEMBER')`) protects administrative endpoints such as agent swarm triggers, settings modification, and content publishing.
+- **Resend Email Service (`EmailService`)**: Integrated with [Resend SDK](https://resend.com) for automated HTML password reset emails and user onboarding welcome dispatches. Includes safe dev-mode fallback for local testing.
+- **Interactive OpenAPI/Swagger Documentation**: Complete API specification available interactively at `/api-docs` or JSON at `/api-docs.json`.
+- **Live Vercel Production Deployment**: Deployed live on Vercel at [https://brand-os-multi-agent.vercel.app](https://brand-os-multi-agent.vercel.app).
+
+---
+
 ### 2. 📖 STAR + Human Engineering Storytelling Pipeline
 
 The daily writing pipeline generates authentic, human engineering stories using the **STAR framework** internally as reasoning architecture without ever exposing formulaic headers:
