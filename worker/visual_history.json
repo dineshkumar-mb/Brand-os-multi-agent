@@ -4,6 +4,62 @@
     "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
     "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
     "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-15T15:49:39.799Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-15T15:49:39.793Z"
+  },
+  {
+    "topicId": "cand_15_1789487379715",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Pipeline Flow",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Pipeline Flow",
+    "createdAt": "2026-09-15T15:49:39.774Z"
+  },
+  {
+    "topicId": "cand_15_1789487379715",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T15:49:39.757Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-15T15:48:26.940Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-15T15:48:26.935Z"
+  },
+  {
+    "topicId": "cand_15_1789487306883",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Decision Matrix",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Decision Matrix",
+    "createdAt": "2026-09-15T15:48:26.921Z"
+  },
+  {
+    "topicId": "cand_15_1789487306883",
+    "conceptTitle": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "diagramType": "Deterministic Dependency Graph Engin Architecture",
+    "hash": "designingdeterministicdependencygraphenginesforhighconcurrencycontentresolution_Deterministic Dependency Graph Engin Architecture",
+    "createdAt": "2026-09-15T15:48:26.907Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
     "createdAt": "2026-09-15T15:23:18.952Z"
   },
   {

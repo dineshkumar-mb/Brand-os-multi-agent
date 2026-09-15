@@ -1,5 +1,71 @@
 [
   {
+    "id": "urn:li:share:601090439",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Our Zero Duplicate Side Effects integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our Zero Duplicate Side Effects integration test suite was completely green. The workflow still failed under real load. Context: A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Goal: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Decision: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Outcome: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% vs 42%) Conclusion: Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:49:39.804Z",
+    "engagementMetrics": {
+      "impressions": 185,
+      "reactions": 28,
+      "comments": 4,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 7,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:672171299",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I could make this Zero Duplicate Side Effects architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this Zero Duplicate Side Effects architecture simpler. I deliberately didn't. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Constraint: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Approach: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% / 42%) Lesson: Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:48:26.942Z",
+    "engagementMetrics": {
+      "impressions": 123,
+      "reactions": 28,
+      "comments": 5,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
     "id": "urn:li:share:145932047",
     "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
     "platform": "LINKEDIN",

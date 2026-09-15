@@ -1,5 +1,27 @@
 [
   {
+    "pipelineId": "pl_tunbcsgft",
+    "timestamp": "2026-09-15T15:49:39.805Z",
+    "durationMs": 14839,
+    "status": "SUCCESS",
+    "winnerTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
+    "pipelineId": "pl_b8mam3mxb",
+    "timestamp": "2026-09-15T15:48:26.943Z",
+    "durationMs": 11012,
+    "status": "SUCCESS",
+    "winnerTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
     "pipelineId": "pl_jgfnabhkn",
     "timestamp": "2026-09-15T15:23:18.955Z",
     "durationMs": 30011,
