@@ -51,9 +51,17 @@ export class ApiClient {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({ error: "Network response error" }));
-      throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
+      let errorMessage = "";
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.error || errorData.message;
+      } catch {
+        const textData = await response.text().catch(() => "");
+        errorMessage = textData || `HTTP error! Status: ${response.status}`;
+      }
+      throw new Error(errorMessage || `Request failed with status ${response.status}`);
     }
+
 
     return await response.json();
   }

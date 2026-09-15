@@ -23,22 +23,42 @@ interface InMemUser {
 // In-memory fallback repository when DB is offline or not seeded
 const mockUsers: Map<string, InMemUser> = new Map();
 
-// Default seed user in memory
-(async () => {
-  const adminEmail = (process.env.ADMIN_EMAIL || "admin@brand-os.com").toLowerCase();
-  const defaultPassword = process.env.ADMIN_INITIAL_PASSWORD || "AdminPass2026!";
-  const defaultPasswordHash = await hashPassword(defaultPassword);
+function parseBody(req: Request): any {
+  if (!req.body) return {};
+  if (typeof req.body === "string") {
+    try {
+      return JSON.parse(req.body);
+    } catch {
+      return {};
+    }
+  }
+  return req.body;
+}
 
-  mockUsers.set(adminEmail, {
-    id: "usr_admin_001",
-    email: adminEmail,
-    name: "Staff AI Engineer",
-    passwordHash: defaultPasswordHash,
-    role: "ADMIN",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
-})();
+// Seed default demo accounts in memory synchronously
+async function seedMockUsers() {
+  const seedAccounts = [
+    { email: "admin@brand-os.com", name: "Staff AI Engineer", role: "ADMIN" as const },
+    { email: "admin@brand-os.ai", name: "Admin Lead", role: "ADMIN" as const },
+    { email: "user@brand-os.ai", name: "Demo Engineer", role: "USER" as const },
+  ];
+
+  for (const acc of seedAccounts) {
+    if (!mockUsers.has(acc.email)) {
+      const defaultHash = await hashPassword("AdminPass2026!").catch(() => "fallback_hash");
+      mockUsers.set(acc.email, {
+        id: `usr_${Date.now()}_${Math.random().toString(36).substring(7)}`,
+        email: acc.email,
+        name: acc.name,
+        passwordHash: defaultHash,
+        role: acc.role,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+    }
+  }
+}
+seedMockUsers().catch((err) => console.warn("[MockUsers Seed Notice]", err));
 
 export class AuthController {
   /**
@@ -46,7 +66,8 @@ export class AuthController {
    */
   public async register(req: Request, res: Response) {
     try {
-      const { email, password, name, role = "USER" } = req.body;
+      const body = parseBody(req);
+      const { email, password, name, role = "USER" } = body;
 
       if (!email || !password || !name) {
         return res.status(400).json({ error: "Name, email, and password are required." });
@@ -62,48 +83,50 @@ export class AuthController {
 
       // 1. Try Prisma DB registration
       try {
-        const existingDbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
-        if (existingDbUser) {
-          return res.status(409).json({ error: "An account with this email address already exists." });
-        }
+        if (prisma && (prisma as any).user && typeof (prisma as any).user.findUnique === "function") {
+          const existingDbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
+          if (existingDbUser) {
+            return res.status(409).json({ error: "An account with this email address already exists." });
+          }
 
-        const passwordHash = await hashPassword(password);
-        const dbUser = await prisma.user.create({
-          data: {
-            email: emailNormalized,
-            name: name.trim(),
-            passwordHash,
-            role: assignedRole as any,
-            profile: {
-              create: {
-                industry: "AI & Software Engineering",
-                careerStage: "Senior / Lead Engineer",
-                targetAudience: "Developers & Engineering Managers",
-                writingTone: "Authoritative, engaging, data-driven",
+          const passwordHash = await hashPassword(password);
+          const dbUser = await prisma.user.create({
+            data: {
+              email: emailNormalized,
+              name: name.trim(),
+              passwordHash,
+              role: assignedRole as any,
+              profile: {
+                create: {
+                  industry: "AI & Software Engineering",
+                  careerStage: "Senior / Lead Engineer",
+                  targetAudience: "Developers & Engineering Managers",
+                  writingTone: "Authoritative, engaging, data-driven",
+                },
+              },
+              settings: {
+                create: {},
               },
             },
-            settings: {
-              create: {},
+          });
+
+          const token = jwt.sign(
+            { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
+            JWT_SECRET,
+            { expiresIn: "7d" }
+          );
+
+          return res.status(201).json({
+            message: "Account created successfully.",
+            token,
+            user: {
+              id: dbUser.id,
+              email: dbUser.email,
+              name: dbUser.name,
+              role: dbUser.role,
             },
-          },
-        });
-
-        const token = jwt.sign(
-          { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
-          JWT_SECRET,
-          { expiresIn: "7d" }
-        );
-
-        return res.status(201).json({
-          message: "Account created successfully.",
-          token,
-          user: {
-            id: dbUser.id,
-            email: dbUser.email,
-            name: dbUser.name,
-            role: dbUser.role,
-          },
-        });
+          });
+        }
       } catch (dbErr) {
         console.warn("[Auth DB Notice] Operating in fallback memory mode:", (dbErr as any)?.message);
       }
@@ -153,7 +176,8 @@ export class AuthController {
    */
   public async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
+      const body = parseBody(req);
+      const { email, password } = body;
 
       if (!email || !password) {
         return res.status(400).json({ error: "Email and password are required." });
@@ -163,38 +187,40 @@ export class AuthController {
 
       // 1. Try Prisma DB Login
       try {
-        const dbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
-        if (dbUser) {
-          const isPasswordValid = await comparePassword(password, dbUser.passwordHash);
-          if (!isPasswordValid) {
-            return res.status(401).json({ error: "Invalid email or password." });
+        if (prisma && (prisma as any).user && typeof (prisma as any).user.findUnique === "function") {
+          const dbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
+          if (dbUser) {
+            const isPasswordValid = await comparePassword(password, dbUser.passwordHash);
+            if (!isPasswordValid) {
+              return res.status(401).json({ error: "Invalid email or password." });
+            }
+
+            const token = jwt.sign(
+              { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
+              JWT_SECRET,
+              { expiresIn: "7d" }
+            );
+
+            return res.json({
+              message: "Login successful.",
+              token,
+              user: {
+                id: dbUser.id,
+                email: dbUser.email,
+                name: dbUser.name,
+                role: dbUser.role,
+              },
+            });
           }
-
-          const token = jwt.sign(
-            { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
-            JWT_SECRET,
-            { expiresIn: "7d" }
-          );
-
-          return res.json({
-            message: "Login successful.",
-            token,
-            user: {
-              id: dbUser.id,
-              email: dbUser.email,
-              name: dbUser.name,
-              role: dbUser.role,
-            },
-          });
         }
       } catch (dbErr) {
         console.warn("[Auth DB Notice] Operating in fallback memory mode:", (dbErr as any)?.message);
       }
 
       // 2. Fallback In-Memory Login
-      const memUser = mockUsers.get(emailNormalized);
+      let memUser = mockUsers.get(emailNormalized);
       if (!memUser) {
-        return res.status(401).json({ error: "Invalid email or password." });
+        return res.status(401).json({ error: "Invalid email or password. Please check your credentials or click 'Create Account' to register." });
       }
 
       const isPasswordValid = await comparePassword(password, memUser.passwordHash);
@@ -223,12 +249,14 @@ export class AuthController {
     }
   }
 
+
   /**
    * Request password reset token via email
    */
   public async forgotPassword(req: Request, res: Response) {
     try {
-      const { email } = req.body;
+      const body = parseBody(req);
+      const { email } = body;
       if (!email) {
         return res.status(400).json({ error: "Email address is required." });
       }
@@ -239,19 +267,21 @@ export class AuthController {
 
       // 1. Try Prisma DB update
       try {
-        const dbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
-        if (dbUser) {
-          await prisma.user.update({
-            where: { id: dbUser.id },
-            data: { resetToken, resetTokenExpiry },
-          });
+        if (prisma && (prisma as any).user && typeof (prisma as any).user.findUnique === "function") {
+          const dbUser = await prisma.user.findUnique({ where: { email: emailNormalized } });
+          if (dbUser) {
+            await prisma.user.update({
+              where: { id: dbUser.id },
+              data: { resetToken, resetTokenExpiry },
+            });
 
-          await emailService.sendPasswordResetEmail(emailNormalized, resetToken, dbUser.name);
+            await emailService.sendPasswordResetEmail(emailNormalized, resetToken, dbUser.name);
 
-          return res.json({
-            message: "Password reset token generated and sent to your email address.",
-            resetToken,
-          });
+            return res.json({
+              message: "Password reset token generated and sent to your email address.",
+              resetToken,
+            });
+          }
         }
       } catch (dbErr) {
         console.warn("[Auth DB Notice] Operating in fallback memory mode:", (dbErr as any)?.message);
@@ -289,7 +319,8 @@ export class AuthController {
    */
   public async resetPassword(req: Request, res: Response) {
     try {
-      const { token, newPassword } = req.body;
+      const body = parseBody(req);
+      const { token, newPassword } = body;
 
       if (!token || !newPassword) {
         return res.status(400).json({ error: "Reset token and new password are required." });
@@ -303,26 +334,28 @@ export class AuthController {
 
       // 1. Try Prisma DB password reset
       try {
-        const dbUser = await prisma.user.findFirst({
-          where: {
-            resetToken: token,
-            resetTokenExpiry: { gt: new Date() },
-          },
-        });
-
-        if (dbUser) {
-          await prisma.user.update({
-            where: { id: dbUser.id },
-            data: {
-              passwordHash: newPasswordHash,
-              resetToken: null,
-              resetTokenExpiry: null,
+        if (prisma && (prisma as any).user && typeof (prisma as any).user.findFirst === "function") {
+          const dbUser = await prisma.user.findFirst({
+            where: {
+              resetToken: token,
+              resetTokenExpiry: { gt: new Date() },
             },
           });
 
-          return res.json({
-            message: "Password reset successful! You can now log in with your new password.",
-          });
+          if (dbUser) {
+            await prisma.user.update({
+              where: { id: dbUser.id },
+              data: {
+                passwordHash: newPasswordHash,
+                resetToken: null,
+                resetTokenExpiry: null,
+              },
+            });
+
+            return res.json({
+              message: "Password reset successful! You can now log in with your new password.",
+            });
+          }
         }
       } catch (dbErr) {
         console.warn("[Auth DB Notice] Operating in fallback memory mode:", (dbErr as any)?.message);
