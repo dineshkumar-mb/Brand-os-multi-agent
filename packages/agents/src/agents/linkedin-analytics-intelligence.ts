@@ -213,7 +213,7 @@ export class LinkedInAnalyticsIntelligenceAgent {
     }));
 
     // Calculate aggregated metrics
-    const validImpressions = activePosts.map((p) => p.impressions).filter((v): v is number => v !== null && v > 0);
+    const validImpressions = activePosts.map((p) => p.impressions).filter((v): v is number => typeof v === "number" && v > 0);
     const totalImpressions = validImpressions.length > 0 ? validImpressions.reduce((a, b) => a + b, 0) : null;
 
     const validEngagementRates = normalizedPosts.map((np) => np.normalized.engagementRate).filter((v): v is number => v !== null);

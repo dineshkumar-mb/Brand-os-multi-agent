@@ -1534,26 +1534,26 @@ export interface LinkedInPostAnalyticsData {
   hashtags?: string[];
   wordCount?: number | null;
 
-  // Raw Analytics Metrics (null if unavailable - DO NOT fabricate missing values)
-  impressions: number | null;
+  // Raw Analytics Metrics (null/undefined if unavailable - DO NOT fabricate missing values)
+  impressions?: number | null;
   reach?: number | null;
-  likes: number | null;
-  comments: number | null;
-  reposts: number | null;
-  shares: number | null;
-  saves: number | null;
-  clicks: number | null;
-  profileViews: number | null;
-  followersGained: number | null;
-  connectionRequests: number | null;
-  connectionAcceptance: number | null;
-  dms: number | null;
-  recruiterInteractions: number | null;
-  hiringManagerInteractions: number | null;
-  interviewInquiries: number | null;
-  portfolioClicks: number | null;
-  githubClicks: number | null;
-  externalLinkClicks: number | null;
+  likes?: number | null;
+  comments?: number | null;
+  reposts?: number | null;
+  shares?: number | null;
+  saves?: number | null;
+  clicks?: number | null;
+  profileViews?: number | null;
+  followersGained?: number | null;
+  connectionRequests?: number | null;
+  connectionAcceptance?: number | null;
+  dms?: number | null;
+  recruiterInteractions?: number | null;
+  hiringManagerInteractions?: number | null;
+  interviewInquiries?: number | null;
+  portfolioClicks?: number | null;
+  githubClicks?: number | null;
+  externalLinkClicks?: number | null;
 }
 
 export interface NormalizedAnalyticsMetrics {
