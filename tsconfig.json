@@ -3,6 +3,14 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@brand-os/shared": ["./packages/shared/src/index.ts"],
+      "@brand-os/database": ["./packages/database/src/index.ts"],
+      "@brand-os/agents": ["./packages/agents/src/index.ts"],
+      "@brand-os/analytics": ["./packages/analytics/src/index.ts"],
+      "@brand-os/publisher": ["./packages/publisher/src/index.ts"]
+    },
     "jsx": "react-jsx",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "declaration": true,
