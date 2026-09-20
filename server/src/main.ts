@@ -170,68 +170,228 @@ app.post("/api/v1/notifications/test", async (_req: Request, res: Response) => {
 // Publishing & Jobs Routes
 app.post("/api/v1/publish", (req, res) => publishController.publishContent(req, res));
 app.post("/api/v1/schedule", (req, res) => publishController.scheduleContent(req, res));
+
+// ── DEPRECATED: /cron-daily ────────────────────────────────────────────────
+// This endpoint has been RETIRED. Content no longer runs daily.
+// The system now uses twice-weekly scheduling (Tue + Thu by default).
+// Vercel Cron now points to /api/v1/schedule/cron-weekly.
+// This route is kept temporarily to prevent 404 errors from stale configs.
 app.get("/api/v1/schedule/cron-daily", async (_req: Request, res: Response) => {
+  console.warn(
+    "[DEPRECATED /cron-daily] This endpoint is retired. " +
+    "The system now runs TWICE per week via /api/v1/schedule/cron-weekly. " +
+    "Update your Vercel cron or caller to use the new endpoint."
+  );
+  res.status(410).json({
+    error: "ENDPOINT_RETIRED",
+    message:
+      "The /cron-daily endpoint has been retired. " +
+      "Content generation now runs twice per week (Tue + Thu by default). " +
+      "Use /api/v1/schedule/cron-weekly instead.",
+    newEndpoint: "/api/v1/schedule/cron-weekly",
+  });
+});
+
+// ── NEW: /cron-weekly ─────────────────────────────────────────────────────
+// Primary content generation endpoint.
+// Called by Vercel Cron on Tuesday + Thursday at 03:30 UTC (09:00 IST).
+// Schedule: "30 3 * * 2,4" in vercel.json
+//
+// Guards enforced in order:
+//   1. Weekend block (Sat/Sun always rejected)
+//   2. Non-scheduled day block (only configured days run)
+//   3. Idempotency check (same calendar-day slot never executes twice)
+//   4. Execute pipeline with full quality gates
+//   5. Send detailed Telegram notification
+app.get("/api/v1/schedule/cron-weekly", async (_req: Request, res: Response) => {
   const startTime = Date.now();
+  const now = new Date();
+
   try {
+    const { scheduleConfig } = await import("@brand-os/scheduler");
     const { agentOrchestrator } = await import("@brand-os/agents");
     const { notificationService, automationTracker } = await import("@brand-os/shared");
-    console.log("[Daily Cron] Triggering zero human intervention verified agent pipeline...");
+
+    const cfg = scheduleConfig.getConfig();
+    console.log(`[Twice-Weekly Cron] ${scheduleConfig.describe()}`);
+
+    // Guard 1: Weekend block
+    if (scheduleConfig.isWeekend(now)) {
+      const dayName = scheduleConfig.getWeekdayName(now.getDay());
+      console.warn(`[Twice-Weekly Cron] BLOCKED — ${dayName} is a weekend. Content does not generate on weekends.`);
+      return res.json({
+        status: "WEEKEND_BLOCKED",
+        day: dayName,
+        message: `Content generation is blocked on weekends. Configured days: ${cfg.generationDays.join(", ")}.`,
+      });
+    }
+
+    // Guard 2: Non-scheduled weekday block
+    if (!scheduleConfig.isScheduledDay(now)) {
+      const dayName = scheduleConfig.getWeekdayName(now.getDay());
+      console.warn(`[Twice-Weekly Cron] BLOCKED — ${dayName} is not a configured generation day. Configured: ${cfg.generationDays.join(", ")}.`);
+      return res.json({
+        status: "NOT_SCHEDULED_DAY",
+        day: dayName,
+        configuredDays: cfg.generationDays,
+        message: `Today (${dayName}) is not a configured generation day. ` +
+          `Generation only runs on: ${cfg.generationDays.join(", ")}.`,
+      });
+    }
+
+    // Guard 3: Idempotency check — prevent duplicate runs on the same calendar day
+    const history = automationTracker.getHistory(20);
+    const idempotencyKey = scheduleConfig.getIdempotencyKey(now);
+    if (scheduleConfig.hasDuplicateRun(history, now)) {
+      console.warn(`[Twice-Weekly Cron] SKIPPED — Idempotency key "${idempotencyKey}" already executed today. Preventing duplicate run.`);
+      const lastRun = automationTracker.getLastRun();
+      return res.json({
+        status: "DUPLICATE_RUN_SKIPPED",
+        idempotencyKey,
+        message: "This calendar-day slot has already been executed. Duplicate run prevented.",
+        lastRun: lastRun?.timestamp,
+      });
+    }
+
+    const dayName = scheduleConfig.getWeekdayName(now.getDay());
+    console.log(`[Twice-Weekly Cron] Executing pipeline for ${dayName} @ ${now.toISOString()} (key: ${idempotencyKey})`);
+
+    // Execute the content pipeline
     const result = await agentOrchestrator.executePipeline({ autoPublish: true });
     const durationMs = Date.now() - startTime;
+    const durationSeconds = Math.round(durationMs / 1000);
 
     if (result.status === "NO_POST_TODAY") {
       automationTracker.recordRun({
         pipelineId: result.pipelineId || `pl_${Date.now()}`,
-        timestamp: new Date().toISOString(),
+        timestamp: now.toISOString(),
         durationMs,
         status: "NO_POST_TODAY",
         candidatesEvaluated: result.candidatesEvaluated,
         rejectionReasons: result.missingSignals,
       });
 
+      const intel = result.dailyIntelligenceSummary;
       await notificationService.sendAutomationNotification({
-        title: "Manual API Cron Executed (Safe Exit)",
+        title: `⚠️ CAREER BRAND OS — ${dayName} Run (Safe Exit)`,
         status: "NO_POST_TODAY",
         pipelineId: result.pipelineId,
-        message: `Pipeline evaluated candidate signals. Safe exit triggered (no candidate met overall score threshold).`,
+        message:
+          `Scheduled ${dayName} run completed with safe exit.\n` +
+          `No candidate satisfied all quality gates today.`,
         candidatesEvaluated: result.candidatesEvaluated,
         rejectionReasons: result.missingSignals,
-        durationSeconds: Math.round(durationMs / 1000),
-      });
-    } else {
-      const overallScore = result.review?.overallScore || result.qualityGateResult?.overallContentQualityScore || 90;
-      automationTracker.recordRun({
-        pipelineId: result.pipelineId,
-        timestamp: new Date().toISOString(),
-        durationMs,
-        status: "SUCCESS",
-        winnerTitle: result.topic?.title,
-        overallScore,
-        publishedPlatforms: ["LinkedIn"],
+        durationSeconds,
+        signalsScanned: intel?.signalsScanned,
+        verifiedEvents: intel?.verifiedEvents,
+        freshEvents: intel?.freshEvents,
+        novelOpportunities: intel?.novelOpportunities,
+        experienceMatches: intel?.experienceMatches,
       });
 
-      await notificationService.sendAutomationNotification({
-        title: "Manual API Cron Published Successfully",
-        status: "SUCCESS",
-        pipelineId: result.pipelineId,
-        message: `Daily post verified and published to LinkedIn.`,
-        topicTitle: result.topic?.title,
-        qualityScore: overallScore,
-        durationSeconds: Math.round(durationMs / 1000),
+      return res.json({
+        status: "NO_POST_TODAY",
+        idempotencyKey,
+        scheduledDay: dayName,
+        result,
       });
     }
 
-    res.json({
+    // POST_READY path
+    const qg = result.qualityGateResult;
+    const overallScore = qg?.overallContentQualityScore || result.review?.overallScore || 90;
+    const pubResult = result.publishResult;
+    const pubMode = pubResult?.mode || process.env.PUBLISH_MODE || "LIVE";
+    const isSimulation = pubMode.toUpperCase() === "SIMULATION";
+
+    automationTracker.recordRun({
+      pipelineId: result.pipelineId,
+      timestamp: now.toISOString(),
+      durationMs,
+      status: "SUCCESS",
+      winnerTitle: result.topic?.title,
+      overallScore,
+      publishedPlatforms: [isSimulation ? "SIMULATION" : "LinkedIn"],
+    });
+
+    await notificationService.sendAutomationNotification({
+      title: `✅ CAREER BRAND OS — ${dayName} Run (${isSimulation ? "Simulation" : "Published"})`,
+      status: "SUCCESS",
+      pipelineId: result.pipelineId,
+      message: isSimulation
+        ? `${dayName} content pipeline executed in Simulation mode. Post validated but NOT published live.`
+        : `${dayName} post successfully published to LinkedIn.`,
+      topicTitle: result.topic?.title,
+      qualityScore: overallScore,
+      freshnessScore: qg?.trendFreshness,
+      noveltyScore: qg?.topicNovelty,
+      careerSignalScore: qg?.careerSignal,
+      visualNoveltyScore: qg?.visualNovelty,
+      experienceMatchScore: qg?.experienceMatch,
+      durationSeconds,
+      publishMode: pubMode,
+      postUrl: pubResult?.url,
+    });
+
+    return res.json({
       status: "success",
-      message: "Daily automated post verified by agents and published successfully.",
+      idempotencyKey,
+      scheduledDay: dayName,
+      message: `${dayName} content pipeline completed and published successfully.`,
       result,
     });
+
   } catch (err: any) {
     const durationMs = Date.now() - startTime;
-    console.error("[Daily Cron Error]:", err.message);
+    console.error("[Twice-Weekly Cron Error]:", err.message, err.stack);
+
+    try {
+      const { notificationService, automationTracker } = await import("@brand-os/shared");
+
+      automationTracker.recordRun({
+        pipelineId: `err_${Date.now()}`,
+        timestamp: now.toISOString(),
+        durationMs,
+        status: "ERROR",
+        errorMessage: err.message,
+      });
+
+      await notificationService.sendAutomationNotification({
+        title: "❌ CAREER BRAND OS — Pipeline Failure",
+        status: "ERROR",
+        message: `An unhandled error occurred during the twice-weekly content pipeline.`,
+        errorMessage: `${err.message}\n\nStack: ${err.stack?.substring(0, 400) || "N/A"}`,
+        durationSeconds: Math.round(durationMs / 1000),
+      });
+    } catch (_notifErr) {
+      console.error("[Twice-Weekly Cron] Failed to send error notification:", _notifErr);
+    }
+
+    return res.status(500).json({ error: err.message, stack: err.stack });
+  }
+});
+
+// ── Schedule Configuration Inspection ──────────────────────────────────────
+// Returns the current schedule configuration for dashboard display.
+app.get("/api/v1/schedule/config", async (_req: Request, res: Response) => {
+  try {
+    const { scheduleConfig, taskScheduler } = await import("@brand-os/scheduler");
+    const cfg = scheduleConfig.getConfig();
+    res.json({
+      generationDays: cfg.generationDays,
+      generationTime: cfg.generationTime,
+      timezone: cfg.timezone,
+      vercelCron: "30 3 * * 2,4",
+      vercelCronDescription: "Tuesday + Thursday at 03:30 UTC (09:00 IST)",
+      description: scheduleConfig.describe(),
+      tasks: taskScheduler.getTasks(),
+      frequencyMode: "TWICE_WEEKLY",
+    });
+  } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 });
+
 app.get("/api/v1/jobs", (req, res) => publishController.getJobs(req, res));
 
 

@@ -70,6 +70,19 @@ export interface NotificationPayload {
   message: string;
   topicTitle?: string;
   qualityScore?: number;
+  // Detailed quality gate breakdown (POST_READY)
+  freshnessScore?: number;
+  noveltyScore?: number;
+  careerSignalScore?: number;
+  visualNoveltyScore?: number;
+  experienceMatchScore?: number;
+  // Intelligence summary (NO_POST_TODAY)
+  signalsScanned?: number;
+  verifiedEvents?: number;
+  freshEvents?: number;
+  novelOpportunities?: number;
+  experienceMatches?: number;
+  // General
   candidatesEvaluated?: number;
   rejectionReasons?: string[];
   errorMessage?: string;
@@ -143,42 +156,63 @@ export class NotificationService {
   }
 
   public async sendAutomationNotification(payload: NotificationPayload): Promise<{ telegram: boolean; webhook: boolean }> {
-    const { status, title, pipelineId, message, topicTitle, qualityScore, candidatesEvaluated, rejectionReasons, errorMessage, durationSeconds, publishMode, postUrl } = payload;
+    const {
+      status, title, pipelineId, message, topicTitle, qualityScore,
+      freshnessScore, noveltyScore, careerSignalScore, visualNoveltyScore, experienceMatchScore,
+      signalsScanned, verifiedEvents, freshEvents, novelOpportunities, experienceMatches,
+      candidatesEvaluated, rejectionReasons, errorMessage, durationSeconds, publishMode, postUrl
+    } = payload;
 
     const isSimulation = publishMode?.toUpperCase() === "SIMULATION";
     const emoji = status === "SUCCESS" ? (isSimulation ? "🧪" : "✅") : status === "NO_POST_TODAY" ? "⚠️" : status === "ERROR" ? "❌" : "ℹ️";
-    
-    let formattedText = `${emoji} <b>[Personal Brand OS ${isSimulation ? "(SIMULATION)" : "Automation"}]</b>\n`;
-    formattedText += `<b>Event:</b> ${this.escapeHtml(title)}\n`;
+
+    let formattedText = `${emoji} <b>CAREER BRAND OS</b>\n`;
     formattedText += `<b>Status:</b> ${this.escapeHtml(status)}\n`;
     if (publishMode) {
       formattedText += `<b>Publish Mode:</b> ${isSimulation ? "🧪 SIMULATION (Not posted live)" : "🌐 LIVE"}\n`;
     }
     if (pipelineId) formattedText += `<b>Pipeline ID:</b> <code>${this.escapeHtml(pipelineId)}</code>\n`;
     if (durationSeconds) formattedText += `<b>Duration:</b> ${durationSeconds}s\n`;
-    if (candidatesEvaluated !== undefined) formattedText += `<b>Candidates Evaluated:</b> ${candidatesEvaluated}\n`;
-    
-    if (topicTitle) {
-      formattedText += `<b>Selected Topic:</b> "${this.escapeHtml(topicTitle)}"\n`;
-    }
-    if (qualityScore !== undefined) {
-      formattedText += `<b>Overall Quality Score:</b> <b>${qualityScore}/100</b>\n`;
-    }
-    if (postUrl) {
-      formattedText += `<b>LinkedIn Post URL:</b> <a href="${this.escapeHtml(postUrl)}">${this.escapeHtml(postUrl)}</a>\n`;
+
+    if (status === "SUCCESS") {
+      // POST_READY — show full quality breakdown
+      if (topicTitle) formattedText += `\n<b>Topic:</b> "${this.escapeHtml(topicTitle)}"\n`;
+      if (qualityScore !== undefined) formattedText += `<b>Quality Score:</b> <b>${qualityScore}/100</b>\n`;
+      if (freshnessScore !== undefined) formattedText += `<b>Freshness:</b> ${freshnessScore}/100\n`;
+      if (noveltyScore !== undefined) formattedText += `<b>Novelty:</b> ${noveltyScore}/100\n`;
+      if (careerSignalScore !== undefined) formattedText += `<b>Career Signal:</b> ${careerSignalScore}/100\n`;
+      if (visualNoveltyScore !== undefined) formattedText += `<b>Visual Novelty:</b> ${visualNoveltyScore}/100\n`;
+      if (experienceMatchScore !== undefined) formattedText += `<b>Experience Match:</b> ${experienceMatchScore}/100\n`;
+      if (postUrl) formattedText += `<b>LinkedIn Post:</b> <a href="${this.escapeHtml(postUrl)}">${this.escapeHtml(postUrl)}</a>\n`;
+    } else if (status === "NO_POST_TODAY") {
+      // NO_POST_TODAY — show intelligence summary
+      formattedText += `\n`;
+      if (signalsScanned !== undefined) formattedText += `<b>Signals scanned:</b> ${signalsScanned}\n`;
+      if (verifiedEvents !== undefined) formattedText += `<b>Verified events:</b> ${verifiedEvents}\n`;
+      if (freshEvents !== undefined) formattedText += `<b>Fresh events:</b> ${freshEvents}\n`;
+      if (novelOpportunities !== undefined) formattedText += `<b>Novel opportunities:</b> ${novelOpportunities}\n`;
+      if (experienceMatches !== undefined) formattedText += `<b>Experience matches:</b> ${experienceMatches}\n`;
+      if (candidatesEvaluated !== undefined && signalsScanned === undefined) {
+        formattedText += `<b>Candidates Evaluated:</b> ${candidatesEvaluated}\n`;
+      }
+    } else if (status === "ERROR") {
+      // ERROR — show error details
+      if (errorMessage) {
+        formattedText += `\n<b>Error Details:</b>\n<code>${this.escapeHtml(errorMessage.substring(0, 400))}</code>\n`;
+      }
+    } else {
+      // INFO
+      if (topicTitle) formattedText += `<b>Selected Topic:</b> "${this.escapeHtml(topicTitle)}"\n`;
+      if (qualityScore !== undefined) formattedText += `<b>Overall Quality Score:</b> <b>${qualityScore}/100</b>\n`;
     }
 
     formattedText += `\n${this.escapeHtml(message)}\n`;
 
     if (rejectionReasons && rejectionReasons.length > 0) {
-      formattedText += `\n<b>Quality Rejection Reasons:</b>\n`;
+      formattedText += `\n<b>Rejection Reasons:</b>\n`;
       rejectionReasons.forEach((r) => {
         formattedText += `• <code>${this.escapeHtml(r)}</code>\n`;
       });
-    }
-
-    if (errorMessage) {
-      formattedText += `\n<b>Error Details:</b>\n<code>${this.escapeHtml(errorMessage.substring(0, 300))}</code>\n`;
     }
 
     formattedText += `\n<i>Time: ${new Date().toLocaleString()}</i>`;

@@ -5,8 +5,8 @@
   "framework": "vite",
   "crons": [
     {
-      "path": "/api/v1/schedule/cron-daily",
-      "schedule": "30 3 * * *"
+      "path": "/api/v1/schedule/cron-weekly",
+      "schedule": "30 3 * * 2,4"
     }
   ],
   "rewrites": [

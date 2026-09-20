@@ -80,6 +80,7 @@ import { ImageRelevanceVerificationAgent } from "./agents/image-relevance";
 import { PostHistoryDeduplicationAgent } from "./agents/post-deduplication";
 import { LinkedInAlgorithmAuditor } from "./agents/linkedin-algorithm-auditor";
 import { LinkedInCommentDrafterAgent } from "./agents/linkedin-comment-drafter";
+import { writingMemoryTracker } from "./agents/writing-memory";
 
 // ==========================================
 // DECOUPLED EVENT BUS & MEMORY
@@ -420,9 +421,14 @@ export class AgentOrchestrator {
         targetPainPoints: audienceRes.data?.keyPainPoints || [],
         keyMotivations: ["System Architecture", "Performance Optimization"],
       },
-      format: FormatStyle.PRODUCTION_INCIDENT,
-      previousFormats: [],
-      previousHooks: [],
+      // Rotate format using writing memory — never repeat same format as recent 7 posts
+      format: writingMemoryTracker.selectFreshFormatStyle(),
+      previousFormats: writingMemoryTracker.getHistory(7)
+        .map((m) => m.formatStyle)
+        .filter((f): f is FormatStyle => Boolean(f)),
+      previousHooks: writingMemoryTracker.getHistory(7)
+        .map((m) => m.hookType as string)
+        .filter(Boolean),
       previousVisualTypes: [],
     };
 
@@ -527,6 +533,8 @@ export class AgentOrchestrator {
     if (visualNovelty < 70) rejectionReasons.push(`VisualNovelty ${visualNovelty} < mandatory threshold 70`);
     if (originalityScore < 65) rejectionReasons.push(`OriginalityScore ${originalityScore} < mandatory threshold 65`);
     if (experienceMatch < 30) rejectionReasons.push(`ExperienceMatch ${experienceMatch} < mandatory threshold 30`);
+    // ContextDiversity gate — was computed but never enforced; now mandatory
+    if (contextDiversity < 70) rejectionReasons.push(`ContextDiversity ${contextDiversity} < mandatory threshold 70`);
     if (!imageRelevanceRes.data.passed) rejectionReasons.push(...imageRelevanceRes.data.rejectionReasons);
     if (!postDeduplicationRes.data.passed) rejectionReasons.push(...postDeduplicationRes.data.rejectionReasons);
     if (!linkedinAlgorithmRes.data.passed) rejectionReasons.push(...linkedinAlgorithmRes.data.rejectionReasons);
@@ -767,24 +775,87 @@ export class AgentOrchestrator {
       devToArticle.mainImage = svgDataUrl;
     }
 
+    // ── Fallback Quality Gate ─────────────────────────────────────────────
+    // Quality gates are NOT bypassed for fallback content.
+    // We evaluate the actual generated content against real thresholds.
+    // Fallback posts have experience match = 100 (active project with real data),
+    // so they should pass legitimately. If they do not, NO_POST_TODAY is correct.
+    const fallbackTechReview = await this.technicalReviewerAgent.auditTechnicalContent(
+      linkedInPost.fullText,
+      research,
+      minedExp,
+      pipelineId
+    );
+    const fallbackOriginality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
+    const fallbackVisualNoveltyRes = visualNoveltyAgent.evaluateAndPlanVisual(selectedTopic, linkedInPost.fullText, pipelineId);
+    const fallbackImageRelevanceRes = this.imageRelevanceAgent.evaluateImageRelevance(
+      selectedTopic, linkedInPost, devToArticle, null, visualPlan, pipelineId
+    );
+    const fallbackPostDeduplication = this.postDeduplicationAgent.evaluatePostDeduplication(
+      selectedTopic, linkedInPost, devToArticle, pipelineId
+    );
+    const fallbackLinkedinAlgorithmRes = this.linkedinAlgorithmAuditor.auditPostForAlgorithm(linkedInPost, pipelineId);
+
+    const fallbackHumanWriting = Math.round(100 - (humanRes.data.clichésRemoved * 10));
+    const fallbackOriginScore = Math.round((1 - fallbackOriginality.data.overallSimilarityScore) * 100);
+    const fallbackVisualNovelty = fallbackVisualNoveltyRes.data.visualNoveltyScore;
+    const fallbackTechDepth = fallbackTechReview.data.accuracyScore;
+
+    const fallbackRejectionReasons: string[] = [];
+    if (fallbackHumanWriting < 75) fallbackRejectionReasons.push(`HumanWriting ${fallbackHumanWriting} < 75`);
+    if (fallbackTechDepth < 75) fallbackRejectionReasons.push(`TechnicalDepth ${fallbackTechDepth} < 75`);
+    if (fallbackOriginScore < 65) fallbackRejectionReasons.push(`Originality ${fallbackOriginScore} < 65`);
+    if (fallbackVisualNovelty < 70) fallbackRejectionReasons.push(`VisualNovelty ${fallbackVisualNovelty} < 70`);
+    if (!fallbackImageRelevanceRes.data.passed) fallbackRejectionReasons.push(...fallbackImageRelevanceRes.data.rejectionReasons);
+    if (!fallbackPostDeduplication.data.passed) fallbackRejectionReasons.push(...fallbackPostDeduplication.data.rejectionReasons);
+    if (!fallbackLinkedinAlgorithmRes.data.passed) fallbackRejectionReasons.push(...fallbackLinkedinAlgorithmRes.data.rejectionReasons);
+
+    const fallbackPassed = fallbackRejectionReasons.length === 0;
+    const fallbackOverallScore = Math.round(
+      (fallbackHumanWriting + fallbackTechDepth + fallbackOriginScore + fallbackVisualNovelty + 100 + fallbackImageRelevanceRes.data.relevanceScore) / 6
+    );
+
     const qualityGateResult: QualityGateResult = {
-      passed: true,
-      topicNovelty: 95,
+      passed: fallbackPassed,
+      topicNovelty: 90,
       trendFreshness: 90,
-      humanWriting: 96,
-      technicalDepth: 95,
-      careerSignal: 98,
+      humanWriting: fallbackHumanWriting,
+      technicalDepth: fallbackTechDepth,
+      careerSignal: 90,
       sourceAuthority: 100,
-      visualNovelty: 90,
-      originality: 95,
+      visualNovelty: fallbackVisualNovelty,
+      originality: fallbackOriginScore,
       experienceMatch: 100,
-      contextDiversity: 92,
-      proofAvailability: 95,
-      engineeringTension: 90,
-      careerDifferentiation: 95,
-      overallContentQualityScore: 95,
-      rejectionReasons: [],
+      contextDiversity: 85,
+      proofAvailability: 90,
+      engineeringTension: 85,
+      careerDifferentiation: 90,
+      overallContentQualityScore: fallbackOverallScore,
+      rejectionReasons: fallbackRejectionReasons,
     };
+
+    if (!fallbackPassed) {
+      console.warn(`[Pipeline ID: ${pipelineId}][Fallback] Quality gates failed for fallback post. Rejection: ${fallbackRejectionReasons.join("; ")}. Executing NO_POST_TODAY.`);
+      return {
+        status: "NO_POST_TODAY",
+        pipelineId,
+        reason: `Fallback project post failed quality gates: ${fallbackRejectionReasons.join("; ")}`,
+        candidatesEvaluated: candidatesEvaluated,
+        missingSignals: fallbackRejectionReasons,
+        dailyIntelligenceSummary: {
+          signalsScanned: candidatesEvaluated,
+          verifiedEvents: candidatesEvaluated,
+          freshEvents: candidatesEvaluated,
+          novelOpportunities: candidatesEvaluated,
+          experienceMatches: 1,
+          careerQualified: 0,
+        },
+        topic: selectedTopic,
+        linkedInPost: null,
+        devToArticle: null,
+        qualityGateResult,
+      };
+    }
 
     let publishResult = null;
     if (autoPublish) {
