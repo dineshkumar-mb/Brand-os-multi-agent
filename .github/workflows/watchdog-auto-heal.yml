@@ -2,14 +2,13 @@ name: Watchdog - Auto-Heal Daily Post Pipeline
 
 on:
   schedule:
-    # Runs every 30 minutes between 09:00 AM and 11:30 AM IST (03:30–06:00 UTC)
-    # Checks if today's post succeeded; triggers the main pipeline if not
-    - cron: '30 3 * * *'   # 09:00 AM IST
-    - cron: '0 4 * * *'    # 09:30 AM IST
-    - cron: '30 4 * * *'   # 10:00 AM IST
-    - cron: '0 5 * * *'    # 10:30 AM IST
-    - cron: '30 5 * * *'   # 11:00 AM IST
-    - cron: '0 6 * * *'    # 11:30 AM IST
+    # Runs every 30 minutes on Tue, Thu, Fri between 09:00 AM and 11:30 AM IST (03:30–06:00 UTC)
+    - cron: '30 3 * * 2,4,5'   # 09:00 AM IST
+    - cron: '0 4 * * 2,4,5'    # 09:30 AM IST
+    - cron: '30 4 * * 2,4,5'   # 10:00 AM IST
+    - cron: '0 5 * * 2,4,5'    # 10:30 AM IST
+    - cron: '30 5 * * 2,4,5'   # 11:00 AM IST
+    - cron: '0 6 * * 2,4,5'    # 11:30 AM IST
   workflow_dispatch:        # Allow manual trigger for testing
 
 concurrency:

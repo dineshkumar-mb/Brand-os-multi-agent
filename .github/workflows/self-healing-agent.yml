@@ -12,7 +12,7 @@ name: Self-Healing Agent - Auto-Diagnose & Fix Pipeline
 
 on:
   workflow_run:
-    workflows: ["Daily Automated Verified Agent Post"]
+    workflows: ["Scheduled Automated Verified Agent Post"]
     types: [completed]
   workflow_dispatch:
     inputs:

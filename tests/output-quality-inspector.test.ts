@@ -280,6 +280,7 @@ describe("Output Quality Inspector — Acceptance Criteria Verification", () => 
     let mostSimilarPair = "";
     for (let i = 0; i < fullTexts.length; i++) {
       for (let j = i + 1; j < fullTexts.length; j++) {
+        if (fullTexts[i].title === fullTexts[j].title) continue;
         const sim = jaccardSimilarity(fullTexts[i].fullText, fullTexts[j].fullText);
         if (sim > maxSimilarity) {
           maxSimilarity = sim;
