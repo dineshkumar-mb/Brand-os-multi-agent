@@ -620,5 +620,196 @@ model ExperienceUsageRecord {
   @@map("experience_usage_records")
 }
 
+model LinkedInPostAnalytics {
+  id                      String   @id @default(uuid())
+  postId                  String   @unique
+  postUrl                 String?
+  publishedAt             DateTime
+  title                   String
+  text                    String   @db.Text
+  hook                    String?
+  topic                   String
+  subtopic                String?
+  technology              String?
+  engineeringProblem      String?
+  category                String
+  format                  String
+  storyFormat             String?
+  ctaType                 String?
+  visualType              String?
+  visualConcept           String?
+  hashtags                Json     @default("[]")
+  wordCount               Int?
+
+  // Raw metrics (null when unavailable)
+  impressions             Int?
+  reach                   Int?
+  likes                   Int?
+  comments                Int?
+  reposts                 Int?
+  shares                  Int?
+  saves                   Int?
+  clicks                  Int?
+  profileViews            Int?
+  followersGained         Int?
+  connectionRequests      Int?
+  connectionAcceptance    Int?
+  dms                     Int?
+  recruiterInteractions   Int?
+  hiringManagerInteractions Int?
+  interviewInquiries      Int?
+  portfolioClicks         Int?
+  githubClicks            Int?
+  externalLinkClicks      Int?
+
+  // Derived normalized metrics
+  engagementRate          Float?
+  commentRate             Float?
+  shareRate               Float?
+  saveRate                Float?
+  profileVisitRate        Float?
+  followerConversionRate  Float?
+  careerOpportunityRate   Float?
+  weightedCareerScore     Float    @default(0)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("linkedin_post_analytics")
+}
+
+model LinkedInAnalyticsSnapshot {
+  id                    String   @id @default(uuid())
+  snapshotId            String   @unique
+  windowDays            Int
+  postsCount            Int
+  impressions           Int?
+  engagementRate        Float?
+  profileVisitRate      Float?
+  followerConversionRate Float?
+  careerOpportunityRate Float?
+  fatigueScores         Json
+  dataQuality           String
+  rawPayload            Json
+  createdAt             DateTime @default(now())
+
+  @@map("linkedin_analytics_snapshots")
+}
+
+model ContentPerformanceMetric {
+  id          String   @id @default(uuid())
+  postId      String
+  metricKey   String
+  metricValue Float
+  recordedAt  DateTime @default(now())
+
+  @@map("content_performance_metrics")
+}
+
+model CareerOutcomeMetric {
+  id               String   @id @default(uuid())
+  postId           String
+  outcomeType      String   // RECRUITER_DM, INTERVIEW_INQUIRY, HIRING_MANAGER, PROFILE_VISIT, PORTFOLIO_CLICK
+  outcomeWeight    Float
+  sourceSegment    String?
+  notes            String?
+  recordedAt       DateTime @default(now())
+
+  @@map("career_outcome_metrics")
+}
+
+model ContentExperiment {
+  id            String   @id @default(uuid())
+  experimentId  String   @unique
+  title         String
+  description   String
+  status        String   @default("ACTIVE") // ACTIVE, CONCLUDED, PAUSED
+  winningVariant String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  variants      ExperimentVariant[]
+
+  @@map("content_experiments")
+}
+
+model ExperimentVariant {
+  id             String            @id @default(uuid())
+  experimentId   String
+  experiment     ContentExperiment @relation(fields: [experimentId], references: [id], onDelete: Cascade)
+  variantName    String
+  postCount      Int               @default(0)
+  avgCareerScore Float             @default(0)
+  metrics        Json
+
+  @@map("experiment_variants")
+}
+
+model AnalyticsInsightRecord {
+  id          String   @id @default(uuid())
+  insightId   String   @unique
+  type        String
+  title       String
+  description String
+  impactScore Float
+  evidence    Json
+  createdAt   DateTime @default(now())
+
+  @@map("analytics_insight_records")
+}
+
+model ContentStrategyDecisionRecord {
+  id             String   @id @default(uuid())
+  decisionId     String   @unique
+  action         String
+  target         String
+  reason         String   @db.Text
+  evidence       Json
+  confidence     Float
+  sampleSize     Int
+  timeWindowDays Int?
+  createdAt      DateTime @default(now())
+
+  @@map("content_strategy_decision_records")
+}
+
+model TopicPerformanceHistory {
+  id                     String   @id @default(uuid())
+  topicKey               String   @unique
+  technology             String
+  engineeringProblem     String
+  postsCount             Int      @default(0)
+  avgImpressions         Float?
+  careerOpportunityRate  Float?
+  weightedCareerScore    Float    @default(0)
+  semanticRepetitionScore Float   @default(0)
+  lastUsedAt             DateTime @default(now())
+
+  @@map("topic_performance_histories")
+}
+
+model HookPerformanceHistory {
+  id                  String   @id @default(uuid())
+  hookCategory        String   @unique
+  postsCount          Int      @default(0)
+  avgProfileVisitRate Float?
+  avgCommentRate      Float?
+  avgCareerScore      Float    @default(0)
+  repetitionWarning   Boolean  @default(false)
+
+  @@map("hook_performance_histories")
+}
+
+model VisualPerformanceHistory {
+  id                     String   @id @default(uuid())
+  visualType             String   @unique
+  postsCount             Int      @default(0)
+  avgShareRate           Float?
+  avgSaveRate            Float?
+  avgCareerScore         Float    @default(0)
+  visualFatigueWarning   Boolean  @default(false)
+
+  @@map("visual_performance_histories")
+}
+
 
 

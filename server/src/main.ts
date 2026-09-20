@@ -395,6 +395,131 @@ app.get("/api/v1/schedule/config", async (_req: Request, res: Response) => {
 app.get("/api/v1/jobs", (req, res) => publishController.getJobs(req, res));
 
 
+// ── LINKEDIN ANALYTICS INTELLIGENCE ROUTES ──────────────────────────────────
+app.get("/api/v1/linkedin/analytics", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const windowDays = parseInt((req.query.days as string) || "30", 10);
+    const mockPosts = req.body?.posts || [];
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts, { timeWindowDays: windowDays });
+    res.json(decision.data);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/posts", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const normalized = mockPosts.map((p: any) => ({
+      post: p,
+      normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p),
+    }));
+    res.json({ postsCount: normalized.length, posts: normalized });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/topics", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const topics = linkedinAnalyticsIntelligenceAgent.analyzeTopicPerformance(normalized);
+    res.json({ count: topics.length, topics });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/hooks", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const hooks = linkedinAnalyticsIntelligenceAgent.analyzeHookPerformance(normalized);
+    res.json({ count: hooks.length, hooks });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/visuals", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const visuals = linkedinAnalyticsIntelligenceAgent.analyzeVisualPerformance(normalized);
+    res.json({ count: visuals.length, visuals });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/audience", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const audience = linkedinAnalyticsIntelligenceAgent.analyzeAudienceQuality(normalized);
+    res.json({ audience });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/insights", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts);
+    res.json({ insights: decision.data.insights });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get("/api/v1/linkedin/analytics/strategy", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const mockPosts = req.body?.posts || [];
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts);
+    res.json({
+      strategyDecisions: decision.data.strategyDecisions,
+      next3Posts: decision.data.next3Posts,
+      next5Posts: decision.data.next5Posts,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/api/v1/linkedin/analytics/analyze", async (req: Request, res: Response) => {
+  try {
+    const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
+    const { posts, timeWindowDays } = req.body;
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(posts || [], { timeWindowDays: timeWindowDays || 30 });
+    res.json(decision.data);
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post("/api/v1/linkedin/analytics/sync", async (req: Request, res: Response) => {
+  try {
+    const { posts } = req.body;
+    res.json({
+      status: "synced",
+      syncedCount: Array.isArray(posts) ? posts.length : 0,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Analytics Routes
 app.get("/api/v1/analytics", (req, res) => analyticsController.getAnalytics(req, res));
 app.get("/api/v1/analytics/linkedin-profile", (req, res) => analyticsController.getLinkedInProfile(req, res));

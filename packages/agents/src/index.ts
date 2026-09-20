@@ -50,6 +50,7 @@ export * from "./agents/image-relevance";
 export * from "./agents/post-deduplication";
 export * from "./agents/linkedin-algorithm-auditor";
 export * from "./agents/linkedin-comment-drafter";
+export * from "./agents/linkedin-analytics-intelligence";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";

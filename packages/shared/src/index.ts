@@ -1510,4 +1510,236 @@ export const VisualIntelligenceOutputSchema = z.object({
 });
 export type VisualIntelligenceOutput = z.infer<typeof VisualIntelligenceOutputSchema>;
 
+// ==========================================
+// LINKEDIN ANALYTICS INTELLIGENCE AGENT TYPES
+// ==========================================
+
+export interface LinkedInPostAnalyticsData {
+  postId: string;
+  postUrl?: string | null;
+  publishedAt: string;
+  text: string;
+  title: string;
+  hook?: string | null;
+  topic: string;
+  subtopic?: string | null;
+  technology?: string | null;
+  engineeringProblem?: string | null;
+  category: string;
+  format: string;
+  storyFormat?: string | null;
+  ctaType?: string | null;
+  visualType?: string | null;
+  visualConcept?: string | null;
+  hashtags?: string[];
+  wordCount?: number | null;
+
+  // Raw Analytics Metrics (null if unavailable - DO NOT fabricate missing values)
+  impressions: number | null;
+  reach?: number | null;
+  likes: number | null;
+  comments: number | null;
+  reposts: number | null;
+  shares: number | null;
+  saves: number | null;
+  clicks: number | null;
+  profileViews: number | null;
+  followersGained: number | null;
+  connectionRequests: number | null;
+  connectionAcceptance: number | null;
+  dms: number | null;
+  recruiterInteractions: number | null;
+  hiringManagerInteractions: number | null;
+  interviewInquiries: number | null;
+  portfolioClicks: number | null;
+  githubClicks: number | null;
+  externalLinkClicks: number | null;
+}
+
+export interface NormalizedAnalyticsMetrics {
+  engagementRate: number | null;
+  commentRate: number | null;
+  shareRate: number | null;
+  saveRate: number | null;
+  profileVisitRate: number | null;
+  followerConversionRate: number | null;
+  connectionConversionRate: number | null;
+  careerOpportunityRate: number | null;
+  technicalDiscussionRate: number | null;
+  clickThroughRate: number | null;
+  weightedCareerScore: number;
+}
+
+export interface WeightedCareerOutcomeWeights {
+  careerInterviewSignal: number;  // 30%
+  recruiterHiringSignal: number;  // 20%
+  profileConversion: number;      // 15%
+  technicalDiscussion: number;    // 10%
+  connectionGrowth: number;       // 10%
+  portfolioGithubInterest: number;// 5%
+  followerGrowth: number;         // 5%
+  qualityEngagement: number;      // 5%
+}
+
+export interface ContentCategoryPerformance {
+  category: string;
+  postsCount: number;
+  avgImpressions: number | null;
+  medianImpressions: number | null;
+  avgEngagementRate: number | null;
+  commentRate: number | null;
+  saveRate: number | null;
+  shareRate: number | null;
+  profileVisitRate: number | null;
+  followerConversionRate: number | null;
+  careerOpportunityRate: number | null;
+  weightedCareerScore: number;
+  signalStrength: "STRONG" | "MODERATE" | "WEAK" | "FATIGUED";
+}
+
+export interface TopicPerformanceReport {
+  topicKey: string;
+  technology: string;
+  engineeringProblem: string;
+  angle: string;
+  format: string;
+  postsCount: number;
+  avgImpressions: number | null;
+  careerOpportunityRate: number | null;
+  technicalDiscussionRate: number | null;
+  weightedCareerScore: number;
+  lastUsedAt: string;
+  semanticRepetitionScore: number;
+}
+
+export interface HookPerformanceReport {
+  hookCategory: string;
+  postsCount: number;
+  avgProfileVisitRate: number | null;
+  avgCommentRate: number | null;
+  avgShareRate: number | null;
+  avgCareerScore: number;
+  repetitionWarning: boolean;
+}
+
+export interface StoryFormatPerformanceReport {
+  storyFormat: string;
+  postsCount: number;
+  avgTechnicalDiscussionRate: number | null;
+  avgProfileVisitRate: number | null;
+  avgCareerOpportunityRate: number | null;
+  avgFollowerConversionRate: number | null;
+  weightedCareerScore: number;
+}
+
+export interface VisualPerformanceReport {
+  visualType: string;
+  postsCount: number;
+  avgShareRate: number | null;
+  avgSaveRate: number | null;
+  avgCommentRate: number | null;
+  avgProfileVisitRate: number | null;
+  avgTechnicalDiscussionRate: number | null;
+  weightedCareerScore: number;
+  visualFatigueWarning: boolean;
+}
+
+export interface PostingTimePerformanceReport {
+  timeWindow: string; // e.g. "TUESDAY_18:00_IST"
+  sampleSize: number;
+  medianImpressions: number | null;
+  medianCareerScore: number | null;
+  confidence: "HIGH" | "MEDIUM" | "LOW" | "INSUFFICIENT_DATA";
+  recommendationReason: string;
+}
+
+export interface AudienceQualityReport {
+  audienceSegment: string;
+  impressionSharePercent: number;
+  relevantConversionPercent: number;
+  audienceRelevanceRating: "HIGH" | "MEDIUM" | "LOW";
+}
+
+export interface ContentFatigueReport {
+  technologyFatigue: number;
+  topicFatigue: number;
+  hookFatigue: number;
+  visualFatigue: number;
+  formatFatigue: number;
+  explanations: string[];
+}
+
+export interface ContentExperimentReport {
+  experimentId: string;
+  variant: string;
+  postsCount: number;
+  metrics: NormalizedAnalyticsMetrics;
+  careerOutcomesCount: number;
+  statisticallySignificant: boolean;
+}
+
+export interface ContentGapInsight {
+  category: string;
+  opportunityType: string;
+  reason: string;
+  suggestedAction: string;
+  evidence: string[];
+}
+
+export interface ContentStrategyDecision {
+  action: "INCREASE" | "MAINTAIN" | "REDUCE" | "TEST" | "PAUSE" | "ROTATE_VISUAL" | "CHANGE_HOOK_STYLE" | "CHANGE_CTA" | "CHANGE_POSTING_WINDOW";
+  target: string;
+  reason: string;
+  evidence: string[];
+  confidence: number;
+  sampleSize: number;
+  timeWindowDays?: number;
+}
+
+export interface StrategyExperiment {
+  postIndex: number;
+  suggestedTopic: string;
+  suggestedCategory: string;
+  suggestedFormat: string;
+  suggestedVisualType: string;
+  rationale: string;
+}
+
+export interface AnalyticsInsight {
+  id: string;
+  type: "TOPIC_OUTPERFORM" | "TOPIC_FATIGUE" | "HOOK_CONVERSION" | "VISUAL_ENGAGEMENT" | "CAREER_SIGNAL" | "AUDIENCE_MISMATCH" | "POSTING_WINDOW";
+  title: string;
+  description: string;
+  impactScore: number;
+  evidence: string[];
+}
+
+export interface LinkedInAnalyticsDecision {
+  analysisId: string;
+  period: {
+    start: string;
+    end: string;
+  };
+  sampleSize: number;
+  performanceSummary: {
+    impressions: number | null;
+    engagementRate: number | null;
+    profileVisitRate: number | null;
+    followerConversionRate: number | null;
+    careerOpportunityRate: number | null;
+  };
+  insights: AnalyticsInsight[];
+  fatigue: ContentFatigueReport;
+  contentGaps: ContentGapInsight[];
+  strategyDecisions: ContentStrategyDecision[];
+  next3Posts: StrategyExperiment[];
+  next5Posts: StrategyExperiment[];
+  confidence: number;
+  dataQuality: "HIGH" | "MEDIUM" | "LOW" | "INSUFFICIENT";
+  generatedAt: string;
+  topicWeightAdjustments?: Record<string, number>;
+  topicPenalties?: Record<string, number>;
+  cooldownExtensionDays?: Record<string, number>;
+}
+
 export * from "./notification-service";

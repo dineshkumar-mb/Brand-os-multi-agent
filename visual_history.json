@@ -2,6 +2,958 @@
   {
     "topicId": "proj_03_worker_queue_idempotency",
     "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-20T16:49:48.611Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:48.574Z"
+  },
+  {
+    "topicId": "cand_18_1789922988472",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:48.551Z"
+  },
+  {
+    "topicId": "cand_18_1789922988472",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:48.490Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-20T16:49:46.068Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:46.028Z"
+  },
+  {
+    "topicId": "cand_18_1789922985930",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:46.012Z"
+  },
+  {
+    "topicId": "cand_18_1789922985930",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:45.955Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:43.461Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:43.424Z"
+  },
+  {
+    "topicId": "cand_18_1789922983336",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:43.406Z"
+  },
+  {
+    "topicId": "cand_18_1789922983336",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:43.352Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:40.217Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:40.179Z"
+  },
+  {
+    "topicId": "cand_18_1789922980104",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "createdAt": "2026-09-20T16:49:40.163Z"
+  },
+  {
+    "topicId": "cand_18_1789922980104",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:40.120Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-20T16:49:37.761Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:37.716Z"
+  },
+  {
+    "topicId": "cand_18_1789922977626",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "createdAt": "2026-09-20T16:49:37.695Z"
+  },
+  {
+    "topicId": "cand_18_1789922977626",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:37.650Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:35.132Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:35.096Z"
+  },
+  {
+    "topicId": "cand_18_1789922974989",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "createdAt": "2026-09-20T16:49:35.074Z"
+  },
+  {
+    "topicId": "cand_18_1789922974989",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:35.014Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:31.298Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:31.259Z"
+  },
+  {
+    "topicId": "cand_18_1789922971134",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:31.239Z"
+  },
+  {
+    "topicId": "cand_18_1789922971134",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:31.162Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:26.767Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:26.727Z"
+  },
+  {
+    "topicId": "cand_18_1789922966633",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:26.707Z"
+  },
+  {
+    "topicId": "cand_18_1789922966633",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:26.662Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:25.126Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:25.081Z"
+  },
+  {
+    "topicId": "cand_18_1789922964963",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Pipeline Flow",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:25.056Z"
+  },
+  {
+    "topicId": "cand_18_1789922964963",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:24.981Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:23.476Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:23.428Z"
+  },
+  {
+    "topicId": "cand_18_1789922963347",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:23.411Z"
+  },
+  {
+    "topicId": "cand_18_1789922963347",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:23.365Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:22.630Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:22.591Z"
+  },
+  {
+    "topicId": "cand_18_1789922962489",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Pipeline Flow",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:22.570Z"
+  },
+  {
+    "topicId": "cand_18_1789922962489",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:22.517Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-20T16:49:21.961Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:21.888Z"
+  },
+  {
+    "topicId": "cand_18_1789922961760",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Decision Matrix",
+    "createdAt": "2026-09-20T16:49:21.846Z"
+  },
+  {
+    "topicId": "cand_18_1789922961760",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:21.786Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Benchmark",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Benchmark",
+    "createdAt": "2026-09-20T16:49:19.671Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:19.630Z"
+  },
+  {
+    "topicId": "cand_18_1789922959516",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:19.611Z"
+  },
+  {
+    "topicId": "cand_18_1789922959516",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:19.532Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:19.479Z"
+  },
+  {
+    "topicId": "cand_18_1789922959376",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:19.453Z"
+  },
+  {
+    "topicId": "cand_18_1789922959376",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:19.401Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:18.114Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:18.070Z"
+  },
+  {
+    "topicId": "cand_31_1789922957990",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Benchmark",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Benchmark",
+    "createdAt": "2026-09-20T16:49:18.053Z"
+  },
+  {
+    "topicId": "cand_31_1789922957990",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:18.007Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:17.147Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:17.130Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:17.098Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:17.085Z"
+  },
+  {
+    "topicId": "cand_31_1789922956997",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:17.065Z"
+  },
+  {
+    "topicId": "cand_31_1789922957000",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:17.020Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:15.438Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:15.397Z"
+  },
+  {
+    "topicId": "cand_31_1789922955305",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Benchmark",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Benchmark",
+    "createdAt": "2026-09-20T16:49:15.376Z"
+  },
+  {
+    "topicId": "cand_31_1789922955305",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:15.323Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:14.537Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:14.498Z"
+  },
+  {
+    "topicId": "cand_31_1789922954412",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Benchmark",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Benchmark",
+    "createdAt": "2026-09-20T16:49:14.478Z"
+  },
+  {
+    "topicId": "cand_31_1789922954412",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:14.433Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:12.610Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-20T16:49:12.566Z"
+  },
+  {
+    "topicId": "cand_31_1789922952472",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:12.545Z"
+  },
+  {
+    "topicId": "cand_31_1789922952472",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:12.493Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:12.202Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:12.162Z"
+  },
+  {
+    "topicId": "cand_31_1789922952085",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:12.144Z"
+  },
+  {
+    "topicId": "cand_31_1789922952085",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:12.100Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:09.773Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:09.734Z"
+  },
+  {
+    "topicId": "cand_31_1789922949642",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Benchmark",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Benchmark",
+    "createdAt": "2026-09-20T16:49:09.712Z"
+  },
+  {
+    "topicId": "cand_31_1789922949642",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:09.668Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Benchmark",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Benchmark",
+    "createdAt": "2026-09-20T16:49:08.839Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-20T16:49:08.793Z"
+  },
+  {
+    "topicId": "cand_18_1789922948705",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:08.773Z"
+  },
+  {
+    "topicId": "cand_18_1789922948705",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:08.719Z"
+  },
+  {
+    "topicId": "cand_18_1789922948493",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:08.586Z"
+  },
+  {
+    "topicId": "cand_18_1789922948493",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:08.525Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
+    "createdAt": "2026-09-20T16:49:07.357Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "diagramType": "Zero Duplicate Side Effects: Impleme Architecture",
+    "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Architecture",
+    "createdAt": "2026-09-20T16:49:07.281Z"
+  },
+  {
+    "topicId": "cand_18_1789922947161",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Benchmark",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Benchmark",
+    "createdAt": "2026-09-20T16:49:07.252Z"
+  },
+  {
+    "topicId": "cand_18_1789922947161",
+    "conceptTitle": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "diagramType": "Columnar Analytics Schema for Sub-Se Architecture",
+    "hash": "designingcolumnaranalyticsschemaforsubsecondqueryperformanceatpetabytescale_Columnar Analytics Schema for Sub-Se Architecture",
+    "createdAt": "2026-09-20T16:49:07.195Z"
+  },
+  {
+    "topicId": "proj_04_monorepo_cicd",
+    "conceptTitle": "Scaling Monorepo CI/CD Build Times: TypeScript Project References, Incremental Caching, and Hardened OCI Containers",
+    "diagramType": "Scaling Monorepo CI/CD Build Times:  Decision Matrix",
+    "hash": "scalingmonorepocicdbuildtimestypescriptprojectreferencesincrementalcachingandhardenedocicontainers_Scaling Monorepo CI/CD Build Times:  Decision Matrix",
+    "createdAt": "2026-09-20T16:49:05.865Z"
+  },
+  {
+    "topicId": "proj_04_monorepo_cicd",
+    "conceptTitle": "Scaling Monorepo CI/CD Build Times: TypeScript Project References, Incremental Caching, and Hardened OCI Containers",
+    "diagramType": "Scaling Monorepo CI/CD Build Times:  Architecture",
+    "hash": "scalingmonorepocicdbuildtimestypescriptprojectreferencesincrementalcachingandhardenedocicontainers_Scaling Monorepo CI/CD Build Times:  Architecture",
+    "createdAt": "2026-09-20T16:49:05.814Z"
+  },
+  {
+    "topicId": "cand_31_1789922945655",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:05.748Z"
+  },
+  {
+    "topicId": "cand_31_1789922945655",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:05.681Z"
+  },
+  {
+    "topicId": "cand_30_1789922945230",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Memory Pipeline Flow",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Memory Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:05.335Z"
+  },
+  {
+    "topicId": "cand_30_1789922945230",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Memory Architecture",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Memory Architecture",
+    "createdAt": "2026-09-20T16:49:05.270Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:04.976Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-20T16:49:04.930Z"
+  },
+  {
+    "topicId": "cand_31_1789922944840",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Benchmark",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Benchmark",
+    "createdAt": "2026-09-20T16:49:04.910Z"
+  },
+  {
+    "topicId": "cand_31_1789922944840",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:04.864Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:04.667Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-20T16:49:04.617Z"
+  },
+  {
+    "topicId": "cand_31_1789922944483",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:49:04.586Z"
+  },
+  {
+    "topicId": "cand_31_1789922944483",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:49:04.508Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "Building a Decoupled Event Bus in Mo Architecture",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_Building a Decoupled Event Bus in Mo Architecture",
+    "createdAt": "2026-09-20T16:49:00.651Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Rule-Based Reward Benchm Architecture",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Rule-Based Reward Benchm Architecture",
+    "createdAt": "2026-09-20T16:49:00.554Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "PostgreSQL Lock Contention Under p99 Architecture",
+    "hash": "day3postgresqllockcontentionunderp99spikes_PostgreSQL Lock Contention Under p99 Architecture",
+    "createdAt": "2026-09-20T16:49:00.454Z"
+  },
+  {
+    "topicId": "d2",
+    "conceptTitle": "Day 2: Multi-Model Gateway Failover Architecture",
+    "diagramType": "Multi-Model Gateway Failover Archite Architecture",
+    "hash": "day2multimodelgatewayfailoverarchitecture_Multi-Model Gateway Failover Archite Architecture",
+    "createdAt": "2026-09-20T16:49:00.362Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "AI Agent Retry Loops & Backpressure Architecture",
+    "hash": "day1aiagentretryloopsbackpressure_AI Agent Retry Loops & Backpressure Architecture",
+    "createdAt": "2026-09-20T16:49:00.266Z"
+  },
+  {
+    "topicId": "s10",
+    "conceptTitle": "OpenTelemetry Circuit Breaker Metrics",
+    "diagramType": "OpenTelemetry Circuit Breaker Metric Architecture",
+    "hash": "opentelemetrycircuitbreakermetrics_OpenTelemetry Circuit Breaker Metric Architecture",
+    "createdAt": "2026-09-20T16:49:00.156Z"
+  },
+  {
+    "topicId": "s9",
+    "conceptTitle": "LLM Cache-Augmented Generation (CAG)",
+    "diagramType": "LLM Cache-Augmented Generation (CAG) Architecture",
+    "hash": "llmcacheaugmentedgenerationcag_LLM Cache-Augmented Generation (CAG) Architecture",
+    "createdAt": "2026-09-20T16:49:00.055Z"
+  },
+  {
+    "topicId": "s8",
+    "conceptTitle": "Kubernetes Pod Disruption Budgets",
+    "diagramType": "Kubernetes Pod Disruption Budgets Architecture",
+    "hash": "kubernetespoddisruptionbudgets_Kubernetes Pod Disruption Budgets Architecture",
+    "createdAt": "2026-09-20T16:48:59.952Z"
+  },
+  {
+    "topicId": "cand_13_1789922939884",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Architecture",
+    "createdAt": "2026-09-20T16:48:59.929Z"
+  },
+  {
+    "topicId": "s7",
+    "conceptTitle": "gRPC Streaming vs REST WebSockets",
+    "diagramType": "gRPC Streaming vs REST WebSockets Architecture",
+    "hash": "grpcstreamingvsrestwebsockets_gRPC Streaming vs REST WebSockets Architecture",
+    "createdAt": "2026-09-20T16:48:59.855Z"
+  },
+  {
+    "topicId": "s6",
+    "conceptTitle": "React 19 Server Actions & Optimistic UI",
+    "diagramType": "React 19 Server Actions & Optimistic Architecture",
+    "hash": "react19serveractionsoptimisticui_React 19 Server Actions & Optimistic Architecture",
+    "createdAt": "2026-09-20T16:48:59.749Z"
+  },
+  {
+    "topicId": "proj_04_monorepo_cicd",
+    "conceptTitle": "Scaling Monorepo CI/CD Build Times: TypeScript Project References, Incremental Caching, and Hardened OCI Containers",
+    "diagramType": "Scaling Monorepo CI/CD Build Times:  Decision Matrix",
+    "hash": "scalingmonorepocicdbuildtimestypescriptprojectreferencesincrementalcachingandhardenedocicontainers_Scaling Monorepo CI/CD Build Times:  Decision Matrix",
+    "createdAt": "2026-09-20T16:48:59.657Z"
+  },
+  {
+    "topicId": "s5",
+    "conceptTitle": "PostgreSQL B-Tree Index Bloat Debugging",
+    "diagramType": "PostgreSQL B-Tree Index Bloat Debugg Architecture",
+    "hash": "postgresqlbtreeindexbloatdebugging_PostgreSQL B-Tree Index Bloat Debugg Architecture",
+    "createdAt": "2026-09-20T16:48:59.629Z"
+  },
+  {
+    "topicId": "proj_04_monorepo_cicd",
+    "conceptTitle": "Scaling Monorepo CI/CD Build Times: TypeScript Project References, Incremental Caching, and Hardened OCI Containers",
+    "diagramType": "Scaling Monorepo CI/CD Build Times:  Architecture",
+    "hash": "scalingmonorepocicdbuildtimestypescriptprojectreferencesincrementalcachingandhardenedocicontainers_Scaling Monorepo CI/CD Build Times:  Architecture",
+    "createdAt": "2026-09-20T16:48:59.541Z"
+  },
+  {
+    "topicId": "d10",
+    "conceptTitle": "Day 10: Model Context Protocol (MCP) Tool Execution",
+    "diagramType": "Model Context Protocol (MCP) Tool Ex Architecture",
+    "hash": "day10modelcontextprotocolmcptoolexecution_Model Context Protocol (MCP) Tool Ex Architecture",
+    "createdAt": "2026-09-20T16:48:59.511Z"
+  },
+  {
+    "topicId": "d9",
+    "conceptTitle": "Day 9: OpenTelemetry Circuit Breaker Metric Tracing",
+    "diagramType": "OpenTelemetry Circuit Breaker Metric Architecture",
+    "hash": "day9opentelemetrycircuitbreakermetrictracing_OpenTelemetry Circuit Breaker Metric Architecture",
+    "createdAt": "2026-09-20T16:48:59.467Z"
+  },
+  {
+    "topicId": "d8",
+    "conceptTitle": "Day 8: Cache-Augmented Generation (CAG) vs RAG",
+    "diagramType": "Cache-Augmented Generation (CAG) vs  Architecture",
+    "hash": "day8cacheaugmentedgenerationcagvsrag_Cache-Augmented Generation (CAG) vs  Architecture",
+    "createdAt": "2026-09-20T16:48:59.425Z"
+  },
+  {
+    "topicId": "d7",
+    "conceptTitle": "Day 7: Docker Buildx Rootless Container Hardening",
+    "diagramType": "Docker Buildx Rootless Container Har Architecture",
+    "hash": "day7dockerbuildxrootlesscontainerhardening_Docker Buildx Rootless Container Har Architecture",
+    "createdAt": "2026-09-20T16:48:59.390Z"
+  },
+  {
+    "topicId": "d6",
+    "conceptTitle": "Day 6: gRPC Streaming vs REST WebSockets Tradeoff",
+    "diagramType": "gRPC Streaming vs REST WebSockets Tr Architecture",
+    "hash": "day6grpcstreamingvsrestwebsocketstradeoff_gRPC Streaming vs REST WebSockets Tr Architecture",
+    "createdAt": "2026-09-20T16:48:59.346Z"
+  },
+  {
+    "topicId": "d5",
+    "conceptTitle": "Day 5: Building a Decoupled Event Bus in Monorepos",
+    "diagramType": "Building a Decoupled Event Bus in Mo Architecture",
+    "hash": "day5buildingadecoupledeventbusinmonorepos_Building a Decoupled Event Bus in Mo Architecture",
+    "createdAt": "2026-09-20T16:48:59.297Z"
+  },
+  {
+    "topicId": "t_mcp_1",
+    "conceptTitle": "Model Context Protocol (MCP): Isolation Boundaries & Tool Calling",
+    "diagramType": "Model Context Protocol (MCP): Isolat Architecture",
+    "hash": "modelcontextprotocolmcpisolationboundariestoolcalling_Model Context Protocol (MCP): Isolat Architecture",
+    "createdAt": "2026-09-20T16:48:59.271Z"
+  },
+  {
+    "topicId": "d4",
+    "conceptTitle": "Day 4: DeepSeek R1 Rule-Based Reward Benchmarks",
+    "diagramType": "DeepSeek R1 Rule-Based Reward Benchm Architecture",
+    "hash": "day4deepseekr1rulebasedrewardbenchmarks_DeepSeek R1 Rule-Based Reward Benchm Architecture",
+    "createdAt": "2026-09-20T16:48:59.252Z"
+  },
+  {
+    "topicId": "d3",
+    "conceptTitle": "Day 3: PostgreSQL Lock Contention Under p99 Spikes",
+    "diagramType": "PostgreSQL Lock Contention Under p99 Architecture",
+    "hash": "day3postgresqllockcontentionunderp99spikes_PostgreSQL Lock Contention Under p99 Architecture",
+    "createdAt": "2026-09-20T16:48:59.206Z"
+  },
+  {
+    "topicId": "s1",
+    "conceptTitle": "Model Context Protocol (MCP) Tool Calling",
+    "diagramType": "Model Context Protocol (MCP) Tool Ca Architecture",
+    "hash": "modelcontextprotocolmcptoolcalling_Model Context Protocol (MCP) Tool Ca Architecture",
+    "createdAt": "2026-09-20T16:48:59.172Z"
+  },
+  {
+    "topicId": "d1",
+    "conceptTitle": "Day 1: AI Agent Retry Loops & Backpressure",
+    "diagramType": "AI Agent Retry Loops & Backpressure Architecture",
+    "hash": "day1aiagentretryloopsbackpressure_AI Agent Retry Loops & Backpressure Architecture",
+    "createdAt": "2026-09-20T16:48:59.039Z"
+  },
+  {
+    "topicId": "vtop_01",
+    "conceptTitle": "LLM Gateway Failover Architecture",
+    "diagramType": "LLM Gateway Failover Architecture Architecture",
+    "hash": "llmgatewayfailoverarchitecture_LLM Gateway Failover Architecture Architecture",
+    "createdAt": "2026-09-20T16:48:58.961Z"
+  },
+  {
+    "topicId": "t1",
+    "conceptTitle": "Model Context Protocol (MCP): Multi-Agent Architecture",
+    "diagramType": "Model Context Protocol (MCP): Multi- Architecture",
+    "hash": "modelcontextprotocolmcpmultiagentarchitecture_Model Context Protocol (MCP): Multi- Architecture",
+    "createdAt": "2026-09-20T16:48:58.927Z"
+  },
+  {
+    "topicId": "proj_03_worker_queue_idempotency",
+    "conceptTitle": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
     "diagramType": "Zero Duplicate Side Effects: Impleme Decision Matrix",
     "hash": "zeroduplicatesideeffectsimplementingatomicredisdeduplicationretriesfordistributedbackgroundworkerqueues_Zero Duplicate Side Effects: Impleme Decision Matrix",
     "createdAt": "2026-09-20T16:04:39.325Z"
@@ -46,6 +998,13 @@
     "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
     "diagramType": "Hardening Multi-Architecture Contain Pipeline Flow",
     "hash": "hardeningmultiarchitecturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
+    "createdAt": "2026-09-20T16:04:36.595Z"
+  },
+  {
+    "topicId": "cand_30_1789920276462",
+    "conceptTitle": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "diagramType": "Hardening Multi-Architecture Contain Architecture",
+    "hash": "hardeningmultiarchiteccturecontainerbuildpipelinesforzerocveproductionimages_Hardening Multi-Architecture Contain Pipeline Flow",
     "createdAt": "2026-09-20T16:04:36.595Z"
   },
   {
