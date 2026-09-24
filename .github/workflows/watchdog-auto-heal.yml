@@ -43,30 +43,44 @@ jobs:
 
           echo "Recent runs fetched."
 
-          # Check if any run from today completed with success
-          SUCCESS_TODAY=$(echo "$RUNS" | \
+          # Check today's run history (success and failure count)
+          RESULTS=$(echo "$RUNS" | \
             python3 -c "
           import sys, json
           data = json.load(sys.stdin)
           today = '$TODAY'
           runs = data.get('workflow_runs', [])
-          found = any(
+          found_success = any(
               r.get('conclusion') == 'success' and r.get('created_at', '').startswith(today)
               for r in runs
           )
-          print('true' if found else 'false')
+          failed_count = sum(
+              1 for r in runs
+              if r.get('conclusion') == 'failure' and r.get('created_at', '').startswith(today)
+          )
+          should_trigger = (not found_success) and (failed_count < 3)
+          print(f'{str(found_success).lower()}|{str(should_trigger).lower()}|{failed_count}')
           ")
 
-          echo "Successful run found today: $SUCCESS_TODAY"
-          echo "success_today=$SUCCESS_TODAY" >> $GITHUB_OUTPUT
+          SUCCESS_TODAY=$(echo "$RESULTS" | cut -d'|' -f1)
+          SHOULD_TRIGGER=$(echo "$RESULTS" | cut -d'|' -f2)
+          FAILED_COUNT=$(echo "$RESULTS" | cut -d'|' -f3)
 
-      - name: Trigger daily post pipeline if no success today
-        if: steps.check-runs.outputs.success_today == 'false'
+          echo "Successful run found today: $SUCCESS_TODAY"
+          echo "Failed runs count today: $FAILED_COUNT"
+          echo "Should trigger pipeline: $SHOULD_TRIGGER"
+
+          echo "success_today=$SUCCESS_TODAY" >> $GITHUB_OUTPUT
+          echo "should_trigger=$SHOULD_TRIGGER" >> $GITHUB_OUTPUT
+          echo "failed_count=$FAILED_COUNT" >> $GITHUB_OUTPUT
+
+      - name: Trigger daily post pipeline if no success today and under failure threshold
+        if: steps.check-runs.outputs.should_trigger == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          echo "No successful post found today. Triggering daily post pipeline..."
+          echo "No successful post found today (and under failure limit). Triggering daily post pipeline..."
 
           RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
@@ -81,6 +95,12 @@ jobs:
             echo "Failed to trigger pipeline. HTTP response: $RESPONSE"
             exit 1
           fi
+
+      - name: Halt - Max failure threshold reached today
+        if: steps.check-runs.outputs.success_today == 'false' && steps.check-runs.outputs.should_trigger == 'false'
+        run: |
+          echo "⚠️ SAFETY HALT: ${{ steps.check-runs.outputs.failed_count }} failed attempts recorded today."
+          echo "Watchdog will not re-trigger to prevent cascading failure loops. Please inspect logs and secrets."
 
       - name: Skip - post already published today
         if: steps.check-runs.outputs.success_today == 'true'

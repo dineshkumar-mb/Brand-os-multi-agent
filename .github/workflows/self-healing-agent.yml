@@ -130,75 +130,97 @@ jobs:
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/$REPO/actions/runs/$FAILED_RUN_ID/jobs")
 
-          # Extract the failed step name
-          FAILED_STEP=$(echo "$JOBS" | python3 -c "
+          # Extract failed step name and failed job ID
+          PARSED_INFO=$(echo "$JOBS" | python3 -c "
           import sys, json
           data = json.load(sys.stdin)
           jobs = data.get('jobs', [])
+          failed_job_id = ''
+          failed_step_name = 'unknown'
           for job in jobs:
-              for step in job.get('steps', []):
-                  if step.get('conclusion') == 'failure':
-                      print(step.get('name', 'unknown'))
-                      break
-          " 2>/dev/null || echo "unknown")
+              if job.get('conclusion') == 'failure':
+                  failed_job_id = str(job.get('id', ''))
+                  for step in job.get('steps', []):
+                      if step.get('conclusion') == 'failure':
+                          failed_step_name = step.get('name', 'unknown')
+                          break
+                  break
+          print(f'{failed_job_id}|{failed_step_name}')
+          " 2>/dev/null || echo "|unknown")
 
+          FAILED_JOB_ID=$(echo "$PARSED_INFO" | cut -d'|' -f1)
+          FAILED_STEP=$(echo "$PARSED_INFO" | cut -d'|' -f2)
+
+          echo "Failed job ID: $FAILED_JOB_ID"
           echo "Failed step: $FAILED_STEP"
           echo "failed_step=$FAILED_STEP" >> $GITHUB_OUTPUT
 
-          # ── Error Classification Engine ──────────────────────────────────────
-          # Classify based on known patterns in step names and common GHA errors
+          # Fetch actual execution logs from the failed job
+          JOB_LOG=""
+          if [ -n "$FAILED_JOB_ID" ]; then
+            echo "Fetching logs for job $FAILED_JOB_ID..."
+            JOB_LOG=$(curl -s -L \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/$REPO/actions/jobs/$FAILED_JOB_ID/logs" | tail -n 300 2>/dev/null || echo "")
+          fi
 
+          # Combine step name and logs for comprehensive classification
+          DIAGNOSTIC_CONTENT="$FAILED_STEP $JOB_LOG"
+
+          # ── Error Classification Engine ──────────────────────────────────────
+          # Classify based on step name AND actual execution logs
           STRATEGY="RETRY_WITH_DELAY"
           WAIT_SECONDS=30
           REASON="Generic transient failure — will retry after ${WAIT_SECONDS}s"
 
+          # Auth / token errors (Critical: non-recoverable via auto-retry)
+          if echo "$DIAGNOSTIC_CONTENT" | grep -qi "401\|403\|unauthorized\|forbidden\|invalid.*token\|token.*invalid\|EXPIRED_ACCESS_TOKEN\|MissingAccessTokenError\|ACCESS_DENIED\|Not enough permissions"; then
+            STRATEGY="AUTH_ERROR"
+            WAIT_SECONDS=0
+            REASON="Authentication/authorization error detected (e.g. EXPIRED_ACCESS_TOKEN or 401/403). Requires manual credential update in GitHub Secrets."
+
           # Rate limit errors (OpenRouter, LinkedIn, GitHub API)
-          if echo "$FAILED_STEP" | grep -qi "rate.limit\|429\|quota\|too many"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "rate.limit\|429\|quota\|too many requests"; then
             STRATEGY="RETRY_RATE_LIMIT"
             WAIT_SECONDS=120
             REASON="Rate limit detected. Waiting 2 minutes before retry."
 
-          # Auth / token errors
-          elif echo "$FAILED_STEP" | grep -qi "401\|403\|unauthorized\|forbidden\|invalid.*token\|token.*invalid"; then
-            STRATEGY="AUTH_ERROR"
-            WAIT_SECONDS=0
-            REASON="Authentication error detected. Token may be expired. Cannot auto-fix — check secrets."
-
           # Network / timeout errors
-          elif echo "$FAILED_STEP" | grep -qi "timeout\|ETIMEDOUT\|ECONNRESET\|ECONNREFUSED\|network"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "timeout\|ETIMEDOUT\|ECONNRESET\|ECONNREFUSED\|network"; then
             STRATEGY="RETRY_NETWORK"
             WAIT_SECONDS=45
             REASON="Network/timeout error. Waiting 45s before retry."
 
           # Database errors
-          elif echo "$FAILED_STEP" | grep -qi "database\|postgres\|prisma\|connection.*refused\|ECONNREFUSED.*5432"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "database\|postgres\|prisma\|connection.*refused\|ECONNREFUSED.*5432"; then
             STRATEGY="RETRY_DB"
             WAIT_SECONDS=60
             REASON="Database connectivity issue. Waiting 60s for sidecar to stabilize."
 
           # Build / compile errors
-          elif echo "$FAILED_STEP" | grep -qi "build\|compile\|tsc\|typescript\|syntax"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "build failed\|compile error\|tsc.*error\|syntaxerror\|TSError"; then
             STRATEGY="BUILD_ERROR"
             WAIT_SECONDS=0
             REASON="Build/compile error detected. This requires manual code fix."
 
           # Dependency install errors
-          elif echo "$FAILED_STEP" | grep -qi "install\|pnpm\|npm\|node_modules"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "install\|pnpm\|npm\|node_modules"; then
             STRATEGY="RETRY_DEPS"
             WAIT_SECONDS=30
             REASON="Dependency install failure. Retrying after 30s (may be registry flap)."
 
           # AI Gateway / model errors
-          elif echo "$FAILED_STEP" | grep -qi "openrouter\|nvidia\|model\|ai.gateway\|completion"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "openrouter\|nvidia\|model\|ai.gateway\|completion"; then
             STRATEGY="RETRY_AI"
             WAIT_SECONDS=60
             REASON="AI Gateway failure. Waiting 60s for model provider recovery."
 
           # LinkedIn publish errors
-          elif echo "$FAILED_STEP" | grep -qi "linkedin\|publish\|ugcpost\|social"; then
+          elif echo "$DIAGNOSTIC_CONTENT" | grep -qi "linkedin\|publish\|ugcpost\|social"; then
             STRATEGY="RETRY_PUBLISH"
             WAIT_SECONDS=90
-            REASON="LinkedIn publish error. Waiting 90s (API may be momentarily down)."
+            REASON="LinkedIn publish transient error. Waiting 90s (API may be momentarily down)."
           fi
 
           echo ""
