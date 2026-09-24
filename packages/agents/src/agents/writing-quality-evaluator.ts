@@ -12,41 +12,79 @@ import {
 
 export class WritingQualityEvaluator {
   private readonly aiCliches: RegExp[] = [
+    // 1. Generic AI Openings
     /in today's fast-paced world/gi,
+    /in today's rapidly evolving/gi,
+    /in the ever-changing world of/gi,
+    /in the modern digital landscape/gi,
+    /as technology continues to evolve/gi,
+    /in the fast-paced world of/gi,
+    /the future of [^.!\n]+ is/gi,
+    /has become increasingly important/gi,
+    /you may be wondering/gi,
+
+    // 2. AI-Favorite Vocabulary
     /let's dive in/gi,
     /game-changing/gi,
     /game changer/gi,
     /revolutionary/gi,
     /unlock the power/gi,
-    /delve into/gi,
+    /\bdelve into\b/gi,
+    /\bdelve\b/gi,
+    /\bpivotal\b/gi,
+    /\bcrucial\b/gi,
+    /\btransformative\b/gi,
+    /\bseamlessly\b/gi,
+    /\bseamless\b/gi,
+    /\brobust\b/gi,
+    /\bleverage\b/gi,
+    /\bfoster\b/gi,
+    /\bfacilitate\b/gi,
+    /\bunderscore\b/gi,
+    /\bshowcase\b/gi,
+    /\bintricate\b/gi,
+    /\btestament to\b/gi,
+    /\btestament\b/gi,
+    /\binterplay\b/gi,
+    /\bbolster\b/gi,
+    /\bparadigm shift\b/gi,
+    /\bparadigm\b/gi,
+    /\bempower\b/gi,
+    /\bgroundbreaking\b/gi,
+
+    // 3. Corporate Jargon & Metaphors
     /harness the power/gi,
     /it's important to remember/gi,
-    /seamlessly/gi,
-    /testament to/gi,
-    /in conclusion/gi,
     /at the end of the day/gi,
     /beacon of/gi,
-    /paradigm shift/gi,
-    /furthermore,/gi,
-    /moreover,/gi,
     /rich tapestry/gi,
     /tapestry of/gi,
     /cutting-edge/gi,
     /spearhead/gi,
     /holistic approach/gi,
     /synergy/gi,
-    /transformative/gi,
     /supercharge/gi,
     /navigating the landscape/gi,
     /in the realm of/gi,
     /demystify/gi,
     /embark on a journey/gi,
+    /here are \d+ things/gi,
     /as developers, we/gi,
     /technology is evolving rapidly/gi,
     /exciting times ahead/gi,
     /this is a must-have/gi,
     /transform your development workflow/gi,
     /whether you're a beginner or expert/gi,
+
+    // 4. Manufactured Conclusions & Engagement Bait
+    /the future belongs to/gi,
+    /ultimately, success depends on/gi,
+    /this is just the beginning/gi,
+    /keep learning, keep building/gi,
+    /embrace the future/gi,
+    /what do you think\?/gi,
+    /agree or disagree\?/gi,
+    /drop your thoughts below/gi,
   ];
 
   public evaluateBoredomScore(
@@ -55,13 +93,20 @@ export class WritingQualityEvaluator {
   ): BoredomScore {
     const text = post.fullText || "";
 
-    // 1. Structural Repetition: penalize if post contains rigid emoji headers like "1️⃣ Observation" or STAR labels
+    // 1. Structural Repetition: penalize if post contains rigid emoji headers, STAR labels, em dash overuse, or formulaic "Not X, but Y"
     let structuralRepetition = 0;
     if (/1️⃣|2️⃣|3️⃣|4️⃣|5️⃣|6️⃣|Situation:|Task:|Action:|Result:/i.test(text)) {
       structuralRepetition += 80;
     }
     if (/here are \d+ (benefits|reasons|things)/i.test(text)) {
       structuralRepetition += 60;
+    }
+    const emDashCount = (text.match(/—/g) || []).length;
+    if (emDashCount > 2) {
+      structuralRepetition += 25; // Strict Human Writing Rule 5: minimize em dashes
+    }
+    if (/it['’]s not about .* it['’]s about|this isn['’]t just .* it['’]s|not only .* but also/i.test(text)) {
+      structuralRepetition += 25; // Strict Human Writing Rule 6: avoid formulaic "Not X, But Y"
     }
 
     // 2. Hook Repetition: check against last 10 historical hooks

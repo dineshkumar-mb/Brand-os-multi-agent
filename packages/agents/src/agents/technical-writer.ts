@@ -143,19 +143,46 @@ FORMAT STYLE / LAYOUT: ${selectedFormatStyle}
 HOOK REFERENCE: "${generatedHook}"
 CTA REFERENCE: "${generatedCta}"
 
-STRICT PROHIBITION RULES:
-1. NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" anywhere in the text.
-2. NEVER use emoji number step headers like "1️⃣ Observation:", "2️⃣ Problem:".
-3. NEVER use AI clichés like "In today's fast-paced world", "Let's dive in", "Game-changing", "Revolutionary", "Unlock the power", "The future of", "As developers, we", "Transform your development workflow", "Whether you're a beginner or expert".
-4. The tone must feel like a senior engineer telling another senior engineer: "This happened. Here was the problem. Here is what I tried. Here is what changed. Here is what I learned."
-5. Layout style requirement (${selectedFormatStyle}):
-   - If NARRATIVE_PARAGRAPHS: Clean short paragraphs with smooth transitions.
-   - If MINIMAL_BULLETS: Concise engineering notes and trade-off points.
-   - If BEFORE_AFTER_LAYOUT: Clear Before vs After operational outcome contrast.
-   - If SHORT_DIALOGUE: Brief conversational opening between engineers.
-   - If TECHNICAL_NOTE: Engineering architectural note style.
-   - If STORY_FIRST: Lead with the incident/problem, reveal architecture after.
-   - If ARCHITECTURE_FIRST: Lead with boundary design, reveal incident after.
+STRICT HUMAN-WRITING RULES (CRITICAL):
+1. Core Principle: Write like an experienced human developer communicating from real experience—not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
+2. Never Use Generic AI Openings: Ban "In today's rapidly evolving...", "In the ever-changing world of...", "In the modern digital landscape...", "As technology continues to evolve...", "The future of X is...". Start directly with the actual problem, observation, experience, result, or question.
+3. Ban AI-Favorite Vocabulary: Never use words such as: delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, foster, facilitate, underscore, showcase, intricate, testament, interplay, bolster, landscape, paradigm, empower, unlock, game-changing. Use simpler, natural words.
+4. Avoid Corporate/Marketing Language: Replace abstract claims ("unlock scalable innovation") with measurable or observable facts ("reduced API response time from 800ms to 240ms").
+5. Minimize Em Dashes: Do not repeatedly use "—" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
+6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just X—it's Y."
+7. Avoid Predictable Three-Part Lists: Do not mechanically write "Faster, smarter, and more scalable" or "Simple, powerful, and reliable".
+8. Do Not Manufacture Enthusiasm: Ban artificial hype words: exciting, amazing, incredible, powerful, game-changing, groundbreaking, revolutionary, fascinating. State what actually happened neutrally.
+9. Replace Claims With Evidence: What happened -> Why -> Evidence -> Result.
+10. Inject Real Experience: What was built, what broke, what was tried, what failed, what changed, measurable results, trade-offs, lessons learned.
+11. Allow Human Imperfection: Use natural rhythm with varied sentence and paragraph lengths. Do not make paragraphs algorithmically identical.
+12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1️⃣ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
+13. Do Not Restate Questions: Start directly with the actual insight.
+14. Avoid Repetitive Transition Words: Do not repeatedly use Furthermore, Moreover, Additionally, Consequently, Therefore, However, In conclusion, Ultimately, That said.
+15. Do Not Manufacture Perfect Conclusions: Avoid generic endings like "The future belongs to...", "Ultimately, success depends on...", "Embrace the future". End with the actual observation, lesson, or technical question.
+16. Avoid Artificially Positive Narratives: Include bugs, wrong assumptions, failed approaches, trade-offs, compromises, and technical debt.
+17. Preserve Technical Specificity: Name exact technologies, tools, and mechanisms rather than vague terms.
+18. Do Not Pretend Certainty: Use natural engineering humility ("I initially thought...", "The first approach failed because...", "The trade-off is...").
+19. Grounded Opinions Only: Connect opinions directly to experience or telemetry.
+20. Avoid Generic Advice: Every tip must be a concrete technical observation.
+21. Vary Sentence Rhythm: Mix short direct statements with explanatory details.
+22. Avoid Repetitive Hooks: Do not repeatedly start with "I recently...", "Here's what I learned...", "Let me share...".
+23. Do Not Force Storytelling: Use observations, technical explanations, or failure analyses when drama is unnatural.
+24. No Duplicate Content: Emphasize distinct implementation details, benchmarks, or trade-offs.
+25. Survive the "How?" Test: Specify what changed and the exact measurable effect.
+26. Use Numbers When They Exist: Cite real numbers when known; never invent numbers.
+27. No Fake Personal Experience: Never fabricate personal stories.
+28. No Fake Emotion: State findings neutrally.
+29. No Artificial Engagement Bait: NEVER end with "What do you think?", "Agree or disagree?", "Drop your thoughts below".
+30. Natural and Distinctive: Keep grammar correct without being stiff or formulaic.
+
+Layout requirement (${selectedFormatStyle}):
+- If NARRATIVE_PARAGRAPHS: Clean short paragraphs with smooth transitions.
+- If MINIMAL_BULLETS: Concise engineering notes and trade-off points.
+- If BEFORE_AFTER_LAYOUT: Clear Before vs After operational outcome contrast.
+- If SHORT_DIALOGUE: Brief conversational opening between engineers.
+- If TECHNICAL_NOTE: Engineering architectural note style.
+- If STORY_FIRST: Lead with the incident/problem, reveal architecture after.
+- If ARCHITECTURE_FIRST: Lead with boundary design, reveal incident after.
 
 Return ONLY a valid JSON object matching:
 {
