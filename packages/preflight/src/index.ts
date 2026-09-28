@@ -167,14 +167,31 @@ export class PreflightService {
     // 6. LinkedIn API Connection Check
     if (config.LINKEDIN_ACCESS_TOKEN) {
       try {
-        // Quick syntax check: OAuth access tokens should have a minimum length or format.
         if (config.LINKEDIN_ACCESS_TOKEN.length < 20) {
           throw new Error("LinkedIn Access Token is too short to be valid.");
         }
+
+        const isLiveOrProd = config.PUBLISH_MODE === "LIVE" || config.NODE_ENV === "production";
+        if (isLiveOrProd) {
+          try {
+            const liRes = await fetch("https://api.linkedin.com/v2/userinfo", {
+              headers: { Authorization: `Bearer ${config.LINKEDIN_ACCESS_TOKEN}` },
+            });
+            if (liRes.status === 401) {
+              throw new Error("LinkedIn Access Token is EXPIRED or INVALID (HTTP 401 Unauthorized). Update LINKEDIN_ACCESS_TOKEN in secrets.");
+            }
+          } catch (netErr: any) {
+            if (netErr.message.includes("EXPIRED or INVALID")) {
+              throw netErr;
+            }
+            console.warn("[Preflight Service] ⚠️ LinkedIn live API check network warning:", netErr.message);
+          }
+        }
+
         results.push({
           success: true,
           component: "LinkedIn",
-          message: "LinkedIn Access Token syntax verified.",
+          message: "LinkedIn Access Token verified.",
         });
       } catch (err: any) {
         results.push({
@@ -210,6 +227,7 @@ export class PreflightService {
     }
 
     // Process overall failure if critical components fail
+    const isLivePublishing = config.PUBLISH_MODE === "LIVE" || config.NODE_ENV === "production";
     const criticalFailures = results.filter((r) => {
       if (r.success) return false;
       if (r.component === "Environment" || r.component === "Filesystem") return true;
@@ -217,27 +235,34 @@ export class PreflightService {
         // Database and Redis are critical in production, but warnings in development/test
         return config.NODE_ENV === "production";
       }
+      if (r.component === "LinkedIn" && isLivePublishing) {
+        return true;
+      }
       return false;
     });
     
-    // In production, also require at least one successful AI provider and LinkedIn token validation
-    if (config.NODE_ENV === "production") {
+    // In LIVE mode or production, require at least one successful AI provider and LinkedIn token validation
+    if (isLivePublishing) {
       const hasWorkingAI = results.some((r) => r.success && r.component.startsWith("AI Providers"));
       if (!hasWorkingAI) {
         criticalFailures.push({
           success: false,
           component: "AI Providers",
-          message: "No working AI providers detected in production mode.",
+          message: "No working AI providers detected in production/LIVE mode.",
         });
       }
       
       const linkedinSuccess = results.find((r) => r.component === "LinkedIn");
       if (!linkedinSuccess || !linkedinSuccess.success) {
-        criticalFailures.push({
-          success: false,
-          component: "LinkedIn",
-          message: "LinkedIn publisher verification failed in production mode.",
-        });
+        const alreadyIncluded = criticalFailures.some((c) => c.component === "LinkedIn");
+        if (!alreadyIncluded) {
+          criticalFailures.push({
+            success: false,
+            component: "LinkedIn",
+            message: "LinkedIn publisher verification failed in production/LIVE mode.",
+            error: linkedinSuccess?.error || "Token missing or invalid",
+          });
+        }
       }
     }
 

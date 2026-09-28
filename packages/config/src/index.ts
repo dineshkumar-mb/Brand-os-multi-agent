@@ -22,6 +22,7 @@ export const ConfigSchema = z.object({
   LINKEDIN_PERSON_URN: z.string().optional(),
   MEDIUM_INTEGRATION_TOKEN: z.string().optional(),
   DEVTO_API_KEY: z.string().optional(),
+  PUBLISH_MODE: z.string().optional().default("AUTO"),
 });
 
 export type Config = z.infer<typeof ConfigSchema>;

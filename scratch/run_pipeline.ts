@@ -138,6 +138,7 @@ async function main() {
     const envMode = process.env.PUBLISH_MODE?.toUpperCase();
     mode = envMode === "LIVE" ? PublishMode.LIVE : envMode === "SIMULATION" ? PublishMode.SIMULATION : PublishMode.AUTO;
   }
+  process.env.PUBLISH_MODE = mode;
 
   logStructured("INFO", "init", `Execution configured with Mode: [${mode}] | Dry-Run: ${isDryRun}`, { pipelineId });
 
@@ -201,6 +202,7 @@ async function main() {
       }
 
       writeGitHubOutput("status", "no_post_today");
+      writeGitHubOutput("published", "false");
       writeGitHubOutput("topic", swarmResult.topic?.title || "N/A");
       writeGitHubOutput("reason", reason);
 
@@ -226,7 +228,7 @@ async function main() {
       console.log(`\n==========================================================`);
       console.log(` ⏭️ PIPELINE COMPLETED (NO_POST_TODAY SAFE EXIT)         `);
       console.log(`==========================================================`);
-      return;
+      process.exit(0);
     }
 
     
@@ -297,7 +299,7 @@ async function main() {
     console.log(`\n==========================================================`);
     console.log(` ⏭️ PIPELINE COMPLETED (SKIPPED DUPLICATE PUBLISH)       `);
     console.log(`==========================================================`);
-    return;
+    process.exit(0);
   }
 
   // Stage 4: Publish to LinkedIn Platform (Primary Target - Failures are Fatal)
@@ -390,7 +392,7 @@ async function main() {
       where: { pipelineId },
     });
     
-    logs.forEach((log) => {
+    logs.forEach((log: any) => {
       promptTokens += log.promptTokens;
       completionTokens += log.completionTokens;
       totalTokens += log.totalTokens;
@@ -489,6 +491,7 @@ ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediu
   console.log(`Estimated Cost: $${costUsd.toFixed(5)}`);
   console.log("==========================================================");
   writeGitHubOutput("status", "success");
+  writeGitHubOutput("published", "true");
   writeGitHubOutput("topic", swarmResult.topic.title);
   writeGitHubOutput("linkedin_url", publishResult.url);
 
@@ -514,12 +517,15 @@ ${mediumPublishResult ? `- **Medium Article URL**: [View Medium Article](${mediu
     publishMode: publishResult.mode,
     postUrl: publishResult.url,
   });
+
+  process.exit(0);
 }
 
 main().catch(async (err) => {
   logStructured("ERROR", "fatal", `Pipeline failed with error: ${err.message}`, { stack: err.stack });
   console.error("\n❌ Pipeline failed with error:", err.message);
   writeGitHubOutput("status", "failure");
+  writeGitHubOutput("published", "false");
   writeGitHubOutput("error", err.message);
 
   await notificationService.sendAutomationNotification({
@@ -528,6 +534,12 @@ main().catch(async (err) => {
     message: "An unhandled error occurred during pipeline execution.",
     errorMessage: err.message,
   });
+
+  // Check if error is a fatal authentication error (401, Invalid Token, Expired)
+  const isAuthError = /401|unauthorized|invalid.*token|token.*invalid|EXPIRED_ACCESS_TOKEN|MissingAccessTokenError/i.test(err.message || "");
+  if (isAuthError) {
+    process.exit(42); // Special exit code 42 to signal non-retryable auth failure
+  }
 
   process.exit(1);
 });

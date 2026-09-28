@@ -255,7 +255,7 @@ export const SettingsPage: React.FC = () => {
                     type="password"
                     value={telegramBotToken}
                     onChange={(e) => setTelegramBotToken(e.target.value)}
-                    placeholder="8991559572:AAEoQbF3..."
+                    placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ..."
                     className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-mono text-xs focus:outline-none focus:border-sky-500"
                   />
                 </div>
@@ -265,7 +265,7 @@ export const SettingsPage: React.FC = () => {
                     type="text"
                     value={telegramChatId}
                     onChange={(e) => setTelegramChatId(e.target.value)}
-                    placeholder="-5128959794"
+                    placeholder="-1001234567890"
                     className="w-full mt-1 bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 font-mono text-xs focus:outline-none focus:border-sky-500"
                   />
                 </div>

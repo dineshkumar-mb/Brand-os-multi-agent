@@ -2,11 +2,9 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { prisma } from "@brand-os/database";
-import { AuthenticatedRequest } from "../middleware/auth.middleware";
+import { AuthenticatedRequest, getJwtSecret } from "../middleware/auth.middleware";
 import { hashPassword, comparePassword } from "../utils/password-hasher";
 import { emailService } from "../services/email.service";
-
-const JWT_SECRET = process.env.JWT_SECRET || "super_secret_jwt_key_personal_brand_os_2026";
 
 interface InMemUser {
   id: string;
@@ -112,7 +110,7 @@ export class AuthController {
 
           const token = jwt.sign(
             { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
-            JWT_SECRET,
+            getJwtSecret(),
             { expiresIn: "7d" }
           );
 
@@ -152,7 +150,7 @@ export class AuthController {
 
       const token = jwt.sign(
         { sub: newUser.id, email: newUser.email, name: newUser.name, role: newUser.role },
-        JWT_SECRET,
+        getJwtSecret(),
         { expiresIn: "7d" }
       );
 
@@ -197,7 +195,7 @@ export class AuthController {
 
             const token = jwt.sign(
               { sub: dbUser.id, email: dbUser.email, name: dbUser.name, role: dbUser.role },
-              JWT_SECRET,
+              getJwtSecret(),
               { expiresIn: "7d" }
             );
 
@@ -230,7 +228,7 @@ export class AuthController {
 
       const token = jwt.sign(
         { sub: memUser.id, email: memUser.email, name: memUser.name, role: memUser.role },
-        JWT_SECRET,
+        getJwtSecret(),
         { expiresIn: "7d" }
       );
 

@@ -246,10 +246,28 @@ jobs:
         if: |
           steps.diagnose.outputs.strategy == 'AUTH_ERROR' ||
           steps.diagnose.outputs.strategy == 'BUILD_ERROR'
+        env:
+          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
+          STRATEGY: ${{ steps.diagnose.outputs.strategy }}
+          REASON: ${{ steps.diagnose.outputs.reason }}
+          FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
+          REPO: ${{ github.repository }}
         run: |
-          echo "NON-RECOVERABLE ERROR: ${{ steps.diagnose.outputs.reason }}"
+          TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
+          TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
+
+          echo "NON-RECOVERABLE ERROR: $STRATEGY - $REASON"
           echo "Manual intervention required. Self-Healing Agent cannot auto-fix this."
           echo "Please check GitHub Secrets and pipeline code manually."
+          MSG="🚨 *Self-Healing Agent Alert: $STRATEGY*%0A%0A• *Run ID*: $FAILED_RUN_ID%0A• *Reason*: $REASON%0A• [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$FAILED_RUN_ID)"
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+              -d "chat_id=$TELEGRAM_CHAT_ID" \
+              -d "text=$MSG" \
+              -d "parse_mode=Markdown" || true
+          else
+            echo "Telegram alert skipped: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID secret is not set."
+          fi
           exit 0  # Exit 0 — don't mark the watchdog itself as failed
 
       # ────────────────────────────────────────────────────────────────────────
