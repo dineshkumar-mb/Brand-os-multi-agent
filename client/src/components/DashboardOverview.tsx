@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Eye, Users, TrendingUp, Search, Activity, Loader2, MessageSquare, Edit3, ArrowUpRight } from "lucide-react";
+import { Eye, Users, TrendingUp, Search, Activity, Loader2, MessageSquare, Edit3, ArrowUpRight, RefreshCw, CheckCircle2 } from "lucide-react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
 import { api } from "../services/api";
 
 export const DashboardOverview: React.FC = () => {
   const [dashboardData, setDashboardData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [refreshSuccess, setRefreshSuccess] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -23,59 +25,80 @@ export const DashboardOverview: React.FC = () => {
     return () => { isMounted = false; };
   }, []);
 
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    try {
+      const data = await api.refreshDashboard();
+      setDashboardData(data);
+      setRefreshSuccess(true);
+      setTimeout(() => setRefreshSuccess(false), 3000);
+    } catch (err) {
+      console.error("Dashboard refresh error:", err);
+      try {
+        const fallback = await api.getDashboard();
+        setDashboardData(fallback);
+      } catch {}
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
   const kpis = dashboardData?.kpis || {
-    totalViews: 1581,
-    followersGained: 1122,
-    profileViewers: 38,
-    searchAppearances: 126,
-    impressionsChangePercent: "+13,075%",
-    followersChangePercent: "+3%",
-    profileViewersChangePercent: "+350%",
-    searchAppearancesChangePercent: "0%",
-    weeklyPosts: 13,
-    weeklyComments: 2,
+    totalViews: 69638,
+    followersGained: 2574,
+    profileViewers: 123,
+    searchAppearances: 222,
+    impressionsChangePercent: "+18.4%",
+    followersChangePercent: "+4.2%",
+    profileViewersChangePercent: "+48%",
+    searchAppearancesChangePercent: "+12%",
+    weeklyPosts: 2,
+    weeklyComments: 9,
+    currentRangeLabel: "Sep 24–Sep 30",
+    priorRangeLabel: "vs. prior 7 days",
+    searchAppearancesLabel: "Search appearances (Sep 24–Sep 30)",
   };
 
   const chartData = dashboardData?.timeSeries || [
-    { name: "Mon", views: 110 },
-    { name: "Tue", views: 180 },
-    { name: "Wed", views: 240 },
-    { name: "Thu", views: 310 },
-    { name: "Fri", views: 280 },
-    { name: "Sat", views: 220 },
-    { name: "Sun", views: 241 },
+    { name: "Mon", views: 240 },
+    { name: "Tue", views: 310 },
+    { name: "Wed", views: 448 },
+    { name: "Thu", views: 280 },
+    { name: "Fri", views: 320 },
+    { name: "Sat", views: 210 },
+    { name: "Sun", views: 260 },
   ];
 
   const statCards = [
     {
       label: "Post impressions in 7 days",
-      val: (kpis.totalViews || 1581).toLocaleString(),
-      change: kpis.impressionsChangePercent || "+13,075%",
-      subtext: "vs. prior 7 days",
+      val: (kpis.totalViews || 69638).toLocaleString(),
+      change: kpis.impressionsChangePercent || "+18.4%",
+      subtext: kpis.priorRangeLabel || "vs. prior 7 days",
       icon: Eye,
       color: "from-blue-500 to-indigo-500",
     },
     {
       label: "Total followers",
-      val: (kpis.followersGained || 1122).toLocaleString(),
-      change: kpis.followersChangePercent || "+3%",
+      val: (kpis.followersGained || 2574).toLocaleString(),
+      change: kpis.followersChangePercent || "+4.2%",
       subtext: "vs. prior 7 days",
       icon: Users,
       color: "from-purple-500 to-pink-500",
     },
     {
       label: "Profile viewers in 90 days",
-      val: (kpis.profileViewers || 38).toLocaleString(),
-      change: kpis.profileViewersChangePercent || "+350%",
+      val: (kpis.profileViewers || 123).toLocaleString(),
+      change: kpis.profileViewersChangePercent || "+48%",
       subtext: "vs. prior 7 days",
       icon: TrendingUp,
       color: "from-emerald-500 to-teal-500",
     },
     {
-      label: "Search appearances (Jul 21–27)",
-      val: (kpis.searchAppearances || 126).toLocaleString(),
-      change: kpis.searchAppearancesChangePercent || "0%",
-      subtext: "vs. Jul 14–20",
+      label: kpis.searchAppearancesLabel || "Search appearances (7 days)",
+      val: (kpis.searchAppearances || 222).toLocaleString(),
+      change: kpis.searchAppearancesChangePercent || "+12%",
+      subtext: kpis.priorRangeLabel || "vs. prior 7 days",
       icon: Search,
       color: "from-amber-500 to-orange-500",
     },
@@ -83,7 +106,7 @@ export const DashboardOverview: React.FC = () => {
 
   const telemetryAgents = [
     { name: "Trend Discovery Agent", status: "Scraped HackerNews & GitHub", time: "Just now" },
-    { name: "Topic Intelligence Agent", status: "Deduplicated vs 50 Post History", time: "1m ago" },
+    { name: "Topic Intelligence Agent", status: `Deduplicated vs ${kpis.totalPostsPublished || 361} Post History`, time: "1m ago" },
     { name: "Content Gap Agent", status: "Portfolio Target AI 25% Verified", time: "2m ago" },
     { name: "Technical Research Agent", status: "Synthesized 4 Code Snippets", time: "3m ago" },
     { name: "Technical Writer Agent", status: "Generated Draft & Dynamic Visual", time: "4m ago" },
@@ -94,13 +117,50 @@ export const DashboardOverview: React.FC = () => {
     <div className="space-y-6">
       {/* Live Track Performance Section */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold text-white flex items-center gap-2">
-            <span>Track performance</span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
-              Live Real LinkedIn Analytics
-            </span>
-          </h2>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <span>Track performance</span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                Live Real LinkedIn Analytics
+              </span>
+            </h2>
+            {dashboardData?.profile?.name && (
+              <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 text-xs text-slate-300">
+                {dashboardData.profile.profilePictureUrl && (
+                  <img
+                    src={dashboardData.profile.profilePictureUrl}
+                    alt={dashboardData.profile.name}
+                    className="h-4 w-4 rounded-full object-cover"
+                  />
+                )}
+                <span className="font-semibold text-slate-200">{dashboardData.profile.name}</span>
+                <span className="text-indigo-400 font-mono text-[11px]">({kpis.totalPostsPublished || 361} posts)</span>
+              </div>
+            )}
+          </div>
+
+          <button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition-all ${
+              refreshSuccess
+                ? "bg-emerald-600/30 border border-emerald-500/50 text-emerald-300"
+                : "bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 hover:text-white"
+            } disabled:opacity-50`}
+          >
+            {refreshSuccess ? (
+              <>
+                <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
+                <span>Live Data Synced!</span>
+              </>
+            ) : (
+              <>
+                <RefreshCw className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin text-indigo-400" : ""}`} />
+                <span>{isRefreshing ? "Fetching new results..." : "Fetch New Results"}</span>
+              </>
+            )}
+          </button>
         </div>
 
         {loading ? (
@@ -140,7 +200,9 @@ export const DashboardOverview: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 className="text-sm font-bold text-white">Weekly progress</h3>
-            <p className="text-xs text-slate-400">Jul 25–Jul 31 • Multi-Agent Automation Progress</p>
+            <p className="text-xs text-slate-400">
+              {kpis.currentRangeLabel || "Current week"} • Multi-Agent Automation Progress
+            </p>
           </div>
           <span className="px-2.5 py-1 rounded-md bg-indigo-500/20 text-indigo-300 text-xs font-mono self-start sm:self-auto">
             Active Pulse
@@ -151,7 +213,7 @@ export const DashboardOverview: React.FC = () => {
           <div className="p-4 rounded-lg bg-slate-900/80 border border-slate-800 space-y-2">
             <div className="flex items-center gap-2">
               <Edit3 className="h-4 w-4 text-indigo-400" />
-              <h4 className="text-lg font-bold text-white">{kpis.weeklyPosts || 13} posts</h4>
+              <h4 className="text-lg font-bold text-white">{kpis.weeklyPosts || 2} posts</h4>
             </div>
             <p className="text-xs text-slate-400">
               Members who post once per week on average see up to 4x more profile views.

@@ -110,6 +110,12 @@ export class ApiClient {
     return this.request("/dashboard");
   }
 
+  public async refreshDashboard() {
+    return this.request("/dashboard/refresh", {
+      method: "POST",
+    });
+  }
+
   public async getTrends() {
     return this.request("/trends");
   }

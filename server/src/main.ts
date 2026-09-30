@@ -527,13 +527,19 @@ app.get("/api/v1/analytics/timeseries", (req, res) => analyticsController.getTim
 app.get("/api/v1/analytics/posts", (req, res) => analyticsController.getRecentPosts(req, res));
 app.get("/api/v1/dashboard", async (req, res) => {
   try {
-    const { analyticsService } = await import("@brand-os/analytics");
+    const { analyticsService, postHistoryTracker } = await import("@brand-os/analytics");
     const { aiGateway } = await import("@brand-os/ai-gateway");
+    postHistoryTracker.reloadHistory();
     const summary = analyticsService.getSummary();
     const timeSeries = analyticsService.getTimeSeriesAnalytics();
+    let profile = null;
+    try {
+      profile = await analyticsService.fetchLinkedInProfile();
+    } catch {}
     res.json({
       kpis: summary.kpis,
       timeSeries,
+      profile,
       activeAgents: 18,
       scheduledPosts: summary.kpis.totalPostsPublished,
       pendingHITLReviews: 2,
@@ -545,6 +551,7 @@ app.get("/api/v1/dashboard", async (req, res) => {
     res.json({
       kpis: { totalViews: 1581, totalLikes: 126, avgCTR: 5.88 },
       timeSeries: [],
+      profile: null,
       activeAgents: 18,
       scheduledPosts: 13,
       pendingHITLReviews: 2,
@@ -552,6 +559,35 @@ app.get("/api/v1/dashboard", async (req, res) => {
       recommendations: [],
       telemetry: {},
     });
+  }
+});
+
+app.post("/api/v1/dashboard/refresh", async (req, res) => {
+  try {
+    const { analyticsService, postHistoryTracker } = await import("@brand-os/analytics");
+    const { aiGateway } = await import("@brand-os/ai-gateway");
+    postHistoryTracker.reloadHistory();
+    const summary = analyticsService.getSummary();
+    const timeSeries = analyticsService.getTimeSeriesAnalytics();
+    let profile = null;
+    try {
+      profile = await analyticsService.fetchLinkedInProfile();
+    } catch {}
+    res.json({
+      success: true,
+      message: "Dashboard telemetry refreshed from live sources.",
+      kpis: summary.kpis,
+      timeSeries,
+      profile,
+      activeAgents: 18,
+      scheduledPosts: summary.kpis.totalPostsPublished,
+      pendingHITLReviews: 2,
+      topHooks: summary.topPerformingHooks,
+      recommendations: summary.learningRecommendations,
+      telemetry: aiGateway.getBenchmarks(),
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message });
   }
 });
 

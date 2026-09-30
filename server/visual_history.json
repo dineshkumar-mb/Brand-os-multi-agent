@@ -1,5 +1,47 @@
 [
   {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Pipeline Flow",
+    "createdAt": "2026-09-30T03:17:08.557Z"
+  },
+  {
+    "topicId": "proj_02_llm_gateway",
+    "conceptTitle": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "diagramType": "Resilient Multi-Provider LLM Gateway Architecture",
+    "hash": "architectingaresilientmultiproviderllmgatewaydynamicratelimitingfailoverroutingandcostoptimization_Resilient Multi-Provider LLM Gateway Architecture",
+    "createdAt": "2026-09-30T03:17:08.542Z"
+  },
+  {
+    "topicId": "cand_26_1790738226703",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency Suppl Benchmark",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency Suppl Benchmark",
+    "createdAt": "2026-09-30T03:17:08.067Z"
+  },
+  {
+    "topicId": "cand_26_1790738226703",
+    "conceptTitle": "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
+    "diagramType": "Auditing Transitive Dependency Suppl Architecture",
+    "hash": "auditingtransitivedependencysupplychainriskinproductionrustworkloads_Auditing Transitive Dependency Suppl Architecture",
+    "createdAt": "2026-09-30T03:17:08.036Z"
+  },
+  {
+    "topicId": "cand_32_1790738128762",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Memory Pipeline Flow",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Memory Pipeline Flow",
+    "createdAt": "2026-09-30T03:15:30.300Z"
+  },
+  {
+    "topicId": "cand_32_1790738128762",
+    "conceptTitle": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "diagramType": "Diagnosing V8 GC Pressure and Memory Architecture",
+    "hash": "diagnosingv8gcpressureandmemoryleaksinlongrunningnodejsservices_Diagnosing V8 GC Pressure and Memory Architecture",
+    "createdAt": "2026-09-30T03:15:30.228Z"
+  },
+  {
     "topicId": "cand_31_1789482607202",
     "conceptTitle": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
     "diagramType": "Eliminating CI Type-Check Bottleneck Decision Matrix",

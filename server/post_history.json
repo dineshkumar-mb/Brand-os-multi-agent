@@ -1,5 +1,66 @@
 [
   {
+    "id": "urn:li:share:7510900536901292032",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "The hardest part of LLM Gateway Router isn't writing clean code. It's defending the production trade-offs in front of tech leadership.",
+    "fullText": "The hardest part of LLM Gateway Router isn't writing clean code. It's defending the production trade-offs in front of tech leadership. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints At what point in Architecting a Resilient Multi-Provider LLM Gateway would you introduce a queue instead of synchronous retry loops for LLM Gateway Router? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-09-30T03:17:16.009Z",
+    "engagementMetrics": {
+      "impressions": 262,
+      "reactions": 15,
+      "comments": 6,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 13,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:7510900131269918720",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 18ms reduction). JavaScript leaks are reference leaks How do you handle this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services failure mode in your Backend Engineering systems when downstream services stall? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-09-30T03:15:39.234Z",
+    "engagementMetrics": {
+      "impressions": 186,
+      "reactions": 26,
+      "comments": 3,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 7,
+      "followersGained": 5
+    }
+  },
+  {
     "id": "urn:li:share:953000890",
     "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
     "platform": "LINKEDIN",
