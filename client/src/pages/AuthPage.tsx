@@ -115,7 +115,7 @@ export const AuthPage: React.FC = () => {
     setEmail("user@brand-os.ai");
     setPassword("DemoUserPass123!");
     setRole("USER");
-    setMode("REGISTER");
+    setMode("LOGIN");
     clearAlerts();
   };
 
@@ -410,24 +410,31 @@ export const AuthPage: React.FC = () => {
 
         {/* Quick Demo Pre-fill Bar */}
         <div className="mt-6 pt-4 border-t border-slate-800/80">
-          <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-2 font-medium">
-            <Sparkles className="h-3.5 w-3.5 text-amber-400" />
-            <span>Quick Test Credentials</span>
+          <div className="flex items-center justify-between text-[11px] text-slate-400 mb-2 font-medium">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="h-3.5 w-3.5 text-amber-400" />
+              <span>Quick Test Credentials</span>
+            </div>
+            <span className="text-[10px] text-slate-500 font-normal">Click to auto-fill</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={handleQuickDemoAdmin}
-              className="py-1.5 px-2 bg-slate-950/80 hover:bg-slate-800/80 border border-slate-800 rounded-lg text-[10px] text-slate-300 font-mono text-left truncate transition-all"
+              className={`py-1.5 px-2 bg-slate-950/80 hover:bg-slate-800/80 border rounded-lg text-[10px] font-mono text-left truncate transition-all ${
+                email === "admin@brand-os.ai" ? "border-indigo-500/70 text-indigo-300 ring-1 ring-indigo-500/30" : "border-slate-800 text-slate-300"
+              }`}
             >
               👑 Admin Demo
             </button>
             <button
               type="button"
               onClick={handleQuickDemoUser}
-              className="py-1.5 px-2 bg-slate-950/80 hover:bg-slate-800/80 border border-slate-800 rounded-lg text-[10px] text-slate-300 font-mono text-left truncate transition-all"
+              className={`py-1.5 px-2 bg-slate-950/80 hover:bg-slate-800/80 border rounded-lg text-[10px] font-mono text-left truncate transition-all ${
+                email === "user@brand-os.ai" ? "border-indigo-500/70 text-indigo-300 ring-1 ring-indigo-500/30" : "border-slate-800 text-slate-300"
+              }`}
             >
-              👤 New User Demo
+              👤 User Demo
             </button>
           </div>
         </div>
