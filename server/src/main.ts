@@ -396,12 +396,42 @@ app.get("/api/v1/jobs", (req, res) => publishController.getJobs(req, res));
 
 
 // ── LINKEDIN ANALYTICS INTELLIGENCE ROUTES ──────────────────────────────────
+async function getOrFetchAnalyticsPosts(req: Request): Promise<any[]> {
+  if (Array.isArray(req.body?.posts) && req.body.posts.length > 0) {
+    return req.body.posts;
+  }
+  const { postHistoryTracker } = await import("@brand-os/analytics");
+  postHistoryTracker.reloadHistory();
+  const history = postHistoryTracker.getHistory();
+  return history.map((p) => {
+    const m = (p.engagementMetrics as any) || {};
+    return {
+      postId: p.id,
+      publishedAt: p.publishedAt,
+      text: p.fullText || "",
+      title: p.title,
+      hook: p.hook || p.title,
+      topic: p.framework || p.category || "General Architecture",
+      category: p.category || "System Architecture",
+      format: "TECHNICAL_NOTE",
+      visualType: "ARCHITECTURE_DIAGRAM",
+      impressions: m.impressions ?? 150,
+      likes: m.reactions ?? 15,
+      comments: m.comments ?? 3,
+      shares: m.shares ?? 2,
+      saves: m.saves ?? 2,
+      profileViews: m.profileVisits ?? 10,
+      followersGained: m.followersGained ?? 2,
+    };
+  });
+}
+
 app.get("/api/v1/linkedin/analytics", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
     const windowDays = parseInt((req.query.days as string) || "30", 10);
-    const mockPosts = req.body?.posts || [];
-    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts, { timeWindowDays: windowDays });
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(posts, { timeWindowDays: windowDays });
     res.json(decision.data);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -411,8 +441,8 @@ app.get("/api/v1/linkedin/analytics", async (req: Request, res: Response) => {
 app.get("/api/v1/linkedin/analytics/posts", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const normalized = mockPosts.map((p: any) => ({
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const normalized = posts.map((p: any) => ({
       post: p,
       normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p),
     }));
@@ -425,8 +455,8 @@ app.get("/api/v1/linkedin/analytics/posts", async (req: Request, res: Response) 
 app.get("/api/v1/linkedin/analytics/topics", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const normalized = posts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
     const topics = linkedinAnalyticsIntelligenceAgent.analyzeTopicPerformance(normalized);
     res.json({ count: topics.length, topics });
   } catch (err: any) {
@@ -437,8 +467,8 @@ app.get("/api/v1/linkedin/analytics/topics", async (req: Request, res: Response)
 app.get("/api/v1/linkedin/analytics/hooks", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const normalized = posts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
     const hooks = linkedinAnalyticsIntelligenceAgent.analyzeHookPerformance(normalized);
     res.json({ count: hooks.length, hooks });
   } catch (err: any) {
@@ -449,8 +479,8 @@ app.get("/api/v1/linkedin/analytics/hooks", async (req: Request, res: Response) 
 app.get("/api/v1/linkedin/analytics/visuals", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const normalized = posts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
     const visuals = linkedinAnalyticsIntelligenceAgent.analyzeVisualPerformance(normalized);
     res.json({ count: visuals.length, visuals });
   } catch (err: any) {
@@ -461,8 +491,8 @@ app.get("/api/v1/linkedin/analytics/visuals", async (req: Request, res: Response
 app.get("/api/v1/linkedin/analytics/audience", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const normalized = mockPosts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const normalized = posts.map((p: any) => ({ post: p, normalized: linkedinAnalyticsIntelligenceAgent.normalizeMetrics(p) }));
     const audience = linkedinAnalyticsIntelligenceAgent.analyzeAudienceQuality(normalized);
     res.json({ audience });
   } catch (err: any) {
@@ -473,8 +503,8 @@ app.get("/api/v1/linkedin/analytics/audience", async (req: Request, res: Respons
 app.get("/api/v1/linkedin/analytics/insights", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts);
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(posts);
     res.json({ insights: decision.data.insights });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
@@ -484,8 +514,8 @@ app.get("/api/v1/linkedin/analytics/insights", async (req: Request, res: Respons
 app.get("/api/v1/linkedin/analytics/strategy", async (req: Request, res: Response) => {
   try {
     const { linkedinAnalyticsIntelligenceAgent } = await import("@brand-os/agents");
-    const mockPosts = req.body?.posts || [];
-    const decision = linkedinAnalyticsIntelligenceAgent.analyze(mockPosts);
+    const posts = await getOrFetchAnalyticsPosts(req);
+    const decision = linkedinAnalyticsIntelligenceAgent.analyze(posts);
     res.json({
       strategyDecisions: decision.data.strategyDecisions,
       next3Posts: decision.data.next3Posts,
