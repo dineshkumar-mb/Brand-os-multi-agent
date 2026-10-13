@@ -19,21 +19,48 @@ export interface AutomationRunStatus {
   publishedPlatforms?: string[];
 }
 
+import { getWorkspacePath } from "./workspace-root";
+
 export class AutomationTracker {
   private historyFile: string;
   private history: AutomationRunStatus[] = [];
 
   constructor() {
-    this.historyFile = path.resolve(process.cwd(), "automation_history.json");
+    this.historyFile = getWorkspacePath("automation_history.json");
     this.loadHistory();
   }
 
   private loadHistory() {
     try {
-      if (fs.existsSync(this.historyFile)) {
-        const raw = fs.readFileSync(this.historyFile, "utf-8");
-        this.history = JSON.parse(raw);
+      // Check canonical file first, fallback to checking worker/ or cwd
+      const candidatePaths = [
+        this.historyFile,
+        path.resolve(process.cwd(), "automation_history.json"),
+        getWorkspacePath("worker", "automation_history.json"),
+      ];
+      
+      const mergedMap = new Map<string, AutomationRunStatus>();
+
+      for (const p of candidatePaths) {
+        if (fs.existsSync(p)) {
+          try {
+            const raw = fs.readFileSync(p, "utf-8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              for (const item of parsed) {
+                const key = item.pipelineId || `${item.timestamp}_${item.status}`;
+                if (!mergedMap.has(key)) {
+                  mergedMap.set(key, item);
+                }
+              }
+            }
+          } catch {}
+        }
       }
+
+      this.history = Array.from(mergedMap.values()).sort(
+        (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      );
     } catch (e) {
       this.history = [];
     }
@@ -41,22 +68,31 @@ export class AutomationTracker {
 
   private saveHistory() {
     try {
-      fs.writeFileSync(this.historyFile, JSON.stringify(this.history.slice(-50), null, 2), "utf-8");
+      fs.writeFileSync(this.historyFile, JSON.stringify(this.history.slice(0, 50), null, 2), "utf-8");
     } catch (e) {
       console.error("[AutomationTracker] Failed to persist history file:", e);
     }
   }
 
   public recordRun(status: AutomationRunStatus) {
-    this.history.unshift(status);
+    this.loadHistory();
+    // Prevent duplicate entries for same pipelineId
+    const existingIndex = this.history.findIndex((h) => h.pipelineId === status.pipelineId);
+    if (existingIndex >= 0) {
+      this.history[existingIndex] = status;
+    } else {
+      this.history.unshift(status);
+    }
     this.saveHistory();
   }
 
   public getLastRun(): AutomationRunStatus | null {
+    this.loadHistory();
     return this.history.length > 0 ? this.history[0] : null;
   }
 
   public getHistory(limit = 20): AutomationRunStatus[] {
+    this.loadHistory();
     return this.history.slice(0, limit);
   }
 }

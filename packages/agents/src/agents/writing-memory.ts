@@ -14,8 +14,9 @@ declare const require: any;
 
 const fs = require("fs");
 const path = require("path");
+import { getWorkspacePath } from "@brand-os/shared";
 
-const WRITING_MEMORY_FILE = path.resolve(process.cwd(), "writing_memory.json");
+const WRITING_MEMORY_FILE = getWorkspacePath("writing_memory.json");
 
 export class WritingMemoryTracker {
   private memory: WritingMemoryEntry[] = [];
@@ -27,13 +28,32 @@ export class WritingMemoryTracker {
   private loadMemory() {
     if (this.memory.length > 0) return;
     try {
-      if (fs.existsSync(WRITING_MEMORY_FILE)) {
-        const raw = fs.readFileSync(WRITING_MEMORY_FILE, "utf-8");
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          this.memory = parsed;
-          return;
+      const candidates = [
+        WRITING_MEMORY_FILE,
+        path.resolve(process.cwd(), "writing_memory.json"),
+        getWorkspacePath("worker", "writing_memory.json"),
+      ];
+      const entryMap = new Map<string, WritingMemoryEntry>();
+      for (const f of candidates) {
+        if (fs.existsSync(f)) {
+          try {
+            const raw = fs.readFileSync(f, "utf-8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              for (const item of parsed) {
+                if (item && item.id && !entryMap.has(item.id)) {
+                  entryMap.set(item.id, item);
+                }
+              }
+            }
+          } catch {}
         }
+      }
+      if (entryMap.size > 0) {
+        this.memory = Array.from(entryMap.values()).sort(
+          (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        );
+        return;
       }
     } catch (err: any) {
       console.warn("[WritingMemoryTracker] Failed to load writing memory from disk:", err.message);

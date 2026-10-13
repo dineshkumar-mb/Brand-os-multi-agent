@@ -48,17 +48,39 @@ export const INFOGRAPHIC_PRESETS: Record<string, any> = {
   },
 };
 
+import crypto from "crypto";
+import { getWorkspacePath, VisualAttributeRecord } from "@brand-os/shared";
+
 declare const process: any;
 declare const require: any;
 
 const fs = require("fs");
 const path = require("path");
 
-const VISUAL_HISTORY_FILE = path.resolve(process.cwd(), "visual_history.json");
+const VISUAL_HISTORY_FILE = getWorkspacePath("visual_history.json");
 
-// Image Concept History Tracker across published/generated posts
+export interface StoredVisualRecord extends Partial<VisualAttributeRecord> {
+  topicId: string;
+  conceptTitle: string;
+  diagramType: string;
+  hash: string;
+  createdAt: string;
+  visualType?: string;
+  visualConcept?: string;
+  composition?: string;
+  layout?: string;
+  diagramStructure?: string;
+  primarySubject?: string;
+  visualMetaphor?: string;
+  colorPalette?: string;
+  imagePromptHash?: string;
+  imageContentHash?: string;
+  associatedPostId?: string;
+}
+
+// Image Concept & Visual Attributes History Tracker across published/generated posts
 export class VisualHistoryTracker {
-  private pastConcepts: Array<{ topicId: string; conceptTitle: string; diagramType: string; hash: string; createdAt: string }> = [];
+  private pastConcepts: StoredVisualRecord[] = [];
 
   constructor() {
     this.loadHistory();
@@ -66,12 +88,34 @@ export class VisualHistoryTracker {
 
   private loadHistory() {
     try {
-      if (fs.existsSync(VISUAL_HISTORY_FILE)) {
-        const raw = fs.readFileSync(VISUAL_HISTORY_FILE, "utf-8");
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          this.pastConcepts = parsed;
+      const candidates = [
+        VISUAL_HISTORY_FILE,
+        path.resolve(process.cwd(), "visual_history.json"),
+        getWorkspacePath("worker", "visual_history.json"),
+      ];
+      const conceptMap = new Map<string, StoredVisualRecord>();
+
+      for (const p of candidates) {
+        if (fs.existsSync(p)) {
+          try {
+            const raw = fs.readFileSync(p, "utf-8");
+            const parsed = JSON.parse(raw);
+            if (Array.isArray(parsed)) {
+              for (const item of parsed) {
+                const key = item.imageContentHash || item.hash || `${item.conceptTitle}_${item.diagramType}_${item.createdAt}`;
+                if (!conceptMap.has(key)) {
+                  conceptMap.set(key, item);
+                }
+              }
+            }
+          } catch {}
         }
+      }
+
+      if (conceptMap.size > 0) {
+        this.pastConcepts = Array.from(conceptMap.values()).sort(
+          (a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime()
+        );
       }
     } catch (err: any) {
       console.warn("[VisualHistoryTracker] Failed to load visual history:", err.message);
@@ -80,33 +124,119 @@ export class VisualHistoryTracker {
 
   private saveHistory() {
     try {
-      fs.writeFileSync(VISUAL_HISTORY_FILE, JSON.stringify(this.pastConcepts, null, 2), "utf-8");
+      fs.writeFileSync(VISUAL_HISTORY_FILE, JSON.stringify(this.pastConcepts.slice(0, 100), null, 2), "utf-8");
     } catch (err: any) {
       console.warn("[VisualHistoryTracker] Failed to save visual history:", err.message);
     }
   }
 
+  public recordVisual(record: VisualAttributeRecord) {
+    this.loadHistory();
+    const stored: StoredVisualRecord = {
+      ...record,
+      topicId: record.topicId || `t_${Date.now()}`,
+      conceptTitle: record.visualConcept,
+      diagramType: record.visualType,
+      hash: record.imageContentHash,
+      createdAt: record.createdAt || new Date().toISOString(),
+    };
+    this.pastConcepts.unshift(stored);
+    this.saveHistory();
+  }
+
+  public isVisualRepetitive(attrs: {
+    visualConcept: string;
+    visualType: string;
+    layout: string;
+    composition: string;
+    imageContentHash: string;
+    imagePromptHash?: string;
+  }): { isDuplicate: boolean; reason?: string } {
+    this.loadHistory();
+    const recent15 = this.pastConcepts.slice(0, 15);
+    const recent3 = this.pastConcepts.slice(0, 3);
+
+    // 1. Exact perceptual / structural content hash match
+    const contentMatch = recent15.find((v) => v.imageContentHash === attrs.imageContentHash || v.hash === attrs.imageContentHash);
+    if (contentMatch) {
+      return {
+        isDuplicate: true,
+        reason: `Identical visual content hash matched recent post "${contentMatch.conceptTitle}"`,
+      };
+    }
+
+    // 2. Exact prompt hash match
+    if (attrs.imagePromptHash) {
+      const promptMatch = recent15.find((v) => v.imagePromptHash === attrs.imagePromptHash);
+      if (promptMatch) {
+        return {
+          isDuplicate: true,
+          reason: `Identical image generation prompt hash matched recent post "${promptMatch.conceptTitle}"`,
+        };
+      }
+    }
+
+    // 3. Repeated composition and layout within recent 3 visuals
+    const layoutMatch = recent3.find(
+      (v) => v.layout === attrs.layout && v.composition === attrs.composition
+    );
+    if (layoutMatch) {
+      return {
+        isDuplicate: true,
+        reason: `Layout "${attrs.layout}" with composition "${attrs.composition}" was already used in recent visual "${layoutMatch.conceptTitle}"`,
+      };
+    }
+
+    // 4. Repeated visual concept within recent 3 visuals
+    const conceptMatch = recent3.find(
+      (v) => (v.conceptTitle || "").toLowerCase().trim() === attrs.visualConcept.toLowerCase().trim()
+    );
+    if (conceptMatch) {
+      return {
+        isDuplicate: true,
+        reason: `Visual concept "${attrs.visualConcept}" is too similar to recent post visual "${conceptMatch.conceptTitle}"`,
+      };
+    }
+
+    return { isDuplicate: false };
+  }
+
   public addConcept(topicId: string, conceptTitle: string, diagramType: string) {
     this.loadHistory();
     const hash = `${conceptTitle.toLowerCase().replace(/[^a-z0-9]/g, "")}_${diagramType}`;
-    this.pastConcepts.unshift({
+    const entry: StoredVisualRecord = {
       topicId,
       conceptTitle,
       diagramType,
       hash,
+      visualType: diagramType,
+      visualConcept: conceptTitle,
+      composition: "SPLIT_SCREEN",
+      layout: diagramType,
+      diagramStructure: "TWO_COLUMN",
+      primarySubject: conceptTitle,
+      colorPalette: "CYBERPUNK_DARK",
+      imagePromptHash: hash,
+      imageContentHash: hash,
       createdAt: new Date().toISOString(),
-    });
+    };
+    this.pastConcepts.unshift(entry);
     this.saveHistory();
   }
 
   public isConceptSimilar(conceptTitle: string, diagramType: string): boolean {
-    this.loadHistory();
     const hash = `${conceptTitle.toLowerCase().replace(/[^a-z0-9]/g, "")}_${diagramType}`;
-    const recent3 = this.pastConcepts.slice(0, 3);
-    return recent3.some((c) => c.hash === hash || (c.diagramType === diagramType && c.conceptTitle === conceptTitle));
+    const check = this.isVisualRepetitive({
+      visualConcept: conceptTitle,
+      visualType: diagramType,
+      layout: diagramType,
+      composition: "SPLIT_SCREEN",
+      imageContentHash: hash,
+    });
+    return check.isDuplicate;
   }
 
-  public getHistory() {
+  public getHistory(): StoredVisualRecord[] {
     this.loadHistory();
     return this.pastConcepts;
   }
@@ -179,9 +309,114 @@ export class VisualPlanningAgent {
       };
     }
 
-    if (style.includes("FLOW") || style.includes("WORKFLOW") || fullText.includes("pipeline") || fullText.includes("stream")) {
+    if (style.includes("DEBUGGING") || style.includes("TIMELINE") || fullText.includes("incident") && fullText.includes("diagnos")) {
       return {
-        title: `${cleanTitle} Pipeline Flow`,
+        title: `${cleanTitle} Investigation Timeline`,
+        layoutStyle: "DEBUGGING_TIMELINE",
+        colorPalette: "Slate Dark (#0f172a), Amber Warning (#f59e0b), Emerald Fix (#10b981)",
+        columns: [
+          {
+            id: "timeline",
+            title: "Incident Chronology",
+            subtitle: "Telemetry Anomaly -> Resolution",
+            color: "purple",
+            nodes: [
+              { id: "t0", label: `T0: Anomaly Spike at ${primaryTech} Ingress`, icon: "query", color: "red" },
+              { id: "t1", label: `T+4m: Heap Pressure on ${secondaryTech}`, icon: "data", color: "yellow" },
+              { id: "t2", label: `T+9m: Root Cause: Connection Exhaustion`, icon: "cache", color: "blue" },
+              { id: "t3", label: `T+14m: Mitigation Deployed: Circuit Breaker`, icon: "response", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    if (style.includes("CODE") || fullText.includes("refactor") && fullText.includes("syntax")) {
+      return {
+        title: `${cleanTitle} Implementation Blueprint`,
+        layoutStyle: "CODE_ANNOTATION",
+        colorPalette: "Cyber Dark (#0f172a), Cyan (#06b6d4), Lime (#84cc16)",
+        columns: [
+          {
+            id: "code_spec",
+            title: `${primaryTech} Implementation Pattern`,
+            subtitle: "Architectural Refactor & Invariants",
+            color: "blue",
+            nodes: [
+              { id: "ca1", label: `1. Define Atomic Lock Key Pattern`, icon: "cache", color: "blue" },
+              { id: "ca2", label: `2. Guard Non-Blocking Execution Boundary`, icon: "llm", color: "purple" },
+              { id: "ca3", label: `3. Commit State with Verification Telemetry`, icon: "response", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    if (style.includes("DISTRIBUTED") || fullText.includes("cluster") || fullText.includes("node") || fullText.includes("partition")) {
+      return {
+        title: `${cleanTitle} Distributed Topology`,
+        layoutStyle: "DISTRIBUTED_SYSTEM_DIAGRAM",
+        colorPalette: "Deep Navy (#0a192f), Electric Blue (#38bdf8), Emerald (#10b981)",
+        columns: [
+          {
+            id: "cluster",
+            title: "Consensus & Coordination",
+            subtitle: "Raft Quorum & Fenced State",
+            color: "blue",
+            nodes: [
+              { id: "ds1", label: `Leader Coordinator Node (${primaryTech})`, icon: "cache", color: "blue" },
+              { id: "ds2", label: `Follower Replica Cluster (${secondaryTech})`, icon: "data", color: "purple" },
+              { id: "ds3", label: `Fenced Partition Boundary (${tertiaryTech})`, icon: "response", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    if (style.includes("COMPONENT") || fullText.includes("dependency") || fullText.includes("service mesh")) {
+      return {
+        title: `${cleanTitle} Component Map`,
+        layoutStyle: "COMPONENT_MAP",
+        colorPalette: "Dark Slate (#18181b), Violet (#8b5cf6), Sky (#38bdf8)",
+        columns: [
+          {
+            id: "mesh",
+            title: "Service Component Mesh",
+            subtitle: "Decoupled Service Topologies",
+            color: "purple",
+            nodes: [
+              { id: "cm1", label: `${tertiaryTech} Ingress Proxy`, icon: "query", color: "blue" },
+              { id: "cm2", label: `${primaryTech} Core Processing Service`, icon: "llm", color: "purple" },
+              { id: "cm3", label: `${secondaryTech} Persistence Store`, icon: "vectordb", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    if (style.includes("POSTER") || style.includes("MINIMAL")) {
+      return {
+        title: `${cleanTitle} System Invariant`,
+        layoutStyle: "MINIMAL_ENGINEERING_POSTER",
+        colorPalette: "Obsidian (#030712), Electric Cyan (#22d3ee), Pure White (#ffffff)",
+        columns: [
+          {
+            id: "invariant",
+            title: "Core Architectural Principle",
+            subtitle: "Production Systems Invariant",
+            color: "blue",
+            nodes: [
+              { id: "p1", label: `Fault Isolation Boundary: ${primaryTech}`, icon: "cache", color: "blue" },
+              { id: "p2", label: `State Consistency: ${secondaryTech}`, icon: "data", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    if (style.includes("FLOW") || style.includes("WORKFLOW") || style.includes("DATA") || fullText.includes("pipeline") || fullText.includes("stream")) {
+      return {
+        title: `${cleanTitle} Data Flow Pipeline`,
         layoutStyle: "SYSTEM_FLOW",
         colorPalette: "Blue (#3b82f6), Purple (#8b5cf6), Green (#10b981)",
         columns: [
@@ -282,32 +517,72 @@ export class VisualPlanningAgent {
       };
     }
 
-    // Default: Dynamic Side-by-Side Comparison based on extracted post terms
+    if (style.includes("BEFORE") || fullText.includes("before") && fullText.includes("after")) {
+      return {
+        title: `${cleanTitle} Architecture Evolution`,
+        layoutStyle: "BEFORE_AFTER_COMPARISON",
+        colorPalette: "Red Before (#ef4444) vs Green After (#10b981)",
+        columns: [
+          {
+            id: "before_col",
+            title: "Before: Direct Coupling",
+            subtitle: `Uncached Bottlenecks (${metricBefore})`,
+            color: "red",
+            nodes: [
+              { id: "ba1", label: `Synchronous ${primaryTech} Ingress`, icon: "query", color: "red" },
+              { id: "ba2", label: "Direct Database Lock Contention", icon: "data", color: "red" },
+              { id: "ba3", label: "Cascading Failures Under Burst", icon: "response", color: "red" },
+            ],
+          },
+          {
+            id: "after_col",
+            title: `After: ${primaryTech} Engine`,
+            subtitle: `Decoupled Isolation (${metricAfter})`,
+            color: "green",
+            nodes: [
+              { id: "ba4", label: `Non-Blocking Queue Worker`, icon: "cache", color: "green" },
+              { id: "ba5", label: `Fenced Partition State Commit`, icon: "vectordb", color: "green" },
+              { id: "ba6", label: `Resilient Circuit Breaker Guard`, icon: "response", color: "green" },
+            ],
+          },
+        ],
+      };
+    }
+
+    // Default: Multi-Layer System Architecture Diagram
     return {
-      title: `${cleanTitle} Architecture`,
-      layoutStyle: "SIDE_BY_SIDE_COMPARISON",
-      colorPalette: "Blue (#3b82f6), Green (#10b981)",
+      title: `${cleanTitle} Architecture Blueprint`,
+      layoutStyle: "ARCHITECTURE_DIAGRAM",
+      colorPalette: "Blue (#3b82f6), Purple (#8b5cf6), Green (#10b981)",
       columns: [
         {
-          id: "trad",
-          title: "Standard Request Boundary",
-          subtitle: "Synchronous Execution",
+          id: "layer_ingress",
+          title: "1. Edge Ingress Layer",
+          subtitle: "Traffic Control & Authentication",
           color: "blue",
           nodes: [
             { id: "c1", label: `${tertiaryTech} Ingress Gateway`, icon: "query", color: "blue" },
-            { id: "c2", label: "Monolithic Service Layer", icon: "data", color: "blue" },
-            { id: "c3", label: "Shared Database Bottleneck", icon: "response", color: "blue" },
+            { id: "c2", label: "Dynamic Token Bucket Rate Limiter", icon: "cache", color: "blue" },
           ],
         },
         {
-          id: "decoupled",
-          title: `${primaryTech} Engine`,
-          subtitle: `Event-Driven (${metricImp} Improvement)`,
+          id: "layer_core",
+          title: `2. ${primaryTech} Core Service`,
+          subtitle: `Event Engine (${metricImp} Latency Gain)`,
+          color: "purple",
+          nodes: [
+            { id: "d1", label: `Decoupled ${primaryTech} Router`, icon: "llm", color: "purple" },
+            { id: "d2", label: "Atomic Deduplication Mutex", icon: "embedding", color: "purple" },
+          ],
+        },
+        {
+          id: "layer_storage",
+          title: "3. Storage & Observability",
+          subtitle: "Durable State & Metrics",
           color: "green",
           nodes: [
-            { id: "d1", label: `Decoupled ${primaryTech} Router`, icon: "cache", color: "green" },
-            { id: "d2", label: `${secondaryTech} Processing Cluster`, icon: "llm", color: "green" },
-            { id: "d3", label: "Isolated State Persistence", icon: "response", color: "green" },
+            { id: "s1", label: `${secondaryTech} Partition Store`, icon: "vectordb", color: "green" },
+            { id: "s2", label: "Real-time Telemetry Exporter", icon: "response", color: "green" },
           ],
         },
       ],

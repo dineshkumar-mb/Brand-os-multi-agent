@@ -12,10 +12,14 @@ const MODEL_PRICING: Record<string, { prompt: number; completion: number }> = {
   "gpt-4o-mini": { prompt: 0.00015, completion: 0.0006 },
   "gemini-1.5-pro": { prompt: 0.00125, completion: 0.005 },
   "gemini-1.5-flash": { prompt: 0.000075, completion: 0.0003 },
+  "gemini-2.0-flash": { prompt: 0.0001, completion: 0.0004 },
   "claude-3-5-sonnet": { prompt: 0.003, completion: 0.015 },
   "openrouter/auto": { prompt: 0.001, completion: 0.003 },
   "nvidia/llama-3.1-405b": { prompt: 0.002, completion: 0.008 },
+  "meta/llama-3.2-11b-vision-instruct": { prompt: 0.0005, completion: 0.0015 },
+  "meta/llama-3.2-90b-vision-instruct": { prompt: 0.001, completion: 0.003 },
   "ollama/llama3": { prompt: 0, completion: 0 },
+  "synthetic/deterministic-engine": { prompt: 0, completion: 0 },
 };
 
 export class AIGateway {
@@ -32,7 +36,7 @@ export class AIGateway {
   }
 
   /**
-   * Automatic Model Router: Chooses optimal model based on task type and strategy.
+   * Automatic Model Router: Chooses optimal model based on active credentials, task type, and strategy.
    */
   public selectModel(request: AIGatewayRequest): { provider: ModelProvider; model: string; reason: string } {
     if (request.preferredProvider && request.model) {
@@ -43,24 +47,58 @@ export class AIGateway {
       };
     }
 
+    const nimKey = process.env.NVIDIA_NIM_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY;
+    const openaiKey = process.env.OPENAI_API_KEY;
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+
+    const hasNim = Boolean(nimKey && !nimKey.includes("placeholder"));
+    const hasGemini = Boolean(geminiKey && !geminiKey.includes("placeholder"));
+    const hasOpenAI = Boolean(openaiKey && !openaiKey.includes("placeholder"));
+    const hasAnthropic = Boolean(anthropicKey && !anthropicKey.includes("placeholder"));
+    const hasOpenRouter = Boolean(openrouterKey && !openrouterKey.includes("placeholder"));
+
     const strategy = request.routingStrategy || RoutingStrategy.COST_OPTIMIZED;
 
+    // Prioritize active live providers over placeholder keys
+    if (hasNim && !hasOpenAI && !hasGemini) {
+      return {
+        provider: ModelProvider.NVIDIA_NIM,
+        model: "meta/llama-3.2-11b-vision-instruct",
+        reason: "Active high-performance NVIDIA NIM inference provider",
+      };
+    }
+
     if (strategy === RoutingStrategy.COST_OPTIMIZED) {
-      if (request.taskType === "fact_verification" || request.taskType === "hashtag_generator") {
+      if (hasGemini) {
         return { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Cost-optimized fast model for structured check" };
       }
-      return { provider: ModelProvider.OPENAI, model: "gpt-4o-mini", reason: "Cost-optimized default model" };
+      if (hasNim) {
+        return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "Cost-optimized fast model on NVIDIA NIM" };
+      }
+      if (hasOpenAI) {
+        return { provider: ModelProvider.OPENAI, model: "gpt-4o-mini", reason: "Cost-optimized default model" };
+      }
     }
 
     if (strategy === RoutingStrategy.ACCURACY_FIRST) {
-      if (request.taskType === "medium_writer" || request.taskType === "research") {
+      if (hasAnthropic) {
         return { provider: ModelProvider.ANTHROPIC, model: "claude-3-5-sonnet", reason: "High-accuracy long-form technical writing" };
       }
-      return { provider: ModelProvider.OPENAI, model: "gpt-4o", reason: "High-accuracy reasoning model" };
+      if (hasNim) {
+        return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "High-accuracy reasoning model via NVIDIA NIM" };
+      }
+      if (hasOpenAI) {
+        return { provider: ModelProvider.OPENAI, model: "gpt-4o", reason: "High-accuracy reasoning model" };
+      }
     }
 
-    if (strategy === RoutingStrategy.LOWEST_LATENCY) {
-      return { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Lowest latency inference" };
+    if (hasNim) {
+      return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "Fast inference via active NVIDIA NIM endpoint" };
+    }
+    if (hasGemini) {
+      return { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Lowest latency inference via Gemini" };
     }
 
     // Default Balanced Strategy
@@ -68,18 +106,69 @@ export class AIGateway {
   }
 
   /**
-   * Execute Request with Automatic Model Routing, Failover Cascade, Retries, and Token Tracking
+   * Execute Request with Automatic Model Routing, Dynamic Failover Cascade, Retries, and Token Tracking
    */
   public async execute<T = any>(request: AIGatewayRequest): Promise<AIGatewayResponse<T>> {
     const startTime = Date.now();
     const target = this.selectModel(request);
 
-    const fallbackCascade = [
-      target,
-      { provider: ModelProvider.OPENAI, model: "gpt-4o-mini", reason: "Primary fallback" },
-      { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Secondary fallback" },
-      { provider: ModelProvider.OLLAMA, model: "ollama/llama3", reason: "Local zero-cost fallback" },
-    ];
+    const nimKey = process.env.NVIDIA_NIM_API_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY;
+    const openaiKey = process.env.OPENAI_API_KEY;
+    const anthropicKey = process.env.ANTHROPIC_API_KEY;
+    const openrouterKey = process.env.OPENROUTER_API_KEY;
+
+    const hasNim = Boolean(nimKey && !nimKey.includes("placeholder"));
+    const hasGemini = Boolean(geminiKey && !geminiKey.includes("placeholder"));
+    const hasOpenAI = Boolean(openaiKey && !openaiKey.includes("placeholder"));
+    const hasAnthropic = Boolean(anthropicKey && !anthropicKey.includes("placeholder"));
+    const hasOpenRouter = Boolean(openrouterKey && !openrouterKey.includes("placeholder"));
+
+    // Build dynamic cascade based on active credentials
+    const fallbackCascade: Array<{ provider: ModelProvider; model: string; reason: string }> = [target];
+
+    if (hasNim && target.provider !== ModelProvider.NVIDIA_NIM) {
+      fallbackCascade.push({
+        provider: ModelProvider.NVIDIA_NIM,
+        model: "meta/llama-3.2-11b-vision-instruct",
+        reason: "Active high-performance NVIDIA NIM inference fallback",
+      });
+    }
+    if (hasGemini && target.provider !== ModelProvider.GEMINI) {
+      fallbackCascade.push({
+        provider: ModelProvider.GEMINI,
+        model: "gemini-1.5-flash",
+        reason: "Active Gemini API fallback",
+      });
+    }
+    if (hasOpenAI && target.provider !== ModelProvider.OPENAI) {
+      fallbackCascade.push({
+        provider: ModelProvider.OPENAI,
+        model: "gpt-4o-mini",
+        reason: "Active OpenAI API fallback",
+      });
+    }
+    if (hasOpenRouter && target.provider !== ModelProvider.OPENROUTER) {
+      fallbackCascade.push({
+        provider: ModelProvider.OPENROUTER,
+        model: "openrouter/auto",
+        reason: "Active OpenRouter fallback",
+      });
+    }
+    if (hasAnthropic && target.provider !== ModelProvider.ANTHROPIC) {
+      fallbackCascade.push({
+        provider: ModelProvider.ANTHROPIC,
+        model: "claude-3-5-sonnet",
+        reason: "Active Claude fallback",
+      });
+    }
+
+    // Always include deterministic local engine as final safe tier
+    fallbackCascade.push({
+      provider: ModelProvider.OLLAMA,
+      model: "synthetic/deterministic-engine",
+      reason: "Deterministic local synthetic fallback engine",
+    });
 
     let lastError: Error | null = null;
 
@@ -187,6 +276,8 @@ export class AIGateway {
     const openrouterKey = process.env.OPENROUTER_API_KEY;
     const nimKey = process.env.NVIDIA_NIM_API_KEY;
 
+    const isJsonRequested = request.prompt.toLowerCase().includes("json") || Boolean(request.responseSchema);
+
     // 1. Live Google Gemini API Execution
     if (geminiKey && !geminiKey.includes("placeholder")) {
       try {
@@ -206,7 +297,14 @@ export class AIGateway {
           if (text) {
             const promptTokens = Math.floor(request.prompt.length / 4);
             const completionTokens = Math.floor(text.length / 4);
-            return { text, promptTokens, completionTokens };
+            let structuredOutput: T | undefined = undefined;
+            if (isJsonRequested) {
+              try {
+                const cleanJson = text.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, "$1").trim();
+                structuredOutput = JSON.parse(cleanJson);
+              } catch {}
+            }
+            return { text, structuredOutput, promptTokens, completionTokens };
           }
         }
       } catch (err: any) {
@@ -214,9 +312,67 @@ export class AIGateway {
       }
     }
 
-    // 2. Live OpenRouter Execution
+    // 2. Live NVIDIA NIM Execution (High Performance, Active Key)
+    if (nimKey && !nimKey.includes("placeholder")) {
+      try {
+        const nimModel =
+          model && (model.startsWith("meta/") || model.startsWith("nvidia/") || model.startsWith("deepseek"))
+            ? model
+            : "meta/llama-3.2-11b-vision-instruct";
+
+        const messages: Array<{ role: string; content: string }> = [];
+        if (isJsonRequested) {
+          messages.push({
+            role: "system",
+            content: "You are a senior software engineer and system architect. Respond ONLY in valid, parseable JSON matching the requested schema. Do not enclose in markdown ticks if possible, or use standard ```json. No conversational filler.",
+          });
+        }
+        messages.push({ role: "user", content: request.prompt });
+
+        const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${nimKey}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            model: nimModel,
+            messages,
+            temperature: request.temperature || 0.6,
+            max_tokens: request.maxTokens || 2048,
+          }),
+        });
+
+        if (response.ok) {
+          const data: any = await response.json();
+          const text = data.choices?.[0]?.message?.content || "";
+          if (text) {
+            const promptTokens = data.usage?.prompt_tokens || Math.floor(request.prompt.length / 4);
+            const completionTokens = data.usage?.completion_tokens || Math.floor(text.length / 4);
+            let structuredOutput: T | undefined = undefined;
+            if (isJsonRequested) {
+              try {
+                const cleanJson = text.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, "$1").trim();
+                structuredOutput = JSON.parse(cleanJson);
+              } catch (jsonErr: any) {
+                console.warn("[AI Gateway] NVIDIA NIM JSON parse warning:", jsonErr.message);
+              }
+            }
+            return { text, structuredOutput, promptTokens, completionTokens };
+          }
+        } else {
+          const errText = await response.text();
+          console.warn(`[AI Gateway] NVIDIA NIM call returned ${response.status}: ${errText.substring(0, 120)}. Cascading...`);
+        }
+      } catch (err: any) {
+        console.warn(`[AI Gateway] NVIDIA NIM call error: ${err.message}. Cascading...`);
+      }
+    }
+
+    // 3. Live OpenRouter Execution
     if (openrouterKey && !openrouterKey.includes("placeholder")) {
       try {
+        const orModel = model && model.includes("/") ? model : "openrouter/auto";
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -226,9 +382,10 @@ export class AIGateway {
             "X-Title": "Personal Brand OS",
           },
           body: JSON.stringify({
-            model: "google/gemini-2.0-flash-lite-001",
+            model: orModel,
             messages: [{ role: "user", content: request.prompt }],
             temperature: request.temperature || 0.7,
+            max_tokens: request.maxTokens || 2048,
           }),
         });
 
@@ -238,41 +395,18 @@ export class AIGateway {
           if (text) {
             const promptTokens = data.usage?.prompt_tokens || Math.floor(request.prompt.length / 4);
             const completionTokens = data.usage?.completion_tokens || Math.floor(text.length / 4);
-            return { text, promptTokens, completionTokens };
+            let structuredOutput: T | undefined = undefined;
+            if (isJsonRequested) {
+              try {
+                const cleanJson = text.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, "$1").trim();
+                structuredOutput = JSON.parse(cleanJson);
+              } catch {}
+            }
+            return { text, structuredOutput, promptTokens, completionTokens };
           }
         }
       } catch (err: any) {
         console.warn(`[AI Gateway] OpenRouter call error: ${err.message}. Cascading...`);
-      }
-    }
-
-    // 3. Live NVIDIA NIM Execution
-    if (nimKey && !nimKey.includes("placeholder")) {
-      try {
-        const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${nimKey}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            model: "meta/llama-3.1-405b-instruct",
-            messages: [{ role: "user", content: request.prompt }],
-            temperature: request.temperature || 0.7,
-          }),
-        });
-
-        if (response.ok) {
-          const data: any = await response.json();
-          const text = data.choices?.[0]?.message?.content || "";
-          if (text) {
-            const promptTokens = data.usage?.prompt_tokens || Math.floor(request.prompt.length / 4);
-            const completionTokens = data.usage?.completion_tokens || Math.floor(text.length / 4);
-            return { text, promptTokens, completionTokens };
-          }
-        }
-      } catch (err: any) {
-        console.warn(`[AI Gateway] NVIDIA NIM call error: ${err.message}. Cascading...`);
       }
     }
 
@@ -286,7 +420,7 @@ export class AIGateway {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "gpt-4o-mini",
+            model: model.includes("gpt") ? model : "gpt-4o-mini",
             messages: [{ role: "user", content: request.prompt }],
             temperature: request.temperature || 0.7,
           }),
@@ -298,7 +432,14 @@ export class AIGateway {
           if (text) {
             const promptTokens = data.usage?.prompt_tokens || Math.floor(request.prompt.length / 4);
             const completionTokens = data.usage?.completion_tokens || Math.floor(text.length / 4);
-            return { text, promptTokens, completionTokens };
+            let structuredOutput: T | undefined = undefined;
+            if (isJsonRequested) {
+              try {
+                const cleanJson = text.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, "$1").trim();
+                structuredOutput = JSON.parse(cleanJson);
+              } catch {}
+            }
+            return { text, structuredOutput, promptTokens, completionTokens };
           }
         }
       } catch (err: any) {
@@ -329,7 +470,14 @@ export class AIGateway {
           if (text) {
             const promptTokens = data.usage?.input_tokens || Math.floor(request.prompt.length / 4);
             const completionTokens = data.usage?.output_tokens || Math.floor(text.length / 4);
-            return { text, promptTokens, completionTokens };
+            let structuredOutput: T | undefined = undefined;
+            if (isJsonRequested) {
+              try {
+                const cleanJson = text.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, "$1").trim();
+                structuredOutput = JSON.parse(cleanJson);
+              } catch {}
+            }
+            return { text, structuredOutput, promptTokens, completionTokens };
           }
         }
       } catch (err: any) {
@@ -341,8 +489,6 @@ export class AIGateway {
     const promptTokens = Math.max(15, Math.floor(request.prompt.length / 4));
     let text = "";
     let structuredOutput: any = undefined;
-
-    const isJsonRequested = request.prompt.toLowerCase().includes("json") || Boolean(request.responseSchema);
 
     if (request.taskType === "linkedin_writer" || request.taskType === "senior_engineering_writer" || (isJsonRequested && request.prompt.includes("LinkedIn"))) {
       // ── Extract all structured data already present in the prompt ──────────
@@ -550,10 +696,14 @@ export class AIGateway {
 
       const tradeoffMatch = request.prompt.match(/PRIMARY TRADEOFF:\s*([^\n]+)/i);
       const tradeoffLine = tradeoffMatch ? tradeoffMatch[1].trim() : "";
-      const chosenMatch = tradeoffLine.match(/Chosen:\s*([^vs(]+)/i);
-      const sacrificedMatch = tradeoffLine.match(/Sacrificed:\s*([^\n)]+)/i);
-      const chosenApproach = chosenMatch ? chosenMatch[1].trim() : "Explicit boundary decoupling";
-      const sacrificedApproach = sacrificedMatch ? sacrificedMatch[1].trim() : "Day-1 setup speed";
+      let chosenApproach = "Explicit boundary decoupling";
+      let sacrificedApproach = "Day-1 setup speed";
+      if (tradeoffLine) {
+        const cM = tradeoffLine.match(/Chosen:\s*([^vs(,\n]+)/i);
+        if (cM && cM[1].trim()) chosenApproach = cM[1].trim();
+        const sM = tradeoffLine.match(/Sacrificed:\s*([^\n)]+)/i);
+        if (sM && sM[1].trim()) sacrificedApproach = sM[1].trim();
+      }
 
       const hasRealExp = Boolean(expProblem && expOutcome);
       const tlc = topicTitle.toLowerCase();

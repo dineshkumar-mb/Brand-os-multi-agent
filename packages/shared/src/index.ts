@@ -946,6 +946,7 @@ export interface VisualPlanBlueprint {
   imagePrompt: string;
   diagramSpec?: DiagramSpec;
   renderedSvg?: string;
+  visualAttributes?: VisualAttributeRecord;
 }
 
 // ==========================================
@@ -1742,4 +1743,21 @@ export interface LinkedInAnalyticsDecision {
   cooldownExtensionDays?: Record<string, number>;
 }
 
+export interface VisualAttributeRecord {
+  visualType: string;
+  visualConcept: string;
+  composition: string;
+  layout: string;
+  diagramStructure: string;
+  primarySubject: string;
+  visualMetaphor?: string;
+  colorPalette: string;
+  imagePromptHash: string;
+  imageContentHash: string;
+  associatedPostId?: string;
+  topicId?: string;
+  createdAt: string;
+}
+
+export * from "./workspace-root";
 export * from "./notification-service";

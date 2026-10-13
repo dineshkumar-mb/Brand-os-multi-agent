@@ -45,16 +45,16 @@ declare const require: any;
 
 const fs = require("fs");
 const path = require("path");
+import { getWorkspacePath } from "@brand-os/shared";
 
 function resolvePostHistoryFiles(): string[] {
   const candidates = [
+    getWorkspacePath("post_history.json"),
     path.resolve(process.cwd(), "post_history.json"),
-    path.resolve(process.cwd(), "server/post_history.json"),
-    path.resolve(process.cwd(), "../post_history.json"),
-    path.resolve(process.cwd(), "../../post_history.json"),
+    getWorkspacePath("server", "post_history.json"),
+    getWorkspacePath("worker", "post_history.json"),
     path.resolve(__dirname, "../../../post_history.json"),
     path.resolve(__dirname, "../../../../post_history.json"),
-    path.resolve(__dirname, "../../../server/post_history.json"),
   ];
   const existing: string[] = [];
   for (const c of candidates) {
@@ -65,7 +65,7 @@ function resolvePostHistoryFiles(): string[] {
   return existing;
 }
 
-const PRIMARY_POST_HISTORY_FILE = path.resolve(process.cwd(), "post_history.json");
+const PRIMARY_POST_HISTORY_FILE = getWorkspacePath("post_history.json");
 
 const SEED_HISTORY: HistoricalPostRecord[] = [
   {
