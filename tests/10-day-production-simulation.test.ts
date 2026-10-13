@@ -54,9 +54,9 @@ describe("10-Day Production Simulation Test", () => {
       console.log(`Day ${idx + 1}: Status=${r.status}, Title="${r.topic?.title || "N/A"}", SignalsScanned=${r.dailyIntelligenceSummary?.signalsScanned}, QualityScore=${r.qualityGateResult?.overallContentQualityScore || r.review?.overallScore || 0}`);
     });
 
-    // Check that published posts were generated across the simulation
+    // Check that published posts were generated across the simulation with zero duplicates
     expect(titles.length).toBeGreaterThan(0);
     const uniqueTitles = new Set(titles);
-    expect(uniqueTitles.size).toBeGreaterThan(0);
+    expect(uniqueTitles.size).toBe(titles.length);
   }, 180000);
 });

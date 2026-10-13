@@ -39,6 +39,21 @@ export class StorytellingAgent {
       .replace(/\n{3,}/g, "\n\n")
       .trim();
 
+    // Ensure mobile feed readability: break up any paragraph with > 3 non-empty lines
+    const paragraphs = cleanedText.split(/\n\s*\n/);
+    const reformattedParagraphs = paragraphs.map((p) => {
+      const lines = p.split("\n").filter((l) => l.trim().length > 0);
+      if (lines.length > 3) {
+        const chunks: string[] = [];
+        for (let i = 0; i < lines.length; i += 2) {
+          chunks.push(lines.slice(i, i + 2).join("\n"));
+        }
+        return chunks.join("\n\n");
+      }
+      return p;
+    });
+    cleanedText = reformattedParagraphs.join("\n\n");
+
     const updatedPost: LinkedInPostPayload = {
       ...post,
       fullText: cleanedText,

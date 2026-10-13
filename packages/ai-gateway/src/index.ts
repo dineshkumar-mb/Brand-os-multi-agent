@@ -193,8 +193,8 @@ export class AIGateway {
         b.latencySum += latencyMs;
         this.benchmarks.set(currentChoice.model, b);
 
-        // Write success log to DB asynchronously
-        if (prisma && (prisma as any).aIGatewayLog && typeof (prisma as any).aIGatewayLog.create === "function") {
+        // Write success log to DB asynchronously if DATABASE_URL is configured and not running tests
+        if (process.env.NODE_ENV !== "test" && !process.env.VITEST && process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith("postgres") && prisma && (prisma as any).aIGatewayLog && typeof (prisma as any).aIGatewayLog.create === "function") {
           prisma.aIGatewayLog.create({
             data: {
               provider: currentChoice.provider,
@@ -237,8 +237,8 @@ export class AIGateway {
       }
     }
 
-    // Write failure log to DB asynchronously
-    if (prisma && (prisma as any).aIGatewayLog && typeof (prisma as any).aIGatewayLog.create === "function") {
+    // Write failure log to DB asynchronously if DATABASE_URL is configured and not running tests
+    if (process.env.NODE_ENV !== "test" && !process.env.VITEST && process.env.DATABASE_URL && process.env.DATABASE_URL.startsWith("postgres") && prisma && (prisma as any).aIGatewayLog && typeof (prisma as any).aIGatewayLog.create === "function") {
       prisma.aIGatewayLog.create({
         data: {
           provider: target.provider,
@@ -679,6 +679,63 @@ export class AIGateway {
         citations: [{ title: "Official Documentation", url: "https://developer.mozilla.org", source: "Technical Docs" }]
       };
       text = JSON.stringify(payload, null, 2);
+    } else if (request.taskType === "senior_engineering_writer" || request.taskType === "linkedin_writer") {
+      const topicMatch = request.prompt.match(/about:\s*"([^"]+)"/i) || request.prompt.match(/topic:\s*"([^"]+)"/i);
+      const topicTitle = topicMatch ? topicMatch[1] : "System Architecture";
+
+      const hookMatch = request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i);
+      const hook = hookMatch ? hookMatch[1] : `Evaluating production architecture patterns in ${topicTitle}.`;
+
+      const ctaMatch = request.prompt.match(/CTA REFERENCE:\s*"([^"]+)"/i);
+      const cta = ctaMatch ? ctaMatch[1] : "How does your engineering team manage this trade-off in production?";
+
+      const sitMatch = request.prompt.match(/- Situation:\s*([^\n(]+)/i);
+      const situation = sitMatch ? sitMatch[1].trim() : `Engineering challenge in ${topicTitle}.`;
+
+      const taskMatch = request.prompt.match(/- Task:\s*([^\n(]+)/i);
+      const taskObj = taskMatch ? taskMatch[1].trim() : `Optimize throughput and eliminate bottleneck in ${topicTitle}.`;
+
+      const actMatch = request.prompt.match(/- Action:\s*Chosen\s*([^.\n]+)/i);
+      const chosenApproach = actMatch ? actMatch[1].trim() : "Decoupled domain boundaries";
+
+      const resMatch = request.prompt.match(/- Result:\s*([^.\n]+)/i);
+      const outcome = resMatch ? resMatch[1].trim() : "Stabilized p99 latency SLA and throughput.";
+
+      const insMatch = request.prompt.match(/- Insight:\s*([^.\n]+)/i);
+      const lesson = insMatch ? insMatch[1].trim() : "Decoupling ownership prevents cascading failure.";
+
+      const tag = `#${topicTitle.replace(/[^a-zA-Z0-9]/g, "").slice(0, 20) || "SystemDesign"}`;
+
+      const fullText = `${hook}\n\n${situation}.\n\n${taskObj}.\n\nWe implemented ${chosenApproach}.\n\nObserved Result: ${outcome}.\n\nEngineering Lesson: ${lesson}.\n\n${cta}\n\n#SoftwareEngineering ${tag}`;
+
+      const payload = {
+        linkedIn: {
+          title: topicTitle,
+          hook,
+          story: situation,
+          lesson,
+          actionableInsight: outcome,
+          cta,
+          hashtags: ["#SoftwareEngineering", tag],
+          fullText,
+        },
+        devTo: {
+          title: topicTitle,
+          description: `Deep dive into ${topicTitle}: architecture, implementation, and trade-offs.`,
+          tags: ["webdev", "architecture", "systemdesign"],
+          markdownContent: `# ${topicTitle}\n\n## Overview\n${situation}\n\n## Engineering Challenge\n${taskObj}\n\n## Architectural Approach\n${chosenApproach}\n\n## Verified Results\n${outcome}\n\n## Lessons Learned\n${lesson}\n`,
+        },
+        visualNarrative: {
+          coreConcept: topicTitle,
+          primaryFlow: chosenApproach,
+          importantComponents: ["Ingestion Controller", "Domain Processor", "Persistence Layer"],
+          relationships: ["Controller -> Processor", "Processor -> Persistence"],
+          keyLabels: ["Input", "Transformation", "State"],
+          visualType: "SYSTEM_DESIGN",
+        },
+      };
+
+      text = JSON.stringify(payload, null, 2);
     } else if (request.taskType === "engineering_reasoning" || (isJsonRequested && request.prompt.includes("STAR"))) {
       // ── Fully Unique Domain-Specific STAR Story Mapping ─────────────────
       const topicMatch = request.prompt.match(/topic:\s*"([^"]+)"/i);
@@ -751,6 +808,48 @@ export class AIGateway {
                 `Sacrificed: ${sacrificedApproach}`
               ],
               whenNotToUse: ["Do not deploy lock layers when background tasks are native read-only checks."],
+            },
+          };
+        } else if (ep.includes("oci") || ep.includes("docker") || ep.includes("container") || tlc.includes("oci") || tlc.includes("container build")) {
+          // ── exp_04b: OCI Container & CI/CD Caching ───────────────────────
+          starPayload = {
+            situation: {
+              context: "Building multi-architecture OCI container images across automated CI runners.",
+              trigger: "Cache misses invalidated intermediate build layers, stretching build times past 14 minutes.",
+              stakes: "Developer feedback loops stalled while build worker clusters experienced thread starvation.",
+              curiosityTension: "Source code changes in edge utilities forced full Docker container re-compilation from scratch.",
+            },
+            task: {
+              objective: "Implement remote BuildKit cache mounts and strip extraneous runtime packages.",
+              constraints: ["Must support amd64 and arm64 container registries", "Zero high-severity CVE dependencies"],
+              successCriteria: ["Warm container builds finish in under 90 seconds", "Distroless minimal runtime footprint"],
+            },
+            action: {
+              approachesConsidered: [
+                "Option A: Ephemeral Docker-in-Docker workers without cache persistence",
+                "Option B: Remote registry BuildKit cache exports paired with multi-stage compilation nodes"
+              ],
+              chosenApproach: "Option B: Multi-stage distroless build graphs with remote layer cache mounts.",
+              rejectedApproaches: [
+                "Option A rejected: ephemeral workers rebuild identical dependency layers on every run"
+              ],
+              reasoning: `We chose ${chosenApproach} over ${sacrificedApproach} because remote layer caches skip re-compiling untouched dependencies.`,
+              decisionMoment: "Observing CI runners spend 11 minutes re-downloading identical OS packages was the pivot.",
+              implementation: "Restructured Dockerfiles with BuildKit cache mounts and non-root execution users.",
+              debugging: "Inspected container image layer digests to confirm cache hit stability.",
+            },
+            result: {
+              outcome: expOutcome || "Container build durations dropped from 14 minutes to 75 seconds.",
+              metrics: ["89% build time reduction", "Zero base image vulnerabilities"],
+              evidence: ["GitHub Actions build telemetry", "Registry manifest layer digests"],
+            },
+            insight: {
+              engineeringLesson: "Container build speed depends on cache boundary discipline. Isolate fast-changing application code from static dependencies.",
+              tradeoffs: [
+                `Chosen: ${chosenApproach}`,
+                `Sacrificed: ${sacrificedApproach}`
+              ],
+              whenNotToUse: ["Do not add remote cache registries for simple microservices building in under 30 seconds."],
             },
           };
         } else if (ep.includes("monorepo") || ep.includes("8.5 minutes") || ep.includes("checking")) {

@@ -37,18 +37,25 @@ vi.mock("@brand-os/ai-gateway", () => ({
           }),
         };
       }
-      if (req.taskType === "linkedin_writer") {
+      if (req.taskType === "linkedin_writer" || req.taskType === "senior_engineering_writer") {
         // Return a fully valid object matching LinkedInPostPayloadSchema
         return {
           text: JSON.stringify({
-            title: "Decoupled AI Swarms in Enterprise Devops",
-            hook: "Scroll stopping hook!",
-            story: "We built an autonomous swarm pipeline to orchestrate content production.",
-            lesson: "Decoupling concerns ensures fault tolerance.",
-            actionableInsight: "Establish a quality evaluation gatekeeper agent.",
-            cta: "How is your engineering team balancing abstraction complexity versus runtime performance? Let's discuss in the comments.",
-            hashtags: ["ai", "devops"],
-            fullText: "Here is the full text of our viral tech post that exceeds 100 characters in length to pass the smoke tests validation checks.",
+            linkedIn: {
+              title: "Decoupled AI Swarms in Enterprise Devops",
+              hook: "Scroll stopping hook!",
+              story: "We built an autonomous swarm pipeline to orchestrate content production.\n\nDecoupling concerns ensures fault tolerance.",
+              lesson: "Decoupling concerns ensures fault tolerance.",
+              actionableInsight: "Establish a quality evaluation gatekeeper agent.",
+              cta: "How is your engineering team balancing abstraction complexity versus runtime performance? Let's discuss in the comments.",
+              hashtags: ["#ai", "#devops"],
+              fullText: "Scroll stopping hook!\n\nWe built an autonomous swarm pipeline to orchestrate content production.\n\nDecoupling concerns ensures fault tolerance.\n\nEstablish a quality evaluation gatekeeper agent.\n\nHow is your engineering team balancing abstraction complexity versus runtime performance? Let's discuss in the comments.\n\n#AI #DevOps",
+            },
+            devTo: {
+              title: "Decoupled AI Swarms in Enterprise Devops",
+              markdownContent: "# Decoupled AI Swarms in Enterprise Devops\n\nDeep technical architecture breakdown of autonomous multi-agent pipelines.",
+              tags: ["ai", "devops", "architecture"],
+            },
           }),
         };
       }

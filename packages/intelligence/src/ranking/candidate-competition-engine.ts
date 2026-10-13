@@ -81,163 +81,200 @@ export class CandidateCompetitionEngine {
       return this.inferFromRepoName(repoName, content, tags);
     }
 
-    // ── Step 3: Known engineering-story mappings ────────────────────────────
-    // Docker / Container
-    if (lc.includes("docker") || lc.includes("buildx") || lc.includes("container") || lc.includes("oci")) {
-      return {
-        problemTitle: "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
-        affectedSystems: ["OCI Build Pipeline", "Vulnerability Scanner", "Container Registry", "K8s Node Pool"],
-        engineeringTensions: ["Distroless image security vs shell-debugging ergonomics", "Multi-arch QEMU build time vs cross-compilation toolchain complexity"],
-        technicalConcepts: ["Docker Buildx", "Trivy SBOM scanning", "Distroless base images", "SLSA provenance"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "BEFORE_AFTER_LAYOUT"],
-      };
-    }
+    // ── Step 3: Dynamic engineering problem synthesis ───────────────────────
+    const combinedText = `${clean} ${content} ${tags.join(" ")}`.toLowerCase();
 
-    // Node.js / Runtime
-    if (lc.includes("node.js") || lc.includes("nodejs") || lc.includes("node ")) {
-      return {
-        problemTitle: "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
-        affectedSystems: ["V8 Heap Allocator", "EventLoop Scheduler", "HTTP Keep-Alive Pool", "Process Memory Monitor"],
-        engineeringTensions: ["Aggressive GC frequency vs throughput degradation", "In-process caching vs heap fragmentation risk"],
-        technicalConcepts: ["V8 heap snapshots", "libuv EventLoop", "native ESM loading", "process.memoryUsage()"],
-        possibleArchitectureAngles: ["DEBUGGING_STORY", "PERFORMANCE_INVESTIGATION"],
-      };
-    }
+    // Derive headline / problem title
+    let problemTitle = clean;
 
-    // Vite / Build tooling
-    if (lc.includes("vite") || lc.includes("esbuild") || lc.includes("rollup") || lc.includes("bundl")) {
-      return {
-        problemTitle: "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures",
-        affectedSystems: ["Vite Dev Server", "SSR Renderer", "Module Federation Layer", "Edge CDN Cache"],
-        engineeringTensions: ["Environment API flexibility vs plugin ecosystem compatibility", "Streaming SSR latency vs hydration correctness"],
-        technicalConcepts: ["Vite Environment API", "Module Federation", "HMR WebSocket", "Rolldown Rust bundler"],
-        possibleArchitectureAngles: ["ARCHITECTURE_DECISION", "SYSTEM_DESIGN_BREAKDOWN"],
-      };
-    }
-
-    // TypeScript / Compiler
-    if (lc.includes("typescript") || lc.includes(" ts ") || lc.includes("tsc ")) {
-      return {
-        problemTitle: "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
-        affectedSystems: ["TypeScript Project References", "Incremental Build Cache", "CI Pipeline", "Declaration Map Emitter"],
-        engineeringTensions: ["Composite project correctness guarantees vs developer ergonomics", "Strict type checking vs incremental cache validity"],
-        technicalConcepts: ["Project References", "tsbuildinfo", "declaration maps", "incremental compilation"],
-        possibleArchitectureAngles: ["PERFORMANCE_INVESTIGATION", "BEFORE_AFTER_LAYOUT"],
-      };
-    }
-
-    // ClickHouse / OLAP / Analytics
-    if (lc.includes("clickhouse") || lc.includes("olap") || lc.includes("columnar") || lc.includes("analytics db")) {
-      return {
-        problemTitle: "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
-        affectedSystems: ["ClickHouse MergeTree Engine", "Materialized View Pipeline", "Query Planner", "Distributed Replica Set"],
-        engineeringTensions: ["Denormalization speed vs storage amplification", "Asynchronous insert batching vs real-time query freshness"],
-        technicalConcepts: ["MergeTree partitioning", "Materialized Views", "Bloom filter indexes", "ReplicatedMergeTree"],
-        possibleArchitectureAngles: ["SYSTEM_DESIGN_BREAKDOWN", "ARCHITECTURE_DECISION"],
-      };
-    }
-
-    // Kubernetes / Infra
-    if (lc.includes("kubernetes") || lc.includes("k8s") || lc.includes("helm") || lc.includes("kubectl")) {
-      return {
-        problemTitle: "Enforcing Namespace-Level Cost Governance and Workload Isolation in Multi-Tenant Kubernetes",
-        affectedSystems: ["Namespace Resource Quota", "LimitRange Controller", "Admission Webhook", "Prometheus Cost Exporter"],
-        engineeringTensions: ["Strict isolation vs operator productivity", "Cost attribution accuracy vs resource fragmentation overhead"],
-        technicalConcepts: ["ResourceQuota", "LimitRange", "Admission Webhooks", "Vertical Pod Autoscaler"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "ARCHITECTURE_DECISION"],
-      };
-    }
-
-    // Rust / Supply chain / Security
-    if (lc.includes("rust") || lc.includes("cargo") || lc.includes("crate") || lc.includes("supply-chain") || lc.includes("malicious")) {
-      return {
-        problemTitle: "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads",
-        affectedSystems: ["Cargo Dependency Resolver", "Build Script Executor", "CI Isolation Sandbox", "Binary Audit Pipeline"],
-        engineeringTensions: ["Open-source velocity vs build-time payload risk", "Automated crate auditing vs developer experience friction"],
-        technicalConcepts: ["cargo-audit", "build.rs execution isolation", "SBOM generation", "reproducible builds"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "DEBUGGING_STORY"],
-      };
-    }
-
-    // Redis / Queue / Distributed systems
-    if (lc.includes("redis") || lc.includes("queue") || lc.includes("worker") || lc.includes("bullmq") || lc.includes("idempoten")) {
-      return {
-        problemTitle: "Guaranteeing Exactly-Once Execution in Distributed Worker Queues Under Network Partition",
-        affectedSystems: ["Redis Atomic Operations", "Worker Pool Coordinator", "Job Deduplication Store", "Retry State Machine"],
-        engineeringTensions: ["At-least-once delivery simplicity vs idempotency correctness overhead", "Redis atomic ops latency vs correctness guarantee"],
-        technicalConcepts: ["SETNX idempotency keys", "exponential backoff", "poison pill handling", "job state FSM"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "ARCHITECTURE_DECISION"],
-      };
-    }
-
-    // AI / LLM / Agents / MCP
-    if (lc.includes("llm") || lc.includes("agent") || lc.includes("mcp") || lc.includes("openai") || lc.includes("anthropic") || lc.includes("gemini") || lc.includes("rag") || lc.includes("prompt")) {
-      if (lc.includes("inject") || lc.includes("security") || lc.includes("attack") || lc.includes("jailbreak")) {
-        return {
-          problemTitle: "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities",
-          affectedSystems: ["Prompt Sanitizer", "Tool Permission Boundary", "Agent Memory Store", "Output Validator"],
-          engineeringTensions: ["Strict input sanitization vs prompt flexibility for legitimate users", "Automated test coverage vs novel injection surface area"],
-          technicalConcepts: ["Prompt injection taxonomy", "sandboxed tool execution", "semantic similarity detection", "OWASP LLM Top 10"],
-          possibleArchitectureAngles: ["DEBUGGING_STORY", "PRODUCTION_INCIDENT"],
-        };
-      }
-      return {
-        problemTitle: "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback",
-        affectedSystems: ["AI Gateway Router", "Token Bucket Rate Limiter", "Provider Health Monitor", "Tool Call Executor"],
-        engineeringTensions: ["Single-provider simplicity vs multi-model failover resiliency", "Streaming token latency vs schema validation correctness"],
-        technicalConcepts: ["Token bucket rate limiting", "model fallback chains", "MCP protocol", "structured output schemas"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "ARCHITECTURE_DECISION"],
-      };
-    }
-
-    // Graph / DAG / Dependency
-    if (lc.includes("graph") || lc.includes("dag") || lc.includes("dependency") || lc.includes("roadmap") || lc.includes("curriculum")) {
-      return {
-        problemTitle: "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
-        affectedSystems: ["DAG Node Resolver", "Incremental Revalidation Cache", "CDN Invalidation Webhook", "Client Graph Renderer"],
-        engineeringTensions: ["Static pre-rendering correctness vs real-time graph update freshness", "Graph depth vs client-side bundle size"],
-        technicalConcepts: ["Topological sort", "incremental static regeneration", "graph cycle detection", "content-addressed cache keys"],
-        possibleArchitectureAngles: ["SYSTEM_DESIGN_BREAKDOWN", "ARCHITECTURE_DECISION"],
-      };
-    }
-
-    // Kafka / Streaming
-    if (lc.includes("kafka") || lc.includes("stream") || lc.includes("event-driven") || lc.includes("pubsub") || lc.includes("pub/sub")) {
-      return {
-        problemTitle: "Choosing Between Redis Pub/Sub and Kafka for Partial-Failure-Tolerant Event Pipelines",
-        affectedSystems: ["Message Broker", "Consumer Group Coordinator", "Dead Letter Queue", "Schema Registry"],
-        engineeringTensions: ["Redis Pub/Sub sub-millisecond latency vs Kafka durable replay guarantees", "At-most-once delivery simplicity vs exactly-once processing complexity"],
-        technicalConcepts: ["Consumer group rebalancing", "exactly-once semantics", "dead letter queues", "schema evolution"],
-        possibleArchitectureAngles: ["ARCHITECTURE_DECISION", "PRODUCTION_INCIDENT"],
-      };
-    }
-
-    // Security / CVE / Vulnerability
-    if (lc.includes("security") || lc.includes("vulnerability") || lc.includes("cve") || lc.includes("exploit") || lc.includes("auth")) {
-      return {
-        problemTitle: "Operationalizing Continuous Vulnerability Detection in Production Container Registries",
-        affectedSystems: ["SBOM Scanner", "CVE Database Feed", "Registry Webhook", "Incident Alert Pipeline"],
-        engineeringTensions: ["Scan frequency vs CI pipeline throughput", "Block-on-critical policy vs deployment velocity"],
-        technicalConcepts: ["SBOM (CycloneDX/SPDX)", "Trivy scanner", "CVE CVSS scoring", "zero-day patch SLA"],
-        possibleArchitectureAngles: ["PRODUCTION_INCIDENT", "SYSTEM_DESIGN_BREAKDOWN"],
-      };
-    }
-
-    // ── Step 4: Version-number release title transformation ─────────────────
-    // e.g. "Node.js 22 LTS Native TypeScript...", "Docker Desktop 4.38..."
+    // Check if clean title is a bare version release or too short
     const versionPattern = /\b(v?\d+\.\d+(\.\d+)?(\s*(LTS|GA|RC|beta|alpha))?)\b/i;
-    if (versionPattern.test(clean)) {
-      // Strip version numbers and derive engineering story
-      const stripped = clean
+    const isVersionRelease = versionPattern.test(clean) && clean.length < 35;
+    const isGenericShort = clean.length < 15;
+
+    if (isVersionRelease || isGenericShort) {
+      problemTitle = this.formulateDynamicHeadline(clean, content, tags);
+    } else {
+      problemTitle = clean
         .replace(versionPattern, "")
-        .replace(/\b(LTS|GA|RC|beta|alpha|release|update|Desktop|version)\b/gi, "")
+        .replace(/\b(release|update|version|announcing)\b/gi, "")
         .replace(/\s{2,}/g, " ")
         .trim();
-      return this.inferFromStrippedTitle(stripped, content, tags);
+      if (problemTitle.length < 15) {
+        problemTitle = this.formulateDynamicHeadline(clean, content, tags);
+      }
     }
 
-    // ── Step 5: Generic engineering story from remaining clean title ─────────
-    return this.inferFromStrippedTitle(clean, content, tags);
+    // Dynamic Systems, Tensions, Concepts & Angles
+    const affectedSystems = this.deriveAffectedSystems(combinedText);
+    const engineeringTensions = this.deriveEngineeringTensions(combinedText);
+    const technicalConcepts = Array.from(
+      new Set([...tags, ...this.extractTechnicalKeywords(combinedText)])
+    ).slice(0, 6);
+
+    const possibleArchitectureAngles = this.deriveArchitectureAngles(combinedText);
+
+    return {
+      problemTitle: this.toTitleCase(problemTitle),
+      affectedSystems,
+      engineeringTensions,
+      technicalConcepts,
+      possibleArchitectureAngles,
+    };
+  }
+
+  private formulateDynamicHeadline(clean: string, content: string, tags: string[]): string {
+    const combined = `${clean} ${content} ${tags.join(" ")}`.toLowerCase();
+
+    if (combined.includes("docker") || combined.includes("container") || combined.includes("buildx") || combined.includes("oci")) {
+      if (combined.includes("cve") || combined.includes("vulnerab") || combined.includes("distroless") || combined.includes("secur")) {
+        return "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images";
+      }
+      if (combined.includes("network") || combined.includes("compose")) {
+        return "Resolving Cross-Container Service Mesh and DNS Latency in Multi-Service Stacks";
+      }
+      return "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images";
+    }
+
+    if (combined.includes("node.js") || combined.includes("nodejs") || combined.includes("node ")) {
+      if (combined.includes("stream") || combined.includes("backpressure")) {
+        return "Managing High-Throughput Backpressure in Node.js Streaming Architectures";
+      }
+      if (combined.includes("sqlite") || combined.includes("embedded")) {
+        return "Embedding SQLite in Node.js Microservices for Local-First State Persistence";
+      }
+      return "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services";
+    }
+
+    if (combined.includes("vite") || combined.includes("bundl") || combined.includes("esbuild") || combined.includes("rollup")) {
+      if (combined.includes("rust") || combined.includes("rolldown")) {
+        return "Migrating Web Bundlers to Rust-Powered Core Engines Without Ecosystem Regressions";
+      }
+      return "Federating Multi-Environment Build Pipelines Without Full Server-Side Rendering Re-Architectures";
+    }
+
+    if (combined.includes("typescript") || combined.includes(" ts ") || combined.includes("tsc ")) {
+      return "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos";
+    }
+
+    if (combined.includes("clickhouse") || combined.includes("olap") || combined.includes("columnar") || combined.includes("chdb")) {
+      if (combined.includes("chdb") || combined.includes("embedded")) {
+        return "Embedding In-Process Columnar Analytics with chDB and Microservices";
+      }
+      return "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale";
+    }
+
+    if (combined.includes("redis") || combined.includes("queue") || combined.includes("worker") || combined.includes("bullmq")) {
+      if (combined.includes("stream") || combined.includes("consumer")) {
+        return "Scaling Consumer Group Rebalancing in Redis Streams for Event-Driven Workflows";
+      }
+      return "Guaranteeing Exactly-Once Execution in Distributed Worker Queues Under Network Partition";
+    }
+
+    if (combined.includes("llm") || combined.includes("agent") || combined.includes("mcp") || combined.includes("prompt") || combined.includes("openai") || combined.includes("deepseek")) {
+      if (combined.includes("inject") || combined.includes("security") || combined.includes("jailbreak") || combined.includes("attack")) {
+        return "Building Adversarial Red-Team Test Suites for LLM Prompt Injection Vulnerabilities";
+      }
+      if (combined.includes("rag") || combined.includes("hallucinat") || combined.includes("vector")) {
+        return "Preventing Retrieval Hallucinations and Chunk Drift in Production RAG Pipelines";
+      }
+      return "Architecting Resilient Multi-Provider LLM Gateway Routing with Cost-Optimized Fallback";
+    }
+
+    if (combined.includes("kubernetes") || combined.includes("k8s") || combined.includes("helm")) {
+      return "Enforcing Namespace-Level Cost Governance and Workload Isolation in Multi-Tenant Kubernetes";
+    }
+
+    if (combined.includes("rust") || combined.includes("cargo") || combined.includes("crate")) {
+      return "Auditing Transitive Dependency Supply-Chain Risk in Production Rust Workloads";
+    }
+
+    if (combined.includes("graph") || combined.includes("dag") || combined.includes("dependency") || combined.includes("roadmap")) {
+      return "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution";
+    }
+
+    if (combined.includes("kafka") || combined.includes("event-driven") || combined.includes("pubsub")) {
+      return "Choosing Between Redis Pub/Sub and Kafka for Partial-Failure-Tolerant Event Pipelines";
+    }
+
+    if (clean && clean.length >= 15) {
+      return clean;
+    }
+
+    return "Engineering Production-Grade System Reliability Under Sustained Traffic";
+  }
+
+  private deriveAffectedSystems(text: string): string[] {
+    const systems: string[] = [];
+    if (text.includes("redis")) systems.push("Redis Atomic Lock Coordinator");
+    if (text.includes("worker") || text.includes("queue")) systems.push("Worker Pool Coordinator", "Job Deduplication Store");
+    if (text.includes("docker") || text.includes("container")) systems.push("OCI Build Pipeline", "Container Registry");
+    if (text.includes("node") || text.includes("v8")) systems.push("V8 Heap Allocator", "EventLoop Scheduler");
+    if (text.includes("vite") || text.includes("bundl")) systems.push("Vite Dev Server", "Edge CDN Cache");
+    if (text.includes("typescript") || text.includes("monorepo")) systems.push("TypeScript Project References", "Incremental Build Cache");
+    if (text.includes("clickhouse") || text.includes("olap")) systems.push("ClickHouse MergeTree Engine", "Materialized View Pipeline");
+    if (text.includes("k8s") || text.includes("kubernetes")) systems.push("Namespace Resource Quota", "Admission Webhook");
+    if (text.includes("llm") || text.includes("agent") || text.includes("mcp")) systems.push("AI Gateway Router", "Token Bucket Rate Limiter");
+    if (text.includes("rust")) systems.push("Cargo Dependency Resolver", "CI Isolation Sandbox");
+    if (text.includes("graph") || text.includes("dag")) systems.push("DAG Node Resolver", "Incremental Revalidation Cache");
+
+    if (systems.length === 0) {
+      systems.push("Production Service Layer", "Data Access Layer", "API Gateway");
+    }
+    return Array.from(new Set(systems)).slice(0, 4);
+  }
+
+  private deriveEngineeringTensions(text: string): string[] {
+    const tensions: string[] = [];
+    if (text.includes("memory") || text.includes("gc") || text.includes("node")) {
+      tensions.push("In-process caching throughput vs V8 heap fragmentation risk");
+    }
+    if (text.includes("queue") || text.includes("worker") || text.includes("redis")) {
+      tensions.push("At-least-once delivery simplicity vs idempotency correctness overhead");
+    }
+    if (text.includes("container") || text.includes("docker")) {
+      tensions.push("Distroless image security vs shell-debugging ergonomics");
+    }
+    if (text.includes("typecheck") || text.includes("monorepo") || text.includes("ts")) {
+      tensions.push("Composite project correctness guarantees vs developer ergonomics");
+    }
+    if (text.includes("llm") || text.includes("agent")) {
+      tensions.push("Single-provider simplicity vs multi-model failover resiliency");
+    }
+    if (text.includes("clickhouse") || text.includes("olap")) {
+      tensions.push("Denormalization query speed vs storage write amplification");
+    }
+
+    if (tensions.length === 0) {
+      tensions.push("Throughput optimization vs operational maintenance overhead", "Strict consistency vs availability under network partition");
+    }
+    return Array.from(new Set(tensions)).slice(0, 2);
+  }
+
+  private extractTechnicalKeywords(text: string): string[] {
+    const keywords: string[] = [];
+    const candidates = [
+      "Redis", "Docker", "Node.js", "TypeScript", "ClickHouse", "Kubernetes", "Vite",
+      "LLM Gateway", "Prompt Injection", "MergeTree", "Project References", "Rust",
+      "EventLoop", "Idempotency", "Distroless", "SBOM", "V8 Engine", "System Design"
+    ];
+    for (const c of candidates) {
+      if (text.includes(c.toLowerCase())) keywords.push(c);
+    }
+    return keywords;
+  }
+
+  private deriveArchitectureAngles(text: string): string[] {
+    if (text.includes("incident") || text.includes("cve") || text.includes("leak") || text.includes("partition") || text.includes("failover")) {
+      return ["PRODUCTION_INCIDENT", "DEBUGGING_STORY"];
+    }
+    if (text.includes("vs") || text.includes("decision") || text.includes("migrat") || text.includes("tradeoff")) {
+      return ["ARCHITECTURE_DECISION", "SYSTEM_DESIGN_BREAKDOWN"];
+    }
+    if (text.includes("benchmark") || text.includes("speed") || text.includes("latency") || text.includes("throughput")) {
+      return ["PERFORMANCE_INVESTIGATION", "BEFORE_AFTER_LAYOUT"];
+    }
+    return ["SYSTEM_DESIGN_BREAKDOWN", "ARCHITECTURE_DECISION"];
   }
 
   private inferFromRepoName(repoName: string, content: string, tags: string[]): ReturnType<CandidateCompetitionEngine["extractEngineeringProblem"]> {
@@ -356,8 +393,10 @@ export class CandidateCompetitionEngine {
       const { sig, sourceLevel } = verifiedCandidates[i];
       const title = sig.title;
       const tags = sig.tags || [];
-      const category = tags[0] || "AI Engineering";
-      const framework = tags[1] || "Architecture";
+      const platformTags = new Set(["dev.to", "hackernews", "github", "arxiv", "official", "reddit"]);
+      const contentTags = tags.filter((t) => !platformTags.has(t.toLowerCase()));
+      const category = contentTags[0] || tags[0] || "AI Engineering";
+      const framework = contentTags[1] || tags[1] || "Architecture";
       const rejectionReasons: string[] = [];
 
       // Problem-First Extraction
@@ -381,6 +420,45 @@ export class CandidateCompetitionEngine {
 
       if (maxSemSim > 0.40) {
         rejectionReasons.push(`SEMANTIC_REPETITION: High semantic overlap (${(maxSemSim * 100).toFixed(1)}%) with recent post "${mostSimilarPostTitle}".`);
+      }
+
+      // 1b. Technology / Framework Cooldown Check (5 days)
+      const now = Date.now();
+      const recentTechMatch = history.find((p) => {
+        const daysAgo = Math.max(0, (now - new Date(p.publishedAt || now).getTime()) / (1000 * 60 * 60 * 24));
+        if (daysAgo > 5.0) return false;
+        const pTech = (p.framework || "").toLowerCase();
+        const candTech = framework.toLowerCase();
+        const pTitle = (p.title || "").toLowerCase();
+        const candTitle = candidateTitle.toLowerCase();
+        const pTechs = (p.supportingTech || []).map((t) => t.toLowerCase());
+        return (
+          candTech !== "architecture" &&
+          candTech !== "system design" &&
+          (pTech === candTech ||
+            pTechs.includes(candTech) ||
+            pTitle.includes(candTech) ||
+            candTitle.includes(pTech))
+        );
+      });
+
+      if (recentTechMatch) {
+        rejectionReasons.push(
+          `TECHNOLOGY_COOLDOWN: Framework "${framework}" was featured in recent post "${recentTechMatch.title}" within the 5-day cooldown window.`
+        );
+      }
+
+      // 1c. Category Cooldown Check (3 days)
+      const recentCatMatch = history.find((p) => {
+        const daysAgo = Math.max(0, (now - new Date(p.publishedAt || now).getTime()) / (1000 * 60 * 60 * 24));
+        if (daysAgo > 3.0) return false;
+        return (p.category || "").toLowerCase() === category.toLowerCase();
+      });
+
+      if (recentCatMatch) {
+        rejectionReasons.push(
+          `CATEGORY_COOLDOWN: Category "${category}" was featured in recent post "${recentCatMatch.title}" within the 3-day cooldown window.`
+        );
       }
 
       // 2. Personal Experience Match ("Why YOU?")

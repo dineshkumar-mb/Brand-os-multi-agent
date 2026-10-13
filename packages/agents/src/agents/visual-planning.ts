@@ -847,20 +847,48 @@ export class VisualPlanningAgent {
     const diagramSpec = this.createDiagramSpec(topic, postText, visualType);
     const diagramType = diagramSpec.title;
 
-    // Check if visual concept was recently used
-    if (visualHistoryTracker.isConceptSimilar(topic.title, diagramType)) {
-      console.log(`[VISUAL_FILTER] rejected=imageConcept reason=SIMILAR_TO_LAST_3_IMAGES (${diagramType})`);
-      diagramSpec.title = `${topic.title} Vector Flow Map`;
-    }
-
-    visualHistoryTracker.addConcept(topic.id || `t_${Date.now()}`, topic.title, diagramType);
-
+    // Check if visual concept or layout was recently used
     const renderedSvg = this.generateDiagramSvg(diagramSpec, visualType);
     const requiredDiagramNodes = diagramSpec.columns.flatMap((c) => c.nodes.map((n) => n.label));
 
     const imagePrompt = `A 16:9 technical architecture blueprint diagram titled "${diagramSpec.title}". Layout: ${diagramSpec.layoutStyle} with color-coded vector node badges. Key components: ${requiredDiagramNodes.join(
       ", "
     )}. Clean engineering typography and vector flow markers.`;
+
+    const promptHash = crypto.createHash("sha256").update(imagePrompt).digest("hex").slice(0, 16);
+    const contentHash = crypto.createHash("sha256").update(renderedSvg).digest("hex").slice(0, 16);
+    const layout = diagramSpec.layoutStyle || "ARCHITECTURE_DIAGRAM";
+    const composition = visualType || "ARCHITECTURE_DIAGRAM";
+
+    const repCheck = visualHistoryTracker.isVisualRepetitive({
+      visualConcept: topic.title,
+      visualType: composition,
+      layout,
+      composition,
+      imageContentHash: contentHash,
+      imagePromptHash: promptHash,
+    });
+
+    if (repCheck.isDuplicate) {
+      console.log(`[VISUAL_FILTER] Variation triggered: ${repCheck.reason}`);
+      diagramSpec.title = `${topic.title} Architecture Blueprint`;
+      diagramSpec.layoutStyle = "DYNAMIC_SYSTEM_FLOW";
+    }
+
+    visualHistoryTracker.recordVisual({
+      topicId: topic.id || `t_${Date.now()}`,
+      visualType: composition,
+      visualConcept: topic.title,
+      composition,
+      layout,
+      diagramStructure: diagramSpec.columns.length > 2 ? "THREE_COLUMN" : "TWO_COLUMN",
+      primarySubject: topic.title,
+      visualMetaphor: "System Architecture Flow",
+      colorPalette: diagramSpec.colorPalette,
+      imagePromptHash: promptHash,
+      imageContentHash: contentHash,
+      createdAt: new Date().toISOString(),
+    });
 
     console.log(`[VISUAL_FILTER] accepted=${diagramSpec.title} alignment=96 layout=${diagramSpec.layoutStyle}`);
 

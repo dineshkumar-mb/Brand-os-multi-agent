@@ -117,55 +117,63 @@ Return ONLY a valid JSON object matching:
     if (!starStory) {
       const tech = topic.framework || topic.category || topic.title;
       if (hasBuildMatch) {
+        const chosenApproach = experience.engineeringDecision || primaryTradeoff.chosen;
+        const trigger = experience.realWorldProblem
+          || `Production throughput scaled past baseline limits, exposing an architectural bottleneck in ${tech}.`;
+        const outcome = experience.quantifiableOutcome
+          || `System stability improved with zero silent failure regressions.`;
+        const lesson = experience.lessonsLearned?.[0]
+          || primaryTradeoff.engineeringRationale;
+
         starStory = {
           situation: {
-            context: `While engineering our ${topic.category} system, ${experience.realWorldProblem}`,
-            trigger: `Request throughput scaled past baseline limits, exposing a subtle bottleneck.`,
-            stakes: `Risk of degraded system availability and increased response latency under peak load.`,
-            curiosityTension: `The code was functionally correct, but the architecture was fragile under load.`,
+            context: `While engineering our ${topic.category} architecture, ${experience.realWorldProblem || topic.title}.`,
+            trigger,
+            stakes: `Risk of degraded system availability and unmaintainable state management under peak production load.`,
+            curiosityTension: `The implementation was functionally working, but the architecture created hidden operational debt.`,
           },
           task: {
-            objective: `Eliminate the bottleneck without introducing unmanageable operational complexity.`,
+            objective: `Eliminate the architectural bottleneck in ${tech} without introducing unmanageable operational complexity.`,
             constraints: [
-              `Must keep main database as source of truth`,
-              `Must maintain type safety and schema compatibility`,
+              `Must preserve strong consistency and explicit data contracts`,
+              `Must maintain end-to-end type safety and schema compatibility`,
             ],
             successCriteria: [
-              `Deterministic error handling`,
-              `Improved system stability under load`,
+              `Deterministic error handling and observable failure boundaries`,
+              `Measurable improvement in throughput and latency SLAs`,
             ],
           },
           action: {
             approachesConsidered: [
-              `Approach A: Full response caching`,
-              `Approach B: Selective state caching with explicit invalidation triggers`,
+              `Approach A: ${primaryTradeoff.dimensionA}`,
+              `Approach B: ${primaryTradeoff.dimensionB}`,
             ],
-            chosenApproach: `Approach B: Selective query-level caching paired with explicit failure boundaries.`,
+            chosenApproach: chosenApproach,
             rejectedApproaches: [
-              `Approach A: Rejected because invalidating nested aggregate objects across workers creates stale data bugs.`,
+              `Approach A: Rejected (${primaryTradeoff.sacrificed}) due to scaling constraints and cascading failure hazards.`,
             ],
-            reasoning: `Decoupling cache ownership preserves data integrity while relieving pressure on heavy lookup paths.`,
-            decisionMoment: `Testing invalidation edge cases revealed that full-response caching hid state drift. That was the pivot point to rewrite boundaries.`,
-            implementation: `Introduced bounded cache layer with fallback read-through and circuit breaking.`,
-            debugging: `Identified cache hit rate drop during load testing and added explicit telemetry.`,
+            reasoning: primaryTradeoff.engineeringRationale,
+            decisionMoment: `Testing boundary conditions revealed state drift risks. That prompted an architectural pivot to ${chosenApproach}.`,
+            implementation: `Implemented ${chosenApproach} with isolated failure domains and circuit breaking.`,
+            debugging: `Analyzed telemetry bottlenecks during load tests and tuned execution concurrency.`,
           },
           result: {
-            outcome: `System stability improved with zero silent failure regressions.`,
+            outcome,
             metrics: [
-              experience.quantifiableOutcome || `p99 latency stabilized at target SLA`,
+              outcome,
             ],
             evidence: [
-              `Telemetry log verification`,
+              `Production telemetry verification and load testing metrics`,
             ],
           },
           insight: {
-            engineeringLesson: `Caching is an architectural commitment regarding state ownership and invalidation boundaries.`,
+            engineeringLesson: lesson,
             tradeoffs: [
               `Chosen: ${primaryTradeoff.chosen}`,
               `Sacrificed: ${primaryTradeoff.sacrificed}`,
             ],
             whenNotToUse: [
-              `Avoid this complexity for low-throughput CRUD services where direct database queries meet SLAs effortlessly.`,
+              primaryTradeoff.whenAlternativeBetter,
             ],
           },
         };
@@ -191,15 +199,15 @@ Return ONLY a valid JSON object matching:
           },
           action: {
             approachesConsidered: [
-              `Pattern A: Monolithic synchronous coupling`,
-              `Pattern B: Explicit schema validation and decoupled message boundaries`,
+              `Pattern A: ${primaryTradeoff.dimensionA}`,
+              `Pattern B: ${primaryTradeoff.dimensionB}`,
             ],
-            chosenApproach: `Pattern B: Explicit schema validation at service boundaries.`,
+            chosenApproach: `Pattern B: ${primaryTradeoff.chosen}`,
             rejectedApproaches: [
-              `Pattern A: Rejected due to cascading failure risks and hidden state drift.`,
+              `Pattern A: Rejected (${primaryTradeoff.sacrificed}) due to cascading failure risks and hidden state drift.`,
             ],
-            reasoning: `Decoupling service state prevents cascading failures and simplifies debugging.`,
-            decisionMoment: `Comparing failure recovery modes showed that decoupled boundaries isolate faults cleanly.`,
+            reasoning: primaryTradeoff.engineeringRationale,
+            decisionMoment: `Comparing failure recovery modes showed that ${primaryTradeoff.chosen} isolates faults cleanly.`,
             implementation: `Structured evaluation based on official specs and architectural patterns.`,
             debugging: `Identified potential edge cases in retry loops and fallback handlers.`,
           },
@@ -219,7 +227,7 @@ Return ONLY a valid JSON object matching:
               `Sacrificed: ${primaryTradeoff.sacrificed}`,
             ],
             whenNotToUse: [
-              `Do not over-engineer when simple monolithic abstractions satisfy all business requirements.`,
+              primaryTradeoff.whenAlternativeBetter,
             ],
           },
         };

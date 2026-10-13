@@ -141,35 +141,93 @@ export class FallbackProjectEngine {
     }
   ];
 
-  public selectFallbackProjectTopic(history: HistoricalPostRecord[] = []): { topic: Topic; experience: ExperienceLog } {
-    let bestCandidate = this.fallbackProjects[0];
-    let minOccurrences = 999;
-    let maxDaysAgo = -1;
-
+  public selectFallbackProjectTopic(history: HistoricalPostRecord[] = []): { topic: Topic; experience: ExperienceLog } | null {
     const now = Date.now();
+    const candidateStats: Array<{
+      candidate: FallbackProjectTopicCandidate;
+      occurrences: number;
+      lastPublishedDaysAgo: number;
+      inCooldown: boolean;
+    }> = [];
 
     for (const candidate of this.fallbackProjects) {
+      const normCandTitle = candidate.title.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const candKeywords = candidate.keywords.map((k) => k.toLowerCase());
+
       const matches = history.filter((h) => {
         const hTitle = (h.title || "").toLowerCase();
+        const normHTitle = hTitle.replace(/[^a-z0-9]/g, "");
+
+        // 1. Direct title match or containment
+        if (normHTitle === normCandTitle || normHTitle.includes(normCandTitle) || normCandTitle.includes(normHTitle)) {
+          return true;
+        }
+
+        // 2. ID match
+        if (h.id === candidate.id || h.id.includes(candidate.id)) {
+          return true;
+        }
+
+        // 3. Framework & multi-keyword match in past title
         const candFramework = candidate.framework.toLowerCase();
-        return hTitle.includes(candFramework) || 
-               candidate.keywords.some((kw) => hTitle.includes(kw.toLowerCase()));
+        const keywordMatches = candKeywords.filter((kw) => hTitle.includes(kw)).length;
+        if (hTitle.includes(candFramework) && keywordMatches >= 2) {
+          return true;
+        }
+
+        // 4. Supporting technology & problem space keyword overlap (5-day cooldown)
+        const hasTechOverlap = candidate.supportingTech.some((tech) => {
+          const t = tech.toLowerCase();
+          return (h.framework && h.framework.toLowerCase() === t) ||
+                 (h.category && h.category.toLowerCase().includes(t)) ||
+                 hTitle.includes(t);
+        });
+        const hasProblemOverlap = candKeywords.some((kw) => {
+          const k = kw.toLowerCase();
+          return k.length >= 6 && hTitle.includes(k);
+        });
+        if (hasTechOverlap && hasProblemOverlap) {
+          return true;
+        }
+
+        return false;
       });
 
       const occurrences = matches.length;
-
       let lastPublishedDaysAgo = 999;
       if (matches.length > 0) {
         const latestTime = Math.max(...matches.map((m) => new Date(m.publishedAt || Date.now()).getTime()));
-        lastPublishedDaysAgo = Math.floor((now - latestTime) / (1000 * 60 * 60 * 24));
+        lastPublishedDaysAgo = Math.max(0, (now - latestTime) / (1000 * 60 * 60 * 24));
       }
 
-      if (occurrences < minOccurrences || (occurrences === minOccurrences && lastPublishedDaysAgo > maxDaysAgo)) {
-        minOccurrences = occurrences;
-        maxDaysAgo = lastPublishedDaysAgo;
-        bestCandidate = candidate;
-      }
+      // 7-day cooldown for repeating the exact active project
+      const inCooldown = occurrences > 0 && lastPublishedDaysAgo < 7.0;
+
+      candidateStats.push({
+        candidate,
+        occurrences,
+        lastPublishedDaysAgo,
+        inCooldown,
+      });
     }
+
+    // Filter to candidates not in active cooldown
+    const available = candidateStats.filter((c) => !c.inCooldown);
+
+    if (available.length === 0) {
+      console.warn("[FallbackProjectEngine] All active project fallback topics are currently in 7-day cooldown.");
+      return null;
+    }
+
+    // Pick candidate with fewest occurrences, or oldest publication
+    available.sort((a, b) => {
+      if (a.occurrences !== b.occurrences) {
+        return a.occurrences - b.occurrences;
+      }
+      return b.lastPublishedDaysAgo - a.lastPublishedDaysAgo;
+    });
+
+    const bestCandidate = available[0].candidate;
 
     const topic: Topic = {
       id: bestCandidate.id,

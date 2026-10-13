@@ -699,6 +699,28 @@ export class AgentOrchestrator {
     candidatesEvaluated: number
   ): Promise<DailyGenerationResult> {
     const fallback = fallbackProjectEngine.selectFallbackProjectTopic(history);
+    if (!fallback) {
+      console.warn(`[Pipeline ID: ${pipelineId}][Fallback] All fallback active project topics are in cooldown or already published. Executing NO_POST_TODAY.`);
+      return {
+        status: "NO_POST_TODAY",
+        pipelineId,
+        reason: "All trend candidates rejected and all fallback active project topics are currently in cooldown.",
+        candidatesEvaluated,
+        missingSignals: ["No fresh trend candidate passed quality gates and all fallback project topics in cooldown."],
+        dailyIntelligenceSummary: {
+          signalsScanned: candidatesEvaluated,
+          verifiedEvents: candidatesEvaluated,
+          freshEvents: candidatesEvaluated,
+          novelOpportunities: 0,
+          experienceMatches: 0,
+          careerQualified: 0,
+        },
+        topic: null,
+        linkedInPost: null,
+        devToArticle: null,
+      };
+    }
+
     const selectedTopic = fallback.topic;
     const experience = fallback.experience;
 
@@ -738,9 +760,13 @@ export class AgentOrchestrator {
         targetPainPoints: audienceRes.data?.keyPainPoints || [],
         keyMotivations: ["System Architecture", "Performance Optimization"],
       },
-      format: FormatStyle.BUILD_IN_PUBLIC,
-      previousFormats: [],
-      previousHooks: [],
+      format: writingMemoryTracker.selectFreshFormatStyle(),
+      previousFormats: writingMemoryTracker.getHistory(7)
+        .map((m) => m.formatStyle)
+        .filter((f): f is FormatStyle => Boolean(f)),
+      previousHooks: writingMemoryTracker.getHistory(7)
+        .map((m) => m.hookType as string)
+        .filter(Boolean),
       previousVisualTypes: [],
     };
 
@@ -811,9 +837,10 @@ export class AgentOrchestrator {
     if (fallbackVisualNovelty < 70) fallbackRejectionReasons.push(`VisualNovelty ${fallbackVisualNovelty} < 70`);
     if (!fallbackImageRelevanceRes.data.passed) fallbackRejectionReasons.push(...fallbackImageRelevanceRes.data.rejectionReasons);
     if (!fallbackPostDeduplication.data.passed) fallbackRejectionReasons.push(...fallbackPostDeduplication.data.rejectionReasons);
-    if (!fallbackLinkedinAlgorithmRes.data.passed) fallbackRejectionReasons.push(...fallbackLinkedinAlgorithmRes.data.rejectionReasons);
-
-    const fallbackPassed = true; // Active project fallback is the verified emergency route for active projects
+    const hasCriticalRejection = fallbackRejectionReasons.some((r) =>
+      r.includes("DUPLICATE") || r.includes("REPETITION") || r.includes("COOLDOWN")
+    );
+    const fallbackPassed = !hasCriticalRejection && fallbackHumanWriting >= 70 && fallbackTechDepth >= 70;
     const fallbackOverallScore = Math.round(
       (fallbackHumanWriting + fallbackTechDepth + fallbackOriginScore + fallbackVisualNovelty + 100 + fallbackImageRelevanceRes.data.relevanceScore) / 6
     );

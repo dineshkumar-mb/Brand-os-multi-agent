@@ -26,11 +26,15 @@ export class ImageRelevanceVerificationAgent {
       "did", "doing", "our", "we", "you", "your", "my", "i", "it", "its"
     ]);
 
-    const words = text
+    const normalized = text
       .toLowerCase()
+      .replace(/c\+\+/g, "cpp")
+      .replace(/c#/g, "csharp");
+
+    const words = normalized
       .replace(/[^a-z0-9\s-]/g, " ")
       .split(/\s+/)
-      .filter((w) => w.length > 2 && !stopwords.has(w));
+      .filter((w) => (w.length > 2 || w === "go" || w === "ai" || w === "ts" || w === "js") && !stopwords.has(w));
 
     return new Set(words);
   }
@@ -62,17 +66,34 @@ export class ImageRelevanceVerificationAgent {
     const rejectionReasons: string[] = [];
 
     // 1. Gather text content from post draft and topic
-    const topicKeywords = new Set([
+    const rawTopicKeywords = [
       ...topic.keywords.map((k) => k.toLowerCase()),
       topic.category.toLowerCase(),
       (topic.framework || "").toLowerCase(),
-    ].filter(Boolean));
+    ].filter(Boolean);
+
+    const normalizedTopicKeywords = rawTopicKeywords.map((k) =>
+      k.replace(/c\+\+/g, "cpp").replace(/c#/g, "csharp")
+    );
+
+    const ignoredGenericTags = new Set([
+      "open source", "developer community", "model releases", "hacker news", "dev.to",
+      "reddit", "github", "ai research", "cpp", "c++", "programming", "tools",
+      "backend engineering", "frontend engineering", "software engineering", "full stack",
+      "architecture", "system design", "developer tools", "devops", "cloud", "engineering",
+      "backend", "frontend"
+    ]);
+
+    const coreTopicKeywords = Array.from(
+      new Set(normalizedTopicKeywords.filter((k) => !ignoredGenericTags.has(k) && k.length > 2))
+    );
+    const keywordsToAudit = coreTopicKeywords.length > 0 ? coreTopicKeywords : normalizedTopicKeywords;
 
     const postContent = `${topic.title} ${post.title} ${post.hook} ${post.fullText} ${article?.markdownContent || ""}`;
     const allPostKeywords = this.extractKeywords(postContent);
 
     // Merge topic keywords into core set
-    topicKeywords.forEach((k) => allPostKeywords.add(k));
+    keywordsToAudit.forEach((k) => allPostKeywords.add(k));
 
     // 2. Gather visual nodes/text elements from SVG, visual plan, or visual output prompt
     const visualTextElements: string[] = [];
@@ -121,7 +142,7 @@ export class ImageRelevanceVerificationAgent {
     const matchedKeywords: string[] = [];
     const missingKeywords: string[] = [];
 
-    topicKeywords.forEach((kw) => {
+    keywordsToAudit.forEach((kw) => {
       let isMatched = false;
       visualKeywords.forEach((vk) => {
         if (vk.includes(kw) || kw.includes(vk)) {
@@ -135,8 +156,8 @@ export class ImageRelevanceVerificationAgent {
       }
     });
 
-    const keywordMatchRate = topicKeywords.size > 0
-      ? Math.round((matchedKeywords.length / topicKeywords.size) * 100)
+    const keywordMatchRate = keywordsToAudit.length > 0
+      ? Math.round((matchedKeywords.length / keywordsToAudit.length) * 100)
       : 100;
 
     // 4. Domain Alignment Check
