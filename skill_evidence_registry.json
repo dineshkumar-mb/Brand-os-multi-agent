@@ -1,0 +1,165 @@
+[
+  {
+    "id": "skill_fe_react19",
+    "name": "React & Component Architecture",
+    "category": "FRONTEND",
+    "supportingProject": "Brand OS Dashboard & Client Suite",
+    "demonstratedImplementation": "Built high-performance responsive web dashboard using React 19, TypeScript, and Vite.",
+    "technicalDepth": "ADVANCED",
+    "confidenceScore": 92,
+    "architectureDecisions": [
+      "Component composition over prop drilling",
+      "Zero external CSS bloat"
+    ],
+    "tradeoffsFaced": [
+      "Client-side hydration vs initial bundle size"
+    ],
+    "artifacts": [
+      "client/src/App.tsx",
+      "client/src/components/"
+    ],
+    "interviewTopics": [
+      "State machines in UI",
+      "Virtual DOM diffing",
+      "Component isolation"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  },
+  {
+    "id": "skill_be_node_express",
+    "name": "Node.js & REST API Design",
+    "category": "BACKEND",
+    "supportingProject": "Brand OS Core Server & Gateway",
+    "demonstratedImplementation": "Designed REST API server in Express with JWT authentication, RBAC, and Zod schema validation.",
+    "technicalDepth": "ADVANCED",
+    "confidenceScore": 95,
+    "architectureDecisions": [
+      "Layered controller/service pattern",
+      "Stateless JWT sessions"
+    ],
+    "tradeoffsFaced": [
+      "Stateless auth simplicity vs token revocation capability"
+    ],
+    "artifacts": [
+      "server/src/main.ts",
+      "server/src/controllers/"
+    ],
+    "interviewTopics": [
+      "Event loop non-blocking I/O",
+      "API versioning",
+      "Error boundary propagation"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  },
+  {
+    "id": "skill_ai_agents_rag",
+    "name": "AI Agents & Multi-Provider Gateway",
+    "category": "AI_ENGINEERING",
+    "supportingProject": "Career Brand OS Multi-Agent Swarm",
+    "demonstratedImplementation": "Engineered multi-agent pipeline with OpenRouter, Nvidia NIM, and local Ollama failover.",
+    "technicalDepth": "EXPERT",
+    "confidenceScore": 96,
+    "architectureDecisions": [
+      "Dynamic model router with cost vs latency optimization",
+      "Strict JSON schema parsing"
+    ],
+    "tradeoffsFaced": [
+      "Provider-specific feature exploitation vs neutral abstraction portability"
+    ],
+    "artifacts": [
+      "packages/ai-gateway/src/index.ts",
+      "packages/agents/src/index.ts"
+    ],
+    "interviewTopics": [
+      "LLM temperature vs structured outputs",
+      "Agentic orchestration vs linear DAGs",
+      "Prompt drift mitigation"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  },
+  {
+    "id": "skill_sys_redis_queues",
+    "name": "Redis & Background Job Processing",
+    "category": "SYSTEM_DESIGN",
+    "supportingProject": "Brand OS Distributed Worker Queue",
+    "demonstratedImplementation": "Implemented atomic job deduplication, rate limits, and exponential backoff retry schedules.",
+    "technicalDepth": "ADVANCED",
+    "confidenceScore": 94,
+    "architectureDecisions": [
+      "Atomic idempotency keys with UTC calendar slots",
+      "Exponential backoff with jitter"
+    ],
+    "tradeoffsFaced": [
+      "Strict duplicate prevention vs at-least-once retry delivery"
+    ],
+    "artifacts": [
+      "worker/src/main.ts",
+      "packages/publisher/src/index.ts"
+    ],
+    "interviewTopics": [
+      "Redis SETNX locking patterns",
+      "Worker starvation",
+      "Poison pill recovery"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  },
+  {
+    "id": "skill_qual_testing_observability",
+    "name": "Testing & Engineering Observability",
+    "category": "ENGINEERING_QUALITY",
+    "supportingProject": "Brand OS Quality Gate System",
+    "demonstratedImplementation": "Built comprehensive Vitest multi-agent test suite and strict human-writing linting pipeline.",
+    "technicalDepth": "EXPERT",
+    "confidenceScore": 95,
+    "architectureDecisions": [
+      "Mandatory 16-point quality gate barrier before publishing",
+      "Jaccard similarity anti-repetition guards"
+    ],
+    "tradeoffsFaced": [
+      "Thorough pre-publish validation latency vs execution throughput"
+    ],
+    "artifacts": [
+      "packages/agents/src/agents/humanization.ts",
+      "tests/output-quality-inspector.test.ts"
+    ],
+    "interviewTopics": [
+      "Semantic drift detection in AI systems",
+      "Hermetic testing in monorepos",
+      "Zero flaky test strategy"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  },
+  {
+    "id": "skill_prod_ci_cd",
+    "name": "Full Stack Product Engineering & CI/CD",
+    "category": "PRODUCT_ENGINEERING",
+    "supportingProject": "Brand OS Autonomous Pipeline",
+    "demonstratedImplementation": "Built end-to-end autonomous publication engine from trend discovery to live LinkedIn API integration.",
+    "technicalDepth": "ADVANCED",
+    "confidenceScore": 93,
+    "architectureDecisions": [
+      "Monorepo pnpm workspace structuring",
+      "Dual serverless + daemon worker runtime compatibility"
+    ],
+    "tradeoffsFaced": [
+      "Full cloud vendor tie-in vs self-hostable dockerized container architecture"
+    ],
+    "artifacts": [
+      "package.json",
+      "docker-compose.yml",
+      "vercel.json"
+    ],
+    "interviewTopics": [
+      "Monorepo dependency graphs",
+      "Zero-downtime rolling deploys",
+      "Production telemetry"
+    ],
+    "lastDemonstratedDate": null,
+    "postIds": []
+  }
+]

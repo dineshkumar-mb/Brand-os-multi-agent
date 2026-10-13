@@ -1,5 +1,1311 @@
 [
   {
+    "id": "urn:li:share:750898249",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Adding a cache layer to Architecting a Resilient Multi-Provider LLM Gateway made the system less reliable.",
+    "fullText": "Adding a cache layer to Architecting a Resilient Multi-Provider LLM Gateway made the system less reliable. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints How does your team handle the Architecting a Resilient Multi-Provider LLM Gateway trade-off when scaling LLM Gateway Router under load? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:36:44.799Z",
+    "engagementMetrics": {
+      "impressions": 201,
+      "reactions": 22,
+      "comments": 5,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 9,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:582911286",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "The most useful part of Backend Engineering wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Backend Engineering wasn't the headline feature. It was the failure handling design. Before: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Target: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Change: Option B: heap snapshot comparison to locate persistent closure scopes After: Memory growth eliminated Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows JavaScript leaks are reference leaks Where would your team draw the boundary between stateful caching and the Backend Engineering database source of truth in Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:36:42.193Z",
+    "engagementMetrics": {
+      "impressions": 289,
+      "reactions": 38,
+      "comments": 6,
+      "shares": 5,
+      "saves": 3,
+      "profileVisits": 12,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:554816000",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints What telemetry would you instrument before shipping this Architecting a Resilient Multi-Provider LLM Gateway change for LLM Gateway Router to production? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:36:41.861Z",
+    "engagementMetrics": {
+      "impressions": 282,
+      "reactions": 43,
+      "comments": 8,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 13,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:766837529",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "Adding a cache layer to Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services made the system less reliable.",
+    "fullText": "Adding a cache layer to Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services made the system less reliable. Before: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Target: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Change: Option B: heap snapshot comparison to locate persistent closure scopes After: Memory growth eliminated Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows JavaScript leaks are reference leaks How do you handle this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services failure mode in your Backend Engineering systems when downstream services stall? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:36:39.556Z",
+    "engagementMetrics": {
+      "impressions": 245,
+      "reactions": 49,
+      "comments": 7,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 16,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:587695090",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "I thought our TypeScript 5.7 query path was slow. It wasn't.",
+    "fullText": "I thought our TypeScript 5.7 query path was slow. It wasn't. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation What tradeoffs have you made when large typescript monorepos? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:36:38.780Z",
+    "engagementMetrics": {
+      "impressions": 314,
+      "reactions": 21,
+      "comments": 8,
+      "shares": 4,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:392772437",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "Refactoring our Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos pipeline to synchronous execution counter-intuitively made it 4x faster. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 4x reduction). Monorepo scaling requires compiler isolation Where would your team draw the boundary between stateful caching and the TypeScript 5.7 database source of truth in Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:36:36.932Z",
+    "engagementMetrics": {
+      "impressions": 267,
+      "reactions": 36,
+      "comments": 8,
+      "shares": 3,
+      "saves": 4,
+      "profileVisits": 15,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:958256273",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "There were two technically sound ways to structure TypeScript 5.7. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure TypeScript 5.7. Neither option was free. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation How does your team handle the Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos trade-off when scaling TypeScript 5.7 under load? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:36:34.352Z",
+    "engagementMetrics": {
+      "impressions": 198,
+      "reactions": 25,
+      "comments": 6,
+      "shares": 2,
+      "saves": 3,
+      "profileVisits": 18,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:537365806",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "I could make this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services architecture simpler. I deliberately didn't. Before: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Target: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Change: Option B: heap snapshot comparison to locate persistent closure scopes After: Memory growth eliminated Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows JavaScript leaks are reference leaks What telemetry would you instrument before shipping this Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services change for Backend Engineering to production? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:36:32.037Z",
+    "engagementMetrics": {
+      "impressions": 329,
+      "reactions": 27,
+      "comments": 4,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 10,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:762543993",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "Our monitoring dashboards reported CPU usage at 18%. Our Databases background workers were actually starving due to thread pool deadlocks.",
+    "fullText": "Our monitoring dashboards reported CPU usage at 18%. Our Databases background workers were actually starving due to thread pool deadlocks. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Constraint: Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) Approach: Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution Tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% / 18%) Lesson: Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas What tradeoffs have you made when at petabyte scale? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:36:30.605Z",
+    "engagementMetrics": {
+      "impressions": 182,
+      "reactions": 41,
+      "comments": 4,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 16,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:327769067",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "The Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale implementation was technically correct. The system was still wrong under load. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How does your team handle the Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale trade-off when scaling Databases under load? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:36:30.483Z",
+    "engagementMetrics": {
+      "impressions": 298,
+      "reactions": 47,
+      "comments": 8,
+      "shares": 3,
+      "saves": 4,
+      "profileVisits": 13,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:557512593",
+    "title": "Building Personal Brand OS: Architectural Lessons from a 5-Layer Autonomous Multi-Agent Swarm with 10 Quality Gates",
+    "platform": "LINKEDIN",
+    "category": "AI Engineering & Multi-Agent Swarms",
+    "framework": "Multi-Agent Architecture",
+    "supportingTech": [
+      "TypeScript",
+      "Node.js",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+      "LLM Gateway",
+      "Telegram Bot API"
+    ],
+    "keywords": [
+      "Multi-Agent Swarm",
+      "Personal Brand OS",
+      "AI Engineering",
+      "Quality Gates",
+      "TypeScript"
+    ],
+    "hook": "The Building Personal Brand OS implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Building Personal Brand OS implementation was technically correct. The system was still wrong under load. Automating structured engineering content pipelines using agentic workflows. (Trigger: Generated developer narratives exhibited repetitive vocabulary patterns and cliches.) Design a lexical humanization filter and semantic novelty verification loop. (Constraints: Must execute under standard pipeline cycle bounds, Do not modify the underlying model parameters) We resolved this by using Option B: Multi-gate validation pipeline with lexical sanitizers and memory tracking, accepting the tradeoff: Chosen: Runtime validation gates, Sacrificed: Execution speed — added secondary verification step before api dispatch. This yielded: Topic overlap dropped; maximum similarity scores stabilized well below thirty percent (800ms improvement, 240ms reduction). AI generation requires deterministic validation gates How does your team handle the Building Personal Brand OS trade-off when scaling Multi-Agent Architecture under load? #SoftwareEngineering #SystemDesign #BuildingEngineering",
+    "publishedAt": "2026-10-13T15:36:28.427Z",
+    "engagementMetrics": {
+      "impressions": 288,
+      "reactions": 35,
+      "comments": 8,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 19,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:156782116",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "I thought our Databases query path was slow. It wasn't.",
+    "fullText": "I thought our Databases query path was slow. It wasn't. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Constraint: Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) Approach: Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution Tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% / 800ms) Lesson: Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How do you handle this Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale failure mode in your Databases systems when downstream services stall? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:36:25.346Z",
+    "engagementMetrics": {
+      "impressions": 298,
+      "reactions": 43,
+      "comments": 4,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 8,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:544235986",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "There were two technically sound ways to structure DevOps. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure DevOps. Neither option was free. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries At what point in Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images would you introduce a queue instead of synchronous retry loops for DevOps? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:36:24.096Z",
+    "engagementMetrics": {
+      "impressions": 282,
+      "reactions": 38,
+      "comments": 6,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 19,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:305026621",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries Where would your team draw the boundary between stateful caching and the DevOps database source of truth in Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:36:22.896Z",
+    "engagementMetrics": {
+      "impressions": 279,
+      "reactions": 29,
+      "comments": 8,
+      "shares": 5,
+      "saves": 4,
+      "profileVisits": 14,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:495457449",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "Our Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images integration test suite was completely green. The workflow still failed under real load. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Constraint: Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) Approach: Option B: Multi-stage distroless base image transition with Buildx target isolation Tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms / 240ms) Lesson: Secure container design means shipping only execution binaries What tradeoffs have you made when zero-cve production images? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:36:22.478Z",
+    "engagementMetrics": {
+      "impressions": 188,
+      "reactions": 28,
+      "comments": 4,
+      "shares": 2,
+      "saves": 4,
+      "profileVisits": 15,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:248667200",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Most engineers adopt LLM Gateway Router for developer velocity. The actual high-value advantage is architectural state isolation.",
+    "fullText": "Most engineers adopt LLM Gateway Router for developer velocity. The actual high-value advantage is architectural state isolation. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Constraint: Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) Approach: Option B: Multi-provider dynamic fallback gateway with token bucket tracking Tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling Pipeline execution reliability increased to 99 (94% / 34%) Lesson: External model APIs must be treated as volatile endpoints Would you optimize Architecting a Resilient Multi-Provider LLM Gateway for latency or cost here if LLM Gateway Router request volume doubled? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:29:52.671Z",
+    "engagementMetrics": {
+      "impressions": 234,
+      "reactions": 28,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 18,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:875105936",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "The Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos implementation was technically correct. The system was still wrong under load. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation How does your team handle the Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos trade-off when scaling TypeScript 5.7 under load? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:29:48.926Z",
+    "engagementMetrics": {
+      "impressions": 322,
+      "reactions": 43,
+      "comments": 3,
+      "shares": 4,
+      "saves": 3,
+      "profileVisits": 16,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:768747620",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "The Architecting a Resilient Multi-Provider LLM Gateway implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Architecting a Resilient Multi-Provider LLM Gateway implementation was technically correct. The system was still wrong under load. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints How does your team handle the Architecting a Resilient Multi-Provider LLM Gateway trade-off when scaling LLM Gateway Router under load? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:29:48.496Z",
+    "engagementMetrics": {
+      "impressions": 255,
+      "reactions": 20,
+      "comments": 7,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 17,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:799494810",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "The most useful part of LLM Gateway Router wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of LLM Gateway Router wasn't the headline feature. It was the failure handling design. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints Would you optimize Architecting a Resilient Multi-Provider LLM Gateway for latency or cost here if LLM Gateway Router request volume doubled? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:29:46.185Z",
+    "engagementMetrics": {
+      "impressions": 228,
+      "reactions": 33,
+      "comments": 7,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 16,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:119120953",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "I thought our Backend Engineering query path was slow. It wasn't.",
+    "fullText": "I thought our Backend Engineering query path was slow. It wasn't. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 800ms reduction). JavaScript leaks are reference leaks At what point in Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services would you introduce a queue instead of synchronous retry loops for Backend Engineering? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:29:44.978Z",
+    "engagementMetrics": {
+      "impressions": 303,
+      "reactions": 41,
+      "comments": 6,
+      "shares": 2,
+      "saves": 3,
+      "profileVisits": 11,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:759639284",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput.",
+    "fullText": "The initial feature implementation worked correctly. It just didn't work fast enough to meet our p99 latency SLA under peak throughput. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 800ms reduction). JavaScript leaks are reference leaks What tradeoffs have you made when long-running node.js services? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:29:43.724Z",
+    "engagementMetrics": {
+      "impressions": 269,
+      "reactions": 29,
+      "comments": 4,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 13,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:813116162",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "Refactoring our Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services pipeline to synchronous execution counter-intuitively made it 4x faster. Before: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Target: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Change: Option B: heap snapshot comparison to locate persistent closure scopes After: Memory growth eliminated Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows JavaScript leaks are reference leaks How does your team handle the Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services trade-off when scaling Backend Engineering under load? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:29:42.911Z",
+    "engagementMetrics": {
+      "impressions": 296,
+      "reactions": 42,
+      "comments": 7,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 9,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:241904103",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters.",
+    "fullText": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How does your team handle the Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale trade-off when scaling Databases under load? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:29:40.450Z",
+    "engagementMetrics": {
+      "impressions": 306,
+      "reactions": 32,
+      "comments": 3,
+      "shares": 5,
+      "saves": 4,
+      "profileVisits": 12,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:862241354",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "The Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos implementation was technically correct. The system was still wrong under load. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Constraint: Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) Approach: Option B: Compiler reference hierarchy with incremental declaration mapping Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity CI type check time reduced from 8 (78% / 800ms) Lesson: Monorepo scaling requires compiler isolation What tradeoffs have you made when large typescript monorepos? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:29:39.284Z",
+    "engagementMetrics": {
+      "impressions": 266,
+      "reactions": 35,
+      "comments": 5,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 12,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:333298465",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "I thought our Databases query path was slow. It wasn't.",
+    "fullText": "I thought our Databases query path was slow. It wasn't. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas What tradeoffs have you made when at petabyte scale? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:29:36.178Z",
+    "engagementMetrics": {
+      "impressions": 319,
+      "reactions": 35,
+      "comments": 4,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 10,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:589184136",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "Our Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale integration test suite was completely green. The workflow still failed under real load. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas What tradeoffs have you made when at petabyte scale? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:29:35.288Z",
+    "engagementMetrics": {
+      "impressions": 200,
+      "reactions": 23,
+      "comments": 8,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 19,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:866179236",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable.",
+    "fullText": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries What tradeoffs have you made when zero-cve production images? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:29:33.506Z",
+    "engagementMetrics": {
+      "impressions": 180,
+      "reactions": 35,
+      "comments": 3,
+      "shares": 5,
+      "saves": 2,
+      "profileVisits": 19,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:352759737",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "When should an engineering architecture for Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos give up on synchronous execution?",
+    "fullText": "When should an engineering architecture for Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos give up on synchronous execution? Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation What telemetry would you instrument before shipping this Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos change for TypeScript 5.7 to production? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:29:33.282Z",
+    "engagementMetrics": {
+      "impressions": 206,
+      "reactions": 47,
+      "comments": 5,
+      "shares": 3,
+      "saves": 3,
+      "profileVisits": 11,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:805124252",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "There were two technically sound ways to structure DevOps. Neither option was free.",
+    "fullText": "There were two technically sound ways to structure DevOps. Neither option was free. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries How do you handle this Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images failure mode in your DevOps systems when downstream services stall? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:29:31.547Z",
+    "engagementMetrics": {
+      "impressions": 185,
+      "reactions": 47,
+      "comments": 7,
+      "shares": 5,
+      "saves": 3,
+      "profileVisits": 17,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:725966448",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable.",
+    "fullText": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Constraint: Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) Approach: Option B: Multi-stage distroless base image transition with Buildx target isolation Tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms / 240ms) Lesson: Secure container design means shipping only execution binaries How does your team handle the Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images trade-off when scaling DevOps under load? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:29:30.594Z",
+    "engagementMetrics": {
+      "impressions": 212,
+      "reactions": 43,
+      "comments": 5,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 10,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:138278713",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "Most engineers adopt Databases for developer velocity. The actual high-value advantage is architectural state isolation.",
+    "fullText": "Most engineers adopt Databases for developer velocity. The actual high-value advantage is architectural state isolation. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas Where would your team draw the boundary between stateful caching and the Databases database source of truth in Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:26:27.369Z",
+    "engagementMetrics": {
+      "impressions": 321,
+      "reactions": 44,
+      "comments": 4,
+      "shares": 2,
+      "saves": 3,
+      "profileVisits": 13,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:494087520",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Refactoring our Architecting a Resilient Multi-Provider LLM Gateway pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Architecting a Resilient Multi-Provider LLM Gateway pipeline to synchronous execution counter-intuitively made it 4x faster. Context: Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Goal: Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) Decision: Option B: Multi-provider dynamic fallback gateway with token bucket tracking Tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling Outcome: Pipeline execution reliability increased to 99 (94% vs 34%) Conclusion: External model APIs must be treated as volatile endpoints What telemetry would you instrument before shipping this Architecting a Resilient Multi-Provider LLM Gateway change for LLM Gateway Router to production? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:26:19.363Z",
+    "engagementMetrics": {
+      "impressions": 324,
+      "reactions": 23,
+      "comments": 5,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 17,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:655374291",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "Most engineers adopt TypeScript 5.7 for developer velocity. The actual high-value advantage is architectural state isolation.",
+    "fullText": "Most engineers adopt TypeScript 5.7 for developer velocity. The actual high-value advantage is architectural state isolation. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation How do you handle this Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos failure mode in your TypeScript 5.7 systems when downstream services stall? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:26:16.712Z",
+    "engagementMetrics": {
+      "impressions": 291,
+      "reactions": 45,
+      "comments": 3,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 12,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:241270119",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Most discussions about Architecting a Resilient Multi-Provider LLM Gateway focus on initial setup speed. Very few talk about what happens when downstream services fail silently.",
+    "fullText": "Most discussions about Architecting a Resilient Multi-Provider LLM Gateway focus on initial setup speed. Very few talk about what happens when downstream services fail silently. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints What tradeoffs have you made when and cost optimization? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:26:14.149Z",
+    "engagementMetrics": {
+      "impressions": 229,
+      "reactions": 27,
+      "comments": 6,
+      "shares": 3,
+      "saves": 4,
+      "profileVisits": 9,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:915439031",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "Architecting a Resilient Multi-Provider LLM Gateway introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters.",
+    "fullText": "Architecting a Resilient Multi-Provider LLM Gateway introduced new architecture patterns. The headline features are nice, but the underlying operational boundary is what actually matters. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints What telemetry would you instrument before shipping this Architecting a Resilient Multi-Provider LLM Gateway change for LLM Gateway Router to production? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-10-13T15:26:13.460Z",
+    "engagementMetrics": {
+      "impressions": 252,
+      "reactions": 21,
+      "comments": 3,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 11,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:501310289",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 800ms reduction). JavaScript leaks are reference leaks Where would your team draw the boundary between stateful caching and the Backend Engineering database source of truth in Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:26:12.969Z",
+    "engagementMetrics": {
+      "impressions": 264,
+      "reactions": 28,
+      "comments": 6,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 10,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:437520492",
+    "title": "Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "Open Source",
+    "supportingTech": [
+      "TypeScript",
+      "Open Source"
+    ],
+    "keywords": [
+      "TypeScript",
+      "Open Source"
+    ],
+    "hook": "The most useful part of Open Source wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of Open Source wasn't the headline feature. It was the failure handling design. Context: Resolving hierarchical dependency structures in content organization trees. (Trigger: A single updates triggered a revalidation storm, blocking database connection pools.) Goal: Design a deterministic graph resolution engine that runs in constant time. (Constraints: Must detect circular dependencies at authoring time, No blocking locks on active read channels) Decision: Option B: Memory-mapped Directed Acyclic Graph resolver using topological sorted node indexes Tradeoff: Chosen: In-memory DAG solver, Sacrificed: Database simplicity — required explicit application-level graph synchronization Outcome: Graph resolution time dropped from 340ms to 28ms, and revalidation events decreased by 87% (340ms vs 28ms) Conclusion: Relational databases are poor graph processors How do you handle this Designing Deterministic Dependency Graph Engines for High-Concurrency Content Resolution failure mode in your Open Source systems when downstream services stall? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:26:10.942Z",
+    "engagementMetrics": {
+      "impressions": 183,
+      "reactions": 47,
+      "comments": 4,
+      "shares": 2,
+      "saves": 3,
+      "profileVisits": 10,
+      "followersGained": 3
+    }
+  },
+  {
+    "id": "urn:li:share:237186980",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services implementation was technically correct. The system was still wrong under load. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 800ms reduction). JavaScript leaks are reference leaks Where would your team draw the boundary between stateful caching and the Backend Engineering database source of truth in Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:26:08.603Z",
+    "engagementMetrics": {
+      "impressions": 191,
+      "reactions": 40,
+      "comments": 6,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 12,
+      "followersGained": 8
+    }
+  },
+  {
+    "id": "urn:li:share:102388173",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "Refactoring our Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services pipeline to synchronous execution counter-intuitively made it 4x faster. Before: Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Target: Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) Change: Option B: heap snapshot comparison to locate persistent closure scopes After: Memory growth eliminated Tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Immediate strict consistency during cache propagation windows JavaScript leaks are reference leaks How does your team handle the Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services trade-off when scaling Backend Engineering under load? #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-10-13T15:26:06.451Z",
+    "engagementMetrics": {
+      "impressions": 228,
+      "reactions": 45,
+      "comments": 7,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 19,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:765916814",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "I expected TypeScript 5.7 to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts.",
+    "fullText": "I expected TypeScript 5.7 to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation How does your team handle the Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos trade-off when scaling TypeScript 5.7 under load? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:26:06.315Z",
+    "engagementMetrics": {
+      "impressions": 257,
+      "reactions": 28,
+      "comments": 4,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 9,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:140402983",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "I thought our Databases query path was slow. It wasn't.",
+    "fullText": "I thought our Databases query path was slow. It wasn't. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) We resolved this by using Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution, accepting the tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code. This yielded: Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% improvement, 800ms reduction). Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How does your team handle the Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale trade-off when scaling Databases under load? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:26:05.757Z",
+    "engagementMetrics": {
+      "impressions": 247,
+      "reactions": 33,
+      "comments": 7,
+      "shares": 4,
+      "saves": 3,
+      "profileVisits": 8,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:643182421",
+    "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
+    "platform": "LINKEDIN",
+    "category": "C++",
+    "framework": "Databases",
+    "supportingTech": [
+      "C++",
+      "Databases"
+    ],
+    "keywords": [
+      "C++",
+      "Databases"
+    ],
+    "hook": "Adding a cache layer to Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale made the system less reliable.",
+    "fullText": "Adding a cache layer to Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale made the system less reliable. Refactoring architectural boundaries around Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale to improve service maintainability and isolation bounds. (Trigger: Integrating Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale required modifying internal execution modules, signaling hidden domain coupling.) Constraint: Decouple the Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale domain to establish explicit schema-driven boundaries. (Constraints: Maintain backward compatibility for active API callers, Zero downtime during system boundary migration) Approach: Option B: Schema-driven modular boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale with decoupled domain execution Tradeoff: Chosen: Schema-driven boundaries for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale, Sacrificed: Initial setup speed — required upfront schema design before feature code Achieved complete domain separation for Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale; compile times dropped and regressions decreased by 80% (80% / 800ms) Lesson: Domain complexity in Designing Columnar Analytics Schema for SubSecond Query Performance at Petabyte Scale must be controlled at component boundaries via explicit schemas How do you handle this Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale failure mode in your Databases systems when downstream services stall? #SoftwareEngineering #SystemDesign #DesigningEngineering",
+    "publishedAt": "2026-10-13T15:26:03.918Z",
+    "engagementMetrics": {
+      "impressions": 296,
+      "reactions": 25,
+      "comments": 6,
+      "shares": 2,
+      "saves": 4,
+      "profileVisits": 19,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:484427577",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable.",
+    "fullText": "Adding a cache layer to Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images made the system less reliable. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries What tradeoffs have you made when zero-cve production images? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:26:02.175Z",
+    "engagementMetrics": {
+      "impressions": 220,
+      "reactions": 48,
+      "comments": 3,
+      "shares": 4,
+      "saves": 3,
+      "profileVisits": 16,
+      "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:376009631",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure.",
+    "fullText": "The telemetry logs pointed to network latency. The system was actually failing due to thread pool exhaustion under heavy backpressure. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: Explicit boundary decoupling, Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 800ms reduction). Monorepo scaling requires compiler isolation Where would your team draw the boundary between stateful caching and the TypeScript 5.7 database source of truth in Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos? #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-10-13T15:26:00.310Z",
+    "engagementMetrics": {
+      "impressions": 205,
+      "reactions": 32,
+      "comments": 7,
+      "shares": 5,
+      "saves": 3,
+      "profileVisits": 17,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:585877741",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries Would you optimize Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images for latency or cost here if DevOps request volume doubled? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:25:56.736Z",
+    "engagementMetrics": {
+      "impressions": 242,
+      "reactions": 42,
+      "comments": 3,
+      "shares": 4,
+      "saves": 4,
+      "profileVisits": 16,
+      "followersGained": 7
+    }
+  },
+  {
+    "id": "urn:li:share:422123405",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images implementation was technically correct. The system was still wrong under load. Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) We resolved this by using Option B: Multi-stage distroless base image transition with Buildx target isolation, accepting the tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging. This yielded: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities (800ms improvement, 240ms reduction). Secure container design means shipping only execution binaries How does your team handle the Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images trade-off when scaling DevOps under load? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-10-13T15:25:56.506Z",
+    "engagementMetrics": {
+      "impressions": 277,
+      "reactions": 28,
+      "comments": 8,
+      "shares": 4,
+      "saves": 2,
+      "profileVisits": 8,
+      "followersGained": 8
+    }
+  },
+  {
     "id": "urn:li:share:307093360",
     "title": "Designing Columnar Analytics Schema for Sub-Second Query Performance at Petabyte Scale",
     "platform": "LINKEDIN",

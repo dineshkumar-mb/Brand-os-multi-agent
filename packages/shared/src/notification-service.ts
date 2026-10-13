@@ -14,6 +14,17 @@ export interface AutomationRunStatus {
   winnerTitle?: string;
   candidatesEvaluated?: number;
   overallScore?: number;
+  topicNoveltyScore?: number;
+  recruiterAttractionScore?: number;
+  demonstratedSkills?: string[];
+  analyticsAnalysisId?: string;
+  analyticsConfidence?: number;
+  publishMode?: string;
+  externalPostId?: string;
+  postUrl?: string;
+  retryAttempts?: number;
+  nextScheduledRun?: string;
+  stageStatuses?: Record<string, string>;
   rejectionReasons?: string[];
   errorMessage?: string;
   publishedPlatforms?: string[];

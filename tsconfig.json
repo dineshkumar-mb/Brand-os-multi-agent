@@ -8,8 +8,11 @@
       "@brand-os/shared": ["./packages/shared/dist/index.d.ts"],
       "@brand-os/database": ["./packages/database/dist/index.d.ts"],
       "@brand-os/agents": ["./packages/agents/dist/index.d.ts"],
+      "@brand-os/intelligence": ["./packages/intelligence/dist/index.d.ts"],
       "@brand-os/analytics": ["./packages/analytics/dist/index.d.ts"],
-      "@brand-os/publisher": ["./packages/publisher/dist/index.d.ts"]
+      "@brand-os/publisher": ["./packages/publisher/dist/index.d.ts"],
+      "@brand-os/scheduler": ["./packages/scheduler/dist/index.d.ts"],
+      "@brand-os/ai-gateway": ["./packages/ai-gateway/dist/index.d.ts"]
     },
     "jsx": "react-jsx",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
@@ -32,5 +35,5 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules", "dist", "build"]
+  "exclude": ["node_modules", "dist", "build", "client", "scratch"]
 }

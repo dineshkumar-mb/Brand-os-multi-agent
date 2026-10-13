@@ -104,7 +104,7 @@ async function main() {
   for (const b of benchmarks) {
     await prisma.modelBenchmark.upsert({
       where: { provider_model: { provider: b.provider as any, model: b.model } },
-      update: b,
+      update: b as any,
       create: b as any,
     });
   }

@@ -9,6 +9,7 @@ import {
 import { multiSourceCollectorEngine } from "../collectors/engine.js";
 import { freshTrendDiscoveryEngine } from "./fresh-trend-discovery.js";
 import { experienceMatcher } from "../knowledge/experience-matcher.js";
+import { skillEvidenceRegistry } from "../knowledge/skill-evidence-registry.js";
 
 export class CandidateCompetitionEngine {
   private calculateCosineSim(vecA: number[], vecB: number[]): number {
@@ -348,7 +349,8 @@ export class CandidateCompetitionEngine {
 
 
   public async collectAndRankCandidates(
-    history: HistoricalPostRecord[] = []
+    history: HistoricalPostRecord[] = [],
+    analyticsDecision?: any
   ): Promise<{
     top5Matrix: Top5MatrixResult | null;
     rawCount: number;
@@ -360,6 +362,9 @@ export class CandidateCompetitionEngine {
     allEvaluatedCandidates: CandidateOpportunityRecord[];
   }> {
     console.log("[Candidate Competition Engine] Collecting 30+ raw candidates from global sources...");
+    if (analyticsDecision?.analysisId) {
+      console.log(`[Candidate Competition Engine] Active Analytics Strategy attached: ID ${analyticsDecision.analysisId} (Confidence: ${analyticsDecision.confidence}%, Signal: ${analyticsDecision.sampleSizeSignal || "EVALUATED"})`);
+    }
 
     const rawSignals = await multiSourceCollectorEngine.collectAllSignals();
     const rawCount = rawSignals.length;
@@ -422,11 +427,14 @@ export class CandidateCompetitionEngine {
         rejectionReasons.push(`SEMANTIC_REPETITION: High semantic overlap (${(maxSemSim * 100).toFixed(1)}%) with recent post "${mostSimilarPostTitle}".`);
       }
 
-      // 1b. Technology / Framework Cooldown Check (5 days)
+      // 1b. Technology / Framework Cooldown Check (5 days + analytics fatigue extension)
       const now = Date.now();
+      const techExtDays = analyticsDecision?.cooldownExtensionDays?.[framework] || 0;
+      const techCooldownLimit = Math.max(5.0, techExtDays);
+
       const recentTechMatch = history.find((p) => {
         const daysAgo = Math.max(0, (now - new Date(p.publishedAt || now).getTime()) / (1000 * 60 * 60 * 24));
-        if (daysAgo > 5.0) return false;
+        if (daysAgo > techCooldownLimit) return false;
         const pTech = (p.framework || "").toLowerCase();
         const candTech = framework.toLowerCase();
         const pTitle = (p.title || "").toLowerCase();
@@ -444,20 +452,23 @@ export class CandidateCompetitionEngine {
 
       if (recentTechMatch) {
         rejectionReasons.push(
-          `TECHNOLOGY_COOLDOWN: Framework "${framework}" was featured in recent post "${recentTechMatch.title}" within the 5-day cooldown window.`
+          `TECHNOLOGY_COOLDOWN: Framework "${framework}" was featured in recent post "${recentTechMatch.title}" within the ${techCooldownLimit}-day cooldown window.`
         );
       }
 
-      // 1c. Category Cooldown Check (3 days)
+      // 1c. Category Cooldown Check (3 days + analytics fatigue extension)
+      const catExtDays = analyticsDecision?.cooldownExtensionDays?.[category] || 0;
+      const catCooldownLimit = Math.max(3.0, catExtDays);
+
       const recentCatMatch = history.find((p) => {
         const daysAgo = Math.max(0, (now - new Date(p.publishedAt || now).getTime()) / (1000 * 60 * 60 * 24));
-        if (daysAgo > 3.0) return false;
+        if (daysAgo > catCooldownLimit) return false;
         return (p.category || "").toLowerCase() === category.toLowerCase();
       });
 
       if (recentCatMatch) {
         rejectionReasons.push(
-          `CATEGORY_COOLDOWN: Category "${category}" was featured in recent post "${recentCatMatch.title}" within the 3-day cooldown window.`
+          `CATEGORY_COOLDOWN: Category "${category}" was featured in recent post "${recentCatMatch.title}" within the ${catCooldownLimit}-day cooldown window.`
         );
       }
 
@@ -476,8 +487,25 @@ export class CandidateCompetitionEngine {
         rejectionReasons.push(freshEval.reason || "STALE_CANDIDATE: Exceeds freshness category limit.");
       }
 
-      // 4. Score 13 Components
-      const careerRelevance = Math.min(100, (sourceLevel === 1 ? 95 : 85) + (sig.content.includes("production") ? 10 : 0));
+      // 4. Analytics Feedback Adjustments (Weights & Fatigue Penalties)
+      const categoryWeightBonus = analyticsDecision?.topicWeightAdjustments?.[category] || 0;
+      const categoryPenalty = analyticsDecision?.topicPenalties?.[category] || 0;
+      const frameworkPenalty = analyticsDecision?.topicPenalties?.[framework] || 0;
+      const totalAnalyticsAdj = categoryWeightBonus + categoryPenalty + frameworkPenalty;
+
+      // 5. Recruiter Attraction Evaluation (Skill Evidence, Role Relevance, Differentiation)
+      const recruiterAttraction = skillEvidenceRegistry.evaluateRecruiterAttraction({
+        title: candidateTitle,
+        category,
+        framework,
+        tags,
+        problem: problemExtracted.problemTitle,
+        evidenceCount: sig.url ? 1 : 0,
+        hasTradeoffs: problemExtracted.engineeringTensions.length > 0,
+      });
+
+      const rawCareer = (sourceLevel === 1 ? 95 : 85) + (sig.content.includes("production") ? 10 : 0);
+      const careerRelevance = Math.min(100, Math.max(20, Math.round(rawCareer * (1 + totalAnalyticsAdj))));
       const technicalImportance = Math.min(100, 75 + (tags.length * 4));
       const sourceAuthority = sourceLevel === 1 ? 98 : sourceLevel === 2 ? 88 : sourceLevel === 3 ? 75 : 60;
       const originality = topicNoveltyScore;
@@ -485,7 +513,6 @@ export class CandidateCompetitionEngine {
       const contentGap = 80;
       const developerAdoption = 85;
 
-      // NEW 3 Dimensions:
       // Proof Availability: presence of code snippets, diagrams, benchmark, official docs or commit links
       const proofAvailability = Math.min(100, 70 + (sig.url ? 15 : 0) + (sig.content.includes("code") || sig.content.includes("benchmark") ? 15 : 5));
 
@@ -497,19 +524,20 @@ export class CandidateCompetitionEngine {
       // Career Differentiation: attraction score for CTOs, Engineering Managers, and Hiring Leaders
       const careerDifferentiation = Math.min(100, 75 + (experienceMatchScore > 50 ? 15 : 0) + (sourceLevel === 1 ? 10 : 0));
 
-      // Composite 13-Dimension Weighted Score
+      // Composite 13-Dimension Weighted Score including RecruiterAttractionScore
       const overallScore = Math.round(
-        careerRelevance * 0.15 +
-        experienceMatchScore * 0.20 +
-        technicalImportance * 0.10 +
-        sourceAuthority * 0.10 +
+        careerRelevance * 0.12 +
+        experienceMatchScore * 0.18 +
+        recruiterAttraction.score * 0.15 +
+        technicalImportance * 0.08 +
+        sourceAuthority * 0.08 +
         originality * 0.08 +
-        trendVelocity * 0.07 +
-        freshnessScore * 0.10 +
+        trendVelocity * 0.06 +
+        freshnessScore * 0.08 +
         topicNoveltyScore * 0.05 +
-        proofAvailability * 0.05 +
-        engineeringTension * 0.05 +
-        careerDifferentiation * 0.05
+        proofAvailability * 0.04 +
+        engineeringTension * 0.04 +
+        careerDifferentiation * 0.02
       );
 
       const scores: CandidateOpportunityScores = {
@@ -526,6 +554,7 @@ export class CandidateCompetitionEngine {
         proofAvailability,
         engineeringTension,
         careerDifferentiation,
+        recruiterAttraction: recruiterAttraction.score,
         overallScore,
       };
 
@@ -546,6 +575,9 @@ export class CandidateCompetitionEngine {
         proofAvailabilityScore: proofAvailability,
         engineeringTensionScore: engineeringTension,
         careerDifferentiationScore: careerDifferentiation,
+        recruiterAttractionScore: recruiterAttraction.score,
+        recruiterAttractionRationale: recruiterAttraction.rationale,
+        demonstratedSkills: recruiterAttraction.demonstratedSkills,
         rejectionReasons,
       });
     }

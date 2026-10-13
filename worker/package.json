@@ -12,7 +12,8 @@
     "@brand-os/database": "workspace:*",
     "@brand-os/agents": "workspace:*",
     "@brand-os/ai-gateway": "workspace:*",
-    "@brand-os/publisher": "workspace:*"
+    "@brand-os/publisher": "workspace:*",
+    "@brand-os/scheduler": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

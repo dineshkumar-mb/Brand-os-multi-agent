@@ -239,6 +239,7 @@ export interface CandidateOpportunityScores {
   proofAvailability: number;
   engineeringTension: number;
   careerDifferentiation: number;
+  recruiterAttraction?: number;
   overallScore: number;
 }
 
@@ -328,6 +329,9 @@ export interface CandidateOpportunityRecord {
   proofAvailabilityScore: number;
   engineeringTensionScore: number;
   careerDifferentiationScore: number;
+  recruiterAttractionScore?: number;
+  recruiterAttractionRationale?: string;
+  demonstratedSkills?: string[];
   rejectionReasons: string[];
 }
 
@@ -1738,6 +1742,11 @@ export interface LinkedInAnalyticsDecision {
   confidence: number;
   dataQuality: "HIGH" | "MEDIUM" | "LOW" | "INSUFFICIENT";
   generatedAt: string;
+  sampleSizeSignal?: "INSUFFICIENT_DATA" | "EXPERIMENTAL_SIGNAL" | "STRATEGY_SIGNAL" | "PERSISTENT_PATTERN";
+  recommendedFormat?: string;
+  recommendedVisualType?: string;
+  recommendedVisualStrategy?: string;
+  visualStrategy?: string;
   topicWeightAdjustments?: Record<string, number>;
   topicPenalties?: Record<string, number>;
   cooldownExtensionDays?: Record<string, number>;

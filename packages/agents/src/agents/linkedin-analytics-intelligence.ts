@@ -32,6 +32,47 @@ export const DEFAULT_CAREER_OUTCOME_WEIGHTS: WeightedCareerOutcomeWeights = {
   qualityEngagement: 0.05,       // 5%
 };
 
+export type SampleSizeSignal = "INSUFFICIENT_DATA" | "EXPERIMENTAL_SIGNAL" | "STRATEGY_SIGNAL" | "PERSISTENT_PATTERN";
+
+/**
+ * Operational sample-size signal thresholds for feedback recommendations:
+ * - < 3 posts: INSUFFICIENT_DATA
+ * - 3–4 posts: EXPERIMENTAL_SIGNAL
+ * - 5–9 posts: STRATEGY_SIGNAL
+ * - 10+ posts: PERSISTENT_PATTERN
+ */
+export function evaluateSampleSizeSignal(sampleSize: number): SampleSizeSignal {
+  if (sampleSize < 3) return "INSUFFICIENT_DATA";
+  if (sampleSize <= 4) return "EXPERIMENTAL_SIGNAL";
+  if (sampleSize < 10) return "STRATEGY_SIGNAL";
+  return "PERSISTENT_PATTERN";
+}
+
+/**
+ * Converts persisted HistoricalPostRecord items into normalized LinkedInPostAnalyticsData.
+ * Preserves missing metrics as null without fabricating data.
+ */
+export function convertHistoryToAnalyticsData(history: any[] = []): LinkedInPostAnalyticsData[] {
+  return history.map((p) => ({
+    postId: p.id || `post_${Date.now()}`,
+    title: p.title || "Technical Post",
+    text: p.fullText || p.title || "",
+    topic: p.title || "Technical Topic",
+    category: p.category || "AI Engineering",
+    technology: p.framework || p.supportingTech?.[0] || "Architecture",
+    format: p.writingStyle || "PRODUCTION_INCIDENT",
+    hook: p.hook || null,
+    publishedAt: p.publishedAt || new Date().toISOString(),
+    impressions: p.engagementMetrics?.impressions ?? null,
+    likes: p.engagementMetrics?.reactions ?? null,
+    comments: p.engagementMetrics?.comments ?? null,
+    shares: p.engagementMetrics?.shares ?? null,
+    saves: p.engagementMetrics?.saves ?? null,
+    profileViews: p.engagementMetrics?.profileVisits ?? null,
+    followersGained: p.engagementMetrics?.followersGained ?? null,
+  }));
+}
+
 export class LinkedInAnalyticsIntelligenceAgent {
   /**
    * Normalizes post analytics metrics into rates per impression and calculates
@@ -265,8 +306,17 @@ export class LinkedInAnalyticsIntelligenceAgent {
     const next5Posts = this.generateNextStrategyRoadmap(5, strategyDecisions, topicPerformance);
 
     const confidence = Math.min(95, 40 + sampleSize * 8);
+    const sampleSizeSignal = evaluateSampleSizeSignal(sampleSize);
+    const recommendedFormat = next3Posts[0]?.suggestedFormat || "PRODUCTION_INCIDENT";
+    const recommendedVisualType = next3Posts[0]?.suggestedVisualType || "ARCHITECTURE_DIAGRAM";
+    const recommendedHookCategory = hookPerformance[0]?.hookCategory || "Production incident";
 
-    const decision: LinkedInAnalyticsDecision = {
+    const decision: LinkedInAnalyticsDecision & {
+      sampleSizeSignal?: SampleSizeSignal;
+      recommendedFormat?: string;
+      recommendedVisualType?: string;
+      recommendedHookCategory?: string;
+    } = {
       analysisId: `analytics_${Date.now()}`,
       period: {
         start: cutoffDate.toISOString(),
@@ -292,6 +342,10 @@ export class LinkedInAnalyticsIntelligenceAgent {
       topicWeightAdjustments,
       topicPenalties,
       cooldownExtensionDays,
+      sampleSizeSignal,
+      recommendedFormat,
+      recommendedVisualType,
+      recommendedHookCategory,
     };
 
     return {

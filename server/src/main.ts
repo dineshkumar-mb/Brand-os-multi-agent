@@ -37,7 +37,7 @@ import { analyticsService } from "@brand-os/analytics";
 const app: Application = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet({ contentSecurityPolicy: false }) as any);
 app.use(cors({ origin: "*" }));
 app.use(express.json({ limit: "10mb" }));
 
@@ -311,6 +311,12 @@ app.get("/api/v1/schedule/cron-weekly", async (_req: Request, res: Response) => 
       status: "SUCCESS",
       winnerTitle: result.topic?.title,
       overallScore,
+      topicNoveltyScore: qg?.topicNovelty,
+      recruiterAttractionScore: result.dailyIntelligenceSummary?.scores?.recruiterAttraction,
+      demonstratedSkills: result.topic?.supportingTech,
+      publishMode: pubMode,
+      externalPostId: pubResult?.externalId,
+      postUrl: pubResult?.url,
       publishedPlatforms: [isSimulation ? "SIMULATION" : "LinkedIn"],
     });
 

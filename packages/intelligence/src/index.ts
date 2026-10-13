@@ -19,6 +19,7 @@ export * from "./deduplication/canonical-event.js";
 export * from "./verification/claim-verifier.js";
 export * from "./signals/why-care-analyzer.js";
 export * from "./knowledge/experience-matcher.js";
+export * from "./knowledge/skill-evidence-registry.js";
 export * from "./ranking/topic-scorer.js";
 export * from "./ranking/content-opportunity.js";
 export * from "./ranking/do-not-publish.js";

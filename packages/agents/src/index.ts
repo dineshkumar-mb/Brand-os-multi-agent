@@ -51,6 +51,7 @@ export * from "./agents/post-deduplication";
 export * from "./agents/linkedin-algorithm-auditor";
 export * from "./agents/linkedin-comment-drafter";
 export * from "./agents/linkedin-analytics-intelligence";
+export * from "./agents/skill-evidence-registry";
 
 import { TrendDiscoveryAgent } from "./agents/trend-discovery";
 import { TopicIntelligenceAgent } from "./agents/topic-intelligence";
@@ -82,6 +83,8 @@ import { PostHistoryDeduplicationAgent } from "./agents/post-deduplication";
 import { LinkedInAlgorithmAuditor } from "./agents/linkedin-algorithm-auditor";
 import { LinkedInCommentDrafterAgent } from "./agents/linkedin-comment-drafter";
 import { writingMemoryTracker } from "./agents/writing-memory";
+import { linkedinAnalyticsIntelligenceAgent, convertHistoryToAnalyticsData } from "./agents/linkedin-analytics-intelligence";
+import { skillEvidenceRegistry } from "./agents/skill-evidence-registry";
 
 // ==========================================
 // DECOUPLED EVENT BUS & MEMORY
@@ -303,8 +306,20 @@ export class AgentOrchestrator {
     this.postDeduplicationAgent.setHistory(history);
     topicNoveltyEngine.setHistory(history);
 
+    // Layer 0: LinkedIn Analytics Intelligence Feedback Loop
+    const analyticsPosts = convertHistoryToAnalyticsData(history);
+    const analyticsRes = linkedinAnalyticsIntelligenceAgent.analyze(analyticsPosts);
+    const analyticsDecision = analyticsRes.data;
+
+    console.log(
+      `[Pipeline ID: ${pipelineId}][Analytics Feedback Loop] Analysis ID: ${analyticsDecision.analysisId} | ` +
+      `Evaluated ${analyticsDecision.sampleSize} Historical Posts | ` +
+      `Signal: ${analyticsDecision.sampleSizeSignal || "EVALUATED"} | ` +
+      `Confidence: ${analyticsDecision.confidence}%`
+    );
+
     // Layer 1 & 3: Candidate Competition Engine (30+ candidates -> Top 5 -> 1 Winner)
-    const competitionRes = await candidateCompetitionEngine.collectAndRankCandidates(history);
+    const competitionRes = await candidateCompetitionEngine.collectAndRankCandidates(history, analyticsDecision);
     const top5Matrix = competitionRes.top5Matrix;
 
     if (!top5Matrix || !top5Matrix.winner) {
@@ -422,8 +437,8 @@ export class AgentOrchestrator {
         targetPainPoints: audienceRes.data?.keyPainPoints || [],
         keyMotivations: ["System Architecture", "Performance Optimization"],
       },
-      // Rotate format using writing memory — never repeat same format as recent 7 posts
-      format: writingMemoryTracker.selectFreshFormatStyle(),
+      // Rotate format using writing memory and analytics feedback strategy
+      format: (analyticsDecision.recommendedFormat as FormatStyle) || writingMemoryTracker.selectFreshFormatStyle(),
       previousFormats: writingMemoryTracker.getHistory(7)
         .map((m) => m.formatStyle)
         .filter((f): f is FormatStyle => Boolean(f)),
@@ -460,11 +475,15 @@ export class AgentOrchestrator {
 
     // Layer 4: Visual Novelty Agent (15 Visual Formats, vector embeddings, rotation)
     const visualNoveltyRes = visualNoveltyAgent.evaluateAndPlanVisual(selectedTopic, linkedInPost.fullText, pipelineId);
+    const chosenVisualType = (analyticsDecision.fatigue?.visualFatigue > 60 && analyticsDecision.recommendedVisualType
+      ? (analyticsDecision.recommendedVisualType as VisualType)
+      : null) || visualNoveltyRes.data.selectedVisualType;
+
     const visualPlanRes = this.visualPlanningAgent.createVisualPlan(
       selectedTopic,
       pipelineId,
       linkedInPost.fullText,
-      visualNoveltyRes.data.selectedVisualType
+      chosenVisualType
     );
 
     if (visualPlanRes.data.renderedSvg) {
@@ -660,6 +679,12 @@ export class AgentOrchestrator {
         fullText: linkedInPost.fullText,
         publishedAt: new Date().toISOString(),
       });
+
+      // Record demonstrated skills in SkillEvidenceRegistry
+      const skillsToRecord = winningCand.demonstratedSkills || [selectedTopic.category, selectedTopic.framework || ""];
+      for (const sk of skillsToRecord) {
+        if (sk) skillEvidenceRegistry.recordSkillDemonstration(sk, publishResult?.externalId || `post_${Date.now()}`);
+      }
     }
 
     return {
@@ -904,6 +929,12 @@ export class AgentOrchestrator {
         fullText: linkedInPost.fullText,
         publishedAt: new Date().toISOString(),
       });
+
+      // Record demonstrated skills in SkillEvidenceRegistry
+      const fallbackSkills = selectedTopic.supportingTech || [selectedTopic.category, selectedTopic.framework || ""];
+      for (const sk of fallbackSkills) {
+        if (sk) skillEvidenceRegistry.recordSkillDemonstration(sk, publishResult?.externalId || `post_fallback_${Date.now()}`);
+      }
     }
 
     const dailyIntelligenceSummary: DailyIntelligenceSummary = {

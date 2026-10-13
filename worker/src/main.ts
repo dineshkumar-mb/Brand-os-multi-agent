@@ -1,131 +1,244 @@
-import "dotenv/config";
+import path from "path";
+import fs from "fs";
+
+// Load environment variables from file if present
+function loadEnvFile(envPath: string) {
+  if (!fs.existsSync(envPath)) return;
+  try {
+    const content = fs.readFileSync(envPath, "utf-8");
+    for (const rawLine of content.split("\n")) {
+      const line = rawLine.trim();
+      if (!line || line.startsWith("#")) continue;
+      const eqIdx = line.indexOf("=");
+      if (eqIdx > 0) {
+        const key = line.slice(0, eqIdx).trim();
+        let val = line.slice(eqIdx + 1).trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        process.env[key] = val;
+      }
+    }
+  } catch {
+    // Non-blocking env parse failure
+  }
+}
+
+// Resolve environment variables from all possible locations
+const possibleEnvPaths = [
+  path.resolve(process.cwd(), ".env"),
+  path.resolve(process.cwd(), "../.env"),
+  path.resolve(__dirname, "../../.env"),
+  path.resolve(__dirname, "../../../.env"),
+];
+
+for (const envPath of possibleEnvPaths) {
+  loadEnvFile(envPath);
+}
 
 // ============================================================
-// CAREER BRAND OS — Background Worker
+// CAREER BRAND OS — Background Worker & Autonomous Scheduler
 // ============================================================
-// IMPORTANT:
-//   This worker does NOT run the content generation pipeline
-//   on a schedule. Content generation is triggered exclusively
-//   by Vercel Cron → GET /api/v1/schedule/cron-weekly
-//   (Tuesday + Thursday at 03:30 UTC = 09:00 IST by default).
-//
-//   The worker's responsibilities:
-//   1. Health monitoring (keepalive, log heartbeats)
-//   2. Manual-trigger endpoint proxy (if needed in local dev)
-//   3. Does NOT call agentOrchestrator.executePipeline() on start
-//   4. Does NOT use setInterval to repeatedly run the pipeline
+// Execution Model:
+//   1. Autonomous Worker Scheduler: Runs inside this process, checking every
+//      30 seconds if the current moment matches the configured generation
+//      window (Tuesday + Thursday at 09:00 IST / Asia/Kolkata).
+//   2. Vercel Cron Endpoint: Also supported via GET /api/v1/schedule/cron-weekly.
+//   3. Distributed Idempotency: Uses scheduleConfig.hasDuplicateRun to ensure
+//      a calendar-day slot executes EXACTLY ONCE, whether triggered by worker
+//      or Vercel Cron.
+//   4. Health Heartbeats: Logs keepalive status every 10 minutes.
 // ============================================================
 
+import { scheduleConfig } from "@brand-os/scheduler";
+import { agentOrchestrator } from "@brand-os/agents";
+import { notificationService, automationTracker } from "@brand-os/shared";
+
+const cfg = scheduleConfig.getConfig();
 console.log("[Worker Service] Starting Career Brand OS Background Worker...");
-console.log("[Worker Service] Content generation runs TWICE per week via Vercel Cron.");
-console.log("[Worker Service] Schedule: Tuesday + Thursday at 09:00 IST (03:30 UTC).");
-console.log("[Worker Service] Endpoint: GET /api/v1/schedule/cron-weekly");
+console.log(`[Worker Service] ${scheduleConfig.describe()}`);
 
-// Heartbeat: log worker health every 10 minutes to confirm the process is alive.
-// This does NOT trigger any pipeline execution.
-const HEARTBEAT_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
+let isPipelineRunning = false;
+
+/**
+ * Executes a single scheduled or manual pipeline run with full error handling,
+ * stage-level logging, persistence, and notifications.
+ */
+async function runScheduledPipeline(triggerSource: "AUTONOMOUS_WORKER_SCHEDULER" | "MANUAL_DEV_TRIGGER") {
+  if (isPipelineRunning) {
+    console.warn(`[Worker Service] Pipeline execution already in progress. Skipping ${triggerSource} trigger.`);
+    return;
+  }
+
+  isPipelineRunning = true;
+  const startTime = Date.now();
+  const now = new Date();
+  const dayName = scheduleConfig.getWeekdayName(now.getDay());
+  const idempotencyKey = scheduleConfig.getIdempotencyKey(now);
+
+  console.log(`[Worker Service] [${triggerSource}] Executing pipeline for ${dayName} (Key: ${idempotencyKey})...`);
+
+  try {
+    const result = await agentOrchestrator.executePipeline({ autoPublish: true });
+    const durationMs = Date.now() - startTime;
+    const durationSeconds = Math.round(durationMs / 1000);
+
+    if (result.status === "NO_POST_TODAY") {
+      console.log(`[Worker Service] [${triggerSource}] Pipeline completed with safe exit: NO_POST_TODAY. Reason:`, result.reason);
+
+      automationTracker.recordRun({
+        pipelineId: result.pipelineId || `pl_${Date.now()}`,
+        timestamp: now.toISOString(),
+        durationMs,
+        status: "NO_POST_TODAY",
+        candidatesEvaluated: result.candidatesEvaluated,
+        rejectionReasons: result.missingSignals,
+      });
+
+      const intel = result.dailyIntelligenceSummary;
+      await notificationService.sendAutomationNotification({
+        title: `⚠️ CAREER BRAND OS — ${dayName} Worker Run (Safe Exit)`,
+        status: "NO_POST_TODAY",
+        pipelineId: result.pipelineId,
+        message: `Worker scheduled run on ${dayName} evaluated ${result.candidatesEvaluated || 0} candidates. Safe exit executed without publishing.`,
+        candidatesEvaluated: result.candidatesEvaluated,
+        rejectionReasons: result.missingSignals,
+        durationSeconds,
+        signalsScanned: intel?.signalsScanned,
+        verifiedEvents: intel?.verifiedEvents,
+        freshEvents: intel?.freshEvents,
+        novelOpportunities: intel?.novelOpportunities,
+        experienceMatches: intel?.experienceMatches,
+      });
+    } else {
+      const qg = result.qualityGateResult;
+      const overallScore = qg?.overallContentQualityScore || result.review?.overallScore || 90;
+      const pubResult = result.publishResult;
+      const pubMode = pubResult?.mode || process.env.PUBLISH_MODE || "LIVE";
+      const isSimulation = pubMode.toUpperCase() === "SIMULATION";
+
+      console.log(`[Worker Service] [${triggerSource}] POST_READY and dispatched (${pubMode}). Overall score: ${overallScore}/100.`);
+
+      automationTracker.recordRun({
+        pipelineId: result.pipelineId,
+        timestamp: now.toISOString(),
+        durationMs,
+        status: "SUCCESS",
+        winnerTitle: result.topic?.title,
+        overallScore,
+        topicNoveltyScore: qg?.topicNovelty,
+        recruiterAttractionScore: result.dailyIntelligenceSummary?.scores?.recruiterAttraction,
+        demonstratedSkills: result.topic?.supportingTech,
+        publishMode: pubMode,
+        externalPostId: pubResult?.externalId,
+        postUrl: pubResult?.url,
+        publishedPlatforms: [isSimulation ? "SIMULATION" : "LinkedIn"],
+      });
+
+      await notificationService.sendAutomationNotification({
+        title: `✅ CAREER BRAND OS — ${dayName} Worker Run (${isSimulation ? "Simulation" : "Published"})`,
+        status: "SUCCESS",
+        pipelineId: result.pipelineId,
+        message: isSimulation
+          ? `${dayName} worker content pipeline ran in Simulation mode. Post validated.`
+          : `${dayName} post successfully published to LinkedIn via autonomous worker!`,
+        topicTitle: result.topic?.title,
+        qualityScore: overallScore,
+        freshnessScore: qg?.trendFreshness,
+        noveltyScore: qg?.topicNovelty,
+        careerSignalScore: qg?.careerSignal,
+        visualNoveltyScore: qg?.visualNovelty,
+        experienceMatchScore: qg?.experienceMatch,
+        durationSeconds,
+        publishMode: pubMode,
+        postUrl: pubResult?.url,
+      });
+    }
+  } catch (err: any) {
+    const durationMs = Date.now() - startTime;
+    console.error(`[Worker Service] [${triggerSource}] Unhandled Error:`, err.message, err.stack);
+
+    automationTracker.recordRun({
+      pipelineId: `err_${Date.now()}`,
+      timestamp: now.toISOString(),
+      durationMs,
+      status: "ERROR",
+      errorMessage: err.message,
+    });
+
+    await notificationService.sendAutomationNotification({
+      title: "❌ CAREER BRAND OS — Worker Pipeline Error",
+      status: "ERROR",
+      message: `An error occurred during worker scheduled execution on ${dayName}.`,
+      errorMessage: `${err.message}\n\nStack: ${err.stack?.substring(0, 400) || "N/A"}`,
+      durationSeconds: Math.round(durationMs / 1000),
+    });
+  } finally {
+    isPipelineRunning = false;
+  }
+}
+
+/**
+ * Evaluates whether the current moment in Asia/Kolkata matches the schedule window.
+ */
+function checkScheduleWindow(): void {
+  const now = new Date();
+  const currentCfg = scheduleConfig.getConfig();
+
+  // Guard 1: Weekend block
+  if (scheduleConfig.isWeekend(now)) return;
+
+  // Guard 2: Must be a configured weekday (Tuesday or Thursday)
+  if (!scheduleConfig.isScheduledDay(now)) return;
+
+  // Format current time in configured timezone (HH:MM)
+  const currentTimeInTz = new Intl.DateTimeFormat("en-GB", {
+    timeZone: currentCfg.timezone,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  }).format(now);
+
+  const [schedH, schedM] = currentCfg.generationTime.split(":").map(Number);
+  const [currH, currM] = currentTimeInTz.split(":").map(Number);
+
+  // Active execution window: within 10 minutes of configured generation time (e.g. 09:00 - 09:10 IST)
+  const schedTotalMin = schedH * 60 + schedM;
+  const currTotalMin = currH * 60 + currM;
+  const isInsideWindow = currTotalMin >= schedTotalMin && currTotalMin < schedTotalMin + 10;
+
+  if (!isInsideWindow) return;
+
+  // Guard 3: Idempotency check — ensure today has not already run
+  const history = automationTracker.getHistory(20);
+  if (scheduleConfig.hasDuplicateRun(history, now)) {
+    return; // Already executed today
+  }
+
+  console.log(
+    `[Worker Scheduler] Trigger condition met: ${currentTimeInTz} ${currentCfg.timezone} on ${scheduleConfig.getWeekdayName(now.getDay())}. Initiating scheduled run...`
+  );
+  runScheduledPipeline("AUTONOMOUS_WORKER_SCHEDULER");
+}
+
+// ── Background Scheduling & Heartbeats ──────────────────────────────────────
+const SCHEDULE_CHECK_INTERVAL_MS = 30 * 1000; // Check schedule every 30 seconds
+const HEARTBEAT_INTERVAL_MS = 10 * 60 * 1000;  // Heartbeat every 10 minutes
+
+setInterval(checkScheduleWindow, SCHEDULE_CHECK_INTERVAL_MS);
 
 function logHeartbeat() {
   console.log(
-    `[Worker Service] Heartbeat — ${new Date().toISOString()} — Worker is alive. ` +
-    `Content pipeline runs on Tuesday + Thursday via Vercel Cron only.`
+    `[Worker Service] Heartbeat — ${new Date().toISOString()} — Worker is active. ` +
+    `Autonomous schedule: ${cfg.generationDays.join(" + ")} at ${cfg.generationTime} ${cfg.timezone}.`
   );
 }
 
-// Log initial heartbeat
 logHeartbeat();
-
-// Recurring heartbeat — does NOT execute pipeline
 setInterval(logHeartbeat, HEARTBEAT_INTERVAL_MS);
 
-// ── Manual Trigger (local dev only) ────────────────────────────────────────
-// In production, content is triggered by Vercel Cron.
-// In local development, you can trigger a single run by setting:
-//   MANUAL_TRIGGER_ON_START=true
-// This is intended for testing only and should NEVER be enabled in production.
-
+// ── Manual Dev Trigger (dev mode only) ──────────────────────────────────────
 if (process.env.MANUAL_TRIGGER_ON_START === "true" && process.env.NODE_ENV !== "production") {
-  console.log(
-    "[Worker Service] MANUAL_TRIGGER_ON_START=true detected (dev mode). " +
-    "Executing one-shot pipeline run for local testing..."
-  );
-
-  import("@brand-os/agents").then(async ({ agentOrchestrator }) => {
-    import("@brand-os/shared").then(async ({ notificationService, automationTracker }) => {
-      const startTime = Date.now();
-      try {
-        console.log("[Worker Service] [Manual Dev Trigger] Executing pipeline...");
-        const result = await agentOrchestrator.executePipeline({ autoPublish: true });
-        const durationMs = Date.now() - startTime;
-
-        if (result.status === "NO_POST_TODAY") {
-          console.log("[Worker Service] [Manual Dev Trigger] NO_POST_TODAY:", result.reason);
-
-          automationTracker.recordRun({
-            pipelineId: result.pipelineId || `pl_${Date.now()}`,
-            timestamp: new Date().toISOString(),
-            durationMs,
-            status: "NO_POST_TODAY",
-            candidatesEvaluated: result.candidatesEvaluated,
-            rejectionReasons: result.missingSignals,
-          });
-
-          await notificationService.sendAutomationNotification({
-            title: "Manual Dev Trigger — Content Pipeline (Safe Exit)",
-            status: "NO_POST_TODAY",
-            pipelineId: result.pipelineId,
-            message: `Manual dev trigger: Pipeline evaluated ${result.candidatesEvaluated || 0} candidate signals. Safe exit.`,
-            candidatesEvaluated: result.candidatesEvaluated,
-            rejectionReasons: result.missingSignals,
-            durationSeconds: Math.round(durationMs / 1000),
-          });
-        } else {
-          const overallScore =
-            result.review?.overallScore ||
-            result.qualityGateResult?.overallContentQualityScore ||
-            90;
-          console.log("[Worker Service] [Manual Dev Trigger] POST_READY. Score:", overallScore);
-
-          automationTracker.recordRun({
-            pipelineId: result.pipelineId,
-            timestamp: new Date().toISOString(),
-            durationMs,
-            status: "SUCCESS",
-            winnerTitle: result.topic?.title,
-            overallScore,
-            publishedPlatforms: ["LinkedIn"],
-          });
-
-          await notificationService.sendAutomationNotification({
-            title: "Manual Dev Trigger — Content Pipeline Published",
-            status: "SUCCESS",
-            pipelineId: result.pipelineId,
-            message: "Manual dev trigger: Post generated and published to LinkedIn.",
-            topicTitle: result.topic?.title,
-            qualityScore: overallScore,
-            durationSeconds: Math.round(durationMs / 1000),
-          });
-        }
-      } catch (err: any) {
-        const durationMs = Date.now() - startTime;
-        console.error("[Worker Service] [Manual Dev Trigger] Error:", err.message);
-
-        automationTracker.recordRun({
-          pipelineId: `err_${Date.now()}`,
-          timestamp: new Date().toISOString(),
-          durationMs,
-          status: "ERROR",
-          errorMessage: err.message,
-        });
-
-        await notificationService.sendAutomationNotification({
-          title: "Manual Dev Trigger — Pipeline Error",
-          status: "ERROR",
-          message: "An error occurred during the manual dev trigger pipeline run.",
-          errorMessage: err.message,
-          durationSeconds: Math.round(durationMs / 1000),
-        });
-      }
-    });
-  });
+  console.log("[Worker Service] MANUAL_TRIGGER_ON_START=true detected. Executing one-shot manual run...");
+  runScheduledPipeline("MANUAL_DEV_TRIGGER");
 }

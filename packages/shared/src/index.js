@@ -765,5 +765,6 @@ exports.VisualIntelligenceOutputSchema = zod_1.z.object({
     opportunityScore: zod_1.z.number().min(0).max(100),
     ragReferences: zod_1.z.array(zod_1.z.string()),
 });
+__exportStar(require("./workspace-root"), exports);
 __exportStar(require("./notification-service"), exports);
 //# sourceMappingURL=index.js.map

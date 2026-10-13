@@ -181,6 +181,7 @@ export interface CandidateOpportunityScores {
     proofAvailability: number;
     engineeringTension: number;
     careerDifferentiation: number;
+    recruiterAttraction?: number;
     overallScore: number;
 }
 export interface EngineeringProblem {
@@ -262,6 +263,9 @@ export interface CandidateOpportunityRecord {
     proofAvailabilityScore: number;
     engineeringTensionScore: number;
     careerDifferentiationScore: number;
+    recruiterAttractionScore?: number;
+    recruiterAttractionRationale?: string;
+    demonstratedSkills?: string[];
     rejectionReasons: string[];
 }
 export interface Top5MatrixResult {
@@ -1788,6 +1792,7 @@ export interface VisualPlanBlueprint {
     imagePrompt: string;
     diagramSpec?: DiagramSpec;
     renderedSvg?: string;
+    visualAttributes?: VisualAttributeRecord;
 }
 export type SourceCategory = "OFFICIAL_LAB" | "MODEL_HUB" | "OPEN_SOURCE" | "COMMUNITY" | "RESEARCH" | "DEVELOPER_PLATFORM";
 export interface IntelligenceSource {
@@ -3772,9 +3777,30 @@ export interface LinkedInAnalyticsDecision {
     confidence: number;
     dataQuality: "HIGH" | "MEDIUM" | "LOW" | "INSUFFICIENT";
     generatedAt: string;
+    sampleSizeSignal?: "INSUFFICIENT_DATA" | "EXPERIMENTAL_SIGNAL" | "STRATEGY_SIGNAL" | "PERSISTENT_PATTERN";
+    recommendedFormat?: string;
+    recommendedVisualType?: string;
+    recommendedVisualStrategy?: string;
+    visualStrategy?: string;
     topicWeightAdjustments?: Record<string, number>;
     topicPenalties?: Record<string, number>;
     cooldownExtensionDays?: Record<string, number>;
 }
+export interface VisualAttributeRecord {
+    visualType: string;
+    visualConcept: string;
+    composition: string;
+    layout: string;
+    diagramStructure: string;
+    primarySubject: string;
+    visualMetaphor?: string;
+    colorPalette: string;
+    imagePromptHash: string;
+    imageContentHash: string;
+    associatedPostId?: string;
+    topicId?: string;
+    createdAt: string;
+}
+export * from "./workspace-root";
 export * from "./notification-service";
 //# sourceMappingURL=index.d.ts.map
