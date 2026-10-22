@@ -81,8 +81,18 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
           const isBase64 = parts[0].includes("base64");
           svgString = isBase64 ? Buffer.from(parts[1], "base64").toString("utf-8") : decodeURIComponent(parts[1]);
         }
-        const { Resvg } = require("@resvg/resvg-js");
-        const resvg = new Resvg(svgString, { fitTo: { mode: "width", value: 1200 } });
+        // Sanitize control characters that can crash XML/SVG parsers
+        svgString = svgString.replace(/[\u0000-\u0008\u000B-\u000C\u000E-\u001F]/g, "");
+
+        let ResvgClass: any;
+        try {
+          ResvgClass = require("@resvg/resvg-js").Resvg;
+        } catch {
+          const mod = await import("@resvg/resvg-js");
+          ResvgClass = mod.Resvg;
+        }
+
+        const resvg = new ResvgClass(svgString, { fitTo: { mode: "width", value: 1200 } });
         const pngData = resvg.render();
         imageBuffer = pngData.asPng();
         contentType = "image/png";
@@ -110,22 +120,30 @@ async function uploadLinkedInImage(accessToken: string, author: string, imageUrl
       imageBuffer = Buffer.from(imageArrayBuffer);
     }
 
+    let uploadSuccess = false;
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      console.log(`[LinkedIn Publisher 🖼️] Uploading binary to LinkedIn asset store (${assetUrn}, attempt ${attempt}/2)...`);
+      const uploadRes = await fetch(uploadUrl, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": contentType,
+        },
+        body: new Uint8Array(imageBuffer),
+      });
 
-    console.log(`[LinkedIn Publisher 🖼️] Uploading binary to LinkedIn asset store (${assetUrn})...`);
-    const uploadRes = await fetch(uploadUrl, {
-      method: "PUT",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": contentType,
-      },
-      body: new Uint8Array(imageBuffer),
-    });
+      if (uploadRes.ok) {
+        uploadSuccess = true;
+        break;
+      }
 
-
-
-    if (!uploadRes.ok) {
       const errText = await uploadRes.text();
-      console.warn(`[LinkedIn Publisher ⚠️] Binary upload to LinkedIn failed (${uploadRes.status}):`, errText);
+      console.warn(`[LinkedIn Publisher ⚠️] Binary upload attempt ${attempt} failed (${uploadRes.status}):`, errText);
+      if (attempt < 2) await new Promise((r) => setTimeout(r, 1000));
+    }
+
+    if (!uploadSuccess) {
+      console.error(`[LinkedIn Publisher ❌] Failed to upload image binary to LinkedIn asset store after 2 attempts.`);
       return null;
     }
 
@@ -228,9 +246,10 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
           assetUrn = await uploadLinkedInImage(accessToken, author, imageUrl);
         }
 
+        const commentaryText = content.fullText ? content.fullText.trim() : (content.title || "").trim();
         const shareContent: any = {
           shareCommentary: {
-            text: `${content.title || ""}\n\n${content.fullText || ""}`,
+            text: commentaryText,
           },
           shareMediaCategory: assetUrn ? "IMAGE" : isHttpUrl ? "ARTICLE" : "NONE",
         };

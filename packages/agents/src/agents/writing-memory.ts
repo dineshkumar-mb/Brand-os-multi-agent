@@ -62,6 +62,9 @@ export class WritingMemoryTracker {
   }
 
   private saveMemory() {
+    if (process.env.VITEST || process.env.NODE_ENV === "test") {
+      return;
+    }
     try {
       fs.writeFileSync(WRITING_MEMORY_FILE, JSON.stringify(this.memory, null, 2), "utf-8");
     } catch (err: any) {

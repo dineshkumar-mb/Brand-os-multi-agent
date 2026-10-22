@@ -275,6 +275,9 @@ async function main() {
     console.log(`Title: ${swarmResult.linkedInPost.title}`);
     console.log(`Hook: ${swarmResult.linkedInPost.hook}`);
     console.log(`\nFull Text:\n${swarmResult.linkedInPost.fullText}`);
+    if (swarmResult.firstComment) {
+      console.log(`\n💬 Strategic First-Comment (LinkedIn Skill Engagement):\n${swarmResult.firstComment}`);
+    }
   }
   console.log("----------------------------------------------------------");
   console.log("----------------------------------------------------------");

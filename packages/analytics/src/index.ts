@@ -115,11 +115,14 @@ const SEED_HISTORY: HistoricalPostRecord[] = [
 export class PostHistoryTracker {
   private history: HistoricalPostRecord[] = [];
 
+  private isLoaded = false;
+
   constructor() {
     this.loadHistory();
   }
 
   public loadHistory() {
+    this.isLoaded = true;
     try {
       const files = resolvePostHistoryFiles();
       const postMap = new Map<string, HistoricalPostRecord>();
@@ -150,6 +153,9 @@ export class PostHistoryTracker {
   }
 
   private saveHistory() {
+    if (process.env.VITEST || process.env.NODE_ENV === "test") {
+      return;
+    }
     try {
       fs.writeFileSync(PRIMARY_POST_HISTORY_FILE, JSON.stringify(this.history, null, 2), "utf-8");
     } catch (err: any) {
@@ -159,6 +165,7 @@ export class PostHistoryTracker {
 
   public clearHistory() {
     this.history = [];
+    this.isLoaded = true;
     this.saveHistory();
   }
 
@@ -168,12 +175,16 @@ export class PostHistoryTracker {
   }
 
   public getHistory(): HistoricalPostRecord[] {
-    this.loadHistory();
+    if (!this.isLoaded) {
+      this.loadHistory();
+    }
     return this.history;
   }
 
   public addPublishedPost(record: Partial<HistoricalPostRecord> & { title: string; fullText: string }) {
-    this.loadHistory();
+    if (!this.isLoaded) {
+      this.loadHistory();
+    }
     const newRecord: HistoricalPostRecord = {
       id: record.id || `post_${Date.now()}`,
       title: record.title,

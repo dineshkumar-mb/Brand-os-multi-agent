@@ -2,8 +2,9 @@ name: Scheduled Automated Verified Agent Post
 
 on:
   schedule:
-    # Runs on Tue, Thu, Fri at ~09:00 AM IST (03:27 UTC)
-    - cron: '27 3 * * 2,4,5'
+    # Runs on Tue + Thu at ~09:00 AM IST (03:27 UTC)
+    # Must match CONTENT_GENERATION_DAYS in .env (TUESDAY,THURSDAY)
+    - cron: '27 3 * * 2,4'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 concurrency:

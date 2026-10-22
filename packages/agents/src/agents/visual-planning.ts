@@ -82,11 +82,14 @@ export interface StoredVisualRecord extends Partial<VisualAttributeRecord> {
 export class VisualHistoryTracker {
   private pastConcepts: StoredVisualRecord[] = [];
 
+  private isLoaded = false;
+
   constructor() {
     this.loadHistory();
   }
 
   private loadHistory() {
+    this.isLoaded = true;
     try {
       const candidates = [
         VISUAL_HISTORY_FILE,
@@ -123,6 +126,9 @@ export class VisualHistoryTracker {
   }
 
   private saveHistory() {
+    if (process.env.VITEST || process.env.NODE_ENV === "test") {
+      return;
+    }
     try {
       fs.writeFileSync(VISUAL_HISTORY_FILE, JSON.stringify(this.pastConcepts.slice(0, 100), null, 2), "utf-8");
     } catch (err: any) {
@@ -131,7 +137,9 @@ export class VisualHistoryTracker {
   }
 
   public recordVisual(record: VisualAttributeRecord) {
-    this.loadHistory();
+    if (!this.isLoaded) {
+      this.loadHistory();
+    }
     const stored: StoredVisualRecord = {
       ...record,
       topicId: record.topicId || `t_${Date.now()}`,
@@ -152,7 +160,9 @@ export class VisualHistoryTracker {
     imageContentHash: string;
     imagePromptHash?: string;
   }): { isDuplicate: boolean; reason?: string } {
-    this.loadHistory();
+    if (!this.isLoaded) {
+      this.loadHistory();
+    }
     const recent15 = this.pastConcepts.slice(0, 15);
     const recent3 = this.pastConcepts.slice(0, 3);
 

@@ -461,6 +461,7 @@ export type DailyGenerationResult =
       linkedInPost: LinkedInPostPayload;
       devToArticle: DevToArticlePayload;
       visualPlan: VisualPlan;
+      firstComment?: string;
       qualityGateResult?: QualityGateResult;
       executionTrace: PipelineExecutionTrace;
       dailyIntelligenceSummary: DailyIntelligenceSummary;
@@ -758,6 +759,7 @@ export const LinkedInPostPayloadSchema = z.object({
   storyMode: z.nativeEnum(StoryMode).optional(),
   formatStyle: z.nativeEnum(FormatStyle).optional(),
   starStory: z.lazy(() => STARStorySchema.optional()),
+  firstComment: z.string().optional(),
 });
 export type LinkedInPostPayload = z.infer<typeof LinkedInPostPayloadSchema>;
 

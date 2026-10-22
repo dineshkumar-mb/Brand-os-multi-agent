@@ -687,6 +687,19 @@ export class AgentOrchestrator {
       }
     }
 
+    // Generate Strategic First-Comment via LinkedInCommentDrafterAgent (LinkedIn skills)
+    const commentAngle = (writingContext.architectureDecision?.rejected?.length || 0) > 0
+      ? "TECHNICAL_COUNTEREXAMPLE"
+      : "TRADEOFF_QUESTION";
+    const firstCommentRes = this.linkedinCommentDrafterAgent.draftComment(
+      linkedInPost.fullText,
+      commentAngle,
+      audienceRes.data?.primaryAudience || "Senior Engineers & Tech Leads",
+      pipelineId
+    );
+    const firstComment = firstCommentRes.data.commentText;
+    linkedInPost.firstComment = firstComment;
+
     return {
       status: "POST_READY",
       pipelineId,
@@ -695,6 +708,7 @@ export class AgentOrchestrator {
       linkedInPost,
       devToArticle,
       visualPlan: visualPlanRes.data,
+      firstComment,
       qualityGateResult,
       executionTrace,
       dailyIntelligenceSummary,
@@ -977,6 +991,16 @@ export class AgentOrchestrator {
       decision: "PUBLISH",
     };
 
+    // Generate Strategic First-Comment via LinkedInCommentDrafterAgent
+    const fallbackCommentRes = this.linkedinCommentDrafterAgent.draftComment(
+      linkedInPost.fullText,
+      "REINFORCE_EXPERIENCE",
+      "Senior Engineers & Engineering Leaders",
+      pipelineId
+    );
+    const firstComment = fallbackCommentRes.data.commentText;
+    linkedInPost.firstComment = firstComment;
+
     return {
       status: "POST_READY",
       pipelineId,
@@ -985,6 +1009,7 @@ export class AgentOrchestrator {
       linkedInPost,
       devToArticle,
       visualPlan,
+      firstComment,
       qualityGateResult,
       executionTrace,
       dailyIntelligenceSummary,

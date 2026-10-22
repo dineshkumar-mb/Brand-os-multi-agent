@@ -408,10 +408,12 @@ export class CandidateCompetitionEngine {
       const problemExtracted = this.extractEngineeringProblem({ title, content: sig.content, tags });
       const candidateTitle = problemExtracted.problemTitle;
 
-      // 1. Topic Novelty & Semantic Cooldown Check vs history
+      // 1. Topic Novelty & Semantic Cooldown Check vs history (14-day window with duplicate guard)
+      const now = Date.now();
       let maxSemSim = 0;
       let mostSimilarPostTitle = "";
       recent50.forEach((p) => {
+        const daysAgo = Math.max(0, (now - new Date(p.publishedAt || now).getTime()) / (1000 * 60 * 60 * 24));
         const titleSim = this.computeSemanticSimilarity(candidateTitle, p.title);
         const contentSim = this.computeSemanticSimilarity(candidateTitle + " " + sig.content, p.title + " " + p.fullText);
         const maxSim = Math.max(titleSim, contentSim);
@@ -419,16 +421,18 @@ export class CandidateCompetitionEngine {
           maxSemSim = maxSim;
           mostSimilarPostTitle = p.title;
         }
+
+        // Only enforce semantic repetition rejection for posts within 14 days, or exact duplicates (>75%)
+        if (daysAgo <= 14.0 && maxSim > 0.40) {
+          rejectionReasons.push(`SEMANTIC_REPETITION: High semantic overlap (${(maxSim * 100).toFixed(1)}%) with recent post "${p.title}" (${daysAgo.toFixed(1)}d ago).`);
+        } else if (daysAgo > 14.0 && maxSim > 0.75) {
+          rejectionReasons.push(`EXACT_DUPLICATE: Candidate duplicate of historical post "${p.title}" (${(maxSim * 100).toFixed(1)}% match).`);
+        }
       });
 
       const topicNoveltyScore = Math.max(0, Math.round((1 - maxSemSim) * 100));
 
-      if (maxSemSim > 0.40) {
-        rejectionReasons.push(`SEMANTIC_REPETITION: High semantic overlap (${(maxSemSim * 100).toFixed(1)}%) with recent post "${mostSimilarPostTitle}".`);
-      }
-
       // 1b. Technology / Framework Cooldown Check (5 days + analytics fatigue extension)
-      const now = Date.now();
       const techExtDays = analyticsDecision?.cooldownExtensionDays?.[framework] || 0;
       const techCooldownLimit = Math.max(5.0, techExtDays);
 
