@@ -1,8 +1,8 @@
-name: Watchdog - Auto-Heal Daily Post Pipeline
+﻿name: Watchdog - Auto-Heal Daily Post Pipeline
 
 on:
   schedule:
-    # Runs every 30 minutes on Tue, Thu, Fri between 09:00 AM and 11:30 AM IST (03:30–06:00 UTC)
+    # Runs every 30 minutes on Tue, Thu, Fri between 09:00 AM and 11:30 AM IST (03:30â€“06:00 UTC)
     - cron: '30 3 * * 2,4,5'   # 09:00 AM IST
     - cron: '0 4 * * 2,4,5'    # 09:30 AM IST
     - cron: '30 4 * * 2,4,5'   # 10:00 AM IST
@@ -28,7 +28,8 @@ jobs:
       actions: write   # Required to query and trigger workflows via GitHub API
 
     env:
-      SECRETS_CONTEXT: ${{ toJSON(secrets) }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     steps:
       - name: Validate Scheduled Posting Day
@@ -202,11 +203,8 @@ jobs:
           REPO: ${{ github.repository }}
           FAILED_ID: ${{ steps.check-runs.outputs.latest_failed_id }}
         run: |
-          TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
-          TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
-
-          echo "⚠️ Watchdog Standing Down: LinkedIn token is expired or unauthorized."
-          MSG="🚨 *Watchdog Alert: LinkedIn Token Expired*%0A%0AThe daily post pipeline cannot publish because LINKEDIN_ACCESS_TOKEN is invalid or expired (HTTP 401).%0A%0A• *Run ID*: $FAILED_ID%0A• *Action Required*: Refresh OAuth token and update LINKEDIN_ACCESS_TOKEN in GitHub Secrets.%0A• [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$FAILED_ID)"
+          echo "âš ï¸ Watchdog Standing Down: LinkedIn token is expired or unauthorized."
+          MSG="ðŸš¨ *Watchdog Alert: LinkedIn Token Expired*%0A%0AThe daily post pipeline cannot publish because LINKEDIN_ACCESS_TOKEN is invalid or expired (HTTP 401).%0A%0Aâ€¢ *Run ID*: $FAILED_ID%0Aâ€¢ *Action Required*: Refresh OAuth token and update LINKEDIN_ACCESS_TOKEN in GitHub Secrets.%0Aâ€¢ [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$FAILED_ID)"
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
               -d "chat_id=$TELEGRAM_CHAT_ID" \
@@ -224,11 +222,8 @@ jobs:
           REPO: ${{ github.repository }}
           FAILED_COUNT: ${{ steps.check-runs.outputs.failed_count }}
         run: |
-          TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
-          TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
-
-          echo "⚠️ SAFETY HALT: $FAILED_COUNT failed attempts recorded today."
-          MSG="⚠️ *Watchdog Safety Halt*%0A%0ADaily post pipeline has failed $FAILED_COUNT times today. Watchdog halted auto-retry to prevent cascading loops.%0A%0A• [Inspect GitHub Workflows](https://github.com/$REPO/actions/workflows/daily-automated-post.yml)"
+          echo "âš ï¸ SAFETY HALT: $FAILED_COUNT failed attempts recorded today."
+          MSG="âš ï¸ *Watchdog Safety Halt*%0A%0ADaily post pipeline has failed $FAILED_COUNT times today. Watchdog halted auto-retry to prevent cascading loops.%0A%0Aâ€¢ [Inspect GitHub Workflows](https://github.com/$REPO/actions/workflows/daily-automated-post.yml)"
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
               -d "chat_id=$TELEGRAM_CHAT_ID" \

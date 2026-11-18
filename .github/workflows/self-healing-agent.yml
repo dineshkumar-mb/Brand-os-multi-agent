@@ -1,6 +1,6 @@
-name: Self-Healing Agent - Auto-Diagnose & Fix Pipeline
+﻿name: Self-Healing Agent - Auto-Diagnose & Fix Pipeline
 
-# ──────────────────────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 # This agent triggers automatically whenever the Daily Automated Post workflow
 # completes with a failure. It:
 #   1. Downloads and parses the failure logs
@@ -8,7 +8,7 @@ name: Self-Healing Agent - Auto-Diagnose & Fix Pipeline
 #   3. Applies the appropriate remediation strategy
 #   4. Re-triggers the main pipeline
 #   5. Prevents infinite loops by capping at 10 heal attempts per day
-# ──────────────────────────────────────────────────────────────────────────────
+# â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 on:
   workflow_run:
@@ -41,9 +41,9 @@ jobs:
       contents: read
 
     steps:
-      # ────────────────────────────────────────────────────────────────────────
-      # STEP 1: Safety Gate — cap total heal attempts at 10 per UTC day
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+      # STEP 1: Safety Gate â€” cap total heal attempts at 10 per UTC day
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Safety Gate - Count Today's Heal Attempts
         id: gate
         env:
@@ -78,9 +78,9 @@ jobs:
             echo "attempt_number=$HEAL_RUNS" >> $GITHUB_OUTPUT
           fi
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 2: Check if today's post already succeeded (idempotency)
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Check if Post Already Published Today
         id: already-published
         if: steps.gate.outputs.should_heal == 'true'
@@ -109,9 +109,9 @@ jobs:
           echo "Post already published today: $SUCCESS_TODAY"
           echo "already_published=$SUCCESS_TODAY" >> $GITHUB_OUTPUT
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 3: Download & parse the failure logs from the failed run
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Download & Analyze Failure Logs
         id: diagnose
         if: |
@@ -168,11 +168,11 @@ jobs:
           # Combine step name and logs for comprehensive classification
           DIAGNOSTIC_CONTENT="$FAILED_STEP $JOB_LOG"
 
-          # ── Error Classification Engine ──────────────────────────────────────
+          # â”€â”€ Error Classification Engine â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
           # Classify based on step name AND actual execution logs
           STRATEGY="RETRY_WITH_DELAY"
           WAIT_SECONDS=30
-          REASON="Generic transient failure — will retry after ${WAIT_SECONDS}s"
+          REASON="Generic transient failure â€” will retry after ${WAIT_SECONDS}s"
 
           # Auth / token errors (Critical: non-recoverable via auto-retry)
           if echo "$DIAGNOSTIC_CONTENT" | grep -qi "401\|403\|unauthorized\|forbidden\|invalid.*token\|token.*invalid\|EXPIRED_ACCESS_TOKEN\|MissingAccessTokenError\|ACCESS_DENIED\|Not enough permissions"; then
@@ -239,27 +239,25 @@ jobs:
           echo "wait_seconds=$WAIT_SECONDS" >> $GITHUB_OUTPUT
           echo "reason=$REASON" >> $GITHUB_OUTPUT
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 4: Abort if it's a non-recoverable error (AUTH / BUILD)
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Abort on Non-Recoverable Error
         if: |
           steps.diagnose.outputs.strategy == 'AUTH_ERROR' ||
           steps.diagnose.outputs.strategy == 'BUILD_ERROR'
         env:
-          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           STRATEGY: ${{ steps.diagnose.outputs.strategy }}
           REASON: ${{ steps.diagnose.outputs.reason }}
           FAILED_RUN_ID: ${{ github.event.workflow_run.id }}
           REPO: ${{ github.repository }}
         run: |
-          TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
-          TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
-
           echo "NON-RECOVERABLE ERROR: $STRATEGY - $REASON"
           echo "Manual intervention required. Self-Healing Agent cannot auto-fix this."
           echo "Please check GitHub Secrets and pipeline code manually."
-          MSG="🚨 *Self-Healing Agent Alert: $STRATEGY*%0A%0A• *Run ID*: $FAILED_RUN_ID%0A• *Reason*: $REASON%0A• [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$FAILED_RUN_ID)"
+          MSG="ðŸš¨ *Self-Healing Agent Alert: $STRATEGY*%0A%0Aâ€¢ *Run ID*: $FAILED_RUN_ID%0Aâ€¢ *Reason*: $REASON%0Aâ€¢ [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$FAILED_RUN_ID)"
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
               -d "chat_id=$TELEGRAM_CHAT_ID" \
@@ -268,11 +266,11 @@ jobs:
           else
             echo "Telegram alert skipped: TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID secret is not set."
           fi
-          exit 0  # Exit 0 — don't mark the watchdog itself as failed
+          exit 0  # Exit 0 â€” don't mark the watchdog itself as failed
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 5: Apply remediation wait based on classified strategy
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Apply Remediation Strategy (Wait)
         if: |
           steps.gate.outputs.should_heal == 'true' &&
@@ -290,9 +288,9 @@ jobs:
           fi
           echo "Remediation wait complete."
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 6: Re-trigger the daily pipeline
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Re-Trigger Daily Post Pipeline
         if: |
           steps.gate.outputs.should_heal == 'true' &&
@@ -321,9 +319,9 @@ jobs:
             exit 1
           fi
 
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       # STEP 7: Log final status summary
-      # ────────────────────────────────────────────────────────────────────────
+      # â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
       - name: Log Healing Summary
         if: always()
         run: |
