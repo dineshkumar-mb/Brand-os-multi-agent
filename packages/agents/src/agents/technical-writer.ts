@@ -50,6 +50,56 @@ export class TechnicalWriterAgent {
     )}`;
   }
 
+  private async generateAIImageUrl(topic: Topic, customPrompt?: string): Promise<string | null> {
+    const apiKey = process.env.OPENROUTER_API_KEY?.trim();
+    if (!apiKey) {
+      console.log("[Visual Generator] No OPENROUTER_API_KEY found, falling back to dynamic SVG.");
+      return null;
+    }
+
+    try {
+      console.log(`[Visual Generator 🎨] Requesting AI visual from OpenRouter for: "${topic.title}"...`);
+      const imagePrompt = customPrompt ||
+        `Clean, high-resolution software architecture diagram and engineering workflow illustration for: ${topic.title}. Modern developer aesthetic, dark theme, sharp typography, 16:9 composition, modular components with neon blue and emerald accents.`;
+
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": "https://brand-os-multi-agent.vercel.app",
+          "X-Title": "Personal Brand OS Multi-Agent",
+        },
+        body: JSON.stringify({
+          model: "black-forest-labs/flux-1-schnell",
+          messages: [
+            {
+              role: "user",
+              content: imagePrompt,
+            },
+          ],
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.warn(`[Visual Generator ⚠️] OpenRouter image request failed (${response.status}): ${errorText.substring(0, 160)}`);
+        return null;
+      }
+
+      const data: any = await response.json();
+      const rawContent = data.choices?.[0]?.message?.content || "";
+      const urlMatch = rawContent.match(/https:\/\/[^\s\)\"\']+/);
+      if (urlMatch) {
+        console.log(`[Visual Generator ✅] Received AI-generated image URL: ${urlMatch[0]}`);
+        return urlMatch[0];
+      }
+    } catch (err: any) {
+      console.warn(`[Visual Generator ⚠️] OpenRouter image generation error: ${err.message}`);
+    }
+    return null;
+  }
+
   private generateTopicMermaid(topic: Topic): string {
     const t = (topic.title + " " + (topic.framework || "")).toLowerCase();
     if (t.includes("docker") || t.includes("container")) {
@@ -291,6 +341,10 @@ Return ONLY a valid JSON object matching:
       console.warn(`[Senior Engineer Writer] Prose generation attempt warning: ${err.message}`);
     }
 
+    // Generate AI Image via OpenRouter or fallback to dynamic SVG
+    const aiImageUrl = await this.generateAIImageUrl(topic, visualNarrative?.coreConcept);
+    const finalImageUrl = aiImageUrl || this.getDynamicImageUrl(topic);
+
     // Fallback prose generation based on FormatStyle & STARStory if LLM output was partial/missing
     if (!linkedInPayload) {
       let bodyText = "";
@@ -337,11 +391,13 @@ Return ONLY a valid JSON object matching:
         cta: generatedCta,
         hashtags: [topicTag],
         fullText,
-        imageUrl: this.getDynamicImageUrl(topic),
+        imageUrl: finalImageUrl,
         storyMode: selectedStoryMode,
         formatStyle: selectedFormatStyle,
         starStory,
       };
+    } else {
+      linkedInPayload.imageUrl = finalImageUrl;
     }
 
     if (!devToPayload || !devToPayload.markdownContent) {
@@ -388,9 +444,11 @@ ${starStory.result.outcome}
         tags: ["webdev", "architecture", "systemdesign"],
         canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
         description: research.summary.substring(0, 140),
-        mainImage: this.getDynamicImageUrl(topic),
+        mainImage: finalImageUrl,
         markdownContent: devToMarkdown,
       };
+    } else {
+      devToPayload.mainImage = finalImageUrl;
     }
 
     if (!visualNarrative) {
