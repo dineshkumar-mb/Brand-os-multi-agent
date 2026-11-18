@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs on Tue + Thu at ~09:00 AM IST (03:27 UTC)
     # Must match CONTENT_GENERATION_DAYS in .env (TUESDAY,THURSDAY)
-    - cron: '27 3 * * 2,4'
+    - cron: "27 3 * * 2,4"
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 concurrency:
@@ -15,8 +15,6 @@ jobs:
   daily-verified-post:
     runs-on: ubuntu-latest
     timeout-minutes: 20
-#     env:
-#       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
     services:
       postgres:
@@ -32,7 +30,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
       redis:
         image: redis:7
         ports:
@@ -50,7 +47,7 @@ jobs:
           fetch-depth: 0
 
       - name: Configure Git Safe Directory
-        run: git config --global --add safe.directory "*"
+        run: git config --global --add safe.directory "${{ github.workspace }}"
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -61,7 +58,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: "pnpm"
 
       - name: Install Monorepo Dependencies
         run: pnpm install --no-frozen-lockfile
@@ -86,7 +83,6 @@ jobs:
           REDIS_URL: redis://localhost:6379
           JWT_SECRET: default_github_action_secret_token
           NOTIFICATION_CHANNELS: "telegram"
-          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
 
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           NVIDIA_NIM_API_KEY: ${{ secrets.NVIDIA_NIM_API_KEY }}
@@ -95,22 +91,18 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_ORGANIZATION_ID: ${{ secrets.LINKEDIN_ORGANIZATION_ID }}
           LINKEDIN_PERSON_URN: ${{ secrets.LINKEDIN_PERSON_URN }}
-          # MEDIUM_INTEGRATION_TOKEN: ${{ secrets.MEDIUM_INTEGRATION_TOKEN }}
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
         run: |
-          export TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
-          export TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
-
           MAX_RETRIES=3
           ATTEMPT=0
           SUCCESS=false
-
           until [ $ATTEMPT -ge $MAX_RETRIES ]; do
             ATTEMPT=$((ATTEMPT+1))
             echo "::group::Pipeline Attempt $ATTEMPT of $MAX_RETRIES"
             echo "Starting swarm pipeline attempt $ATTEMPT at $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
-
             if pnpm exec ts-node --transpile-only ./scratch/run_pipeline.ts; then
               echo "Pipeline succeeded on attempt $ATTEMPT"
               SUCCESS=true
@@ -120,13 +112,10 @@ jobs:
               EXIT_CODE=$?
               echo "Pipeline failed on attempt $ATTEMPT with exit code $EXIT_CODE"
               echo "::endgroup::"
-
-              # Exit code 42 indicates a fatal non-recoverable error (e.g. invalid credentials) - do not retry
               if [ $EXIT_CODE -eq 42 ]; then
                 echo "Fatal non-recoverable error (exit code 42) detected. Aborting retries immediately."
                 break
               fi
-
               if [ $ATTEMPT -lt $MAX_RETRIES ]; then
                 DELAY=$((ATTEMPT * 30))
                 echo "Waiting ${DELAY}s before retry $((ATTEMPT+1))..."
@@ -134,7 +123,6 @@ jobs:
               fi
             fi
           done
-
           if [ "$SUCCESS" = false ]; then
             echo "All attempts failed. Pipeline aborted."
             exit 1
@@ -151,13 +139,11 @@ jobs:
       - name: Send Telegram Alert on Pipeline Failure
         if: failure()
         env:
-          SECRETS_CONTEXT: ${{ toJSON(secrets) }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           RUN_ID: ${{ github.run_id }}
           REPO: ${{ github.repository }}
         run: |
-          TELEGRAM_BOT_TOKEN=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_BOT_TOKEN // empty')
-          TELEGRAM_CHAT_ID=$(echo "$SECRETS_CONTEXT" | jq -r '.TELEGRAM_CHAT_ID // empty')
-
           MSG="🚨 *Personal Brand OS Daily Post Failed*%0A%0A• *Run ID*: $RUN_ID%0A• *Repository*: $REPO%0A• *Status*: All pipeline attempts failed%0A• [Inspect GitHub Run](https://github.com/$REPO/actions/runs/$RUN_ID)"
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
             curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
