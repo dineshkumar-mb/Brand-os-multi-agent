@@ -1,4 +1,4 @@
-import {
+﻿import {
   AgentType,
   AgentResult,
   Topic,
@@ -128,34 +128,45 @@ flowchart TD
     );
 
     // Stage 2: Senior Technical Writer (Prose Transformation)
-    const prompt = `You are a Principal Software Engineer and Senior Technical Writer.
-Your task is to transform an internal STAR engineering framework into a natural, compelling LinkedIn engineering post AND a deep Dev.to article about: "${topic.title}".
+    const prompt = `You are an expert LinkedIn technical content creator and senior engineering writer.
+Your goal is to write an authentic, high-impact technical LinkedIn post AND a deep Dev.to article about: "${topic.title}".
 
-INTERNAL STAR STORY FRAMEWORK (Do NOT literally output "Situation:", "Task:", "Action:", "Result:" headers):
-- Situation: ${starStory.situation.context} (Trigger: ${starStory.situation.trigger})
-- Task: ${starStory.task.objective} (Constraints: ${starStory.task.constraints.join(", ")})
-- Action: Chosen ${starStory.action.chosenApproach}. Reasoning: ${starStory.action.reasoning}. Decision Moment: ${starStory.action.decisionMoment || "N/A"}
-- Result: ${starStory.result.outcome}. Metrics/Evidence: ${starStory.result.evidence.join(", ")}
-- Insight: ${starStory.insight.engineeringLesson}. Tradeoffs: ${starStory.insight.tradeoffs.join(", ")}
+## MANDATORY WRITING RULES FOR LINKEDIN:
+- NEVER write the entire post as a single paragraph.
+- Use a crisp, line-by-line writing format with PLENTY OF WHITESPACE (double newlines \n\n between ideas).
+- Keep every paragraph to a maximum of 1-2 short sentences.
+- Each line should communicate one clear thought.
+- Use concise bullet points (- ) when explaining technical details or what was discovered.
+- Avoid unnecessary corporate fluff, hype, or generic motivational statements.
+- Start directly with an attention-grabbing technical hook (first 1-2 lines).
+- Explain the real-world engineering challenge: What was the problem? Why did it happen?
+- Explain what was changed, the trade-offs accepted, and the real outcome.
+- End with one specific, thought-provoking technical question.
+- Include 3-5 relevant hashtags at the very bottom.
 
-STORY MODE: ${selectedStoryMode}
-FORMAT STYLE / LAYOUT: ${selectedFormatStyle}
-HOOK REFERENCE: "${generatedHook}"
-CTA REFERENCE: "${generatedCta}"
+CONTEXT FROM STAR FRAMEWORK:
+- Context: ${starStory.situation.context}
+- Problem/Trigger: ${starStory.situation.trigger}
+- Challenge: ${starStory.task.objective}
+- Approach Taken: ${starStory.action.chosenApproach}
+- Technical Reasoning: ${starStory.action.reasoning}
+- Outcome/Result: ${starStory.result.outcome}
+- Engineering Lesson: ${starStory.insight.engineeringLesson}
+- Trade-offs: ${starStory.insight.tradeoffs.join(", ")}
 
 STRICT HUMAN-WRITING RULES (CRITICAL):
-1. Core Principle: Write like an experienced human developer communicating from real experience—not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
+1. Core Principle: Write like an experienced human developer communicating from real experienceâ€”not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
 2. Never Use Generic AI Openings: Ban "In today's rapidly evolving...", "In the ever-changing world of...", "In the modern digital landscape...", "As technology continues to evolve...", "The future of X is...". Start directly with the actual problem, observation, experience, result, or question.
 3. Ban AI-Favorite Vocabulary: Never use words such as: delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, foster, facilitate, underscore, showcase, intricate, testament, interplay, bolster, landscape, paradigm, empower, unlock, game-changing. Use simpler, natural words.
 4. Avoid Corporate/Marketing Language: Replace abstract claims ("unlock scalable innovation") with measurable or observable facts ("reduced API response time from 800ms to 240ms").
-5. Minimize Em Dashes: Do not repeatedly use "—" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
-6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just X—it's Y."
+5. Minimize Em Dashes: Do not repeatedly use "â€”" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
+6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just Xâ€”it's Y."
 7. Avoid Predictable Three-Part Lists: Do not mechanically write "Faster, smarter, and more scalable" or "Simple, powerful, and reliable".
 8. Do Not Manufacture Enthusiasm: Ban artificial hype words: exciting, amazing, incredible, powerful, game-changing, groundbreaking, revolutionary, fascinating. State what actually happened neutrally.
 9. Replace Claims With Evidence: What happened -> Why -> Evidence -> Result.
 10. Inject Real Experience: What was built, what broke, what was tried, what failed, what changed, measurable results, trade-offs, lessons learned.
 11. Allow Human Imperfection: Use natural rhythm with varied sentence and paragraph lengths. Do not make paragraphs algorithmically identical.
-12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1️⃣ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
+12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1ï¸âƒ£ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
 13. Do Not Restate Questions: Start directly with the actual insight.
 14. Avoid Repetitive Transition Words: Do not repeatedly use Furthermore, Moreover, Additionally, Consequently, Therefore, However, In conclusion, Ultimately, That said.
 15. Do Not Manufacture Perfect Conclusions: Avoid generic endings like "The future belongs to...", "Ultimately, success depends on...", "Embrace the future". End with the actual observation, lesson, or technical question.
@@ -256,8 +267,7 @@ Return ONLY a valid JSON object matching:
             markdownContent: devToObj.markdownContent,
           };
         }
-        if (parsed.visualNarrative) {
-          visualNarrative = parsed.visualNarrative;
+        if (parsed.visualNarrative) { visualNarrative = parsed.visualNarrative; }
         }
       }
     } catch (err: any) {
@@ -271,7 +281,7 @@ Return ONLY a valid JSON object matching:
       if (selectedFormatStyle === FormatStyle.BEFORE_AFTER_LAYOUT) {
         bodyText = `BEFORE:\n${starStory.situation.context}\n\nPROBLEM:\n${starStory.task.objective}\n\nWHAT CHANGED:\n${starStory.action.reasoning}\n\nAFTER:\n${starStory.result.outcome}\n\nLESSON:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.MINIMAL_BULLETS) {
-        bodyText = `${starStory.situation.context}\n\nThe Constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\n• ${starStory.action.chosenApproach}\n\nThe Trade-Off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
+        bodyText = `${starStory.situation.context}\n\nThe Constraint:\nâ€¢ ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\nâ€¢ ${starStory.action.chosenApproach}\n\nThe Trade-Off:\nâ€¢ ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.SHORT_DIALOGUE) {
         bodyText = `"Why is the ${topic.framework || topic.category} pipeline failing under load?"\n\n"The database query paths are locking connection pools."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.PRODUCTION_INCIDENT) {
