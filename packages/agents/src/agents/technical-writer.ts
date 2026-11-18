@@ -133,7 +133,7 @@ Your goal is to write an authentic, high-impact technical LinkedIn post AND a de
 
 ## MANDATORY WRITING RULES FOR LINKEDIN:
 - NEVER write the entire post as a single paragraph.
-- Use a crisp, line-by-line writing format with PLENTY OF WHITESPACE (double newlines \n\n between ideas).
+- Use a crisp, line-by-line writing format with PLENTY OF WHITESPACE (double newlines \\n\\n between ideas).
 - Keep every paragraph to a maximum of 1-2 short sentences.
 - Each line should communicate one clear thought.
 - Use concise bullet points (- ) when explaining technical details or what was discovered.
@@ -155,18 +155,18 @@ CONTEXT FROM STAR FRAMEWORK:
 - Trade-offs: ${starStory.insight.tradeoffs.join(", ")}
 
 STRICT HUMAN-WRITING RULES (CRITICAL):
-1. Core Principle: Write like an experienced human developer communicating from real experienceâ€”not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
+1. Core Principle: Write like an experienced human developer communicating from real experience—not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
 2. Never Use Generic AI Openings: Ban "In today's rapidly evolving...", "In the ever-changing world of...", "In the modern digital landscape...", "As technology continues to evolve...", "The future of X is...". Start directly with the actual problem, observation, experience, result, or question.
 3. Ban AI-Favorite Vocabulary: Never use words such as: delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, foster, facilitate, underscore, showcase, intricate, testament, interplay, bolster, landscape, paradigm, empower, unlock, game-changing. Use simpler, natural words.
 4. Avoid Corporate/Marketing Language: Replace abstract claims ("unlock scalable innovation") with measurable or observable facts ("reduced API response time from 800ms to 240ms").
-5. Minimize Em Dashes: Do not repeatedly use "â€”" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
-6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just Xâ€”it's Y."
+5. Minimize Em Dashes: Do not repeatedly use "—" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
+6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just X—it's Y."
 7. Avoid Predictable Three-Part Lists: Do not mechanically write "Faster, smarter, and more scalable" or "Simple, powerful, and reliable".
 8. Do Not Manufacture Enthusiasm: Ban artificial hype words: exciting, amazing, incredible, powerful, game-changing, groundbreaking, revolutionary, fascinating. State what actually happened neutrally.
 9. Replace Claims With Evidence: What happened -> Why -> Evidence -> Result.
 10. Inject Real Experience: What was built, what broke, what was tried, what failed, what changed, measurable results, trade-offs, lessons learned.
 11. Allow Human Imperfection: Use natural rhythm with varied sentence and paragraph lengths. Do not make paragraphs algorithmically identical.
-12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1ï¸âƒ£ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
+12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1️⃣ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
 13. Do Not Restate Questions: Start directly with the actual insight.
 14. Avoid Repetitive Transition Words: Do not repeatedly use Furthermore, Moreover, Additionally, Consequently, Therefore, However, In conclusion, Ultimately, That said.
 15. Do Not Manufacture Perfect Conclusions: Avoid generic endings like "The future belongs to...", "Ultimately, success depends on...", "Embrace the future". End with the actual observation, lesson, or technical question.
@@ -238,36 +238,53 @@ Return ONLY a valid JSON object matching:
 
       const jsonMatch = response.text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        const parsed = JSON.parse(jsonMatch[0]);
-        const linkedInObj = parsed.linkedIn || (parsed.fullText ? parsed : null);
-        if (linkedInObj && linkedInObj.fullText) {
-          linkedInPayload = {
-            title: topic.title,
-            hook: linkedInObj.hook || generatedHook,
-            story: linkedInObj.story || starStory.situation.context,
-            lesson: linkedInObj.lesson || starStory.insight.engineeringLesson,
-            actionableInsight: linkedInObj.actionableInsight || starStory.result.outcome,
-            cta: linkedInObj.cta || generatedCta,
-            hashtags: linkedInObj.hashtags || ["#SoftwareEngineering", "#SystemDesign"],
-            fullText: linkedInObj.fullText,
-            storyMode: selectedStoryMode,
-            formatStyle: selectedFormatStyle,
-            starStory,
-          };
+        let parsed: any = null;
+        try {
+          parsed = JSON.parse(jsonMatch[0]);
+        } catch {
+          try {
+            const sanitized = jsonMatch[0].replace(/[\u0000-\u001F]+/g, (c: string) => (c === "\n" ? "\\n" : c === "\r" ? "\\r" : c === "\t" ? "\\t" : ""));
+            parsed = JSON.parse(sanitized);
+          } catch {
+            const match = response.text.match(/"fullText"\s*:\s*"([\s\S]*?)(?="\s*,\s*"\w+"|\s*\}\s*\}|$)/);
+            if (match) {
+              parsed = { linkedIn: { fullText: match[1].replace(/\\n/g, "\n").replace(/\\"/g, '"') } };
+            }
+          }
         }
-        const devToObj = parsed.devTo || (parsed.markdownContent ? parsed : null);
-        if (devToObj && devToObj.markdownContent) {
-          devToPayload = {
-            title: devToObj.title || topic.title,
-            published: false,
-            tags: devToObj.tags || ["webdev", "architecture"],
-            canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
-            description: devToObj.description || research.summary.substring(0, 140),
-            mainImage: this.getDynamicImageUrl(topic),
-            markdownContent: devToObj.markdownContent,
-          };
-        }
-        if (parsed.visualNarrative) { visualNarrative = parsed.visualNarrative; }
+
+        if (parsed) {
+          const linkedInObj = parsed.linkedIn || (parsed.fullText ? parsed : null);
+          if (linkedInObj && linkedInObj.fullText) {
+            linkedInPayload = {
+              title: topic.title,
+              hook: linkedInObj.hook || generatedHook,
+              story: linkedInObj.story || starStory.situation.context,
+              lesson: linkedInObj.lesson || starStory.insight.engineeringLesson,
+              actionableInsight: linkedInObj.actionableInsight || starStory.result.outcome,
+              cta: linkedInObj.cta || generatedCta,
+              hashtags: linkedInObj.hashtags || ["#SoftwareEngineering", "#SystemDesign"],
+              fullText: linkedInObj.fullText,
+              storyMode: selectedStoryMode,
+              formatStyle: selectedFormatStyle,
+              starStory,
+            };
+          }
+          const devToObj = parsed.devTo || (parsed.markdownContent ? parsed : null);
+          if (devToObj && devToObj.markdownContent) {
+            devToPayload = {
+              title: devToObj.title || topic.title,
+              published: false,
+              tags: devToObj.tags || ["webdev", "architecture"],
+              canonicalUrl: `https://brand-os-multi-agent.vercel.app/blog/${topic.id || "post"}`,
+              description: devToObj.description || research.summary.substring(0, 140),
+              mainImage: this.getDynamicImageUrl(topic),
+              markdownContent: devToObj.markdownContent,
+            };
+          }
+          if (parsed.visualNarrative) {
+            visualNarrative = parsed.visualNarrative;
+          }
         }
       }
     } catch (err: any) {
@@ -281,7 +298,7 @@ Return ONLY a valid JSON object matching:
       if (selectedFormatStyle === FormatStyle.BEFORE_AFTER_LAYOUT) {
         bodyText = `BEFORE:\n${starStory.situation.context}\n\nPROBLEM:\n${starStory.task.objective}\n\nWHAT CHANGED:\n${starStory.action.reasoning}\n\nAFTER:\n${starStory.result.outcome}\n\nLESSON:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.MINIMAL_BULLETS) {
-        bodyText = `${starStory.situation.context}\n\nThe Constraint:\nâ€¢ ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\nâ€¢ ${starStory.action.chosenApproach}\n\nThe Trade-Off:\nâ€¢ ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
+        bodyText = `${starStory.situation.context}\n\nThe Constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\n• ${starStory.action.chosenApproach}\n\nThe Trade-Off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.SHORT_DIALOGUE) {
         bodyText = `"Why is the ${topic.framework || topic.category} pipeline failing under load?"\n\n"The database query paths are locking connection pools."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
       } else if (selectedFormatStyle === FormatStyle.PRODUCTION_INCIDENT) {
