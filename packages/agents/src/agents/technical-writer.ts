@@ -250,15 +250,6 @@ Return ONLY a valid JSON object matching:
     "visualType": "THREE_STEP_WORKFLOW"
   }
 }`;
-  "visualNarrative": {
-    "coreConcept": "${topic.title}",
-    "primaryFlow": "${starStory.action.chosenApproach}",
-    "importantComponents": ["Service Controller", "Domain Processor", "Database / Storage"],
-    "relationships": ["Controller -> Processor", "Processor -> Database"],
-    "keyLabels": ["Request", "Decision", "State"],
-    "visualType": "SYSTEM_DESIGN"
-  }
-}`;
 
     let linkedInPayload: LinkedInPostPayload | null = null;
     let devToPayload: DevToArticlePayload | null = null;

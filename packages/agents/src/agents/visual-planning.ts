@@ -697,39 +697,6 @@ export class VisualPlanningAgent {
 </svg>`;
     }
 
-      return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <style>
-    .title { font-size: 26px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
-    .subtitle { font-size: 13px; font-weight: 600; fill: #10b981; text-anchor: middle; }
-    .card-title { font-size: 18px; font-weight: 700; fill: #0f172a; }
-    .card-sub { font-size: 12px; font-weight: 500; fill: #64748b; }
-    .node-text { font-size: 13px; font-weight: 600; fill: #0f172a; }
-  </style>
-
-  <text x="400" y="48" class="title">⚖️ ${escapeXml(spec.title)}</text>
-  <text x="400" y="72" class="subtitle">ENGINEERING TRADEOFF &amp; ARCHITECTURAL DECISION MATRIX</text>
-
-  <!-- Option A Card (Blue Accent) -->
-  <g transform="translate(50, 110)">
-    <rect width="330" height="480" fill="#f8fafc" stroke="#3b82f6" stroke-width="2" rx="12" />
-    <rect width="330" height="40" fill="#dbeafe" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#1d4ed8">Option A: ${escapeXml((leftCol?.title || "Simplicity").replace(/^Option\s+[A-Z]:\s*/i, "").trim())}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(leftCol?.subtitle || "")}</text>
-    ${renderLightNodes(leftCol?.nodes, colors, "#3b82f6", "#dbeafe")}
-  </g>
-
-  <!-- Option B Card (Green Accent) -->
-  <g transform="translate(420, 110)">
-    <rect width="330" height="480" fill="#f8fafc" stroke="#10b981" stroke-width="2" rx="12" />
-    <rect width="330" height="40" fill="#d1fae5" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#047857">Option B: ${escapeXml((rightCol?.title || "Decoupled").replace(/^Option\s+[A-Z]:\s*/i, "").trim())}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(rightCol?.subtitle || "")}</text>
-    ${renderLightNodes(rightCol?.nodes, colors, "#10b981", "#d1fae5")}
-  </g>
-</svg>`;
-    }
-
     // ─────────────────────────────────────────────────────────────
     // LAYOUT 5: DEFAULT SIDE-BY-SIDE COMPARISON SVG
     // ─────────────────────────────────────────────────────────────
