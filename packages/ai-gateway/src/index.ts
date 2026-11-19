@@ -380,7 +380,7 @@ export class AIGateway {
     // 3. Live OpenRouter Execution
     if (openrouterKey && !openrouterKey.includes("placeholder")) {
       try {
-        const orModel = model && model.includes("/") ? model : "openrouter/auto";
+        const orModel = model && model.includes("/") ? model : "google/gemini-2.0-flash-001";
         const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -503,21 +503,21 @@ export class AIGateway {
       const topicMatch = request.prompt.match(/about:\s*"([^"]+)"/) || request.prompt.match(/topic:\s*"([^"]+)"/);
       const topicTitle = topicMatch ? topicMatch[1] : "System Architecture & Engineering Trade-offs";
 
-      // Extract STAR story components from the prompt (requiring the dash prefix to avoid instruction headers)
-      const situationMatch = request.prompt.match(/-\s*Situation:\s*([^\n]+)/i);
-      const situationCtx = situationMatch ? situationMatch[1].trim() : `a production ${topicTitle} workload`;
+      // Extract STAR story components from the prompt (supporting multiple label variants)
+      const situationMatch = request.prompt.match(/-\s*(?:Situation|Context):\s*([^\n]+)/i);
+      const situationCtx = situationMatch ? situationMatch[1].trim() : `During a production refactor of ${topicTitle}, we encountered unexpected performance regressions under load.`;
 
-      const taskMatch = request.prompt.match(/-\s*Task:\s*([^\n]+)/i);
-      const taskObj = taskMatch ? taskMatch[1].trim() : `diagnose and resolve performance degradation`;
+      const taskMatch = request.prompt.match(/-\s*(?:Task|Challenge|Problem\/Trigger):\s*([^\n]+)/i);
+      const taskObj = taskMatch ? taskMatch[1].trim() : `The objective was to isolate the bottlenecks without adding unnecessary architectural overhead.`;
 
-      const actionMatch = request.prompt.match(/-\s*Action:\s*Chosen\s+([^\n.]+)/i) || request.prompt.match(/-\s*Action:\s*([^\n]+)/i);
+      const actionMatch = request.prompt.match(/-\s*(?:Action|Approach Taken|Technical Reasoning):\s*(?:Chosen\s+)?([^\n.]+)/i);
       const actionChosen = actionMatch ? actionMatch[1].trim() : `a decoupled architecture with explicit service boundaries`;
 
-      const resultMatch = request.prompt.match(/-\s*Result:\s*([^\n.]+)/i) || request.prompt.match(/-\s*Result:\s*([^\n]+)/i);
+      const resultMatch = request.prompt.match(/-\s*(?:Result|Outcome\/Result):\s*([^\n.]+)/i);
       const resultOutcome = resultMatch ? resultMatch[1].trim() : `measurable stability and throughput improvements`;
 
-      const insightMatch = request.prompt.match(/-\s*Insight:\s*([^\n.]+)/i) || request.prompt.match(/-\s*Insight:\s*([^\n]+)/i);
-      const lessonText = insightMatch ? insightMatch[1].trim() : `Explicit service boundary definitions prevent silent coupling failures in distributed systems.`;
+      const insightMatch = request.prompt.match(/-\s*(?:Insight|Engineering Lesson):\s*([^\n.]+)/i);
+      const lessonText = insightMatch ? insightMatch[1].trim() : `Explicit service boundary definitions prevent silent failure propagation in production systems.`;
 
       // Extract tradeoffs
       const tradeoffMatch = request.prompt.match(/Tradeoffs?:\s*([^\n]+)/i);
@@ -525,8 +525,8 @@ export class AIGateway {
 
       // Extract metrics from experience logs if present in prompt
       const metricsMatch = request.prompt.match(/(\d+%|\d+ms|\d+x|\$[\d,]+)/g);
-      const metric1 = metricsMatch ? metricsMatch[0] : "42%";
-      const metric2 = metricsMatch && metricsMatch.length > 1 ? metricsMatch[1] : "78%";
+      const metric1 = metricsMatch ? metricsMatch[0] : "800ms";
+      const metric2 = metricsMatch && metricsMatch.length > 1 ? metricsMatch[1] : "240ms";
 
       // Extract hook from prompt
       const hookRefMatch = request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i);
@@ -534,11 +534,11 @@ export class AIGateway {
         ? hookRefMatch[1]
         : `The ${topicTitle.split(" ").slice(0, 4).join(" ")} problem looked straightforward.\n\nIt wasn't.`;
 
-      // Extract CTA from prompt
+      // Extract CTA from prompt (strictly without cliché engagement bait per AGENTS.md Rule 10)
       const ctaRefMatch = request.prompt.match(/CTA REFERENCE:\s*"([^"]+)"/i);
-      const ctaText = ctaRefMatch
+      const ctaText = ctaRefMatch && !/drop your|what do you think|agree or disagree/i.test(ctaRefMatch[1])
         ? ctaRefMatch[1]
-        : `What tradeoffs have you made when ${topicTitle.split(" ").slice(-3).join(" ").toLowerCase()}? Drop your approach in the comments.`;
+        : `The primary architectural trade-off remains balancing isolation boundaries against operational complexity.`;
 
       // Extract story mode and format
       const storyModeMatch = request.prompt.match(/STORY MODE:\s*(\w+)/i);
@@ -552,50 +552,47 @@ export class AIGateway {
       if (formatStyle === "MINIMAL_BULLETS" || formatStyle === "TECHNICAL_NOTE") {
         bodyText = [
           situationCtx,
-          `Constraint: ${taskObj}`,
-          `Approach: ${actionChosen}`,
-          `Tradeoff: ${tradeoffText}`,
-          `Result: ${resultOutcome} (${metric1} / ${metric2})`,
-          `Lesson: ${lessonText}`,
+          `Constraint:\n• ${taskObj}`,
+          `Approach:\n• ${actionChosen}`,
+          `Tradeoff:\n• ${tradeoffText}`,
+          `Result:\n• ${resultOutcome} (${metric1} drop, ${metric2} floor)`,
+          `Takeaway:\n${lessonText}`,
         ].join("\n\n");
       } else if (formatStyle === "BEFORE_AFTER_LAYOUT") {
         bodyText = [
-          `Before: ${situationCtx}`,
-          `Target: ${taskObj}`,
-          `Change: ${actionChosen}`,
-          `After: ${resultOutcome}`,
-          `Tradeoff: ${tradeoffText}`,
-          `Insight: ${lessonText}`,
+          `Before:\n${situationCtx}`,
+          `Problem:\n${taskObj}`,
+          `Change:\n${actionChosen}`,
+          `Result:\n${resultOutcome}`,
+          `Tradeoff:\n${tradeoffText}`,
+          `Takeaway:\n${lessonText}`,
         ].join("\n\n");
       } else if (formatStyle === "SHORT_DIALOGUE" || formatStyle === "CODE_WALKTHROUGH") {
         bodyText = [
-          `Context: ${situationCtx}`,
-          `Goal: ${taskObj}`,
-          `Decision: ${actionChosen}`,
-          `Tradeoff: ${tradeoffText}`,
-          `Outcome: ${resultOutcome} (${metric1} vs ${metric2})`,
-          `Conclusion: ${lessonText}`,
+          `Context:\n${situationCtx}`,
+          `Objective:\n${taskObj}`,
+          `Decision:\n${actionChosen}`,
+          `Tradeoff:\n${tradeoffText}`,
+          `Outcome:\n${resultOutcome} (${metric1} vs ${metric2})`,
+          `Rule:\n${lessonText}`,
         ].join("\n\n");
       } else {
         // NARRATIVE_PARAGRAPHS, BUILD_IN_PUBLIC, BENCHMARK_ANALYSIS, etc.
         bodyText = [
-          situationCtx,
-          taskObj,
+          situationCtx.endsWith(".") ? situationCtx : `${situationCtx}.`,
+          taskObj.endsWith(".") ? taskObj : `${taskObj}.`,
           `We resolved this by using ${actionChosen}, accepting the tradeoff: ${tradeoffText}.`,
-          `This yielded: ${resultOutcome} (${metric1} improvement, ${metric2} reduction).`,
-          lessonText
+          `Measured impact:\n• ${metric1} improvement across critical paths\n• ${metric2} reduction in latency spikes`,
+          `Takeaway:\n${lessonText}`
         ].join("\n\n");
       }
 
       const fullText = [
         hookText,
-        ``,
         bodyText,
-        ``,
         ctaText,
-        ``,
         `#SoftwareEngineering #SystemDesign #${topicTitle.split(" ")[0].replace(/[^a-zA-Z]/g, "")}Engineering`,
-      ].join("\n");
+      ].join("\n\n");
 
       const payload = {
         linkedIn: {
