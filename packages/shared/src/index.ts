@@ -318,6 +318,8 @@ export interface CandidateOpportunityRecord {
   category: string;
   framework?: string;
   engineeringProblem?: string;
+  url?: string;
+  references?: string[];
   scores: CandidateOpportunityScores;
   noveltyScore: number;
   freshnessScore: number;
@@ -563,6 +565,8 @@ export const HistoricalPostRecordSchema = z.object({
   framework: z.string().optional(),
   supportingTech: z.array(z.string()).default([]),
   keywords: z.array(z.string()).default([]),
+  references: z.array(z.string()).default([]).optional(),
+  url: z.string().optional(),
   hook: z.string(),
   writingStyle: z.string().optional(),
   storyAngle: z.string().optional(),

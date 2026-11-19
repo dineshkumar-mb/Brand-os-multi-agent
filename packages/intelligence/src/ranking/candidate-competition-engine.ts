@@ -73,6 +73,14 @@ export class CandidateCompetitionEngine {
       .replace(/^Arxiv:\s*/i, "")
       .replace(/^Security:\s*/i, "");
 
+    // Check for repo prefix like "owner/repo — description" or "owner/repo: description"
+    const repoPrefixMatch = clean.match(/^([\w.-]+\/[\w.-]+)\s*[—:-]\s*(.+)$/i);
+    let repoNameFromPrefix = "";
+    if (repoPrefixMatch) {
+      repoNameFromPrefix = repoPrefixMatch[1].trim();
+      clean = repoPrefixMatch[2].trim();
+    }
+
     const lc = clean.toLowerCase();
 
     // ── Step 2: Raw repo path pattern (owner/repo) ─────────────────────────
@@ -382,7 +390,9 @@ export class CandidateCompetitionEngine {
 
     // Filter verification & classify source authority
     const verifiedCandidates = deduplicatedSignals.map((sig) => {
-      const sourceLevel = freshTrendDiscoveryEngine.classifySourceAuthority(sig.sourceName, sig.url || "");
+      const sourceLevel = sig.sourceId === "github_trending_daily"
+        ? SourceAuthorityLevel.LEVEL_1_PRIMARY
+        : freshTrendDiscoveryEngine.classifySourceAuthority(sig.sourceName, sig.url || "");
       const freshnessScore = freshTrendDiscoveryEngine.calculateFreshnessScore(sig.publishedAt);
       const isVerified = sourceLevel <= SourceAuthorityLevel.LEVEL_2_SECONDARY || sig.title.includes("Official");
       return { sig, sourceLevel, freshnessScore, isVerified };
@@ -529,7 +539,7 @@ export class CandidateCompetitionEngine {
       const careerDifferentiation = Math.min(100, 75 + (experienceMatchScore > 50 ? 15 : 0) + (sourceLevel === 1 ? 10 : 0));
 
       // Composite 13-Dimension Weighted Score including RecruiterAttractionScore
-      const overallScore = Math.round(
+      let overallScore = Math.round(
         careerRelevance * 0.12 +
         experienceMatchScore * 0.18 +
         recruiterAttraction.score * 0.15 +
@@ -543,6 +553,11 @@ export class CandidateCompetitionEngine {
         engineeringTension * 0.04 +
         careerDifferentiation * 0.02
       );
+
+      // Mandatory GitHub Trending Research Priority: boost real trending developer repos (+15)
+      if (sig.sourceId === "github_trending_daily") {
+        overallScore = Math.min(100, overallScore + 15);
+      }
 
       const scores: CandidateOpportunityScores = {
         careerRelevance,
@@ -568,6 +583,8 @@ export class CandidateCompetitionEngine {
         category,
         framework,
         engineeringProblem: problemExtracted.problemTitle,
+        url: sig.url,
+        references: sig.url ? [sig.url] : [],
         scores,
         noveltyScore: topicNoveltyScore,
         freshnessScore,
@@ -653,7 +670,7 @@ export class CandidateCompetitionEngine {
       competition: "MEDIUM",
       audience: "Senior Engineers & Technical Leaders",
       keywords: [cand.category, cand.framework || "Architecture"].filter(Boolean),
-      references: [],
+      references: cand.references || (cand.url ? [cand.url] : []),
       storyAngle: "PRODUCTION_REALITY",
     };
   }

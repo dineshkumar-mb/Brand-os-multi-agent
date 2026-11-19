@@ -15,6 +15,8 @@ jobs:
   daily-verified-post:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: write
 
     services:
       postgres:
@@ -127,6 +129,20 @@ jobs:
           if [ "$SUCCESS" = false ]; then
             echo "All attempts failed. Pipeline aborted."
             exit 1
+          fi
+
+      - name: Commit and Push Updated Post History
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add post_history.json packages/agents/post_history.json scratch/.state/ 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            echo "Persisting updated post history to repository..."
+            git commit -m "chore(history): persist published post history [skip ci]"
+            git push origin main
+          else
+            echo "No post history changes detected to commit."
           fi
 
       - name: Upload Dead Letter Queue Artifacts on Failure

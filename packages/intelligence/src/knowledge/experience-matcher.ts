@@ -8,37 +8,38 @@ export class ExperienceMatcherEngine {
   } {
     const textToMatch = `${event.title} ${event.summary} ${event.tags.join(" ")}`.toLowerCase();
 
-    // Diversified user project experience inventory across full-stack AI & systems engineering
+    // Diversified user project experience inventory aligned with:
+    // Full Stack Developer | MERN Stack | React | Node.js | AI Integration | Agentic AI
     const userExperiences = [
       {
         id: "exp_1",
-        title: "Built Autonomous Multi-Agent Personal Brand OS",
-        tech: ["TypeScript", "Node.js", "OpenAI", "Anthropic", "PostgreSQL", "Docker"],
-        description: "Implemented multi-agent orchestration, quality decision gates, and event-driven architecture.",
+        title: "Built Autonomous Multi-Agent Systems & Tool Integrations",
+        tech: ["TypeScript", "Node.js", "Agentic AI", "AI Agents", "MCP", "LangGraph", "LLM", "OpenAI", "Anthropic", "Docker"],
+        description: "Implemented multi-agent orchestration, tool schemas (MCP), quality decision gates, and event-driven architecture.",
       },
       {
         id: "exp_2",
-        title: "High-Throughput Microservice Distributed Rate Limiting & Queue Processing",
-        tech: ["Node.js", "Docker", "PostgreSQL", "System Design", "Performance"],
-        description: "Built asynchronous queue pipeline managing rate limits, exponential backoffs, and memory bounds.",
+        title: "High-Throughput Node.js & MERN Backend Microservices",
+        tech: ["Node.js", "Express", "MERN Stack", "Backend Engineering", "REST API", "Docker", "MongoDB", "PostgreSQL", "Performance"],
+        description: "Built asynchronous queue pipelines managing rate limits, atomic locks, exponential backoffs, and memory bounds.",
       },
       {
         id: "exp_3",
-        title: "Enterprise SaaS Full Stack Refactoring & Compiler Optimization",
-        tech: ["React", "TypeScript", "Vite", "Next.js", "TailwindCSS"],
-        description: "Refactored legacy forms and state pipelines to modern async server actions reducing client bundle size.",
+        title: "Enterprise Full-Stack React & Next.js Web Applications",
+        tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "MERN Stack", "Full Stack", "Frontend Engineering", "Vite"],
+        description: "Refactored UI component hierarchies and async server actions for zero-boilerplate state updates.",
       },
       {
         id: "exp_4",
-        title: "Containerized Microservice Hardening & CI/CD Pipeline Security",
-        tech: ["Docker", "Kubernetes", "Security", "CI/CD", "GitHub Actions"],
-        description: "Enforced vulnerability scanning, rootless container execution, and zero-trust mTLS authorization.",
+        title: "Containerized Microservice Hardening & CI/CD Automation",
+        tech: ["Docker", "Kubernetes", "Security", "CI/CD", "GitHub Actions", "Developer Tools"],
+        description: "Enforced vulnerability scanning, rootless container execution, and automated deployment pipelines.",
       },
       {
         id: "exp_5",
-        title: "Columnar Analytics & Real-Time Data Pipeline Architecture",
-        tech: ["Databases", "System Design", "Analytics", "SQL", "Performance"],
-        description: "Designed high-cardinality analytical aggregation queries with low-latency indexing strategies.",
+        title: "Data Access Layers, ORMs & RAG Vector Architectures",
+        tech: ["TypeScript", "Node.js", "Prisma", "Databases", "MongoDB", "PostgreSQL", "RAG", "Vector Search", "Full Stack"],
+        description: "Designed type-safe database schemas, connection pooling, and semantic retrieval pipelines.",
       },
     ];
 

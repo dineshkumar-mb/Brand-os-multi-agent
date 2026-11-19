@@ -532,66 +532,38 @@ export class AIGateway {
       const hookRefMatch = request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i);
       const hookText = hookRefMatch
         ? hookRefMatch[1]
-        : `The ${topicTitle.split(" ").slice(0, 4).join(" ")} problem looked straightforward.\n\nIt wasn't.`;
+        : `Most engineering teams spend days troubleshooting state bottlenecks in ${topicTitle.split(" ").slice(0, 3).join(" ")}.\n\nHere is how to address it cleanly.`;
+
+      // Extract GitHub URL from prompt if available
+      const ghUrlMatch = request.prompt.match(/(https:\/\/github\.com\/[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+)/i);
+      const ghUrl = ghUrlMatch ? ghUrlMatch[1] : "";
 
       // Extract CTA from prompt (strictly without cliché engagement bait per AGENTS.md Rule 10)
       const ctaRefMatch = request.prompt.match(/CTA REFERENCE:\s*"([^"]+)"/i);
       const ctaText = ctaRefMatch && !/drop your|what do you think|agree or disagree/i.test(ctaRefMatch[1])
         ? ctaRefMatch[1]
-        : `The primary architectural trade-off remains balancing isolation boundaries against operational complexity.`;
+        : `How is your team handling this architectural pattern in production?`;
 
-      // Extract story mode and format
-      const storyModeMatch = request.prompt.match(/STORY MODE:\s*(\w+)/i);
-      const storyMode = storyModeMatch ? storyModeMatch[1] : "BUILD_IN_PUBLIC";
+      // ── Build recruiter-friendly, human-formatted LinkedIn post ───────────
+      const contextPart = situationCtx.endsWith(".") ? situationCtx : `${situationCtx}.`;
+      const challengePart = taskObj.endsWith(".") ? taskObj : `${taskObj}.`;
+      const insightBullets = [
+        `• Architecture: ${actionChosen}`,
+        `• Verified Impact: ${resultOutcome}`,
+        `• Operational Trade-off: ${tradeoffText}`,
+      ].join("\n");
 
-      const formatMatch = request.prompt.match(/FORMAT STYLE[^:]*:\s*(\w+)/i);
-      const formatStyle = formatMatch ? formatMatch[1] : "NARRATIVE_PARAGRAPHS";
-
-      // ── Build topic-specific body based on format style ───────────────────
-      let bodyText = "";
-      if (formatStyle === "MINIMAL_BULLETS" || formatStyle === "TECHNICAL_NOTE") {
-        bodyText = [
-          situationCtx,
-          `Constraint:\n• ${taskObj}`,
-          `Approach:\n• ${actionChosen}`,
-          `Tradeoff:\n• ${tradeoffText}`,
-          `Result:\n• ${resultOutcome} (${metric1} drop, ${metric2} floor)`,
-          `Takeaway:\n${lessonText}`,
-        ].join("\n\n");
-      } else if (formatStyle === "BEFORE_AFTER_LAYOUT") {
-        bodyText = [
-          `Before:\n${situationCtx}`,
-          `Problem:\n${taskObj}`,
-          `Change:\n${actionChosen}`,
-          `Result:\n${resultOutcome}`,
-          `Tradeoff:\n${tradeoffText}`,
-          `Takeaway:\n${lessonText}`,
-        ].join("\n\n");
-      } else if (formatStyle === "SHORT_DIALOGUE" || formatStyle === "CODE_WALKTHROUGH") {
-        bodyText = [
-          `Context:\n${situationCtx}`,
-          `Objective:\n${taskObj}`,
-          `Decision:\n${actionChosen}`,
-          `Tradeoff:\n${tradeoffText}`,
-          `Outcome:\n${resultOutcome} (${metric1} vs ${metric2})`,
-          `Rule:\n${lessonText}`,
-        ].join("\n\n");
-      } else {
-        // NARRATIVE_PARAGRAPHS, BUILD_IN_PUBLIC, BENCHMARK_ANALYSIS, etc.
-        bodyText = [
-          situationCtx.endsWith(".") ? situationCtx : `${situationCtx}.`,
-          taskObj.endsWith(".") ? taskObj : `${taskObj}.`,
-          `We resolved this by using ${actionChosen}, accepting the tradeoff: ${tradeoffText}.`,
-          `Measured impact:\n• ${metric1} improvement across critical paths\n• ${metric2} reduction in latency spikes`,
-          `Takeaway:\n${lessonText}`
-        ].join("\n\n");
-      }
+      const practicalPart = ghUrl
+        ? `Where to apply this:\nIdeal for full-stack applications requiring robust separation of concerns.\n\nExplore the project: ${ghUrl}`
+        : `Where to apply this:\nIdeal for high-scale full-stack systems requiring predictable throughput.\n\nKey Takeaway: ${lessonText}`;
 
       const fullText = [
         hookText,
-        bodyText,
+        `${contextPart}\n\n${challengePart}`,
+        `Key Engineering Insights:\n${insightBullets}`,
+        practicalPart,
         ctaText,
-        `#SoftwareEngineering #SystemDesign #${topicTitle.split(" ")[0].replace(/[^a-zA-Z]/g, "")}Engineering`,
+        `#FullStack #React #NodeJS #AI #SoftwareEngineering`,
       ].join("\n\n");
 
       const payload = {
@@ -602,7 +574,7 @@ export class AIGateway {
           lesson: lessonText,
           actionableInsight: resultOutcome,
           cta: ctaText,
-          hashtags: ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering"],
+          hashtags: ["#FullStack", "#React", "#NodeJS", "#AI", "#SoftwareEngineering"],
           fullText,
         },
         devTo: {

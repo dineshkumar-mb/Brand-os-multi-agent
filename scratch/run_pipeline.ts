@@ -2,7 +2,8 @@ import "dotenv/config";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import { agentOrchestrator } from "../packages/agents/src/index";
+import { agentOrchestrator, PostHistoryDeduplicationAgent } from "../packages/agents/src/index";
+import { postHistoryTracker } from "../packages/analytics/src/index";
 import { publisherService, MissingAccessTokenError } from "../packages/publisher/src/index";
 import { Platform } from "../packages/shared/src/index";
 import { notificationService, automationTracker } from "../packages/shared/src/notification-service";
@@ -305,6 +306,32 @@ async function main() {
     process.exit(0);
   }
 
+  // Stage 3b: Post History Deduplication Audit (Enforces 14-day topic/repo cooldown & 30% similarity limit)
+  const history = postHistoryTracker.getHistory();
+  const postDeduplicationAgent = new PostHistoryDeduplicationAgent(history);
+  const dedupResult = postDeduplicationAgent.evaluatePostDeduplication(
+    swarmResult.topic,
+    swarmResult.linkedInPost,
+    swarmResult.devToArticle,
+    pipelineId
+  );
+
+  if (!dedupResult.data.passed) {
+    const dedupMsg = `Post Deduplication Guard Rejected Publication to prevent repeated content: ${dedupResult.data.rejectionReasons.join("; ")}`;
+    logStructured("WARN", "deduplication", dedupMsg, { pipelineId });
+    writeGitHubStepSummary(`## ⚠️ Pipeline Skipped (Deduplication Guard)\n\n${dedupMsg}\n\n- **Topic**: ${swarmResult.topic?.title || "N/A"}\n- **Matching Past Post**: ${dedupResult.data.matchingPostTitle || "N/A"}`);
+    if (executionRecord) {
+      await prisma.pipelineExecution.update({
+        where: { id: pipelineId },
+        data: { status: "SKIPPED", error: dedupMsg }
+      }).catch(() => {});
+    }
+    console.log(`\n==========================================================`);
+    console.log(` ⏭️ PIPELINE COMPLETED (SKIPPED DUPLICATE TOPIC/POST)    `);
+    console.log(`==========================================================`);
+    process.exit(0);
+  }
+
   // Stage 4: Publish to LinkedIn Platform (Primary Target - Failures are Fatal)
   logStructured("INFO", "publisher", `Dispatching post to LinkedIn Publisher in [${mode}] mode...`, { pipelineId });
 
@@ -345,6 +372,25 @@ async function main() {
 
   // Record idempotency state on successful primary publish
   recordPublishedState(idempotency.dateKey, idempotency.hash, publishResult.externalId);
+
+  // Stage 4.1: Record Published Post into Permanent Post History
+  try {
+    postHistoryTracker.addPublishedPost({
+      id: publishResult.externalId || `urn:li:share:${Date.now()}`,
+      title: swarmResult.topic.title,
+      platform: Platform.LINKEDIN,
+      category: swarmResult.topic.category,
+      framework: swarmResult.topic.framework,
+      supportingTech: swarmResult.topic.supportingTech,
+      keywords: swarmResult.topic.keywords,
+      hook: swarmResult.linkedInPost.hook,
+      fullText: swarmResult.linkedInPost.fullText,
+      publishedAt: new Date().toISOString(),
+    });
+    logStructured("INFO", "post_history", "Published post recorded into post_history.json successfully", { pipelineId });
+  } catch (histErr: any) {
+    logStructured("WARN", "post_history", `Failed to record in post_history.json: ${histErr.message}`);
+  }
 
   // Stage 4b: Publish to Medium Platform (Optional Target - Warning & continue)
   let mediumPublishResult = null;

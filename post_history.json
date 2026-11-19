@@ -1,5 +1,37 @@
 [
   {
+    "id": "urn:li:share:703683171",
+    "title": "Why Copy-Paste UI Primitives Are Replacing Heavy Component Libraries in Modern React",
+    "platform": "LINKEDIN",
+    "category": "Frontend Engineering",
+    "framework": "React",
+    "supportingTech": [
+      "React",
+      "Tailwind CSS",
+      "TypeScript",
+      "Frontend Engineering"
+    ],
+    "keywords": [
+      "Shadcn UI",
+      "Tailwind CSS",
+      "React Primitives",
+      "Radix UI",
+      "Frontend"
+    ],
+    "hook": "Most engineering teams spend days troubleshooting state bottlenecks in System Architecture &. Here is how to address it cleanly.",
+    "fullText": "Most engineering teams spend days troubleshooting state bottlenecks in System Architecture &. Here is how to address it cleanly. Operating event dispatch networks forwarding notification payloads to clients. Redis Pub/Sub dropped payloads when message consumers experienced disconnections. Key Engineering Insights:\n• Architecture: Option B: Kafka partition streams paired with transactional producers • Verified Impact: Reduced CSS bundle size by 62%, eliminated all styling specificity conflicts\n• Operational Trade-off: added operational overhead in exchange for fault isolation Where to apply this:\nIdeal for full-stack applications requiring separation of concerns. Explore the project: https://github.com/shadcn-ui/ui How is your team handling this architectural pattern in production? #FullStack #React #NodeJS #AI #SoftwareEngineering",
+    "publishedAt": "2026-11-19T16:34:14.347Z",
+    "engagementMetrics": {
+      "impressions": 249,
+      "reactions": 49,
+      "comments": 6,
+      "shares": 3,
+      "saves": 4,
+      "profileVisits": 15,
+      "followersGained": 5
+    }
+  },
+  {
     "id": "urn:li:share:750898249",
     "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
     "platform": "LINKEDIN",
@@ -5496,6 +5528,171 @@
     }
   },
   {
+    "id": "urn:li:share:601090439",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Our Zero Duplicate Side Effects integration test suite was completely green. The workflow still failed under real load.",
+    "fullText": "Our Zero Duplicate Side Effects integration test suite was completely green. The workflow still failed under real load. Context: A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Goal: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Decision: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Outcome: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% vs 42%) Conclusion: Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:49:39.804Z",
+    "engagementMetrics": {
+      "impressions": 185,
+      "reactions": 28,
+      "comments": 4,
+      "shares": 3,
+      "saves": 1,
+      "profileVisits": 7,
+      "followersGained": 2
+    }
+  },
+  {
+    "id": "urn:li:share:672171299",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I could make this Zero Duplicate Side Effects architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this Zero Duplicate Side Effects architecture simpler. I deliberately didn't. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Constraint: Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) Approach: Option B: Redis-backed distributed atomic lock middleware Tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% / 42%) Lesson: Task runners must manage transaction boundaries at the consumer boundary Would you optimize Zero Duplicate Side Effects for latency or cost here if Distributed Systems request volume doubled? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:48:26.942Z",
+    "engagementMetrics": {
+      "impressions": 123,
+      "reactions": 28,
+      "comments": 5,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:145932047",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "The Zero Duplicate Side Effects implementation was technically correct. The system was still wrong under load.",
+    "fullText": "The Zero Duplicate Side Effects implementation was technically correct. The system was still wrong under load. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary At what point in Zero Duplicate Side Effects would you introduce a queue instead of synchronous retry loops for Distributed Systems? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:23:18.954Z",
+    "engagementMetrics": {
+      "impressions": 262,
+      "reactions": 15,
+      "comments": 2,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:116770261",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "I expected Distributed Systems to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts.",
+    "fullText": "I expected Distributed Systems to be a straightforward integration. The actual engineering challenge turned out to be how state transitions are handled across bounded contexts. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary What tradeoffs have you made when background worker queues? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T15:03:29.890Z",
+    "engagementMetrics": {
+      "impressions": 143,
+      "reactions": 25,
+      "comments": 3,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 5
+    }
+  },
+  {
+    "id": "urn:li:share:523000851",
+    "title": "Zero Duplicate Side Effects: Implementing Atomic Redis Deduplication & Retries for Distributed Background Worker Queues",
+    "platform": "LINKEDIN",
+    "category": "System Design & Distributed Queues",
+    "framework": "Distributed Systems",
+    "supportingTech": [
+      "Redis",
+      "BullMQ",
+      "TypeScript",
+      "PostgreSQL",
+      "Node.js"
+    ],
+    "keywords": [
+      "Distributed Queues",
+      "Redis Idempotency",
+      "System Design",
+      "Node.js",
+      "Background Processing"
+    ],
+    "hook": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster.",
+    "fullText": "Refactoring our Zero Duplicate Side Effects pipeline to synchronous execution counter-intuitively made it 4x faster. A multi-tenant worker cluster executing tasks under peak burst traffic loads. (Trigger: Frequent network drops caused database timeout exceptions in background tasks.) Define a secure deduplication checkpoint at the distributed task worker entry interface. (Constraints: Must not introduce serialization locks on tasks, Must preserve low write RTT times) We resolved this by using Option B: Redis-backed distributed atomic lock middleware, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Duplicate job execution dropped to 0%, queue throughput increased by 42% (0% improvement, 42% reduction). Task runners must manage transaction boundaries at the consumer boundary How does your team handle the Zero Duplicate Side Effects trade-off when scaling Distributed Systems under load? #SoftwareEngineering #SystemDesign #ZeroEngineering",
+    "publishedAt": "2026-09-15T14:58:30.549Z",
+    "engagementMetrics": {
+      "impressions": 238,
+      "reactions": 26,
+      "comments": 2,
+      "shares": 1,
+      "saves": 2,
+      "profileVisits": 8,
+      "followersGained": 2
+    }
+  },
+  {
     "id": "urn:li:share:953000890",
     "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
     "platform": "LINKEDIN",
@@ -5520,6 +5717,94 @@
       "saves": 2,
       "profileVisits": 8,
       "followersGained": 4
+    }
+  },
+  {
+    "id": "urn:li:share:287104838",
+    "title": "Architecting a Resilient Multi-Provider LLM Gateway: Dynamic Rate-Limiting, Failover Routing, and Cost Optimization",
+    "platform": "LINKEDIN",
+    "category": "AI Infrastructure & Gateway Routing",
+    "framework": "LLM Gateway Router",
+    "supportingTech": [
+      "OpenAI",
+      "Anthropic",
+      "Gemini",
+      "TypeScript",
+      "Redis",
+      "OpenRouter"
+    ],
+    "keywords": [
+      "LLM Gateway",
+      "AI Infrastructure",
+      "Rate Limiting",
+      "Provider Failover",
+      "Cost Optimization"
+    ],
+    "hook": "I could make this Architecting a Resilient Multi-Provider LLM Gateway architecture simpler. I deliberately didn't.",
+    "fullText": "I could make this Architecting a Resilient Multi-Provider LLM Gateway architecture simpler. I deliberately didn't. Routing concurrent LLM request streams across third-party model providers. (Trigger: Upstream rate limit exceptions (429) halted active background generation pipelines.) Create a resilient, multi-provider gateway router supporting dynamic model fallbacks. (Constraints: Maintain chat context history stability, Zero prompt storage in database to preserve privacy) We resolved this by using Option B: Multi-provider dynamic fallback gateway with token bucket tracking, accepting the tradeoff: Chosen: Tiered routing with fa, Sacrificed: Architectural simplicity (requires routing state machine and fallback handling. This yielded: Pipeline execution reliability increased to 99 (94% improvement, 34% reduction). External model APIs must be treated as volatile endpoints Would you optimize Architecting a Resilient Multi-Provider LLM Gateway for latency or cost here if LLM Gateway Router request volume doubled? #SoftwareEngineering #SystemDesign #ArchitectingEngineering",
+    "publishedAt": "2026-09-15T14:24:36.673Z",
+    "engagementMetrics": {
+      "impressions": 203,
+      "reactions": 30,
+      "comments": 6,
+      "shares": 2,
+      "saves": 1,
+      "profileVisits": 14,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:835261825",
+    "title": "Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services",
+    "platform": "LINKEDIN",
+    "category": "Node.js",
+    "framework": "Backend Engineering",
+    "supportingTech": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "keywords": [
+      "Node.js",
+      "Backend Engineering"
+    ],
+    "hook": "Adding a cache layer to Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services made the system less reliable.",
+    "fullText": "Adding a cache layer to Diagnosing V8 GC Pressure and Memory Leaks in Long-Running Node.js Services made the system less reliable. Operating high-throughput Node.js application gateways handling persistent client connections. (Trigger: Container memory usage grew linearly, triggering Out-Of-Memory restarts daily.) Locate the leak source and stabilize container heap usage under 512MB. (Constraints: Must monitor heap allocations without blocking server execution, Cannot modify V8 collection intervals) We resolved this by using Option B: heap snapshot comparison to locate persistent closure scopes, accepting the tradeoff: Chosen: , Sacrificed: Immediate strict consistency during cache propagation windows. This yielded: Memory growth eliminated (18ms improvement, 18ms reduction). JavaScript leaks are reference leaks What tradeoffs have you made when long-running node.js services? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #DiagnosingEngineering",
+    "publishedAt": "2026-08-30T13:13:29.337Z",
+    "engagementMetrics": {
+      "impressions": 173,
+      "reactions": 26,
+      "comments": 3,
+      "shares": 3,
+      "saves": 2,
+      "profileVisits": 10,
+      "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:116886449",
+    "title": "Eliminating CI Type-Check Bottlenecks in Large TypeScript Monorepos",
+    "platform": "LINKEDIN",
+    "category": "TypeScript",
+    "framework": "TypeScript 5.7",
+    "supportingTech": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "keywords": [
+      "TypeScript",
+      "TypeScript 5.7"
+    ],
+    "hook": "I thought our TypeScript 5.7 query path was slow. It wasn't.",
+    "fullText": "I thought our TypeScript 5.7 query path was slow. It wasn't. Compiling a large pnpm monorepo structure holding twelve nested library modules. (Trigger: CI build workers ran full type checking runs for every single branch pull request.) Set up strict compilation boundaries in the composite package structure. (Constraints: Enforce global strict compiler validation, No bypass build shortcuts on pull requests) We resolved this by using Option B: Compiler reference hierarchy with incremental declaration mapping, accepting the tradeoff: Chosen: , Sacrificed: Unified client-only state management simplicity. This yielded: CI type check time reduced from 8 (78% improvement, 78% reduction). Monorepo scaling requires compiler isolation What tradeoffs have you made when large typescript monorepos? Drop your approach in the comments. #SoftwareEngineering #SystemDesign #EliminatingEngineering",
+    "publishedAt": "2026-08-30T13:07:28.542Z",
+    "engagementMetrics": {
+      "impressions": 167,
+      "reactions": 35,
+      "comments": 3,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 12,
+      "followersGained": 3
     }
   },
   {
@@ -5574,6 +5859,33 @@
       "saves": 2,
       "profileVisits": 9,
       "followersGained": 6
+    }
+  },
+  {
+    "id": "urn:li:share:841936626",
+    "title": "Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images",
+    "platform": "LINKEDIN",
+    "category": "Docker",
+    "framework": "DevOps",
+    "supportingTech": [
+      "Docker",
+      "DevOps"
+    ],
+    "keywords": [
+      "Docker",
+      "DevOps"
+    ],
+    "hook": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design.",
+    "fullText": "The most useful part of DevOps wasn't the headline feature. It was the failure handling design. Before: Maintaining container security compliance across multi-architecture production images. (Trigger: A routine security scan flagged twenty-seven critical vulnerabilities in our legacy base image.) Target: Eliminate all critical CVEs while keeping the build pipeline execution under three minutes. (Constraints: Must support both amd64 and arm64 targets, No bloated runtime tooling in production images) Change: Option B: Multi-stage distroless base image transition with Buildx target isolation After: Production image size dropped from 850MB to 78MB with zero high/critical vulnerabilities Tradeoff: Chosen: Distroless minimal runtimes, Sacrificed: Interactive container debugging — accepted the need for sidecar attachments in staging Secure container design means shipping only execution binaries How does your team handle the Hardening Multi-Architecture Container Build Pipelines for Zero-CVE Production Images trade-off when scaling DevOps under load? #SoftwareEngineering #SystemDesign #HardeningEngineering",
+    "publishedAt": "2026-08-30T12:59:03.305Z",
+    "engagementMetrics": {
+      "impressions": 237,
+      "reactions": 24,
+      "comments": 3,
+      "shares": 1,
+      "saves": 1,
+      "profileVisits": 11,
+      "followersGained": 5
     }
   },
   {
