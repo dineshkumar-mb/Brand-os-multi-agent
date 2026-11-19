@@ -424,175 +424,77 @@ export class VisualPlanningAgent {
       };
     }
 
-    if (style.includes("FLOW") || style.includes("WORKFLOW") || style.includes("DATA") || fullText.includes("pipeline") || fullText.includes("stream")) {
+    // Recruiter-Friendly 3-Step Practical Workflow Layout
+    if (style.includes("FLOW") || style.includes("WORKFLOW") || style.includes("DATA") || fullText.includes("pipeline") || fullText.includes("agent")) {
+      const isAI = fullText.toLowerCase().includes("ai") || fullText.toLowerCase().includes("agent") || fullText.toLowerCase().includes("mcp");
       return {
-        title: `${cleanTitle} Data Flow Pipeline`,
+        title: `${cleanTitle} Architecture`,
         layoutStyle: "SYSTEM_FLOW",
         colorPalette: "Blue (#3b82f6), Purple (#8b5cf6), Green (#10b981)",
         columns: [
           {
             id: "step1",
-            title: "1. Ingress & Routing",
-            subtitle: "API Mesh Boundary",
+            title: "1. User Input",
+            subtitle: isAI ? "User Prompt & Parameters" : "Client Request & Actions",
             color: "blue",
             nodes: [
-              { id: "n1", label: `Client Request Ingress`, icon: "query", color: "blue" },
-              { id: "n2", label: `${tertiaryTech} Auth & Rate Limit`, icon: "cache", color: "blue" },
+              { id: "n1", label: isAI ? "User Prompt & Context" : "React / Next.js Client Action", icon: "query", color: "blue" },
+              { id: "n2", label: isAI ? "Context Retrieval (RAG)" : "Frontend State Management", icon: "cache", color: "blue" },
             ],
           },
           {
             id: "step2",
-            title: "2. Processing & Logic",
-            subtitle: "Async Worker Engine",
+            title: "2. Full Stack Logic",
+            subtitle: isAI ? "Autonomous Decision Core" : "Node.js & Database Engine",
             color: "purple",
             nodes: [
-              { id: "n3", label: `${primaryTech} Execution Node`, icon: "llm", color: "purple" },
-              { id: "n4", label: "State Machine Transition", icon: "embedding", color: "purple" },
+              { id: "n3", label: isAI ? "AI Agent Evaluates Tools" : "Node.js Server Action Execution", icon: "llm", color: "purple" },
+              { id: "n4", label: isAI ? "Standardized Tool Call (MCP)" : "Optimized Database Query", icon: "embedding", color: "purple" },
             ],
           },
           {
             id: "step3",
-            title: "3. Persistence & Output",
-            subtitle: "Decoupled Storage",
+            title: "3. Verified Result",
+            subtitle: "Fast Production Output",
             color: "green",
             nodes: [
-              { id: "n5", label: `${secondaryTech} State Commit`, icon: "vectordb", color: "green" },
-              { id: "n6", label: "Verified Telemetry Event", icon: "response", color: "green" },
+              { id: "n5", label: "Instant Verified Response", icon: "response", color: "green" },
+              { id: "n6", label: "Smooth Full-Stack UI Update", icon: "response", color: "green" },
             ],
           },
         ],
       };
     }
 
-    if (style.includes("FAILURE") || fullText.includes("incident") || fullText.includes("failover") || fullText.includes("postmortem")) {
-      return {
-        title: `${cleanTitle} Fault Recovery`,
-        layoutStyle: "FAILURE_ANALYSIS",
-        colorPalette: "Red Fault (#ef4444), Amber Isolation (#f59e0b), Green Recovered (#10b981)",
-        columns: [
-          {
-            id: "fault",
-            title: "Fault Incident",
-            subtitle: "Upstream Exception (429/500)",
-            color: "red",
-            nodes: [
-              { id: "f1", label: `Primary Provider Exception`, icon: "query", color: "red" },
-              { id: "f2", label: "Connection Pool Exhaustion", icon: "data", color: "red" },
-            ],
-          },
-          {
-            id: "recovery",
-            title: "Automated Fallback",
-            subtitle: "Circuit Breaker Routing",
-            color: "green",
-            nodes: [
-              { id: "r1", label: `${primaryTech} Circuit Breaker`, icon: "cache", color: "green" },
-              { id: "r2", label: `Failover to ${secondaryTech}`, icon: "llm", color: "green" },
-              { id: "r3", label: "Self-Healing Recovery: 100%", icon: "response", color: "green" },
-            ],
-          },
-        ],
-      };
-    }
+    // Recruiter-Friendly Comparison Layout (Before vs After)
+    const isFrontend = fullText.toLowerCase().includes("react") || fullText.toLowerCase().includes("next") || fullText.toLowerCase().includes("frontend");
+    const isAI = fullText.toLowerCase().includes("agent") || fullText.toLowerCase().includes("llm") || fullText.toLowerCase().includes("ai") || fullText.toLowerCase().includes("mcp");
 
-    if (style.includes("DECISION") || fullText.includes("tradeoff") || fullText.includes("chosen") || fullText.includes("vs")) {
-      return {
-        title: `${cleanTitle} Decision Matrix`,
-        layoutStyle: "DECISION_MATRIX",
-        colorPalette: "Blue (#3b82f6) vs Green (#10b981)",
-        columns: [
-          {
-            id: "opt_a",
-            title: "Option A: Monolithic Flow",
-            subtitle: "Sacrificed Architectural Simplicity",
-            color: "blue",
-            nodes: [
-              { id: "da1", label: "Tight Coupling Hazard", icon: "query", color: "blue" },
-              { id: "da2", label: "Cascading Lock Contention", icon: "data", color: "blue" },
-              { id: "da3", label: "High Revalidation Storms", icon: "response", color: "blue" },
-            ],
-          },
-          {
-            id: "opt_b",
-            title: `Option B: ${primaryTech} Architecture`,
-            subtitle: `Chosen Strategy (${metricImp} Reliability)`,
-            color: "green",
-            nodes: [
-              { id: "db1", label: `Decoupled ${primaryTech} State`, icon: "cache", color: "green" },
-              { id: "db2", label: `${secondaryTech} Partitioning`, icon: "vectordb", color: "green" },
-              { id: "db3", label: "Constant-Time Resolution", icon: "response", color: "green" },
-            ],
-          },
-        ],
-      };
-    }
-
-    if (style.includes("BEFORE") || fullText.includes("before") && fullText.includes("after")) {
-      return {
-        title: `${cleanTitle} Architecture Evolution`,
-        layoutStyle: "BEFORE_AFTER_COMPARISON",
-        colorPalette: "Red Before (#ef4444) vs Green After (#10b981)",
-        columns: [
-          {
-            id: "before_col",
-            title: "Before: Direct Coupling",
-            subtitle: `Uncached Bottlenecks (${metricBefore})`,
-            color: "red",
-            nodes: [
-              { id: "ba1", label: `Synchronous ${primaryTech} Ingress`, icon: "query", color: "red" },
-              { id: "ba2", label: "Direct Database Lock Contention", icon: "data", color: "red" },
-              { id: "ba3", label: "Cascading Failures Under Burst", icon: "response", color: "red" },
-            ],
-          },
-          {
-            id: "after_col",
-            title: `After: ${primaryTech} Engine`,
-            subtitle: `Decoupled Isolation (${metricAfter})`,
-            color: "green",
-            nodes: [
-              { id: "ba4", label: `Non-Blocking Queue Worker`, icon: "cache", color: "green" },
-              { id: "ba5", label: `Fenced Partition State Commit`, icon: "vectordb", color: "green" },
-              { id: "ba6", label: `Resilient Circuit Breaker Guard`, icon: "response", color: "green" },
-            ],
-          },
-        ],
-      };
-    }
-
-    // Default: Multi-Layer System Architecture Diagram
     return {
-      title: `${cleanTitle} Architecture Blueprint`,
-      layoutStyle: "ARCHITECTURE_DIAGRAM",
-      colorPalette: "Blue (#3b82f6), Purple (#8b5cf6), Green (#10b981)",
+      title: `${cleanTitle} Optimization`,
+      layoutStyle: "BEFORE_AFTER_COMPARISON",
+      colorPalette: "Red Before (#ef4444) vs Green After (#10b981)",
       columns: [
         {
-          id: "layer_ingress",
-          title: "1. Edge Ingress Layer",
-          subtitle: "Traffic Control & Authentication",
-          color: "blue",
+          id: "before_col",
+          title: "Before: Legacy Bottleneck",
+          subtitle: isFrontend ? "Uncached Client Re-renders" : isAI ? "Brittle Custom API Scripts" : "Blocking Synchronous I/O",
+          color: "red",
           nodes: [
-            { id: "c1", label: `${tertiaryTech} Ingress Gateway`, icon: "query", color: "blue" },
-            { id: "c2", label: "Dynamic Token Bucket Rate Limiter", icon: "cache", color: "blue" },
+            { id: "ba1", label: isFrontend ? "Heavy Client Re-renders" : isAI ? "Hardcoded Single-Model Script" : "Blocking Synchronous Loops", icon: "query", color: "red" },
+            { id: "ba2", label: isFrontend ? "Waterfalls & Slow Initial Paint" : isAI ? "Brittle Custom API Wrappers" : "Unindexed Database Queries", icon: "data", color: "red" },
+            { id: "ba3", label: isFrontend ? "Complex Prop Drilling" : isAI ? "Silent API Timeouts & Failures" : "High Production Latency Spikes", icon: "response", color: "red" },
           ],
         },
         {
-          id: "layer_core",
-          title: `2. ${primaryTech} Core Service`,
-          subtitle: `Event Engine (${metricImp} Latency Gain)`,
-          color: "purple",
-          nodes: [
-            { id: "d1", label: `Decoupled ${primaryTech} Router`, icon: "llm", color: "purple" },
-            { id: "d2", label: "Atomic Deduplication Mutex", icon: "embedding", color: "purple" },
-          ],
-        },
-        {
-          id: "layer_storage",
-          title: "3. Storage & Observability",
-          subtitle: "Durable State & Metrics",
+          id: "after_col",
+          title: "After: Modern Full Stack",
+          subtitle: isFrontend ? "React 19 Server Actions" : isAI ? "Autonomous Resilient Agents" : "Optimized Node.js Pipeline",
           color: "green",
           nodes: [
-            { id: "s1", label: `${secondaryTech} Partition Store`, icon: "vectordb", color: "green" },
-            { id: "s2", label: "Real-time Telemetry Exporter", icon: "response", color: "green" },
+            { id: "ba4", label: isFrontend ? "Next.js 15 Server Actions" : isAI ? "Standardized MCP Tool Registry" : "Asynchronous Non-Blocking Workers", icon: "cache", color: "green" },
+            { id: "ba5", label: isFrontend ? "Optimized Zero-Boilerplate State" : isAI ? "Multi-Provider Dynamic Fallbacks" : "Indexed Cache & Fast Query Paths", icon: "vectordb", color: "green" },
+            { id: "ba6", label: isFrontend ? "Instant UI Updates (-85% latency)" : isAI ? "Fault-Isolated Agent Workflows" : "Sub-100ms Verified P99 Latency", icon: "response", color: "green" },
           ],
         },
       ],
