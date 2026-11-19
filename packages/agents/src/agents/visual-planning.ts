@@ -625,53 +625,67 @@ export class VisualPlanningAgent {
     const layout = spec.layoutStyle || "SIDE_BY_SIDE_COMPARISON";
 
     // ─────────────────────────────────────────────────────────────
-    // LAYOUT 1: BENCHMARK CHART SVG
+    // LAYOUT 1: RECRUITER-FRIENDLY BENCHMARK / BEFORE-AFTER CARD
     // ─────────────────────────────────────────────────────────────
-    if (layout === "BENCHMARK_CHART") {
+    if (layout === "BENCHMARK_CHART" || layout === "BEFORE_AFTER_COMPARISON") {
       const leftCol = spec.columns[0];
       const rightCol = spec.columns[1];
-      return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #0f172a; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-  <style>
-    .title { font-size: 26px; font-weight: 800; fill: #f8fafc; text-anchor: middle; }
-    .subtitle { font-size: 13px; font-weight: 600; fill: #38bdf8; text-anchor: middle; }
-    .card-title { font-size: 18px; font-weight: 700; fill: #f8fafc; }
-    .card-sub { font-size: 12px; font-weight: 500; fill: #94a3b8; }
-    .node-text { font-size: 13px; font-weight: 600; fill: #e2e8f0; }
-    .badge { font-size: 12px; font-weight: 800; fill: #10b981; }
-  </style>
-  <rect width="${width}" height="${height}" fill="#0f172a" rx="16" />
-  <text x="400" y="50" class="title">📊 ${escapeXml(spec.title)}</text>
-  <text x="400" y="75" class="subtitle">PERFORMANCE BENCHMARK &amp; LATENCY COMPARISON</text>
+      const cleanLeft = (leftCol?.title || "Before (Legacy)").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
+      const cleanRight = (rightCol?.title || "After (Optimized)").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
 
-  <!-- Baseline Card (Red Accent) -->
-  <g transform="translate(60, 110)">
-    <rect width="320" height="480" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="12" />
-    <rect width="320" height="40" fill="#ef4444" fill-opacity="0.2" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#f8fafc">🔴 ${escapeXml(leftCol?.title || "Baseline")}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(leftCol?.subtitle || "")}</text>
+      return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <style>
+    .title { font-size: 24px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
+    .badge { font-size: 12px; font-weight: 700; fill: #0284c7; text-anchor: middle; letter-spacing: 1px; }
+    .card-title { font-size: 18px; font-weight: 700; }
+    .card-sub { font-size: 13px; font-weight: 500; fill: #64748b; }
+    .node-text { font-size: 14px; font-weight: 600; fill: #1e293b; }
+    .metric-pill { font-size: 14px; font-weight: 800; fill: #047857; text-anchor: middle; }
+  </style>
+
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <rect x="20" y="20" width="${width - 40}" height="${height - 40}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" rx="16" />
+
+  <!-- Category Badge & Main Title -->
+  <rect x="300" y="38" width="200" height="26" fill="#e0f2fe" rx="13" />
+  <text x="400" y="55" class="badge">FULL STACK &amp; AI BENCHMARK</text>
+  <text x="400" y="92" class="title">${escapeXml(spec.title)}</text>
+
+  <!-- Left Card: Before / Legacy (Red/Slate Accent) -->
+  <g transform="translate(50, 120)">
+    <rect width="330" height="420" fill="#ffffff" stroke="#fca5a5" stroke-width="2" rx="12" />
+    <rect width="330" height="48" fill="#fee2e2" rx="12" />
+    <text x="20" y="30" class="card-title" fill="#b91c1c">🔴 ${escapeXml(cleanLeft)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(leftCol?.subtitle || "Legacy bottlenecks & latency")}</text>
 
     <!-- Visual Bar -->
-    <rect x="20" y="85" width="280" height="24" fill="#334155" rx="6" />
-    <rect x="20" y="85" width="260" height="24" fill="#ef4444" rx="6" />
-    <text x="160" y="102" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Baseline Latency</text>
+    <rect x="20" y="95" width="290" height="28" fill="#f1f5f9" rx="6" />
+    <rect x="20" y="95" width="260" height="28" fill="#ef4444" rx="6" />
+    <text x="165" y="114" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Unoptimized Baseline (Slow)</text>
 
-    ${renderDarkNodes(leftCol?.nodes, colors)}
+    ${renderLightNodes(leftCol?.nodes, colors, "#ef4444", "#fee2e2")}
   </g>
 
-  <!-- Optimized Card (Green Accent) -->
-  <g transform="translate(420, 110)">
-    <rect width="320" height="480" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="12" />
-    <rect width="320" height="40" fill="#10b981" fill-opacity="0.2" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#f8fafc">🟢 ${escapeXml(rightCol?.title || "Optimized")}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(rightCol?.subtitle || "")}</text>
+  <!-- Right Card: After / Solution (Green Accent) -->
+  <g transform="translate(420, 120)">
+    <rect width="330" height="420" fill="#ffffff" stroke="#86efac" stroke-width="2" rx="12" />
+    <rect width="330" height="48" fill="#dcfce7" rx="12" />
+    <text x="20" y="30" class="card-title" fill="#15803d">🟢 ${escapeXml(cleanRight)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(rightCol?.subtitle || "Decoupled full-stack architecture")}</text>
 
     <!-- Visual Bar -->
-    <rect x="20" y="85" width="280" height="24" fill="#334155" rx="6" />
-    <rect x="20" y="85" width="55" height="24" fill="#10b981" rx="6" />
-    <text x="160" y="102" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Optimized Latency (-92%)</text>
+    <rect x="20" y="95" width="290" height="28" fill="#f1f5f9" rx="6" />
+    <rect x="20" y="95" width="70" height="28" fill="#10b981" rx="6" />
+    <text x="165" y="114" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Optimized Architecture (-90% latency)</text>
 
-    ${renderDarkNodes(rightCol?.nodes, colors)}
+    ${renderLightNodes(rightCol?.nodes, colors, "#10b981", "#dcfce7")}
+  </g>
+
+  <!-- Bottom Metric Banner -->
+  <g transform="translate(200, 560)">
+    <rect width="400" height="44" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5" rx="22" />
+    <text x="200" y="27" class="metric-pill">⚡ Proven Result: Faster Response &amp; Total Fault Isolation</text>
   </g>
 </svg>`;
     }
@@ -731,49 +745,55 @@ export class VisualPlanningAgent {
     // ─────────────────────────────────────────────────────────────
     // LAYOUT 3: FAILURE ANALYSIS / INCIDENT TIMELINE SVG
     // ─────────────────────────────────────────────────────────────
-    if (layout === "FAILURE_ANALYSIS") {
+    if (layout === "FAILURE_ANALYSIS" || layout === "DECISION_MATRIX") {
       const leftCol = spec.columns[0];
       const rightCol = spec.columns[1];
+      const cleanLeft = (leftCol?.title || "Option A").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
+      const cleanRight = (rightCol?.title || "Option B").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
 
       return `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #0f172a; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <style>
-    .title { font-size: 26px; font-weight: 800; fill: #f8fafc; text-anchor: middle; }
-    .subtitle { font-size: 13px; font-weight: 600; fill: #f59e0b; text-anchor: middle; }
-    .card-title { font-size: 18px; font-weight: 700; fill: #f8fafc; }
-    .card-sub { font-size: 12px; font-weight: 500; fill: #94a3b8; }
+    .title { font-size: 24px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
+    .badge { font-size: 12px; font-weight: 700; fill: #059669; text-anchor: middle; letter-spacing: 1px; }
+    .card-title { font-size: 18px; font-weight: 700; }
+    .card-sub { font-size: 13px; font-weight: 500; fill: #64748b; }
+    .metric-pill { font-size: 14px; font-weight: 800; fill: #0369a1; text-anchor: middle; }
   </style>
 
-  <rect width="${width}" height="${height}" fill="#0f172a" rx="16" />
-  <text x="400" y="48" class="title">🚨 ${escapeXml(spec.title)}</text>
-  <text x="400" y="72" class="subtitle">INCIDENT DIAGNOSTICS &amp; AUTOMATED RECOVERY MAP</text>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <rect x="20" y="20" width="${width - 40}" height="${height - 40}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" rx="16" />
 
-  <!-- Incident Card (Red) -->
-  <g transform="translate(50, 110)">
-    <rect width="330" height="480" fill="#1e293b" stroke="#ef4444" stroke-width="2" rx="12" />
-    <rect width="330" height="40" fill="#ef4444" fill-opacity="0.25" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#ef4444">⚠️ ${escapeXml(leftCol?.title || "Fault Incident")}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(leftCol?.subtitle || "")}</text>
-    ${renderDarkNodes(leftCol?.nodes, colors)}
+  <!-- Category Badge & Main Title -->
+  <rect x="300" y="38" width="200" height="26" fill="#d1fae5" rx="13" />
+  <text x="400" y="55" class="badge">SYSTEM DESIGN &amp; TRADEOFF</text>
+  <text x="400" y="92" class="title">${escapeXml(spec.title)}</text>
+
+  <!-- Left Card (Option A) -->
+  <g transform="translate(50, 120)">
+    <rect width="330" height="420" fill="#ffffff" stroke="#93c5fd" stroke-width="2" rx="12" />
+    <rect width="330" height="48" fill="#dbeafe" rx="12" />
+    <text x="20" y="30" class="card-title" fill="#1d4ed8">Option A: ${escapeXml(cleanLeft)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(leftCol?.subtitle || "Baseline approach")}</text>
+    ${renderLightNodes(leftCol?.nodes, colors, "#3b82f6", "#dbeafe")}
   </g>
 
-  <!-- Recovery Card (Green) -->
-  <g transform="translate(420, 110)">
-    <rect width="330" height="480" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="12" />
-    <rect width="330" height="40" fill="#10b981" fill-opacity="0.25" rx="12" />
-    <text x="20" y="26" class="card-title" fill="#10b981">🛡️ ${escapeXml(rightCol?.title || "Automated Recovery")}</text>
-    <text x="20" y="60" class="card-sub">${escapeXml(rightCol?.subtitle || "")}</text>
-    ${renderDarkNodes(rightCol?.nodes, colors)}
+  <!-- Right Card (Option B) -->
+  <g transform="translate(420, 120)">
+    <rect width="330" height="420" fill="#ffffff" stroke="#86efac" stroke-width="2" rx="12" />
+    <rect width="330" height="48" fill="#dcfce7" rx="12" />
+    <text x="20" y="30" class="card-title" fill="#15803d">Option B: ${escapeXml(cleanRight)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(rightCol?.subtitle || "Optimized architecture")}</text>
+    ${renderLightNodes(rightCol?.nodes, colors, "#10b981", "#dcfce7")}
+  </g>
+
+  <!-- Bottom Metric Banner -->
+  <g transform="translate(200, 560)">
+    <rect width="400" height="44" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5" rx="22" />
+    <text x="200" y="27" class="metric-pill">💡 Result: Clear boundaries protect distributed workloads</text>
   </g>
 </svg>`;
     }
-
-    // ─────────────────────────────────────────────────────────────
-    // LAYOUT 4: DECISION MATRIX / TRADEOFF MAP SVG
-    // ─────────────────────────────────────────────────────────────
-    if (layout === "DECISION_MATRIX") {
-      const leftCol = spec.columns[0];
-      const rightCol = spec.columns[1];
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">

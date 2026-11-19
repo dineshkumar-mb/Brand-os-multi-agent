@@ -9,26 +9,23 @@ import { globalIntelligenceEngine } from "@brand-os/intelligence";
 export class TrendDiscoveryAgent {
   private mapCategoryFromTags(tags: string[], title: string): string {
     const t = `${title} ${tags.join(" ")}`.toLowerCase();
-    // Official LLM Provider announcements
-    if (t.includes("openai") || t.includes("gpt-4") || t.includes("o3") || t.includes("o4")) return "AI Model Releases";
-    if (t.includes("anthropic") || t.includes("claude")) return "AI Model Releases";
-    if (t.includes("gemini") || t.includes("google ai")) return "AI Model Releases";
-    if (t.includes("llama") || t.includes("meta ai")) return "Open Source LLM";
-    if (t.includes("mistral")) return "Open Source LLM";
-    if (t.includes("deepseek")) return "Open Source LLM";
-    if (t.includes("huggingface") || t.includes("hf model")) return "Open Source LLM";
-    // GitHub Trending topics
-    if (t.includes("reasoning") || t.includes("model release") || t.includes("benchmark")) return "AI Model Benchmarks";
-    if (t.includes("agent") || t.includes("swarm") || t.includes("tool calling") || t.includes("langgraph") || t.includes("multi-agent")) return "Agentic AI System Design";
-    if (t.includes("rag") || t.includes("vector") || t.includes("embedding") || t.includes("retrieval")) return "AI Engineering";
-    if (t.includes("typescript") || t.includes("node") || t.includes("bun") || t.includes("vite") || t.includes("deno")) return "TypeScript Ecosystem";
-    if (t.includes("rust") || t.includes("wasm") || t.includes("systems")) return "Systems Programming";
-    if (t.includes("security") || t.includes("vulnerability") || t.includes("mtls") || t.includes("zero-trust")) return "Developer Security";
-    if (t.includes("docker") || t.includes("kubernetes") || t.includes("k8s") || t.includes("ebpf") || t.includes("terraform")) return "DevOps & Cloud Infrastructure";
-    if (t.includes("rate limit") || t.includes("queue") || t.includes("latency") || t.includes("clickhouse") || t.includes("postgres") || t.includes("database")) return "System Performance & Databases";
-    if (t.includes("react") || t.includes("next.js") || t.includes("svelte") || t.includes("astro") || t.includes("frontend")) return "Frontend Engineering";
-    if (t.includes("nvidia") || t.includes("gpu") || t.includes("cuda") || t.includes("inference") || t.includes("nim")) return "AI Infrastructure";
-    return "AI Engineering";
+    // 5-Pillar Strategy for Full Stack & AI Developer Personal Branding
+    if (t.includes("career") || t.includes("interview") || t.includes("roadmap") || t.includes("growth")) {
+      return "Career & Developer Growth";
+    }
+    if (t.includes("project showcase") || t.includes("i built") || t.includes("portfolio")) {
+      return "Personal Project Showcases";
+    }
+    if (t.includes("mistake") || t.includes("debug") || t.includes("bottleneck") || t.includes("lessons learned") || t.includes("trade-off")) {
+      return "Practical Developer Insights";
+    }
+    if (t.includes("react") || t.includes("next.js") || t.includes("node") || t.includes("express") || t.includes("mern") || t.includes("mongodb") || t.includes("postgres") || t.includes("api") || t.includes("frontend") || t.includes("backend")) {
+      return "Full Stack Engineering";
+    }
+    if (t.includes("agent") || t.includes("mcp") || t.includes("rag") || t.includes("llm") || t.includes("ai") || t.includes("langgraph") || t.includes("github trending")) {
+      return "Trending AI & Open Source";
+    }
+    return "Full Stack Engineering";
   }
 
   private extractFramework(tags: string[], title: string): string {

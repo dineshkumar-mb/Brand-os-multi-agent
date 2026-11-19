@@ -60,7 +60,7 @@ export class TechnicalWriterAgent {
     try {
       console.log(`[Visual Generator 🎨] Requesting AI visual from OpenRouter for: "${topic.title}"...`);
       const imagePrompt = customPrompt ||
-        `Clean, high-resolution software architecture diagram and engineering workflow illustration for: ${topic.title}. Modern developer aesthetic, dark theme, sharp typography, 16:9 composition, modular components with neon blue and emerald accents.`;
+        `Clean, professional editorial tech infographic for: ${topic.title}. Modern SaaS aesthetic on a bright white and soft slate background (#ffffff / #f8fafc), clear visual hierarchy with max 3 steps or a crisp Before-vs-After comparison. Easy for non-technical recruiters and engineering managers to grasp in 3 seconds. Crisp typography, minimal text, no code snippets or dark terminal clutter, 16:9 LinkedIn editorial layout.`;
 
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
@@ -177,22 +177,41 @@ flowchart TD
       true
     );
 
-    // Stage 2: Senior Technical Writer (Prose Transformation)
-    const prompt = `You are an expert LinkedIn technical content creator and senior engineering writer.
-Your goal is to write an authentic, high-impact technical LinkedIn post AND a deep Dev.to article about: "${topic.title}".
+    // Stage 2: Full Stack & AI Developer Personal Branding Writer
+    const gitHubRepoUrl = (topic.references || []).find((ref: string) => ref.includes("github.com")) || "";
 
-## MANDATORY WRITING RULES FOR LINKEDIN:
+    const prompt = `You are writing as a skilled Full Stack & AI Developer specializing in MERN Stack, React, Next.js, Node.js, and Agentic AI.
+Your goal is to build a recognizable developer personal brand that attracts:
+- Technical recruiters hiring Full Stack, MERN Stack, and AI Full Stack Developers.
+- Engineering managers and tech leads.
+- Startup founders and CTOs.
+- Fellow developers seeking practical engineering insights.
+
+Primary Career Objective: Increase profile visits, recruiter visibility, interview opportunities, and inbound inquiries.
+
+## CORE WRITING PRINCIPLE:
+**Simple explanation + real engineering insight + practical value.**
+- A technical recruiter or hiring manager MUST understand the core value of the post in 10-15 seconds.
+- Avoid overloading the reader with obscure architectural jargon, deep mathematical abstractions, or overly complex workflows.
+- Instead of explaining a whole theoretical distributed system, explain the actual problem it solves, why it matters, and what a developer can learn from it.
+- Target post length: **120–220 words**.
+
+## MANDATORY LINKEDIN STRUCTURE:
+1. Opening Hook: 1-2 short, curiosity-driven lines. Must make readers click "See more".
+2. Context: Plain English explanation of the real-world challenge or problem.
+3. Main Insight: 1-2 short sentences + concise bullet points (- ) explaining what changed or how it works.
+4. Practical Application: Where developers or teams can use this in real applications.${gitHubRepoUrl ? ` Include the original GitHub repository link: ${gitHubRepoUrl}` : ""}
+5. Personal Perspective: One authentic developer reflection or trade-off observation (no generic AI cheerleading).
+6. Closing: One specific technical discussion question + 3-5 relevant hashtags (#FullStack #React #NodeJS #AI #WebDevelopment).
+
+## STRICT FORMATTING RULES:
 - NEVER write the entire post as a single paragraph.
-- Use a crisp, line-by-line writing format with PLENTY OF WHITESPACE (double newlines \\n\\n between ideas).
-- Keep every paragraph to a maximum of 1-2 short sentences.
-- Each line should communicate one clear thought.
-- Use concise bullet points (- ) when explaining technical details or what was discovered.
-- Avoid unnecessary corporate fluff, hype, or generic motivational statements.
-- Start directly with an attention-grabbing technical hook (first 1-2 lines).
-- Explain the real-world engineering challenge: What was the problem? Why did it happen?
-- Explain what was changed, the trade-offs accepted, and the real outcome.
-- End with one specific, thought-provoking technical question.
-- Include 3-5 relevant hashtags at the very bottom.
+- Use a crisp, line-by-line format with plenty of whitespace (double newlines \\n\\n between ideas).
+- Keep every paragraph to 1-2 short sentences maximum.
+- Avoid unnecessary emojis. No numbered emoji headers like "1️⃣ Observation:".
+- Avoid corporate fluff and AI-favorite words (delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, game-changing).
+- Avoid clickbait and artificial engagement bait (NEVER end with "What do you think?", "Agree or disagree?", "Drop your thoughts below").
+- Ensure high readability on mobile.
 
 CONTEXT FROM STAR FRAMEWORK:
 - Context: ${starStory.situation.context}
@@ -204,47 +223,6 @@ CONTEXT FROM STAR FRAMEWORK:
 - Engineering Lesson: ${starStory.insight.engineeringLesson}
 - Trade-offs: ${starStory.insight.tradeoffs.join(", ")}
 
-STRICT HUMAN-WRITING RULES (CRITICAL):
-1. Core Principle: Write like an experienced human developer communicating from real experience—not like an AI generating polished generic content. Priority: Specificity -> Experience -> Evidence -> Original thought -> Natural language.
-2. Never Use Generic AI Openings: Ban "In today's rapidly evolving...", "In the ever-changing world of...", "In the modern digital landscape...", "As technology continues to evolve...", "The future of X is...". Start directly with the actual problem, observation, experience, result, or question.
-3. Ban AI-Favorite Vocabulary: Never use words such as: delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, foster, facilitate, underscore, showcase, intricate, testament, interplay, bolster, landscape, paradigm, empower, unlock, game-changing. Use simpler, natural words.
-4. Avoid Corporate/Marketing Language: Replace abstract claims ("unlock scalable innovation") with measurable or observable facts ("reduced API response time from 800ms to 240ms").
-5. Minimize Em Dashes: Do not repeatedly use "—" as a recognizable writing pattern. Use normal punctuation, sentence breaks, commas, or parentheses.
-6. Avoid Formulaic "Not X, But Y" Construction: Do not write "It's not about X. It's about Y." or "This isn't just X—it's Y."
-7. Avoid Predictable Three-Part Lists: Do not mechanically write "Faster, smarter, and more scalable" or "Simple, powerful, and reliable".
-8. Do Not Manufacture Enthusiasm: Ban artificial hype words: exciting, amazing, incredible, powerful, game-changing, groundbreaking, revolutionary, fascinating. State what actually happened neutrally.
-9. Replace Claims With Evidence: What happened -> Why -> Evidence -> Result.
-10. Inject Real Experience: What was built, what broke, what was tried, what failed, what changed, measurable results, trade-offs, lessons learned.
-11. Allow Human Imperfection: Use natural rhythm with varied sentence and paragraph lengths. Do not make paragraphs algorithmically identical.
-12. Do Not Over-Structure: NEVER literally write "Situation:", "Task:", "Action:", "Result:", "Insight:" headers. NEVER use emoji number step headers like "1️⃣ Observation:". No artificial "Key Takeaways" or "Conclusion" sections.
-13. Do Not Restate Questions: Start directly with the actual insight.
-14. Avoid Repetitive Transition Words: Do not repeatedly use Furthermore, Moreover, Additionally, Consequently, Therefore, However, In conclusion, Ultimately, That said.
-15. Do Not Manufacture Perfect Conclusions: Avoid generic endings like "The future belongs to...", "Ultimately, success depends on...", "Embrace the future". End with the actual observation, lesson, or technical question.
-16. Avoid Artificially Positive Narratives: Include bugs, wrong assumptions, failed approaches, trade-offs, compromises, and technical debt.
-17. Preserve Technical Specificity: Name exact technologies, tools, and mechanisms rather than vague terms.
-18. Do Not Pretend Certainty: Use natural engineering humility ("I initially thought...", "The first approach failed because...", "The trade-off is...").
-19. Grounded Opinions Only: Connect opinions directly to experience or telemetry.
-20. Avoid Generic Advice: Every tip must be a concrete technical observation.
-21. Vary Sentence Rhythm: Mix short direct statements with explanatory details.
-22. Avoid Repetitive Hooks: Do not repeatedly start with "I recently...", "Here's what I learned...", "Let me share...".
-23. Do Not Force Storytelling: Use observations, technical explanations, or failure analyses when drama is unnatural.
-24. No Duplicate Content: Emphasize distinct implementation details, benchmarks, or trade-offs.
-25. Survive the "How?" Test: Specify what changed and the exact measurable effect.
-26. Use Numbers When They Exist: Cite real numbers when known; never invent numbers.
-27. No Fake Personal Experience: Never fabricate personal stories.
-28. No Fake Emotion: State findings neutrally.
-29. No Artificial Engagement Bait: NEVER end with "What do you think?", "Agree or disagree?", "Drop your thoughts below".
-30. Natural and Distinctive: Keep grammar correct without being stiff or formulaic.
-
-Layout requirement (${selectedFormatStyle}):
-- If NARRATIVE_PARAGRAPHS: Clean short paragraphs with smooth transitions.
-- If MINIMAL_BULLETS: Concise engineering notes and trade-off points.
-- If BEFORE_AFTER_LAYOUT: Clear Before vs After operational outcome contrast.
-- If SHORT_DIALOGUE: Brief conversational opening between engineers.
-- If TECHNICAL_NOTE: Engineering architectural note style.
-- If STORY_FIRST: Lead with the incident/problem, reveal architecture after.
-- If ARCHITECTURE_FIRST: Lead with boundary design, reveal incident after.
-
 Return ONLY a valid JSON object matching:
 {
   "linkedIn": {
@@ -254,15 +232,24 @@ Return ONLY a valid JSON object matching:
     "lesson": "${starStory.insight.engineeringLesson}",
     "actionableInsight": "${starStory.result.outcome}",
     "cta": "${generatedCta}",
-    "hashtags": ["#SoftwareEngineering", "#SystemDesign", "#AIEngineering"],
-    "fullText": "Full 200-500 word post text"
+    "hashtags": ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"],
+    "fullText": "Full 120-220 word post text"
   },
   "devTo": {
-    "title": "Inside ${topic.title}: Architecture, Trade-Offs, and Failure Modes",
+    "title": "Inside ${topic.title}: Practical Implementation & Architecture Insights",
     "description": "${research.summary.substring(0, 140)}",
-    "tags": ["webdev", "architecture", "systemdesign"],
+    "tags": ["webdev", "fullstack", "ai", "javascript"],
     "markdownContent": "Full Dev.to markdown article content"
   },
+  "visualNarrative": {
+    "coreConcept": "${topic.title}",
+    "primaryFlow": "${starStory.action.chosenApproach}",
+    "importantComponents": ["User Request", "AI / Full Stack Logic", "Fast Verified Result"],
+    "relationships": ["User Request -> Core Engine", "Core Engine -> Output Result"],
+    "keyLabels": ["Input", "Decision", "Output"],
+    "visualType": "THREE_STEP_WORKFLOW"
+  }
+}`;
   "visualNarrative": {
     "coreConcept": "${topic.title}",
     "primaryFlow": "${starStory.action.chosenApproach}",
@@ -347,40 +334,33 @@ Return ONLY a valid JSON object matching:
 
     // Fallback prose generation based on FormatStyle & STARStory if LLM output was partial/missing
     if (!linkedInPayload) {
-      let bodyText = "";
+      console.warn("[Technical Writer ⚠️] Formatting fallback post with recruiter-friendly Full Stack personal branding rules...");
 
-      if (selectedFormatStyle === FormatStyle.BEFORE_AFTER_LAYOUT) {
-        bodyText = `BEFORE:\n${starStory.situation.context}\n\nPROBLEM:\n${starStory.task.objective}\n\nWHAT CHANGED:\n${starStory.action.reasoning}\n\nAFTER:\n${starStory.result.outcome}\n\nLESSON:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.MINIMAL_BULLETS) {
-        bodyText = `${starStory.situation.context}\n\nThe Constraint:\n• ${starStory.task.constraints[0] || starStory.task.objective}\n\nThe Decision:\n• ${starStory.action.chosenApproach}\n\nThe Trade-Off:\n• ${starStory.insight.tradeoffs[0] || "Sacrificed setup velocity for long-term fault isolation"}\n\nThe Result:\n${starStory.result.outcome}\n\nTakeaway:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.SHORT_DIALOGUE) {
-        bodyText = `"Why is the ${topic.framework || topic.category} pipeline failing under load?"\n\n"The database query paths are locking connection pools."\n\nIt wasn't just the database.\n\n${starStory.action.reasoning}\n\n${starStory.result.outcome}\n\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.PRODUCTION_INCIDENT) {
-        bodyText = `INCIDENT POSTMORTEM: ${topic.title}\n\nContext:\n${starStory.situation.context}\n\nFailure Trigger:\n${starStory.situation.trigger}\n\nResolution & Fix:\n${starStory.action.implementation || starStory.action.reasoning}\n\nObserved Metrics:\n${starStory.result.outcome}\n\nSystem Guardrails:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.ARCHITECTURE_EVOLUTION) {
-        bodyText = `EVOLUTION OF OUR ${topic.category.toUpperCase()} PIPELINE:\n\nPhase 1 (Legacy):\n${starStory.situation.curiosityTension}\n\nPhase 2 (Architectural Pivot):\n${starStory.action.chosenApproach}\n\nPhase 3 (Production Gains):\n${starStory.result.outcome}\n\nCore Architecture Rule:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.TECHNICAL_MYTH) {
-        bodyText = `MYTH: Adding more servers fixes ${topic.title} bottlenecks.\n\nFACT: ${starStory.situation.trigger}\n\nOur Evaluation:\n${starStory.action.reasoning}\n\nWhat Really Worked:\n${starStory.result.outcome}\n\nEngineering Takeaway:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.TRADEOFF_DEBATE) {
-        bodyText = `THE HARD ARCHITECTURAL TRADEOFF:\n\nOption A (${starStory.action.approachesConsidered[0] || "Standard approach"}):\n- Fast setup, but high operational risk.\n\nOption B (${starStory.action.chosenApproach}):\n- ${starStory.action.reasoning}\n\nWhy we chose Option B:\n${starStory.result.outcome}\n\nArchitectural Boundary:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.CODE_WALKTHROUGH) {
-        bodyText = `CODE ANATOMY: ${topic.title}\n\nThe Bottleneck:\n${starStory.situation.trigger}\n\nThe Refactoring Step:\n${starStory.action.implementation || starStory.action.reasoning}\n\nProduction Impact:\n${starStory.result.outcome}\n\nSenior Developer Rule:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.FAILED_EXPERIMENT) {
-        bodyText = `WHAT WENT WRONG ON OUR FIRST 3 ATTEMPTS:\n\nAttempt 1-2:\n${starStory.action.rejectedApproaches?.[0] || starStory.situation.curiosityTension}\n\nAttempt 3 (Final Architecture):\n${starStory.action.chosenApproach}\n\nMeasured Recovery:\n${starStory.result.outcome}\n\nLesson Learned:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.SYSTEM_DESIGN_BREAKDOWN) {
-        bodyText = `SYSTEM DESIGN BREAKDOWN: ${topic.title}\n\n1. Input Traffic & Constraints:\n${starStory.situation.context}\n\n2. Core Engineering Challenge:\n${starStory.task.objective}\n\n3. System Design Choice:\n${starStory.action.chosenApproach}\n\n4. Verified Outcome:\n${starStory.result.outcome}\n\n5. Architectural Design Invariant:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.NEW_TECH_PERSONAL_EXPERIMENT) {
-        bodyText = `BENCHMARKING ${topic.title.toUpperCase()} IN STAGING:\n\nWhy we tested it:\n${starStory.situation.trigger}\n\nWhat surprised us:\n${starStory.action.reasoning}\n\nStaging Results:\n${starStory.result.outcome}\n\nProduction Verdict:\n${starStory.insight.engineeringLesson}`;
-      } else if (selectedFormatStyle === FormatStyle.ENGINEERING_RETROSPECTIVE) {
-        bodyText = `6-MONTH RETROSPECTIVE: ${topic.title}\n\nWhat we started with:\n${starStory.situation.context}\n\nWhat we changed:\n${starStory.action.reasoning}\n\nCurrent Production Health:\n${starStory.result.outcome}\n\nWhat we would do differently:\n${starStory.insight.engineeringLesson}`;
-      } else {
-        bodyText = `${starStory.situation.context}\n\nEngineering Challenge:\n${starStory.task.objective}\n\nArchitectural Fix:\n${starStory.action.reasoning}\n\nProduction Outcome:\n${starStory.result.outcome}\n\nKey Takeaway:\n${starStory.insight.engineeringLesson}`;
-      }
+      const hook = generatedHook || `Most developers know ${topic.title}. Few discuss what happens when request volume scales.`;
+      const context = starStory.situation?.context || `While building a full-stack feature recently, we ran into an unexpected latency bottleneck.`;
 
-      const topicTag = `#${(topic.framework || topic.category || "Tech").replace(/[^a-zA-Z0-9]/g, "")}`;
-      const fullText = generatedCta
-        ? `${generatedHook}\n\n${bodyText}\n\n${generatedCta}\n\n${topicTag}`
-        : `${generatedHook}\n\n${bodyText}\n\n${topicTag}`;
+      const insight = [
+        `Here is what we discovered and changed:`,
+        `• ${starStory.action?.chosenApproach || "Decoupled the request path to avoid synchronous blocking"}`,
+        `• ${starStory.action?.reasoning || "Handled state transitions explicitly to isolate failures"}`,
+        `• ${starStory.result?.outcome || "Reduced latency spikes while maintaining reliability"}`,
+      ].join("\n");
+
+      const repoSection = gitHubRepoUrl ? `Project reference: ${gitHubRepoUrl}` : "";
+      const personalPerspective = starStory.insight?.engineeringLesson || `In full-stack engineering, keeping system boundaries explicit consistently beats implicit framework magic.`;
+      const closingQuestion = generatedCta || `How does your team handle this pattern when building in production?`;
+
+      const tags = ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"].join(" ");
+
+      const fullText = [
+        hook,
+        context,
+        insight,
+        repoSection,
+        personalPerspective,
+        closingQuestion,
+        tags
+      ].filter(Boolean).join("\n\n");
 
       linkedInPayload = {
         title: topic.title,
@@ -389,7 +369,7 @@ Return ONLY a valid JSON object matching:
         lesson: starStory.insight.engineeringLesson,
         actionableInsight: starStory.result.outcome,
         cta: generatedCta,
-        hashtags: [topicTag],
+        hashtags: ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"],
         fullText,
         imageUrl: finalImageUrl,
         storyMode: selectedStoryMode,
