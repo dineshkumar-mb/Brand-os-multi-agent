@@ -500,11 +500,18 @@ export class AIGateway {
 
     if (request.taskType === "linkedin_writer" || request.taskType === "senior_engineering_writer" || (isJsonRequested && request.prompt.includes("LinkedIn"))) {
       // ── Extract all structured data already present in the prompt ──────────
-      const topicMatch = request.prompt.match(/about:\s*"([^"]+)"/) || request.prompt.match(/topic:\s*"([^"]+)"/);
+      const topicMatch =
+        request.prompt.match(/about:\s*"([^"]+)"/i) ||
+        request.prompt.match(/topic:\s*"([^"]+)"/i) ||
+        request.prompt.match(/"title":\s*"([^"]+)"/i) ||
+        request.prompt.match(/for topic:\s*"([^"]+)"/i) ||
+        request.prompt.match(/for:\s*"([^"]+)"/i);
       const topicTitle = topicMatch ? topicMatch[1] : "System Architecture & Engineering Trade-offs";
 
       // Extract STAR story components from the prompt (supporting multiple label variants)
-      const situationMatch = request.prompt.match(/-\s*(?:Situation|Context):\s*([^\n]+)/i);
+      const situationMatch =
+        request.prompt.match(/-\s*(?:Situation|Context):\s*([^\n]+)/i) ||
+        request.prompt.match(/"story":\s*"([^"]+)"/i);
       const situationCtx = situationMatch ? situationMatch[1].trim() : `During a production refactor of ${topicTitle}, we encountered unexpected performance regressions under load.`;
 
       const taskMatch = request.prompt.match(/-\s*(?:Task|Challenge|Problem\/Trigger):\s*([^\n]+)/i);
@@ -513,10 +520,14 @@ export class AIGateway {
       const actionMatch = request.prompt.match(/-\s*(?:Action|Approach Taken|Technical Reasoning):\s*(?:Chosen\s+)?([^\n.]+)/i);
       const actionChosen = actionMatch ? actionMatch[1].trim() : `a decoupled architecture with explicit service boundaries`;
 
-      const resultMatch = request.prompt.match(/-\s*(?:Result|Outcome\/Result):\s*([^\n.]+)/i);
+      const resultMatch =
+        request.prompt.match(/-\s*(?:Result|Outcome\/Result):\s*([^\n.]+)/i) ||
+        request.prompt.match(/"actionableInsight":\s*"([^"]+)"/i);
       const resultOutcome = resultMatch ? resultMatch[1].trim() : `measurable stability and throughput improvements`;
 
-      const insightMatch = request.prompt.match(/-\s*(?:Insight|Engineering Lesson):\s*([^\n.]+)/i);
+      const insightMatch =
+        request.prompt.match(/-\s*(?:Insight|Engineering Lesson):\s*([^\n.]+)/i) ||
+        request.prompt.match(/"lesson":\s*"([^"]+)"/i);
       const lessonText = insightMatch ? insightMatch[1].trim() : `Explicit service boundary definitions prevent silent failure propagation in production systems.`;
 
       // Extract tradeoffs
@@ -529,17 +540,21 @@ export class AIGateway {
       const metric2 = metricsMatch && metricsMatch.length > 1 ? metricsMatch[1] : "240ms";
 
       // Extract hook from prompt
-      const hookRefMatch = request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i);
+      const hookRefMatch =
+        request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i) ||
+        request.prompt.match(/"hook":\s*"([^"]+)"/i);
       const hookText = hookRefMatch
         ? hookRefMatch[1]
-        : `Most engineering teams spend days troubleshooting state bottlenecks in ${topicTitle.split(" ").slice(0, 3).join(" ")}.\n\nHere is how to address it cleanly.`;
+        : `Most developers know ${topicTitle}. Few discuss what happens when request volume scales.`;
 
       // Extract GitHub URL from prompt if available
       const ghUrlMatch = request.prompt.match(/(https:\/\/github\.com\/[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+)/i);
       const ghUrl = ghUrlMatch ? ghUrlMatch[1] : "";
 
       // Extract CTA from prompt (strictly without cliché engagement bait per AGENTS.md Rule 10)
-      const ctaRefMatch = request.prompt.match(/CTA REFERENCE:\s*"([^"]+)"/i);
+      const ctaRefMatch =
+        request.prompt.match(/CTA REFERENCE:\s*"([^"]+)"/i) ||
+        request.prompt.match(/"cta":\s*"([^"]+)"/i);
       const ctaText = ctaRefMatch && !/drop your|what do you think|agree or disagree/i.test(ctaRefMatch[1])
         ? ctaRefMatch[1]
         : `How is your team handling this architectural pattern in production?`;
