@@ -1,5 +1,16 @@
 [
   {
+    "pipelineId": "4d2a5ce4-cfba-4f1a-ac6a-a4d395928479",
+    "timestamp": "2026-11-21T11:56:28.089Z",
+    "durationMs": 11767,
+    "status": "SUCCESS",
+    "winnerTitle": "Eliminating Form Mutation Boilerplate with Next.js 15 Server Actions and React 19 Compiler",
+    "overallScore": 95,
+    "publishedPlatforms": [
+      "LinkedIn"
+    ]
+  },
+  {
     "pipelineId": "1b58b663-078d-4c49-892f-aa8359e33cfb",
     "timestamp": "2026-11-19T16:34:14.353Z",
     "durationMs": 3549,

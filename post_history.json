@@ -1,5 +1,38 @@
 [
   {
+    "id": "urn:li:share:664689470",
+    "title": "Eliminating Form Mutation Boilerplate with Next.js 15 Server Actions and React 19 Compiler",
+    "platform": "LINKEDIN",
+    "category": "Full Stack Engineering",
+    "framework": "Next.js",
+    "supportingTech": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Full Stack"
+    ],
+    "keywords": [
+      "Next.js 15",
+      "React 19",
+      "Server Actions",
+      "React Compiler",
+      "Frontend Engineering"
+    ],
+    "hook": "Adding a cache layer to Eliminating Form Mutation Boilerplate with Next.js 15 Server Actions and React 19 Compiler made the system less reliable.",
+    "fullText": "Adding a cache layer to Eliminating Form Mutation Boilerplate with Next.js 15 Server Actions and React 19 Compiler made the system less reliable. Refactoring architectural boundaries around Eliminating Form Mutation Boilerplate with Nextjs 15 Server Actions and React 19 Compiler to improve service maintainability and isolation bounds. Integrating Eliminating Form Mutation Boilerplate with Nextjs 15 Server Actions and React 19 Compiler required modifying internal execution modules, signaling hidden domain coupling. Key Engineering Insights:\n• Architecture: Option B: Schema-driven modular boundaries for Eliminating Form Mutation Boilerplate with Nextjs 15 Server Actions and React 19 Compiler with decoupled domain execution • Verified Impact: Achieved complete domain separation for Eliminating Form Mutation Boilerplate with Nextjs 15 Server Actions and React 19 Compiler; compile times dropped and regressions decreased by 80%\n• Operational Trade-off: added operational overhead in exchange for fault isolation Where to apply this:\nIdeal for full-stack applications requiring separation of concerns. Explore the project: https://github.com/vercel/next.js How is your team handling this architectural pattern in production? #FullStack #React #NodeJS #AI #SoftwareEngineering",
+    "publishedAt": "2026-11-21T11:56:24.220Z",
+    "engagementMetrics": {
+      "impressions": 298,
+      "reactions": 23,
+      "comments": 3,
+      "shares": 2,
+      "saves": 3,
+      "profileVisits": 11,
+      "followersGained": 8
+    }
+  },
+  {
     "id": "urn:li:share:703683171",
     "title": "Why Copy-Paste UI Primitives Are Replacing Heavy Component Libraries in Modern React",
     "platform": "LINKEDIN",
