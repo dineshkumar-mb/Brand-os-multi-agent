@@ -539,15 +539,28 @@ export class AIGateway {
       const metric1 = metricsMatch ? metricsMatch[0] : "800ms";
       const metric2 = metricsMatch && metricsMatch.length > 1 ? metricsMatch[1] : "240ms";
 
+      const cleanOptionPrefix = (s: string) =>
+        s.replace(/^(Option|Pattern|Approach)\s+[A-Z]:\s*/i, "").trim();
+      const capFirst = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
+      const actionClean = capFirst(cleanOptionPrefix(actionChosen));
+      const outcomeClean = capFirst(resultOutcome);
+      const tradeoffClean = capFirst(tradeoffText);
+
+      const shortTopic =
+        topicTitle.length > 48
+          ? topicTitle.replace(/^Day \d+:\s*/i, "").split(/\s+/).slice(0, 6).join(" ")
+          : topicTitle;
+
       // Extract hook from prompt
       const hookRefMatch =
         request.prompt.match(/HOOK REFERENCE:\s*"([^"]+)"/i) ||
         request.prompt.match(/"hook":\s*"([^"]+)"/i);
       const hookText = hookRefMatch
         ? hookRefMatch[1]
-        : `Most developers know ${topicTitle}. Few discuss what happens when request volume scales.`;
+        : `Most teams focus on ${shortTopic} speed first.\n\nThe real engineering problem shows up once integrations scale.`;
 
-      // Extract GitHub URL from prompt if available
+      // Extract GitHub URL from prompt if available (kept for devTo / metadata, excluded from LinkedIn body to prevent reach penalty)
       const ghUrlMatch = request.prompt.match(/(https:\/\/github\.com\/[a-zA-Z0-9._-]+\/[a-zA-Z0-9._-]+)/i);
       const ghUrl = ghUrlMatch ? ghUrlMatch[1] : "";
 
@@ -557,25 +570,25 @@ export class AIGateway {
         request.prompt.match(/"cta":\s*"([^"]+)"/i);
       const ctaText = ctaRefMatch && !/drop your|what do you think|agree or disagree/i.test(ctaRefMatch[1])
         ? ctaRefMatch[1]
-        : `How is your team handling this architectural pattern in production?`;
+        : `How does your team handle ${shortTopic} trade-offs in production?`;
 
-      // ── Build recruiter-friendly, human-formatted LinkedIn post ───────────
+      // ── Build recruiter-friendly, mobile-scannable LinkedIn post (NO inline URLs) ───
       const contextPart = situationCtx.endsWith(".") ? situationCtx : `${situationCtx}.`;
       const challengePart = taskObj.endsWith(".") ? taskObj : `${taskObj}.`;
       const insightBullets = [
-        `• Architecture: ${actionChosen}`,
-        `• Verified Impact: ${resultOutcome}`,
-        `• Operational Trade-off: ${tradeoffText}`,
-      ].join("\n");
+        `• Approach: ${actionClean}`,
+        `• Impact: ${outcomeClean}`,
+        `• Trade-off: ${tradeoffClean}`,
+      ].join("\n\n");
 
       const practicalPart = ghUrl
-        ? `Where to apply this:\nIdeal for full-stack applications requiring robust separation of concerns.\n\nExplore the project: ${ghUrl}`
-        : `Where to apply this:\nIdeal for high-scale full-stack systems requiring predictable throughput.\n\nKey Takeaway: ${lessonText}`;
+        ? `Takeaway: ${lessonText}\n\nOpen-source repository link is in the first comment.`
+        : `Takeaway: ${lessonText}`;
 
       const fullText = [
         hookText,
         `${contextPart}\n\n${challengePart}`,
-        `Key Engineering Insights:\n${insightBullets}`,
+        `Key takeaways:\n\n${insightBullets}`,
         practicalPart,
         ctaText,
         `#FullStack #React #NodeJS #AI #SoftwareEngineering`,
@@ -739,9 +752,12 @@ export class AIGateway {
       const storyModeMatch = request.prompt.match(/STORY MODE:\s*(\w+)/i);
       const storyMode = storyModeMatch ? storyModeMatch[1].trim() : "BUILD_IN_PUBLIC";
 
-      const expMatch = request.prompt.match(/DIRECT EXPERIENCE:\s*([^->]+)->\s*([^\n]+)/i);
+      const expMatch = request.prompt.match(/DIRECT EXPERIENCE:\s*(.+?)\s*->\s*([^\n]+)/i);
       const expProblem = expMatch ? expMatch[1].trim() : null;
       const expOutcome = expMatch ? expMatch[2].trim() : null;
+
+      const summaryMatch = request.prompt.match(/RESEARCH SUMMARY:\s*([^\n]+)/i);
+      const researchSummary = summaryMatch ? summaryMatch[1].trim() : "";
 
       const tradeoffMatch = request.prompt.match(/PRIMARY TRADEOFF:\s*([^\n]+)/i);
       const tradeoffLine = tradeoffMatch ? tradeoffMatch[1].trim() : "";
@@ -1010,6 +1026,48 @@ export class AIGateway {
                 `Sacrificed: ${sacrificedApproach}`
               ],
               whenNotToUse: ["Do not build in-memory DAG resolvers for basic lists with under three hierarchy bounds."],
+            },
+          };
+        } else if (ep.includes("wrapper") || ep.includes("connector") || ep.includes("tool") || tlc.includes("mcp") || tlc.includes("model context protocol")) {
+          // ── exp_mcp: Standardized Tool Calling (MCP) ────────────────────
+          starPayload = {
+            situation: {
+              context: "Connecting AI agents cleanly to external APIs, databases, and developer tools without bespoke wrappers.",
+              trigger: expProblem || "Every third-party tool API required a custom parser and schema wrapper that broke with prompt drift.",
+              stakes: "Fragile glue code forced engineers to rewrite tool integrations whenever a model or API changed.",
+              curiosityTension: "Individual tool connectors worked in isolation, but maintaining N custom integrations across models did not scale.",
+            },
+            task: {
+              objective: "Replace brittle one-off tool wrappers with one shared protocol contract for schemas and execution.",
+              constraints: ["Keep tool parameter schemas strictly typed", "Decouple tool servers from prompt orchestration"],
+              successCriteria: ["Zero custom parsing glue per new tool", "Portable tool discovery across agents"],
+            },
+            action: {
+              approachesConsidered: [
+                "Maintain custom per-model JSON schema wrappers for every tool",
+                "Standardize tool definitions on Model Context Protocol (MCP) servers with strict schema validation",
+              ],
+              chosenApproach: "Standardized MCP tool servers with unified JSON-RPC discovery and validation",
+              rejectedApproaches: [
+                "Per-model custom wrappers rejected due to maintenance overhead and schema drift",
+              ],
+              reasoning: "One protocol contract lets multiple AI clients discover and call tools without rewriting integration code.",
+              decisionMoment: "Seeing schema updates break multiple agent connectors highlighted the need for a shared tool boundary.",
+              implementation: "Exposed each integration through modular MCP servers with typed inputs and structured outputs.",
+              debugging: "Verified parameter validation and local IPC timeouts across concurrent tool calls.",
+            },
+            result: {
+              outcome: expOutcome || "Added 12 tools cleanly with zero prompt adjustments and eliminated tool argument parsing errors.",
+              metrics: [expOutcome || "Unified tool discovery across agents", "Zero custom parser wrappers"],
+              evidence: ["MCP protocol specification", "Integration test verification"],
+            },
+            insight: {
+              engineeringLesson: "Decoupling tool execution from the prompt runner stops schema drift and eliminates brittle API glue code.",
+              tradeoffs: [
+                `Chosen: ${chosenApproach}`,
+                `Sacrificed: ${sacrificedApproach}`,
+              ],
+              whenNotToUse: ["Overkill for single-script prototypes calling one static REST endpoint."],
             },
           };
         } else if (ep.includes("prompt") || ep.includes("injection") || ep.includes("red-team")) {

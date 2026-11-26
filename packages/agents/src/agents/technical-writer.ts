@@ -200,14 +200,16 @@ Primary Career Objective: Increase profile visits, recruiter visibility, intervi
 1. Opening Hook: 1-2 short, curiosity-driven lines. Must make readers click "See more".
 2. Context: Plain English explanation of the real-world challenge or problem.
 3. Main Insight: 1-2 short sentences + concise bullet points (- ) explaining what changed or how it works.
-4. Practical Application: Where developers or teams can use this in real applications.${gitHubRepoUrl ? ` Include the original GitHub repository link: ${gitHubRepoUrl}` : ""}
+4. Practical Application: Where developers or teams can use this in real applications.${gitHubRepoUrl ? ` Reference repo (place in first comment, NOT inside linkedIn.fullText): ${gitHubRepoUrl}` : ""}
 5. Personal Perspective: One authentic developer reflection or trade-off observation (no generic AI cheerleading).
 6. Closing: One specific technical discussion question + 3-5 relevant hashtags (#FullStack #React #NodeJS #AI #WebDevelopment).
 
 ## STRICT FORMATTING RULES:
 - NEVER write the entire post as a single paragraph.
+- NEVER include raw http:// or https:// URLs inside linkedIn.fullText (LinkedIn penalizes outbound body links by 40-60% reach).
+- NEVER include "Option A:" / "Option B:" labels verbatim in the post.
 - Use a crisp, line-by-line format with plenty of whitespace (double newlines \\n\\n between ideas).
-- Keep every paragraph to 1-2 short sentences maximum.
+- Keep every paragraph to 1-2 short sentences maximum (first line strictly under 180 characters).
 - Avoid unnecessary emojis. No numbered emoji headers like "1️⃣ Observation:".
 - Avoid corporate fluff and AI-favorite words (delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, game-changing).
 - Avoid clickbait and artificial engagement bait (NEVER end with "What do you think?", "Agree or disagree?", "Drop your thoughts below").
@@ -327,18 +329,25 @@ Return ONLY a valid JSON object matching:
     if (!linkedInPayload) {
       console.warn("[Technical Writer ⚠️] Formatting fallback post with recruiter-friendly Full Stack personal branding rules...");
 
-      const hook = generatedHook || `Most developers know ${topic.title}. Few discuss what happens when request volume scales.`;
-      const context = starStory.situation?.context || `While building a full-stack feature recently, we ran into an unexpected latency bottleneck.`;
+      const stripOptionPrefix = (s: string) =>
+        s.replace(/^(Option|Pattern|Approach)\s+[A-Z]:\s*/i, "").trim();
+
+      const hook = generatedHook || `Most developers know ${topic.framework || topic.title}. Few discuss what breaks when it scales.`;
+      const context = starStory.situation?.context || `While working with ${topic.framework || topic.category}, tight coupling made changes brittle.`;
+
+      const chosen = stripOptionPrefix(starStory.action?.chosenApproach || "Decoupled the execution boundary to isolate failures");
+      const reasoning = starStory.action?.reasoning || "Made interface schemas explicit across components";
+      const outcome = starStory.result?.outcome || "Improved reliability without adding unnecessary complexity";
 
       const insight = [
-        `Here is what we discovered and changed:`,
-        `• ${starStory.action?.chosenApproach || "Decoupled the request path to avoid synchronous blocking"}`,
-        `• ${starStory.action?.reasoning || "Handled state transitions explicitly to isolate failures"}`,
-        `• ${starStory.result?.outcome || "Reduced latency spikes while maintaining reliability"}`,
-      ].join("\n");
+        `Key takeaways:`,
+        `- ${chosen}`,
+        `- ${reasoning}`,
+        `- ${outcome}`,
+      ].join("\n\n");
 
-      const repoSection = gitHubRepoUrl ? `Project reference: ${gitHubRepoUrl}` : "";
-      const personalPerspective = starStory.insight?.engineeringLesson || `In full-stack engineering, keeping system boundaries explicit consistently beats implicit framework magic.`;
+      const repoSection = gitHubRepoUrl ? `Full open-source repository link is in the first comment.` : "";
+      const personalPerspective = starStory.insight?.engineeringLesson || `Keeping system boundaries explicit beats implicit framework magic.`;
       const closingQuestion = generatedCta || `How does your team handle this pattern when building in production?`;
 
       const tags = ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"].join(" ");

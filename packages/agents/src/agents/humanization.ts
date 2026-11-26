@@ -111,7 +111,9 @@ export class HumanizationAgent {
         }
       }
       return result
-        .replace(/\s{2,}/g, " ")
+        .replace(/[^\S\r\n]{2,}/g, " ")
+        .replace(/[ \t]+\n/g, "\n")
+        .replace(/\n{3,}/g, "\n\n")
         .replace(/\. ,/g, ".")
         .replace(/\.,/g, ".")
         .trim();

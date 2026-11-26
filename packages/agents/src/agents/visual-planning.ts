@@ -255,128 +255,156 @@ export class VisualHistoryTracker {
 export const visualHistoryTracker = new VisualHistoryTracker();
 
 export class VisualPlanningAgent {
+  private shortenVisualLabel(text: string, maxLen: number = 30): string {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (clean.length <= maxLen) return clean;
+    return `${clean.slice(0, maxLen - 3).trimEnd()}...`;
+  }
+
   public createDiagramSpec(topic: Topic, postText?: string, visualType?: string): DiagramSpec {
-    const topicText = `${topic.title} ${topic.framework || ""} ${topic.category || ""}`.toLowerCase();
-    const fullText = (postText || "").toLowerCase();
+    // Strip hashtags before entity detection so `#React` never hijacks an MCP or AI post
+    const cleanPostBody = (postText || "").replace(/#[a-z0-9_]+/gi, " ");
+    const topicTitleAndFramework = `${topic.framework || ""} ${topic.title} ${topic.category || ""}`.toLowerCase();
+    const fullText = cleanPostBody.toLowerCase();
 
-    // 1. Extract dynamic metrics from post text (e.g., "340ms to 28ms", "94% improvement", "87% reduction")
-    const msMatches = (postText || "").match(/\b\d+ms\b/gi) || [];
-    const percentMatches = (postText || "").match(/\b\d+%\b/gi) || [];
-    const metricBefore = msMatches[0] || "340ms";
-    const metricAfter = msMatches[1] || "28ms";
-    const metricImp = percentMatches[0] || "94%";
+    // 1. Only extract latency/percentage metrics when BOTH before/after numbers genuinely exist in postText
+    const msMatches = cleanPostBody.match(/\b\d+ms\b/gi) || [];
+    const percentMatches = cleanPostBody.match(/\b\d+%\b/gi) || [];
+    const hasVerifiedTimingBenchmark = msMatches.length >= 2;
+    const metricBefore = hasVerifiedTimingBenchmark ? msMatches[0] : "";
+    const metricAfter = hasVerifiedTimingBenchmark ? msMatches[1] : "";
+    const metricImp = percentMatches[0] || "";
 
-    // 2. Extract technical entities / concepts from post or topic
+    // 2. Extract technical entities prioritizing topic title/framework before body mentions
     const knownTechs = [
-      "Redis", "Kafka", "PostgreSQL", "Docker", "Kubernetes", "TypeScript", "DeepSeek",
-      "gRPC", "REST", "eBPF", "mTLS", "OpenTelemetry", "Vite", "React", "S3", "DAG",
-      "B-Tree", "Circuit Breaker", "Token Bucket", "SPIFFE", "Trivy", "Buildx", "MCP",
-      "LLM Gateway", "VectorDB", "Cache", "WebSockets", "Server Actions", "Monorepo"
+      "MCP", "Model Context Protocol", "LangGraph", "Server Actions", "Next.js", "Tailwind CSS",
+      "Shadcn", "Hono", "Prisma", "AI Agents", "RAG", "Redis", "Kafka", "PostgreSQL", "MongoDB",
+      "Docker", "Kubernetes", "TypeScript", "Node.js", "Express", "GraphQL", "FastAPI",
+      "DeepSeek", "gRPC", "REST", "eBPF", "mTLS", "OpenTelemetry", "Vite", "React", "S3", "DAG",
+      "Circuit Breaker", "Token Bucket", "Trivy", "Buildx", "LLM Gateway", "VectorDB", "Cache",
+      "WebSockets", "Monorepo"
     ];
 
-    const extractedTechs = knownTechs.filter((tech) =>
-      fullText.includes(tech.toLowerCase()) || topicText.includes(tech.toLowerCase())
+    const titleMatchedTechs = knownTechs.filter((tech) =>
+      topicTitleAndFramework.includes(tech.toLowerCase())
     );
+    const bodyMatchedTechs = knownTechs.filter((tech) =>
+      !titleMatchedTechs.includes(tech) && fullText.includes(tech.toLowerCase())
+    );
+    const topicKeywordsExtra = (topic.keywords || [])
+      .filter((k) => k.length > 2 && !["open source", "full stack", "frontend engineering", "backend engineering", "software engineering", "developer tools", "ai"].includes(k.toLowerCase()));
+    const extractedTechs = Array.from(new Set([...titleMatchedTechs, ...topicKeywordsExtra, ...bodyMatchedTechs]));
 
-    const primaryTech = extractedTechs[0] || topic.framework || topic.supportingTech?.[0] || topic.category || "System";
-    const secondaryTech = extractedTechs[1] || "Database Engine";
-    const tertiaryTech = extractedTechs[2] || "API Gateway";
+    const primaryTech = extractedTechs[0] || topic.framework || topic.supportingTech?.[0] || topic.category || "Full Stack";
+    const secondaryTech = extractedTechs[1] || (primaryTech === "MCP" ? "AI Agent" : "API Layer");
+    const tertiaryTech = extractedTechs[2] || "Typed Schema";
 
-    const cleanTitle = topic.title.replace(/^(Day \d+:|Architecting a|Designing|Building|Optimizing)\s*/i, "").substring(0, 36);
+    const cleanTitle = topic.title
+      .replace(/^(Day \d+:|Architecting a|Designing|Building|Optimizing)\s*/i, "")
+      .replace(/\s+/g, " ")
+      .trim();
+    const shortTitle = cleanTitle.length <= 42
+      ? cleanTitle
+      : `${cleanTitle.split(/\s+/).slice(0, 6).join(" ")}`;
 
-    // 3. Determine Layout Style based on visualType parameter or post analysis
+    // 3. Determine Layout Style based on visualType parameter or actual topic/post content
     const style = (visualType || "").toUpperCase();
+    // Ignore closing question words when checking if a post is actually a benchmark
+    const bodyWithoutCta = cleanPostBody.split("?")[0] || cleanPostBody;
+    const isGenuineBenchmark =
+      style.includes("BENCHMARK") ||
+      (hasVerifiedTimingBenchmark && (bodyWithoutCta.toLowerCase().includes("benchmark") || bodyWithoutCta.toLowerCase().includes("p99")));
 
-    if (style.includes("BENCHMARK") || fullText.includes("latency") || fullText.includes("benchmark") || fullText.includes("p99")) {
+    if (isGenuineBenchmark) {
       return {
-        title: `${cleanTitle} Benchmark`,
+        title: `${shortTitle} (${primaryTech})`,
         layoutStyle: "BENCHMARK_CHART",
         colorPalette: "Red/Amber Baseline (#ef4444) vs Green Optimized (#10b981)",
         columns: [
           {
             id: "baseline",
-            title: "Legacy Baseline",
-            subtitle: `Latency: ${metricBefore} (Unoptimized)`,
+            title: "Before (Baseline)",
+            subtitle: metricBefore ? `Observed Latency: ${metricBefore}` : `Unoptimized ${primaryTech} Path`,
             color: "red",
             nodes: [
-              { id: "b1", label: `Synchronous ${primaryTech} Pool`, icon: "query", color: "red" },
-              { id: "b2", label: `Uncached ${secondaryTech} Read`, icon: "data", color: "red" },
-              { id: "b3", label: `P99 Latency: ${metricBefore}`, icon: "response", color: "red" },
+              { id: "b1", label: `Synchronous ${primaryTech} Flow`, icon: "query", color: "red" },
+              { id: "b2", label: `Tight Coupling to ${secondaryTech}`, icon: "data", color: "red" },
+              { id: "b3", label: metricBefore ? `Measured Latency: ${metricBefore}` : "Slow Retry Bottlenecks", icon: "response", color: "red" },
             ],
           },
           {
             id: "optimized",
-            title: `${primaryTech} Optimized`,
-            subtitle: `Latency: ${metricAfter} (${metricImp} Gain)`,
+            title: `After (${primaryTech} Fix)`,
+            subtitle: metricAfter ? `Measured: ${metricAfter}${metricImp ? ` (${metricImp} gain)` : ""}` : `Decoupled ${primaryTech} Design`,
             color: "green",
             nodes: [
-              { id: "o1", label: `Non-Blocking ${tertiaryTech}`, icon: "cache", color: "green" },
-              { id: "o2", label: `Decoupled ${primaryTech} Bus`, icon: "llm", color: "green" },
-              { id: "o3", label: `P99 Latency: ${metricAfter}`, icon: "response", color: "green" },
+              { id: "o1", label: `Decoupled ${primaryTech} Boundary`, icon: "cache", color: "green" },
+              { id: "o2", label: `Validated ${tertiaryTech} Contract`, icon: "llm", color: "green" },
+              { id: "o3", label: metricAfter ? `Measured Latency: ${metricAfter}` : "Predictable Execution", icon: "response", color: "green" },
             ],
           },
         ],
       };
     }
 
-    if (style.includes("DEBUGGING") || style.includes("TIMELINE") || fullText.includes("incident") && fullText.includes("diagnos")) {
+    if (style.includes("DEBUGGING") || style.includes("TIMELINE") || (fullText.includes("incident") && fullText.includes("diagnos"))) {
       return {
-        title: `${cleanTitle} Investigation Timeline`,
+        title: `${shortTitle}: Troubleshooting Flow`,
         layoutStyle: "DEBUGGING_TIMELINE",
         colorPalette: "Slate Dark (#0f172a), Amber Warning (#f59e0b), Emerald Fix (#10b981)",
         columns: [
           {
             id: "timeline",
-            title: "Incident Chronology",
-            subtitle: "Telemetry Anomaly -> Resolution",
+            title: `${primaryTech} Fix Timeline`,
+            subtitle: "Problem -> Root Cause -> Fix",
             color: "purple",
             nodes: [
-              { id: "t0", label: `T0: Anomaly Spike at ${primaryTech} Ingress`, icon: "query", color: "red" },
-              { id: "t1", label: `T+4m: Heap Pressure on ${secondaryTech}`, icon: "data", color: "yellow" },
-              { id: "t2", label: `T+9m: Root Cause: Connection Exhaustion`, icon: "cache", color: "blue" },
-              { id: "t3", label: `T+14m: Mitigation Deployed: Circuit Breaker`, icon: "response", color: "green" },
+              { id: "t0", label: `1. Symptom spotted in ${primaryTech}`, icon: "query", color: "red" },
+              { id: "t1", label: `2. Traced bottleneck in ${secondaryTech}`, icon: "data", color: "yellow" },
+              { id: "t2", label: `3. Isolated failure boundary`, icon: "cache", color: "blue" },
+              { id: "t3", label: `4. Verified stable ${primaryTech} fix`, icon: "response", color: "green" },
             ],
           },
         ],
       };
     }
 
-    if (style.includes("CODE") || fullText.includes("refactor") && fullText.includes("syntax")) {
+    if (style.includes("CODE") || (fullText.includes("refactor") && fullText.includes("syntax"))) {
       return {
-        title: `${cleanTitle} Implementation Blueprint`,
+        title: `${shortTitle} Pattern`,
         layoutStyle: "CODE_ANNOTATION",
         colorPalette: "Cyber Dark (#0f172a), Cyan (#06b6d4), Lime (#84cc16)",
         columns: [
           {
             id: "code_spec",
             title: `${primaryTech} Implementation Pattern`,
-            subtitle: "Architectural Refactor & Invariants",
+            subtitle: "Clean Boundaries & Contracts",
             color: "blue",
             nodes: [
-              { id: "ca1", label: `1. Define Atomic Lock Key Pattern`, icon: "cache", color: "blue" },
-              { id: "ca2", label: `2. Guard Non-Blocking Execution Boundary`, icon: "llm", color: "purple" },
-              { id: "ca3", label: `3. Commit State with Verification Telemetry`, icon: "response", color: "green" },
+              { id: "ca1", label: `1. Define ${primaryTech} Schema`, icon: "cache", color: "blue" },
+              { id: "ca2", label: `2. Isolate ${secondaryTech} Logic`, icon: "llm", color: "purple" },
+              { id: "ca3", label: `3. Validate Outputs Early`, icon: "response", color: "green" },
             ],
           },
         ],
       };
     }
 
-    if (style.includes("DISTRIBUTED") || fullText.includes("cluster") || fullText.includes("node") || fullText.includes("partition")) {
+    if (style.includes("DISTRIBUTED") || fullText.includes("cluster") || fullText.includes("replica") || fullText.includes("partition")) {
       return {
-        title: `${cleanTitle} Distributed Topology`,
+        title: `${shortTitle} (${primaryTech})`,
         layoutStyle: "DISTRIBUTED_SYSTEM_DIAGRAM",
         colorPalette: "Deep Navy (#0a192f), Electric Blue (#38bdf8), Emerald (#10b981)",
         columns: [
           {
             id: "cluster",
-            title: "Consensus & Coordination",
-            subtitle: "Raft Quorum & Fenced State",
+            title: `${primaryTech} Coordination`,
+            subtitle: "Decoupled Reliability Flow",
             color: "blue",
             nodes: [
-              { id: "ds1", label: `Leader Coordinator Node (${primaryTech})`, icon: "cache", color: "blue" },
-              { id: "ds2", label: `Follower Replica Cluster (${secondaryTech})`, icon: "data", color: "purple" },
-              { id: "ds3", label: `Fenced Partition Boundary (${tertiaryTech})`, icon: "response", color: "green" },
+              { id: "ds1", label: `Primary ${primaryTech} Node`, icon: "cache", color: "blue" },
+              { id: "ds2", label: `Secondary ${secondaryTech} Store`, icon: "data", color: "purple" },
+              { id: "ds3", label: `Isolated ${tertiaryTech} Boundary`, icon: "response", color: "green" },
             ],
           },
         ],
@@ -385,19 +413,19 @@ export class VisualPlanningAgent {
 
     if (style.includes("COMPONENT") || fullText.includes("dependency") || fullText.includes("service mesh")) {
       return {
-        title: `${cleanTitle} Component Map`,
+        title: `${shortTitle} Components`,
         layoutStyle: "COMPONENT_MAP",
         colorPalette: "Dark Slate (#18181b), Violet (#8b5cf6), Sky (#38bdf8)",
         columns: [
           {
             id: "mesh",
-            title: "Service Component Mesh",
-            subtitle: "Decoupled Service Topologies",
+            title: `${primaryTech} Component Flow`,
+            subtitle: "Clean Modular Responsibilities",
             color: "purple",
             nodes: [
-              { id: "cm1", label: `${tertiaryTech} Ingress Proxy`, icon: "query", color: "blue" },
-              { id: "cm2", label: `${primaryTech} Core Processing Service`, icon: "llm", color: "purple" },
-              { id: "cm3", label: `${secondaryTech} Persistence Store`, icon: "vectordb", color: "green" },
+              { id: "cm1", label: `Client Request Layer`, icon: "query", color: "blue" },
+              { id: "cm2", label: `${primaryTech} Core Handler`, icon: "llm", color: "purple" },
+              { id: "cm3", label: `${secondaryTech} Data Store`, icon: "vectordb", color: "green" },
             ],
           },
         ],
@@ -406,95 +434,111 @@ export class VisualPlanningAgent {
 
     if (style.includes("POSTER") || style.includes("MINIMAL")) {
       return {
-        title: `${cleanTitle} System Invariant`,
+        title: `${shortTitle} Key Principle`,
         layoutStyle: "MINIMAL_ENGINEERING_POSTER",
         colorPalette: "Obsidian (#030712), Electric Cyan (#22d3ee), Pure White (#ffffff)",
         columns: [
           {
             id: "invariant",
-            title: "Core Architectural Principle",
-            subtitle: "Production Systems Invariant",
+            title: `${primaryTech} Design Principle`,
+            subtitle: "Simple & Maintainable Engineering",
             color: "blue",
             nodes: [
-              { id: "p1", label: `Fault Isolation Boundary: ${primaryTech}`, icon: "cache", color: "blue" },
-              { id: "p2", label: `State Consistency: ${secondaryTech}`, icon: "data", color: "green" },
+              { id: "p1", label: `Clear Boundary: ${primaryTech}`, icon: "cache", color: "blue" },
+              { id: "p2", label: `Reliable Output: ${secondaryTech}`, icon: "data", color: "green" },
             ],
           },
         ],
       };
     }
 
-    // Recruiter-Friendly 3-Step Practical Workflow Layout
-    if (style.includes("FLOW") || style.includes("WORKFLOW") || style.includes("DATA") || fullText.includes("pipeline") || fullText.includes("agent")) {
-      const isAI = fullText.toLowerCase().includes("ai") || fullText.toLowerCase().includes("agent") || fullText.toLowerCase().includes("mcp");
+    const isAI =
+      topicTitleAndFramework.includes("mcp") ||
+      topicTitleAndFramework.includes("agent") ||
+      topicTitleAndFramework.includes("ai") ||
+      topicTitleAndFramework.includes("rag") ||
+      topicTitleAndFramework.includes("langgraph");
+
+    const isFrontend =
+      topicTitleAndFramework.includes("react") ||
+      topicTitleAndFramework.includes("next") ||
+      topicTitleAndFramework.includes("tailwind") ||
+      topicTitleAndFramework.includes("shadcn") ||
+      topicTitleAndFramework.includes("frontend");
+
+    // 3-Step Plain-English Workflow for AI Agents / MCP / Pipelines / Flow styles
+    if (
+      style.includes("FLOW") ||
+      style.includes("WORKFLOW") ||
+      style.includes("DATA") ||
+      isAI ||
+      fullText.includes("pipeline")
+    ) {
       return {
-        title: `${cleanTitle} Architecture`,
+        title: `${shortTitle}`,
         layoutStyle: "SYSTEM_FLOW",
         colorPalette: "Blue (#3b82f6), Purple (#8b5cf6), Green (#10b981)",
         columns: [
           {
             id: "step1",
-            title: "1. User Input",
-            subtitle: isAI ? "User Prompt & Parameters" : "Client Request & Actions",
+            title: "1. Input & Intent",
+            subtitle: isAI ? "User Task & Context" : "Client Action",
             color: "blue",
             nodes: [
-              { id: "n1", label: isAI ? "User Prompt & Context" : "React / Next.js Client Action", icon: "query", color: "blue" },
-              { id: "n2", label: isAI ? "Context Retrieval (RAG)" : "Frontend State Management", icon: "cache", color: "blue" },
+              { id: "n1", label: isAI ? "User Request" : "UI Form / Action", icon: "query", color: "blue" },
+              { id: "n2", label: isAI ? `${primaryTech} Context` : "Validated Input", icon: "cache", color: "blue" },
             ],
           },
           {
             id: "step2",
-            title: "2. Full Stack Logic",
-            subtitle: isAI ? "Autonomous Decision Core" : "Node.js & Database Engine",
+            title: `2. ${primaryTech} Core`,
+            subtitle: isAI ? "Standardized Tool Layer" : "Full Stack Handler",
             color: "purple",
             nodes: [
-              { id: "n3", label: isAI ? "AI Agent Evaluates Tools" : "Node.js Server Action Execution", icon: "llm", color: "purple" },
-              { id: "n4", label: isAI ? "Standardized Tool Call (MCP)" : "Optimized Database Query", icon: "embedding", color: "purple" },
+              { id: "n3", label: isAI ? "Select Safe Tool" : `${primaryTech} Logic`, icon: "llm", color: "purple" },
+              { id: "n4", label: isAI ? `${primaryTech} Schema Check` : "Database Query", icon: "embedding", color: "purple" },
             ],
           },
           {
             id: "step3",
-            title: "3. Verified Result",
-            subtitle: "Fast Production Output",
+            title: "3. Reliable Output",
+            subtitle: "Verified Result",
             color: "green",
             nodes: [
-              { id: "n5", label: "Instant Verified Response", icon: "response", color: "green" },
-              { id: "n6", label: "Smooth Full-Stack UI Update", icon: "response", color: "green" },
+              { id: "n5", label: "Typed Clean Data", icon: "response", color: "green" },
+              { id: "n6", label: "Predictable UX", icon: "response", color: "green" },
             ],
           },
         ],
       };
     }
 
-    // Recruiter-Friendly Comparison Layout (Before vs After)
-    const isFrontend = fullText.toLowerCase().includes("react") || fullText.toLowerCase().includes("next") || fullText.toLowerCase().includes("frontend");
-    const isAI = fullText.toLowerCase().includes("agent") || fullText.toLowerCase().includes("llm") || fullText.toLowerCase().includes("ai") || fullText.toLowerCase().includes("mcp");
-
+    // Qualitative Before vs After Comparison (no invented ms/percentage numbers)
     return {
-      title: `${cleanTitle} Optimization`,
+      title: `${shortTitle} (${primaryTech})`,
       layoutStyle: "BEFORE_AFTER_COMPARISON",
       colorPalette: "Red Before (#ef4444) vs Green After (#10b981)",
       columns: [
         {
           id: "before_col",
-          title: "Before: Legacy Bottleneck",
-          subtitle: isFrontend ? "Uncached Client Re-renders" : isAI ? "Brittle Custom API Scripts" : "Blocking Synchronous I/O",
+          title: "Before: Custom Glue",
+          subtitle: isFrontend ? `Heavy ${secondaryTech} Boilerplate` : `Tightly Coupled ${primaryTech}`,
           color: "red",
           nodes: [
-            { id: "ba1", label: isFrontend ? "Heavy Client Re-renders" : isAI ? "Hardcoded Single-Model Script" : "Blocking Synchronous Loops", icon: "query", color: "red" },
-            { id: "ba2", label: isFrontend ? "Waterfalls & Slow Initial Paint" : isAI ? "Brittle Custom API Wrappers" : "Unindexed Database Queries", icon: "data", color: "red" },
-            { id: "ba3", label: isFrontend ? "Complex Prop Drilling" : isAI ? "Silent API Timeouts & Failures" : "High Production Latency Spikes", icon: "response", color: "red" },
+            { id: "ba1", label: isFrontend ? "Manual State Hooks" : `Ad-hoc ${primaryTech} Scripts`, icon: "query", color: "red" },
+            { id: "ba2", label: isFrontend ? "Duplicate Styling Rules" : `Brittle ${secondaryTech} Glue`, icon: "data", color: "red" },
+            { id: "ba3", label: isFrontend ? "Larger Client Bundle" : "Breaks on Schema Drift", icon: "response", color: "red" },
           ],
         },
         {
           id: "after_col",
-          title: "After: Modern Full Stack",
-          subtitle: isFrontend ? "React 19 Server Actions" : isAI ? "Autonomous Resilient Agents" : "Optimized Node.js Pipeline",
+          title: `After: Clean ${primaryTech}`,
+          subtitle: isFrontend ? `${primaryTech} + ${secondaryTech}` : `Standardized ${primaryTech} Pattern`,
           color: "green",
           nodes: [
-            { id: "ba4", label: isFrontend ? "Next.js 15 Server Actions" : isAI ? "Standardized MCP Tool Registry" : "Asynchronous Non-Blocking Workers", icon: "cache", color: "green" },
-            { id: "ba5", label: isFrontend ? "Optimized Zero-Boilerplate State" : isAI ? "Multi-Provider Dynamic Fallbacks" : "Indexed Cache & Fast Query Paths", icon: "vectordb", color: "green" },
-            { id: "ba6", label: isFrontend ? "Instant UI Updates (-85% latency)" : isAI ? "Fault-Isolated Agent Workflows" : "Sub-100ms Verified P99 Latency", icon: "response", color: "green" },
+            { id: "ba4", label: isFrontend ? `Owned ${primaryTech} Components` : `Shared ${primaryTech} Contract`, icon: "cache", color: "green" },
+            { id: "ba5", label: isFrontend ? `${secondaryTech} Styling` : `Type-Safe ${secondaryTech}`, icon: "vectordb", color: "green" },
+            { id: "ba6", label: isFrontend ? "Simpler Maintenance" : "Reusable Across Apps", icon: "response", color: "green" },
           ],
         },
       ],
@@ -532,115 +576,132 @@ export class VisualPlanningAgent {
     if (layout === "BENCHMARK_CHART" || layout === "BEFORE_AFTER_COMPARISON") {
       const leftCol = spec.columns[0];
       const rightCol = spec.columns[1];
-      const cleanLeft = (leftCol?.title || "Before (Legacy)").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
-      const cleanRight = (rightCol?.title || "After (Optimized)").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
+      const cleanLeft = (leftCol?.title || "Before").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
+      const cleanRight = (rightCol?.title || "After").replace(/^Option\s+[A-Z]:\s*/i, "").trim();
+      const titleFontSize = spec.title.length > 42 ? 19 : 22;
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <style>
-    .title { font-size: 24px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
+    .title { font-size: ${titleFontSize}px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
     .badge { font-size: 12px; font-weight: 700; fill: #0284c7; text-anchor: middle; letter-spacing: 1px; }
-    .card-title { font-size: 18px; font-weight: 700; }
+    .card-title { font-size: 17px; font-weight: 700; }
     .card-sub { font-size: 13px; font-weight: 500; fill: #64748b; }
-    .node-text { font-size: 14px; font-weight: 600; fill: #1e293b; }
-    .metric-pill { font-size: 14px; font-weight: 800; fill: #047857; text-anchor: middle; }
+    .node-text { font-size: 13.5px; font-weight: 600; fill: #1e293b; }
+    .metric-pill { font-size: 13.5px; font-weight: 700; fill: #047857; text-anchor: middle; }
   </style>
 
   <rect width="${width}" height="${height}" fill="#ffffff" />
   <rect x="20" y="20" width="${width - 40}" height="${height - 40}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" rx="16" />
 
   <!-- Category Badge & Main Title -->
-  <rect x="300" y="38" width="200" height="26" fill="#e0f2fe" rx="13" />
-  <text x="400" y="55" class="badge">FULL STACK &amp; AI BENCHMARK</text>
+  <rect x="290" y="38" width="220" height="26" fill="#e0f2fe" rx="13" />
+  <text x="400" y="55" class="badge">ENGINEERING COMPARISON</text>
   <text x="400" y="92" class="title">${escapeXml(spec.title)}</text>
 
-  <!-- Left Card: Before / Legacy (Red/Slate Accent) -->
+  <!-- Left Card: Before -->
   <g transform="translate(50, 120)">
     <rect width="330" height="420" fill="#ffffff" stroke="#fca5a5" stroke-width="2" rx="12" />
     <rect width="330" height="48" fill="#fee2e2" rx="12" />
-    <text x="20" y="30" class="card-title" fill="#b91c1c">🔴 ${escapeXml(cleanLeft)}</text>
-    <text x="20" y="75" class="card-sub">${escapeXml(leftCol?.subtitle || "Legacy bottlenecks & latency")}</text>
+    <circle cx="24" cy="24" r="6" fill="#dc2626" />
+    <text x="40" y="30" class="card-title" fill="#b91c1c">${escapeXml(cleanLeft)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(leftCol?.subtitle || "Manual &amp; tightly coupled")}</text>
 
-    <!-- Visual Bar -->
-    <rect x="20" y="95" width="290" height="28" fill="#f1f5f9" rx="6" />
-    <rect x="20" y="95" width="260" height="28" fill="#ef4444" rx="6" />
-    <text x="165" y="114" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Unoptimized Baseline (Slow)</text>
+    <!-- Status Pill (Always Readable High Contrast) -->
+    <rect x="20" y="95" width="290" height="28" fill="#fef2f2" stroke="#fecaca" stroke-width="1" rx="6" />
+    <text x="165" y="114" font-size="12" font-weight="700" fill="#b91c1c" text-anchor="middle">High Maintenance Friction</text>
 
     ${renderLightNodes(leftCol?.nodes, colors, "#ef4444", "#fee2e2")}
   </g>
 
-  <!-- Right Card: After / Solution (Green Accent) -->
+  <!-- Right Card: After -->
   <g transform="translate(420, 120)">
     <rect width="330" height="420" fill="#ffffff" stroke="#86efac" stroke-width="2" rx="12" />
     <rect width="330" height="48" fill="#dcfce7" rx="12" />
-    <text x="20" y="30" class="card-title" fill="#15803d">🟢 ${escapeXml(cleanRight)}</text>
-    <text x="20" y="75" class="card-sub">${escapeXml(rightCol?.subtitle || "Decoupled full-stack architecture")}</text>
+    <circle cx="24" cy="24" r="6" fill="#16a34a" />
+    <text x="40" y="30" class="card-title" fill="#15803d">${escapeXml(cleanRight)}</text>
+    <text x="20" y="75" class="card-sub">${escapeXml(rightCol?.subtitle || "Clean decoupled boundaries")}</text>
 
-    <!-- Visual Bar -->
-    <rect x="20" y="95" width="290" height="28" fill="#f1f5f9" rx="6" />
-    <rect x="20" y="95" width="70" height="28" fill="#10b981" rx="6" />
-    <text x="165" y="114" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Optimized Architecture (-90% latency)</text>
+    <!-- Status Pill (Always Readable High Contrast) -->
+    <rect x="20" y="95" width="290" height="28" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1" rx="6" />
+    <text x="165" y="114" font-size="12" font-weight="700" fill="#047857" text-anchor="middle">Cleaner Boundaries &amp; Reliability</text>
 
     ${renderLightNodes(rightCol?.nodes, colors, "#10b981", "#dcfce7")}
   </g>
 
-  <!-- Bottom Metric Banner -->
-  <g transform="translate(200, 560)">
-    <rect width="400" height="44" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5" rx="22" />
-    <text x="200" y="27" class="metric-pill">⚡ Proven Result: Faster Response &amp; Total Fault Isolation</text>
+  <!-- Bottom Takeaway Banner (Wide enough for crisp padding) -->
+  <g transform="translate(90, 560)">
+    <rect width="620" height="44" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5" rx="22" />
+    <text x="310" y="27" class="metric-pill">Key Outcome: Simpler Integration &amp; Clear Service Boundaries</text>
   </g>
 </svg>`;
     }
 
     // ─────────────────────────────────────────────────────────────
-    // LAYOUT 2: SYSTEM FLOW / PIPELINE SVG
+    // LAYOUT 2: SYSTEM FLOW / PIPELINE SVG (Recruiter-Friendly 3-Step Flow)
     // ─────────────────────────────────────────────────────────────
     if (layout === "SYSTEM_FLOW") {
       const cols = spec.columns || [];
+      const titleFontSize = spec.title.length > 42 ? 19 : 22;
       return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+  </defs>
   <style>
-    .title { font-size: 26px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
-    .subtitle { font-size: 13px; font-weight: 600; fill: #3b82f6; text-anchor: middle; }
-    .col-header { font-size: 16px; font-weight: 700; fill: #0f172a; }
+    .title { font-size: ${titleFontSize}px; font-weight: 800; fill: #0f172a; text-anchor: middle; }
+    .badge { font-size: 12px; font-weight: 700; fill: #0284c7; text-anchor: middle; letter-spacing: 1px; }
+    .col-header { font-size: 16px; font-weight: 700; }
     .col-sub { font-size: 12px; font-weight: 500; fill: #64748b; }
     .node-title { font-size: 13px; font-weight: 600; fill: #0f172a; }
+    .metric-pill { font-size: 13.5px; font-weight: 700; fill: #0369a1; text-anchor: middle; }
   </style>
 
-  <text x="400" y="45" class="title">⚡ ${escapeXml(spec.title)}</text>
-  <text x="400" y="68" class="subtitle">DECOUPLED EVENT-DRIVEN PIPELINE EXECUTION FLOW</text>
+  <rect width="${width}" height="${height}" fill="#ffffff" />
+  <rect x="20" y="20" width="${width - 40}" height="${height - 40}" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" rx="16" />
+
+  <rect x="290" y="38" width="220" height="26" fill="#e0f2fe" rx="13" />
+  <text x="400" y="55" class="badge">3-STEP WORKFLOW OVERVIEW</text>
+  <text x="400" y="92" class="title">${escapeXml(spec.title)}</text>
 
   <!-- Flow Columns (Horizontal Pipeline) -->
   ${cols
     .map((col, idx) => {
-      const x = 40 + idx * 245;
+      const x = 45 + idx * 245;
       const strokeColor = col.color === "green" ? colors.greenBorder : col.color === "purple" ? colors.purpleBorder : colors.blueBorder;
       const fillColor = col.color === "green" ? colors.greenFill : col.color === "purple" ? colors.purpleFill : colors.blueFill;
 
       return `
-      <g transform="translate(${x}, 100)">
-        <rect width="230" height="490" fill="#f8fafc" stroke="${strokeColor}" stroke-width="2" rx="12" />
-        <rect width="230" height="36" fill="${fillColor}" rx="12" />
-        <text x="15" y="24" class="col-header" fill="${strokeColor}">${escapeXml(col.title)}</text>
-        <text x="15" y="54" class="col-sub">${escapeXml(col.subtitle)}</text>
+      <g transform="translate(${x}, 125)">
+        <rect width="220" height="405" fill="#ffffff" stroke="${strokeColor}" stroke-width="2" rx="12" />
+        <rect width="220" height="44" fill="${fillColor}" rx="12" />
+        <text x="15" y="28" class="col-header" fill="${strokeColor}">${escapeXml(col.title)}</text>
+        <text x="15" y="66" class="col-sub">${escapeXml(col.subtitle)}</text>
 
         ${col.nodes
           .map(
             (node, nIdx) => `
-          <g transform="translate(15, ${80 + nIdx * 110})">
-            <rect width="200" height="75" fill="#ffffff" stroke="${strokeColor}" stroke-width="1.5" rx="8" />
-            <circle cx="25" cy="37" r="14" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" />
-            <text x="25" y="42" font-size="12" font-weight="800" fill="${strokeColor}" text-anchor="middle">${nIdx + 1}</text>
-            <text x="48" y="42" class="node-title">${escapeXml(node.label)}</text>
+          <g transform="translate(15, ${92 + nIdx * 115})">
+            <rect width="190" height="82" fill="#f8fafc" stroke="${strokeColor}" stroke-width="1.5" rx="8" />
+            <circle cx="24" cy="41" r="13" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" />
+            <text x="24" y="45" font-size="12" font-weight="800" fill="${strokeColor}" text-anchor="middle">${nIdx + 1}</text>
+            <text x="46" y="45" class="node-title">${escapeXml(this.shortenVisualLabel(node.label, 20))}</text>
           </g>
         `
           )
           .join("")}
       </g>
-      ${idx < cols.length - 1 ? `<path d="M ${x + 230} 340 L ${x + 245} 340" stroke="${strokeColor}" stroke-width="3" marker-end="url(#arrow)" />` : ""}
+      ${idx < cols.length - 1 ? `<path d="M ${x + 224} 325 L ${x + 241} 325" stroke="#64748b" stroke-width="2.5" marker-end="url(#arrow)" />` : ""}
       `;
     })
     .join("")}
+
+  <g transform="translate(90, 560)">
+    <rect width="620" height="44" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5" rx="22" />
+    <text x="310" y="27" class="metric-pill">Structured Input -&gt; Validated Boundary -&gt; Predictable Output</text>
+  </g>
 </svg>`;
     }
 
@@ -690,9 +751,9 @@ export class VisualPlanningAgent {
   </g>
 
   <!-- Bottom Metric Banner -->
-  <g transform="translate(200, 560)">
-    <rect width="400" height="44" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5" rx="22" />
-    <text x="200" y="27" class="metric-pill">💡 Result: Clear boundaries protect distributed workloads</text>
+  <g transform="translate(90, 560)">
+    <rect width="620" height="44" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5" rx="22" />
+    <text x="310" y="27" class="metric-pill">Key Outcome: Clear Boundaries Protect Production Workloads</text>
   </g>
 </svg>`;
     }
@@ -706,14 +767,14 @@ export class VisualPlanningAgent {
     return `<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" style="background-color: #ffffff; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
   <style>
-    .title { font-size: 28px; font-weight: 800; fill: ${colors.textDark}; text-anchor: middle; }
+    .title { font-size: 24px; font-weight: 800; fill: ${colors.textDark}; text-anchor: middle; }
     .col-title { font-size: 20px; font-weight: 800; text-anchor: middle; }
     .col-subtitle { font-size: 12px; font-weight: 500; fill: ${colors.textMuted}; text-anchor: middle; }
     .node-label { font-size: 13px; font-weight: 600; fill: ${colors.textDark}; text-anchor: middle; }
   </style>
 
   <!-- Header -->
-  <text x="400" y="45" class="title">📐 ${escapeXml(spec.title)}</text>
+  <text x="400" y="45" class="title">${escapeXml(spec.title)}</text>
 
   <!-- Divider -->
   <line x1="400" y1="80" x2="400" y2="600" stroke="${colors.lineDashed}" stroke-width="2" stroke-dasharray="6,6" />
@@ -747,7 +808,7 @@ export class VisualPlanningAgent {
     const diagramType = diagramSpec.title;
 
     // Check if visual concept or layout was recently used
-    const renderedSvg = this.generateDiagramSvg(diagramSpec, visualType);
+    let renderedSvg = this.generateDiagramSvg(diagramSpec, visualType);
     const requiredDiagramNodes = diagramSpec.columns.flatMap((c) => c.nodes.map((n) => n.label));
 
     const imagePrompt = `A 16:9 technical architecture blueprint diagram titled "${diagramSpec.title}". Layout: ${diagramSpec.layoutStyle} with color-coded vector node badges. Key components: ${requiredDiagramNodes.join(
@@ -770,8 +831,13 @@ export class VisualPlanningAgent {
 
     if (repCheck.isDuplicate) {
       console.log(`[VISUAL_FILTER] Variation triggered: ${repCheck.reason}`);
-      diagramSpec.title = `${topic.title} Architecture Blueprint`;
-      diagramSpec.layoutStyle = "DYNAMIC_SYSTEM_FLOW";
+      const rotatedLayout =
+        diagramSpec.layoutStyle === "SYSTEM_FLOW" ? "BEFORE_AFTER_COMPARISON" : "SYSTEM_FLOW";
+      const rotatedSpec = this.createDiagramSpec(topic, postText, rotatedLayout);
+      diagramSpec.title = this.shortenVisualLabel(rotatedSpec.title, 44);
+      diagramSpec.layoutStyle = rotatedSpec.layoutStyle;
+      diagramSpec.columns = rotatedSpec.columns;
+      renderedSvg = this.generateDiagramSvg(diagramSpec, rotatedLayout);
     }
 
     visualHistoryTracker.recordVisual({
@@ -903,13 +969,14 @@ function renderLightNodes(nodes?: DiagramNode[], colors?: any, strokeColor: stri
   if (!nodes || nodes.length === 0) return "";
   return nodes
     .map((n, idx) => {
-      const y = 140 + idx * 110;
+      const y = 140 + idx * 92;
+      const safeLabel = n.label.length > 29 ? `${n.label.slice(0, 26).trimEnd()}...` : n.label;
       return `
       <g transform="translate(20, ${y})">
-        <rect width="290" height="85" fill="#ffffff" stroke="${strokeColor}" stroke-width="1.5" rx="8" />
-        <circle cx="28" cy="42" r="14" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" />
-        <text x="28" y="47" font-size="12" font-weight="800" fill="${strokeColor}" text-anchor="middle">${idx + 1}</text>
-        <text x="54" y="47" class="node-text">${escapeXml(n.label)}</text>
+        <rect width="290" height="76" fill="#ffffff" stroke="${strokeColor}" stroke-width="1.5" rx="8" />
+        <circle cx="28" cy="38" r="14" fill="${fillColor}" stroke="${strokeColor}" stroke-width="1.5" />
+        <text x="28" y="43" font-size="12" font-weight="800" fill="${strokeColor}" text-anchor="middle">${idx + 1}</text>
+        <text x="54" y="43" class="node-text">${escapeXml(safeLabel)}</text>
       </g>
       `;
     })

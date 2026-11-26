@@ -2,6 +2,33 @@ import { HookType, Topic, DiscussionCtaType, StoryMode } from "@brand-os/shared"
 
 export class HookEngine {
   /**
+   * Shortens long multi-clause topic titles into a concise engineering subject
+   * so hooks and CTAs stay readable under LinkedIn's 210-char mobile fold.
+   */
+  private shortenTitle(title: string, fallback: string): string {
+    const stripped = title
+      .replace(/^Day \d+:\s*/i, "")
+      .replace(/:(.*)$/, "")
+      .trim();
+    if (stripped.length <= 42) {
+      return stripped;
+    }
+    const parenMatch = stripped.match(/\(([^)]{2,18})\)/);
+    if (
+      parenMatch &&
+      fallback &&
+      !stripped.toLowerCase().startsWith(fallback.toLowerCase()) &&
+      parenMatch[1].toLowerCase() !== fallback.toLowerCase()
+    ) {
+      return `${fallback} (${parenMatch[1]})`;
+    }
+    if (fallback && fallback.length >= 2 && fallback.length <= 28) {
+      return fallback;
+    }
+    return stripped.split(/\s+/).slice(0, 5).join(" ");
+  }
+
+  /**
    * Generates a hook string matching the given HookType and StoryMode
    */
   public generateHook(
@@ -12,7 +39,7 @@ export class HookEngine {
     storyMode?: StoryMode
   ): string {
     const techName = topic.framework || topic.category || topic.title;
-    const cleanTitle = topic.title.replace(/:(.*)$/, "").trim();
+    const cleanTitle = this.shortenTitle(topic.title, techName);
 
     // Mode-specific override options if storyMode is provided
     if (storyMode === StoryMode.FAILURE_STORY) {
@@ -101,7 +128,7 @@ export class HookEngine {
     }
 
     const tech = topic.framework || topic.category || "this architecture";
-    const cleanTitle = topic.title.replace(/:(.*)$/, "").trim();
+    const cleanTitle = this.shortenTitle(topic.title, tech);
 
     switch (ctaType) {
       case DiscussionCtaType.TRADEOFF_CHOICE:

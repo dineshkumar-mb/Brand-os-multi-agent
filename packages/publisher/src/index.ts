@@ -324,7 +324,39 @@ export class LinkedInPublisherAdapter implements IPublisherAdapter {
             if (response.ok) {
               const resData: any = await response.json();
               const extId = resData.id || `urn:li:share:${Date.now()}`;
-              
+
+              // Post strategic first comment (including GitHub repo link) to avoid inline-link reach penalty
+              const firstCommentText = typeof content.firstComment === "string" ? content.firstComment.trim() : "";
+              if (firstCommentText) {
+                try {
+                  const commentRes = await fetch(
+                    `https://api.linkedin.com/v2/socialActions/${encodeURIComponent(extId)}/comments`,
+                    {
+                      method: "POST",
+                      headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json",
+                        "X-RestLi-Protocol-Version": "2.0.0",
+                      },
+                      body: JSON.stringify({
+                        actor: author,
+                        message: {
+                          text: firstCommentText,
+                        },
+                      }),
+                    }
+                  );
+                  if (commentRes.ok) {
+                    console.log(`[LinkedIn Publisher 💬] Posted first comment on ${extId} successfully.`);
+                  } else {
+                    const commentErr = await commentRes.text();
+                    console.warn(`[LinkedIn Publisher ⚠️] First comment post warning (${commentRes.status}): ${commentErr.substring(0, 200)}`);
+                  }
+                } catch (commentEx: any) {
+                  console.warn(`[LinkedIn Publisher ⚠️] First comment exception (post itself succeeded): ${commentEx.message}`);
+                }
+              }
+
               // Construct canonical update URL using exact URN returned by LinkedIn API
               const articleUrl = `https://www.linkedin.com/feed/update/${extId}`;
               const latencyMs = Date.now() - startTime;

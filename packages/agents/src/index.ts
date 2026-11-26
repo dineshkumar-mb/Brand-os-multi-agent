@@ -284,6 +284,44 @@ export class AgentOrchestrator {
   private linkedinAlgorithmAuditor = new LinkedInAlgorithmAuditor();
   private linkedinCommentDrafterAgent = new LinkedInCommentDrafterAgent();
 
+  private stripInlineUrlsForReach(
+    post: LinkedInPostPayload,
+    references: string[] = []
+  ): { post: LinkedInPostPayload; repoUrls: string[] } {
+    const urlRegex = /https?:\/\/[^\s)]+/gi;
+    const foundInBody = post.fullText.match(urlRegex) || [];
+    const repoUrls = Array.from(
+      new Set([...references, ...foundInBody].filter((u) => /^https?:\/\//i.test(u)))
+    );
+    if (foundInBody.length === 0) {
+      return { post, repoUrls };
+    }
+    const cleanedBody = post.fullText
+      .replace(/Explore the project:\s*https?:\/\/[^\s)]+/gi, "Open-source repository link is in the first comment.")
+      .replace(/Project reference:\s*https?:\/\/[^\s)]+/gi, "Open-source repository link is in the first comment.")
+      .replace(urlRegex, "")
+      .replace(/[ \t]+\n/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+    return { post: { ...post, fullText: cleanedBody }, repoUrls };
+  }
+
+  private attachFirstComment(
+    post: LinkedInPostPayload,
+    angle: "TECHNICAL_COUNTEREXAMPLE" | "TELEMETRY_INSIGHT" | "TRADEOFF_QUESTION" | "REINFORCE_EXPERIENCE",
+    audience: string,
+    repoUrls: string[],
+    pipelineId: string
+  ): string {
+    const commentRes = this.linkedinCommentDrafterAgent.draftComment(post.fullText, angle, audience, pipelineId);
+    const ghLink = repoUrls.find((u) => u.includes("github.com")) || repoUrls[0];
+    const commentText = ghLink
+      ? `${commentRes.data.commentText}\n\nRepository: ${ghLink}`
+      : commentRes.data.commentText;
+    post.firstComment = commentText;
+    return commentText;
+  }
+
   public async executePipeline(options: {
     autoPublish?: boolean;
     pipelineId?: string;
@@ -469,6 +507,9 @@ export class AgentOrchestrator {
       throw new Error("fullText is too short: generated post does not meet minimum 100 character requirement");
     }
 
+    const sanitizedUrls = this.stripInlineUrlsForReach(linkedInPost, selectedTopic.references || []);
+    linkedInPost = sanitizedUrls.post;
+
     // Technical Review & Originality Gates
     let techReview = await this.technicalReviewerAgent.auditTechnicalContent(linkedInPost.fullText, research, experience, pipelineId);
     let originality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
@@ -486,7 +527,7 @@ export class AgentOrchestrator {
       chosenVisualType
     );
 
-    if (visualPlanRes.data.renderedSvg) {
+    if (visualPlanRes.data.renderedSvg && (!linkedInPost.imageUrl || linkedInPost.imageUrl.startsWith("data:image/svg+xml"))) {
       const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;
       linkedInPost.imageUrl = svgDataUrl;
       devToArticle.mainImage = svgDataUrl;
@@ -661,6 +702,18 @@ export class AgentOrchestrator {
       };
     }
 
+    // Generate Strategic First-Comment BEFORE publish so LinkedInPublisherAdapter posts it automatically
+    const commentAngle = (writingContext.architectureDecision?.rejected?.length || 0) > 0
+      ? "TECHNICAL_COUNTEREXAMPLE"
+      : "TRADEOFF_QUESTION";
+    const firstComment = this.attachFirstComment(
+      linkedInPost,
+      commentAngle,
+      audienceRes.data?.primaryAudience || "Senior Engineers & Tech Leads",
+      sanitizedUrls.repoUrls,
+      pipelineId
+    );
+
     // Publish if autoPublish enabled
     let publishResult = null;
     if (autoPublish) {
@@ -686,19 +739,6 @@ export class AgentOrchestrator {
         if (sk) skillEvidenceRegistry.recordSkillDemonstration(sk, publishResult?.externalId || `post_${Date.now()}`);
       }
     }
-
-    // Generate Strategic First-Comment via LinkedInCommentDrafterAgent (LinkedIn skills)
-    const commentAngle = (writingContext.architectureDecision?.rejected?.length || 0) > 0
-      ? "TECHNICAL_COUNTEREXAMPLE"
-      : "TRADEOFF_QUESTION";
-    const firstCommentRes = this.linkedinCommentDrafterAgent.draftComment(
-      linkedInPost.fullText,
-      commentAngle,
-      audienceRes.data?.primaryAudience || "Senior Engineers & Tech Leads",
-      pipelineId
-    );
-    const firstComment = firstCommentRes.data.commentText;
-    linkedInPost.firstComment = firstComment;
 
     return {
       status: "POST_READY",
@@ -835,9 +875,18 @@ export class AgentOrchestrator {
     const humanRes = this.humanizationAgent.sanitize(linkedInPost, devToArticle, pipelineId);
     linkedInPost = humanRes.data.post;
 
-    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(selectedTopic, pipelineId, linkedInPost.fullText);
+    const fallbackSanitizedUrls = this.stripInlineUrlsForReach(linkedInPost, selectedTopic.references || []);
+    linkedInPost = fallbackSanitizedUrls.post;
+
+    const fallbackVisualNoveltyRes = visualNoveltyAgent.evaluateAndPlanVisual(selectedTopic, linkedInPost.fullText, pipelineId);
+    const visualPlanRes = this.visualPlanningAgent.createVisualPlan(
+      selectedTopic,
+      pipelineId,
+      linkedInPost.fullText,
+      fallbackVisualNoveltyRes.data.selectedVisualType
+    );
     const visualPlan = visualPlanRes.data;
-    if (visualPlanRes.data?.renderedSvg) {
+    if (visualPlanRes.data?.renderedSvg && (!linkedInPost.imageUrl || linkedInPost.imageUrl.startsWith("data:image/svg+xml"))) {
       const svgDataUrl = `data:image/svg+xml;utf8,${encodeURIComponent(visualPlanRes.data.renderedSvg)}`;
       linkedInPost.imageUrl = svgDataUrl;
       devToArticle.mainImage = svgDataUrl;
@@ -855,7 +904,6 @@ export class AgentOrchestrator {
       pipelineId
     );
     const fallbackOriginality = this.originalityAgent.evaluateOriginality(linkedInPost, devToArticle, pipelineId);
-    const fallbackVisualNoveltyRes = visualNoveltyAgent.evaluateAndPlanVisual(selectedTopic, linkedInPost.fullText, pipelineId);
     const fallbackImageRelevanceRes = this.imageRelevanceAgent.evaluateImageRelevance(
       selectedTopic, linkedInPost, devToArticle, null, visualPlan, pipelineId
     );
@@ -876,8 +924,9 @@ export class AgentOrchestrator {
     if (fallbackVisualNovelty < 70) fallbackRejectionReasons.push(`VisualNovelty ${fallbackVisualNovelty} < 70`);
     if (!fallbackImageRelevanceRes.data.passed) fallbackRejectionReasons.push(...fallbackImageRelevanceRes.data.rejectionReasons);
     if (!fallbackPostDeduplication.data.passed) fallbackRejectionReasons.push(...fallbackPostDeduplication.data.rejectionReasons);
+    if (!fallbackLinkedinAlgorithmRes.data.passed) fallbackRejectionReasons.push(...fallbackLinkedinAlgorithmRes.data.rejectionReasons);
     const hasCriticalRejection = fallbackRejectionReasons.some((r) =>
-      r.includes("DUPLICATE") || r.includes("REPETITION") || r.includes("COOLDOWN")
+      r.includes("DUPLICATE") || r.includes("REPETITION") || r.includes("COOLDOWN") || r.includes("External Link Hazard") || r.includes("Wall of Text")
     );
     const fallbackPassed = !hasCriticalRejection && fallbackHumanWriting >= 70 && fallbackTechDepth >= 70;
     const fallbackOverallScore = Math.round(
@@ -925,6 +974,15 @@ export class AgentOrchestrator {
         qualityGateResult,
       };
     }
+
+    // Generate Strategic First-Comment BEFORE publish so LinkedInPublisherAdapter posts it automatically
+    const firstComment = this.attachFirstComment(
+      linkedInPost,
+      "REINFORCE_EXPERIENCE",
+      "Senior Engineers & Engineering Leaders",
+      fallbackSanitizedUrls.repoUrls,
+      pipelineId
+    );
 
     let publishResult = null;
     if (autoPublish) {
@@ -990,16 +1048,6 @@ export class AgentOrchestrator {
       quality: qualityGateResult,
       decision: "PUBLISH",
     };
-
-    // Generate Strategic First-Comment via LinkedInCommentDrafterAgent
-    const fallbackCommentRes = this.linkedinCommentDrafterAgent.draftComment(
-      linkedInPost.fullText,
-      "REINFORCE_EXPERIENCE",
-      "Senior Engineers & Engineering Leaders",
-      pipelineId
-    );
-    const firstComment = fallbackCommentRes.data.commentText;
-    linkedInPost.firstComment = firstComment;
 
     return {
       status: "POST_READY",
