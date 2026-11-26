@@ -278,11 +278,12 @@ export class VisualPlanningAgent {
     // 2. Extract technical entities prioritizing topic title/framework before body mentions
     const knownTechs = [
       "MCP", "Model Context Protocol", "LangGraph", "Server Actions", "Next.js", "Tailwind CSS",
-      "Shadcn", "Hono", "Prisma", "AI Agents", "RAG", "Redis", "Kafka", "PostgreSQL", "MongoDB",
-      "Docker", "Kubernetes", "TypeScript", "Node.js", "Express", "GraphQL", "FastAPI",
-      "DeepSeek", "gRPC", "REST", "eBPF", "mTLS", "OpenTelemetry", "Vite", "React", "S3", "DAG",
-      "Circuit Breaker", "Token Bucket", "Trivy", "Buildx", "LLM Gateway", "VectorDB", "Cache",
-      "WebSockets", "Monorepo"
+      "Shadcn", "Hono", "Prisma", "AI Agents", "RAG", "ChromaDB", "Gemini AI", "Gemini", "OCR",
+      "WebRTC", "Socket.IO", "BullMQ", "Redux Toolkit", "React Flow", "Multi-Tenancy", "RBAC",
+      "Redis", "Kafka", "PostgreSQL", "MongoDB", "Docker", "Kubernetes", "TypeScript", "Node.js",
+      "Express.js", "Express", "GraphQL", "FastAPI", "DeepSeek", "gRPC", "REST", "eBPF", "mTLS",
+      "OpenTelemetry", "Vite", "React.js", "React", "S3", "DAG", "Circuit Breaker", "Token Bucket",
+      "Trivy", "Buildx", "LLM Gateway", "VectorDB", "Cache", "WebSockets", "Monorepo"
     ];
 
     const titleMatchedTechs = knownTechs.filter((tech) =>

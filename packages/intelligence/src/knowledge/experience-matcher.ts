@@ -8,38 +8,44 @@ export class ExperienceMatcherEngine {
   } {
     const textToMatch = `${event.title} ${event.summary} ${event.tags.join(" ")}`.toLowerCase();
 
-    // Diversified user project experience inventory aligned with:
-    // Full Stack Developer | MERN Stack | React | Node.js | AI Integration | Agentic AI
+    // Real engineering experience & shipped portfolio projects from https://dineshkumar-mb-portfolio.vercel.app/
+    // Positioning: Full Stack Developer | MERN Stack | React | Node.js | AI Integration | Agentic AI
     const userExperiences = [
       {
-        id: "exp_1",
-        title: "Built Autonomous Multi-Agent Systems & Tool Integrations",
-        tech: ["TypeScript", "Node.js", "Agentic AI", "AI Agents", "MCP", "LangGraph", "LLM", "OpenAI", "Anthropic", "Docker"],
-        description: "Implemented multi-agent orchestration, tool schemas (MCP), quality decision gates, and event-driven architecture.",
+        id: "exp_innoide_real",
+        title: "InnoIDE Industrial Automation & Virtual Sensor Simulation (Innotrat Labs)",
+        tech: ["React", "React.js", "TypeScript", "Redux Toolkit", "Node.js", "WebSockets", "React Flow", "Full Stack"],
+        description: "Owned frontend architecture and virtual sensor simulation at Innotrat Labs for 50+ engineers, cutting validation from hours to minutes.",
       },
       {
-        id: "exp_2",
-        title: "High-Throughput Node.js & MERN Backend Microservices",
-        tech: ["Node.js", "Express", "MERN Stack", "Backend Engineering", "REST API", "Docker", "MongoDB", "PostgreSQL", "Performance"],
-        description: "Built asynchronous queue pipelines managing rate limits, atomic locks, exponential backoffs, and memory bounds.",
+        id: "exp_neelan_real",
+        title: "Enterprise React, TypeScript & Express RBAC Modules (Neelan Oxysoft)",
+        tech: ["React", "React.js", "TypeScript", "Node.js", "Express", "Tailwind CSS", "REST API", "MERN Stack", "Frontend Engineering"],
+        description: "Delivered 10+ production modules integrating Node.js/Express JWT RBAC and Redux Toolkit, cutting re-renders by 35%.",
       },
       {
-        id: "exp_3",
-        title: "Enterprise Full-Stack React & Next.js Web Applications",
-        tech: ["React", "Next.js", "TypeScript", "Tailwind CSS", "MERN Stack", "Full Stack", "Frontend Engineering", "Vite"],
-        description: "Refactored UI component hierarchies and async server actions for zero-boilerplate state updates.",
+        id: "exp_taskflow_real",
+        title: "TaskFlow Multi-Tenant SaaS with MongoDB, Redis/BullMQ & OpenAI",
+        tech: ["React", "Node.js", "MongoDB", "MERN Stack", "Redis", "BullMQ", "OpenAI", "Backend Engineering"],
+        description: "Built multi-tenant sprint SaaS with MongoDB tenant isolation, Cashfree recurring webhooks, Redis/BullMQ queues, and AI ticket extraction.",
       },
       {
-        id: "exp_4",
-        title: "Containerized Microservice Hardening & CI/CD Automation",
-        tech: ["Docker", "Kubernetes", "Security", "CI/CD", "GitHub Actions", "Developer Tools"],
-        description: "Enforced vulnerability scanning, rootless container execution, and automated deployment pipelines.",
+        id: "exp_rag_emi_real",
+        title: "AI Financial Assistant — OCR + ChromaDB RAG + Gemini AI",
+        tech: ["React", "Node.js", "MongoDB", "RAG", "ChromaDB", "LangChain", "Gemini", "Vector Search", "AI Agents"],
+        description: "Engineered OCR document ingestion into ChromaDB vector store, coupling deterministic Node.js EMI math with Gemini RAG.",
       },
       {
-        id: "exp_5",
-        title: "Data Access Layers, ORMs & RAG Vector Architectures",
-        tech: ["TypeScript", "Node.js", "Prisma", "Databases", "MongoDB", "PostgreSQL", "RAG", "Vector Search", "Full Stack"],
-        description: "Designed type-safe database schemas, connection pooling, and semantic retrieval pipelines.",
+        id: "exp_swarms_real",
+        title: "Career OS (17-Agent Kernel) & Brand OS (12-Agent Swarm)",
+        tech: ["TypeScript", "Node.js", "React", "Express", "Prisma", "Socket.io", "Agentic AI", "AI Agents", "MCP", "LangGraph", "LLM", "Docker"],
+        description: "Built autonomous multi-agent platforms with Socket.io live traces, multi-provider AI gateway failover, quality gates, and CI/CD.",
+      },
+      {
+        id: "exp_streamify_review_real",
+        title: "Streamify (WebRTC/Socket.IO), AI Code Reviewer & Mock Interview App",
+        tech: ["React", "Node.js", "MongoDB", "Express", "WebRTC", "Socket.io", "Gemini", "Tailwind CSS", "Full Stack"],
+        description: "Engineered P2P WebRTC video rooms (sub-100ms latency), sub-2.5s Express proxy Gemini code audits, and Web Speech API interview scoring.",
       },
     ];
 

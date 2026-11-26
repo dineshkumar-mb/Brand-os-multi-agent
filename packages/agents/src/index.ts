@@ -315,9 +315,17 @@ export class AgentOrchestrator {
   ): string {
     const commentRes = this.linkedinCommentDrafterAgent.draftComment(post.fullText, angle, audience, pipelineId);
     const ghLink = repoUrls.find((u) => u.includes("github.com")) || repoUrls[0];
-    const commentText = ghLink
-      ? `${commentRes.data.commentText}\n\nRepository: ${ghLink}`
-      : commentRes.data.commentText;
+    const portfolioUrl = "https://dineshkumar-mb-portfolio.vercel.app/";
+    const isPersonalProject = Boolean(ghLink && (ghLink.includes("dineshkumar-mb") || ghLink.includes("innotrat")));
+
+    let commentText = commentRes.data.commentText;
+    if (ghLink) {
+      commentText += isPersonalProject
+        ? `\n\nProject & Code: ${ghLink}\nPortfolio: ${portfolioUrl}`
+        : `\n\nRepository: ${ghLink}\nMore Full-Stack & AI projects: ${portfolioUrl}`;
+    } else {
+      commentText += `\n\nPortfolio: ${portfolioUrl}`;
+    }
     post.firstComment = commentText;
     return commentText;
   }

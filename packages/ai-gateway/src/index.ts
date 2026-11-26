@@ -1335,7 +1335,7 @@ export class AIGateway {
               whenNotToUse: ["Do not sandbox minor local helper tasks where build script access is trusted."],
             },
           };
-        } else {
+        } else if (ep.includes("pub/sub") || ep.includes("kafka") || ep.includes("disconnected")) {
           // ── exp_12: Redis vs Kafka ──────────────────────────────────────
           starPayload = {
             situation: {
@@ -1375,6 +1375,46 @@ export class AIGateway {
                 `Sacrificed: ${sacrificedApproach}`
               ],
               whenNotToUse: ["Do not deploy Kafka if simple task queues handle requirements cleanly."],
+            },
+          };
+        } else {
+          // ── Dynamic Real-Experience STAR Builder (never mixes unrelated copy) ──
+          starPayload = {
+            situation: {
+              context: researchSummary || `Engineering ${category} capabilities while building ${topicTitle}.`,
+              trigger: expProblem,
+              stakes: "Tight coupling and unguarded boundaries slowed iteration and risked unreliable behavior for users.",
+              curiosityTension: "The initial flow worked for basic cases, but edge-case behavior broke once real workflows scaled.",
+            },
+            task: {
+              objective: `Resolve ${topicTitle} bottlenecks cleanly without sacrificing developer maintainability.`,
+              constraints: ["Preserve clean API and UI state boundaries", "Keep user-facing latency responsive"],
+              successCriteria: ["Predictable error handling", expOutcome],
+            },
+            action: {
+              approachesConsidered: [
+                `Ad-hoc inline handling (${sacrificedApproach})`,
+                chosenApproach,
+              ],
+              chosenApproach,
+              rejectedApproaches: [`Ad-hoc inline handling rejected due to ${sacrificedApproach}.`],
+              reasoning: `Choosing ${chosenApproach} keeps domain responsibilities isolated and easier to test.`,
+              decisionMoment: `Hitting "${expProblem}" showed the need to formalize the boundary early.`,
+              implementation: `Applied ${chosenApproach} with explicit validation and observable failure states.`,
+              debugging: "Verified behavior across edge cases and real user inputs.",
+            },
+            result: {
+              outcome: expOutcome,
+              metrics: [expOutcome],
+              evidence: ["Live project implementation & verification"],
+            },
+            insight: {
+              engineeringLesson: `Keeping boundaries explicit in ${category} prevents small integration shortcuts from becoming production bottlenecks.`,
+              tradeoffs: [
+                `Chosen: ${chosenApproach}`,
+                `Sacrificed: ${sacrificedApproach}`,
+              ],
+              whenNotToUse: ["Overkill for quick one-off prototypes that will not be maintained."],
             },
           };
         }
