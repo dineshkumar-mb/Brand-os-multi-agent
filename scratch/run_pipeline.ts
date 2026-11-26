@@ -309,12 +309,41 @@ async function main() {
   // Stage 3b: Post History Deduplication Audit (Enforces 14-day topic/repo cooldown & 30% similarity limit)
   const history = postHistoryTracker.getHistory();
   const postDeduplicationAgent = new PostHistoryDeduplicationAgent(history);
-  const dedupResult = postDeduplicationAgent.evaluatePostDeduplication(
+  let dedupResult = postDeduplicationAgent.evaluatePostDeduplication(
     swarmResult.topic,
     swarmResult.linkedInPost,
     swarmResult.devToArticle,
     pipelineId
   );
+
+  if (!dedupResult.data.passed) {
+    const initialDedupMsg = `Post Deduplication Guard Rejected Primary Topic ("${swarmResult.topic?.title || "N/A"}"): ${dedupResult.data.rejectionReasons.join("; ")}`;
+    logStructured("WARN", "deduplication", `${initialDedupMsg} Triggering Active Project Fallback...`, { pipelineId });
+
+    const fallbackSwarm = await agentOrchestrator.executeFallbackProjectPipeline(
+      pipelineId,
+      history,
+      false,
+      mode as any,
+      swarmResult.executionTrace?.candidatesCollected || 24
+    );
+
+    if (fallbackSwarm.status === "POST_READY" && fallbackSwarm.linkedInPost && fallbackSwarm.topic) {
+      const fallbackDedup = postDeduplicationAgent.evaluatePostDeduplication(
+        fallbackSwarm.topic,
+        fallbackSwarm.linkedInPost,
+        fallbackSwarm.devToArticle,
+        pipelineId
+      );
+      if (fallbackDedup.data.passed) {
+        swarmResult = fallbackSwarm;
+        dedupResult = fallbackDedup;
+        logStructured("INFO", "deduplication", `Switched cleanly to unblocked portfolio project: "${swarmResult.topic.title}"`, { pipelineId });
+      } else {
+        dedupResult = fallbackDedup;
+      }
+    }
+  }
 
   if (!dedupResult.data.passed) {
     const dedupMsg = `Post Deduplication Guard Rejected Publication to prevent repeated content: ${dedupResult.data.rejectionReasons.join("; ")}`;

@@ -778,7 +778,7 @@ export class AgentOrchestrator {
     };
   }
 
-  private async executeFallbackProjectPipeline(
+  public async executeFallbackProjectPipeline(
     pipelineId: string,
     history: HistoricalPostRecord[],
     autoPublish: boolean,

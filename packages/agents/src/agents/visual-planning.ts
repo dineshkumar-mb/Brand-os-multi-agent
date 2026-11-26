@@ -277,9 +277,9 @@ export class VisualPlanningAgent {
 
     // 2. Extract technical entities prioritizing topic title/framework before body mentions
     const knownTechs = [
-      "MCP", "Model Context Protocol", "LangGraph", "Server Actions", "Next.js", "Tailwind CSS",
-      "Shadcn", "Hono", "Prisma", "AI Agents", "RAG", "ChromaDB", "Gemini AI", "Gemini", "OCR",
-      "WebRTC", "Socket.IO", "BullMQ", "Redux Toolkit", "React Flow", "Multi-Tenancy", "RBAC",
+      "MCP", "Model Context Protocol", "LangGraph", "LangChain", "Server Actions", "Next.js", "Tailwind CSS",
+      "Shadcn", "Hono", "Prisma", "AI Agents", "RAG", "ChromaDB", "Gemini AI", "Gemini", "OpenAI", "OCR",
+      "WebRTC", "Socket.IO", "BullMQ", "Redux Toolkit", "React Flow", "Multi-Tenancy", "RBAC", "MERN Stack",
       "Redis", "Kafka", "PostgreSQL", "MongoDB", "Docker", "Kubernetes", "TypeScript", "Node.js",
       "Express.js", "Express", "GraphQL", "FastAPI", "DeepSeek", "gRPC", "REST", "eBPF", "mTLS",
       "OpenTelemetry", "Vite", "React.js", "React", "S3", "DAG", "Circuit Breaker", "Token Bucket",
@@ -292,13 +292,18 @@ export class VisualPlanningAgent {
     const bodyMatchedTechs = knownTechs.filter((tech) =>
       !titleMatchedTechs.includes(tech) && fullText.includes(tech.toLowerCase())
     );
+    const genericTagSet = new Set(["open source", "full stack", "frontend engineering", "backend engineering", "software engineering", "developer tools", "ai"]);
     const topicKeywordsExtra = (topic.keywords || [])
-      .filter((k) => k.length > 2 && !["open source", "full stack", "frontend engineering", "backend engineering", "software engineering", "developer tools", "ai"].includes(k.toLowerCase()));
-    const extractedTechs = Array.from(new Set([...titleMatchedTechs, ...topicKeywordsExtra, ...bodyMatchedTechs]));
+      .filter((k) => k.length > 2 && !genericTagSet.has(k.toLowerCase()));
+    const supportingExtra = (topic.supportingTech || [])
+      .filter((k) => k.length > 2 && !genericTagSet.has(k.toLowerCase()));
+    const extractedTechs = Array.from(new Set([...titleMatchedTechs, ...topicKeywordsExtra, ...supportingExtra, ...bodyMatchedTechs]));
 
     const primaryTech = extractedTechs[0] || topic.framework || topic.supportingTech?.[0] || topic.category || "Full Stack";
     const secondaryTech = extractedTechs[1] || (primaryTech === "MCP" ? "AI Agent" : "API Layer");
     const tertiaryTech = extractedTechs[2] || "Typed Schema";
+    const quaternaryTech = extractedTechs[3] || secondaryTech;
+    const quinaryTech = extractedTechs[4] || tertiaryTech;
 
     const cleanTitle = topic.title
       .replace(/^(Day \d+:|Architecting a|Designing|Building|Optimizing)\s*/i, "")
@@ -483,31 +488,31 @@ export class VisualPlanningAgent {
           {
             id: "step1",
             title: "1. Input & Intent",
-            subtitle: isAI ? "User Task & Context" : "Client Action",
+            subtitle: `${primaryTech} & ${secondaryTech}`,
             color: "blue",
             nodes: [
-              { id: "n1", label: isAI ? "User Request" : "UI Form / Action", icon: "query", color: "blue" },
-              { id: "n2", label: isAI ? `${primaryTech} Context` : "Validated Input", icon: "cache", color: "blue" },
+              { id: "n1", label: isAI ? "User Request" : `${primaryTech} Trigger`, icon: "query", color: "blue" },
+              { id: "n2", label: `${quaternaryTech}`, icon: "cache", color: "blue" },
             ],
           },
           {
             id: "step2",
-            title: `2. ${primaryTech} Core`,
-            subtitle: isAI ? "Standardized Tool Layer" : "Full Stack Handler",
+            title: `2. ${this.shortenVisualLabel(primaryTech, 16)} Core`,
+            subtitle: `${tertiaryTech} & ${quaternaryTech}`,
             color: "purple",
             nodes: [
-              { id: "n3", label: isAI ? "Select Safe Tool" : `${primaryTech} Logic`, icon: "llm", color: "purple" },
-              { id: "n4", label: isAI ? `${primaryTech} Schema Check` : "Database Query", icon: "embedding", color: "purple" },
+              { id: "n3", label: `${secondaryTech} Layer`, icon: "llm", color: "purple" },
+              { id: "n4", label: `${tertiaryTech} Queue`, icon: "embedding", color: "purple" },
             ],
           },
           {
             id: "step3",
             title: "3. Reliable Output",
-            subtitle: "Verified Result",
+            subtitle: `${quinaryTech} State`,
             color: "green",
             nodes: [
-              { id: "n5", label: "Typed Clean Data", icon: "response", color: "green" },
-              { id: "n6", label: "Predictable UX", icon: "response", color: "green" },
+              { id: "n5", label: `${quinaryTech} Sync`, icon: "response", color: "green" },
+              { id: "n6", label: "Verified State", icon: "response", color: "green" },
             ],
           },
         ],
@@ -522,24 +527,24 @@ export class VisualPlanningAgent {
       columns: [
         {
           id: "before_col",
-          title: "Before: Custom Glue",
-          subtitle: isFrontend ? `Heavy ${secondaryTech} Boilerplate` : `Tightly Coupled ${primaryTech}`,
+          title: "Before: Coupled Glue",
+          subtitle: isFrontend ? `Heavy ${secondaryTech} Boilerplate` : `${primaryTech} + ${quaternaryTech}`,
           color: "red",
           nodes: [
-            { id: "ba1", label: isFrontend ? "Manual State Hooks" : `Ad-hoc ${primaryTech} Scripts`, icon: "query", color: "red" },
-            { id: "ba2", label: isFrontend ? "Duplicate Styling Rules" : `Brittle ${secondaryTech} Glue`, icon: "data", color: "red" },
-            { id: "ba3", label: isFrontend ? "Larger Client Bundle" : "Breaks on Schema Drift", icon: "response", color: "red" },
+            { id: "ba1", label: isFrontend ? "Manual State Hooks" : `Inline ${primaryTech} Requests`, icon: "query", color: "red" },
+            { id: "ba2", label: isFrontend ? "Duplicate Styling Rules" : `Blocking ${secondaryTech} I/O`, icon: "data", color: "red" },
+            { id: "ba3", label: isFrontend ? "Larger Client Bundle" : `${tertiaryTech} Contention`, icon: "response", color: "red" },
           ],
         },
         {
           id: "after_col",
-          title: `After: Clean ${primaryTech}`,
-          subtitle: isFrontend ? `${primaryTech} + ${secondaryTech}` : `Standardized ${primaryTech} Pattern`,
+          title: `After: Clean ${this.shortenVisualLabel(primaryTech, 16)}`,
+          subtitle: `${tertiaryTech}, ${quaternaryTech} & ${quinaryTech}`,
           color: "green",
           nodes: [
-            { id: "ba4", label: isFrontend ? `Owned ${primaryTech} Components` : `Shared ${primaryTech} Contract`, icon: "cache", color: "green" },
-            { id: "ba5", label: isFrontend ? `${secondaryTech} Styling` : `Type-Safe ${secondaryTech}`, icon: "vectordb", color: "green" },
-            { id: "ba6", label: isFrontend ? "Simpler Maintenance" : "Reusable Across Apps", icon: "response", color: "green" },
+            { id: "ba4", label: isFrontend ? `Owned ${primaryTech} UI` : `${secondaryTech} Isolation`, icon: "cache", color: "green" },
+            { id: "ba5", label: isFrontend ? `${secondaryTech} Styling` : `${tertiaryTech} Workers`, icon: "vectordb", color: "green" },
+            { id: "ba6", label: isFrontend ? `${quaternaryTech} State` : `${quinaryTech} Guard`, icon: "response", color: "green" },
           ],
         },
       ],

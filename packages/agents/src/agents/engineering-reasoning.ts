@@ -41,7 +41,7 @@ Generate an internal STAR (Situation, Task, Action, Result, Insight) engineering
 
 STORY MODE: ${storyMode}
 CATEGORY/FRAMEWORK: ${topic.category} (${topic.framework || "N/A"})
-REAL-WORLD EXPERIENCE MATCH: ${hasBuildMatch ? `DIRECT EXPERIENCE: ${experience.realWorldProblem} -> ${experience.quantifiableOutcome}` : "NO PROJECT EXPERIENCE MATCH (Strict Exploratory / Analysis Mode)"}
+REAL-WORLD EXPERIENCE MATCH: ${hasBuildMatch ? `DIRECT EXPERIENCE: ${experience.realWorldProblem} -> ${experience.quantifiableOutcome}\nEXPERIENCE DECISION: ${experience.engineeringDecision}` : "NO PROJECT EXPERIENCE MATCH (Strict Exploratory / Analysis Mode)"}
 RESEARCH SUMMARY: ${research.summary}
 TECHNICAL INSIGHTS: ${research.key_insights.slice(0, 4).join("; ")}
 PRIMARY TRADEOFF: ${primaryTradeoff.name} (Chosen: ${primaryTradeoff.chosen} vs Sacrificed: ${primaryTradeoff.sacrificed})

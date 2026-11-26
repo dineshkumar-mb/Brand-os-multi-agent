@@ -129,28 +129,42 @@ export class HookEngine {
 
     const tech = topic.framework || topic.category || "this architecture";
     const cleanTitle = this.shortenTitle(topic.title, tech);
+    const titleHasTech = cleanTitle.toLowerCase().includes(tech.toLowerCase()) || cleanTitle.toLowerCase() === tech.toLowerCase();
+    const secondaryTech = titleHasTech ? "downstream service" : tech;
 
     switch (ctaType) {
       case DiscussionCtaType.TRADEOFF_CHOICE:
-        return `How does your team handle the ${cleanTitle} trade-off when scaling ${tech} under load?`;
+        return titleHasTech
+          ? `How does your team handle the ${cleanTitle} trade-off under production load?`
+          : `How does your team handle the ${cleanTitle} trade-off when scaling ${tech} under load?`;
 
       case DiscussionCtaType.BOUNDARY_QUESTION:
-        return `Where would your team draw the boundary between stateful caching and the ${tech} database source of truth in ${cleanTitle}?`;
+        return `Where would your team draw the boundary between async queuing and the ${secondaryTech} source of truth in ${cleanTitle}?`;
 
       case DiscussionCtaType.PRODUCTION_FAILURE_CHECK:
-        return `How do you handle this ${cleanTitle} failure mode in your ${tech} systems when downstream services stall?`;
+        return titleHasTech
+          ? `How do you handle this ${cleanTitle} failure mode when downstream services stall?`
+          : `How do you handle this ${cleanTitle} failure mode in your ${tech} systems when downstream services stall?`;
 
       case DiscussionCtaType.OPTIMIZATION_PRIORITY:
-        return `At what point in ${cleanTitle} would you introduce a queue instead of synchronous retry loops for ${tech}?`;
+        return titleHasTech
+          ? `At what point in ${cleanTitle} would you move work into a background queue instead of retrying inline?`
+          : `At what point in ${cleanTitle} would you introduce a queue instead of synchronous retry loops for ${tech}?`;
 
       case DiscussionCtaType.DESIGN_CHANGE:
-        return `Would you optimize ${cleanTitle} for latency or cost here if ${tech} request volume doubled?`;
+        return titleHasTech
+          ? `Would you optimize ${cleanTitle} for lower p95 latency or lower compute cost if request volume doubled?`
+          : `Would you optimize ${cleanTitle} for latency or cost here if ${tech} request volume doubled?`;
 
       case DiscussionCtaType.TEAM_PRACTICE:
-        return `What telemetry would you instrument before shipping this ${cleanTitle} change for ${tech} to production?`;
+        return titleHasTech
+          ? `What telemetry would you instrument first before shipping this ${cleanTitle} change to production?`
+          : `What telemetry would you instrument before shipping this ${cleanTitle} change for ${tech} to production?`;
 
       default:
-        return `Would you choose the simpler ${cleanTitle} architecture or the more resilient ${tech} pattern here?`;
+        return titleHasTech
+          ? `Would you keep the simpler ${cleanTitle} architecture or isolate it behind explicit service boundaries?`
+          : `Would you choose the simpler ${cleanTitle} architecture or the more resilient ${tech} pattern here?`;
     }
   }
 

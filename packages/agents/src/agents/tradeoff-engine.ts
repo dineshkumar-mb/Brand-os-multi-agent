@@ -16,7 +16,23 @@ export class TradeoffEngine {
 
     const tradeoffs: TradeoffPair[] = [];
 
-    if (text.includes("llm") || text.includes("agent") || text.includes("ai") || text.includes("mcp") || text.includes("rag")) {
+    const isQueueOrCacheHeavy =
+      /\b(redis|bullmq|kafka|cache|queue|webhook|multi-tenan|rbac|mongodb)\b/i.test(text) &&
+      !/\b(llm gateway|mcp|model context protocol|agent swarm|langgraph)\b/i.test(text);
+    const isAiCore =
+      /\b(llm|llm gateway|agent|agents|agentic|mcp|model context protocol|rag|chromadb|langchain|openai|gemini)\b/i.test(text);
+
+    if (isQueueOrCacheHeavy) {
+      tradeoffs.push({
+        name: "Async Queue Isolation vs Synchronous Request Simplicity",
+        dimensionA: "Synchronous in-request execution with direct DB writes",
+        dimensionB: "Tenant-scoped persistence + Redis/BullMQ async worker queues",
+        chosen: "Offloading slow webhooks and parsing jobs to BullMQ queues while keeping API handlers non-blocking",
+        sacrificed: "Single-process CRUD simplicity (requires Redis queue workers and idempotency keys)",
+        whenAlternativeBetter: "When background tasks complete in under 20ms and retries are unnecessary",
+        engineeringRationale: "Keeping webhooks and AI parsing off HTTP request threads prevents cascading timeouts under multi-tenant bursts."
+      });
+    } else if (isAiCore) {
       tradeoffs.push({
         name: "Model Quality vs Inference Cost & Latency",
         dimensionA: "High-parameter frontier model (highest reasoning capability)",

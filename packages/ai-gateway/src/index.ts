@@ -517,18 +517,19 @@ export class AIGateway {
       const taskMatch = request.prompt.match(/-\s*(?:Task|Challenge|Problem\/Trigger):\s*([^\n]+)/i);
       const taskObj = taskMatch ? taskMatch[1].trim() : `The objective was to isolate the bottlenecks without adding unnecessary architectural overhead.`;
 
-      const actionMatch = request.prompt.match(/-\s*(?:Action|Approach Taken|Technical Reasoning):\s*(?:Chosen\s+)?([^\n.]+)/i);
-      const actionChosen = actionMatch ? actionMatch[1].trim() : `a decoupled architecture with explicit service boundaries`;
+      const trimDot = (s: string) => s.replace(/\.+$/, "").trim();
+      const actionMatch = request.prompt.match(/-\s*(?:Action|Approach Taken|Technical Reasoning):\s*(?:Chosen\s+)?([^\n]+)/i);
+      const actionChosen = actionMatch ? trimDot(actionMatch[1]) : `a decoupled architecture with explicit service boundaries`;
 
       const resultMatch =
-        request.prompt.match(/-\s*(?:Result|Outcome\/Result):\s*([^\n.]+)/i) ||
+        request.prompt.match(/-\s*(?:Result|Outcome\/Result):\s*([^\n]+)/i) ||
         request.prompt.match(/"actionableInsight":\s*"([^"]+)"/i);
-      const resultOutcome = resultMatch ? resultMatch[1].trim() : `measurable stability and throughput improvements`;
+      const resultOutcome = resultMatch ? trimDot(resultMatch[1]) : `measurable stability and throughput improvements`;
 
       const insightMatch =
-        request.prompt.match(/-\s*(?:Insight|Engineering Lesson):\s*([^\n.]+)/i) ||
+        request.prompt.match(/-\s*(?:Insight|Engineering Lesson):\s*([^\n]+)/i) ||
         request.prompt.match(/"lesson":\s*"([^"]+)"/i);
-      const lessonText = insightMatch ? insightMatch[1].trim() : `Explicit service boundary definitions prevent silent failure propagation in production systems.`;
+      const lessonText = insightMatch ? trimDot(insightMatch[1]) : `Explicit service boundary definitions prevent silent failure propagation in production systems.`;
 
       // Extract tradeoffs
       const tradeoffMatch = request.prompt.match(/Tradeoffs?:\s*([^\n]+)/i);
@@ -677,7 +678,7 @@ export class AIGateway {
       const topicTitle = topicMatch ? topicMatch[1] : "Modern Technical Infrastructure";
       const payload = {
         topicId: `top_${Date.now()}`,
-        summary: `Comprehensive technical analysis of ${topicTitle}. Decoupled clean architecture and standardized protocol boundaries ensure long-term system stability and predictable throughput scaling.`,
+        summary: `Architectural breakdown of ${topicTitle}, focusing on execution boundaries, failure isolation, and practical trade-offs under production load.`,
         key_insights: [
           `${topicTitle} eliminates state coupling across distributed nodes.`,
           "Explicit schema validation prevents runtime errors and state drift.",
@@ -713,14 +714,15 @@ export class AIGateway {
       const taskMatch = request.prompt.match(/- Task:\s*([^\n(]+)/i);
       const taskObj = taskMatch ? taskMatch[1].trim() : `Optimize throughput and eliminate bottleneck in ${topicTitle}.`;
 
-      const actMatch = request.prompt.match(/- Action:\s*Chosen\s*([^.\n]+)/i);
-      const chosenApproach = actMatch ? actMatch[1].trim() : "Decoupled domain boundaries";
+      const trimEndDot = (s: string) => s.replace(/\.+$/, "").trim();
+      const actMatch = request.prompt.match(/- Action:\s*(?:Chosen\s*)?([^\n]+)/i);
+      const chosenApproach = actMatch ? trimEndDot(actMatch[1]) : "Decoupled domain boundaries";
 
-      const resMatch = request.prompt.match(/- Result:\s*([^.\n]+)/i);
-      const outcome = resMatch ? resMatch[1].trim() : "Stabilized p99 latency SLA and throughput.";
+      const resMatch = request.prompt.match(/- Result:\s*([^\n]+)/i);
+      const outcome = resMatch ? trimEndDot(resMatch[1]) : "Stabilized p99 latency SLA and throughput.";
 
-      const insMatch = request.prompt.match(/- Insight:\s*([^.\n]+)/i);
-      const lesson = insMatch ? insMatch[1].trim() : "Decoupling ownership prevents cascading failure.";
+      const insMatch = request.prompt.match(/- Insight:\s*([^\n]+)/i);
+      const lesson = insMatch ? trimEndDot(insMatch[1]) : "Decoupling ownership prevents cascading failure.";
 
       const tag = `#${topicTitle.replace(/[^a-zA-Z0-9]/g, "").slice(0, 20) || "SystemDesign"}`;
 
@@ -768,18 +770,22 @@ export class AIGateway {
       const expMatch = request.prompt.match(/DIRECT EXPERIENCE:\s*(.+?)\s*->\s*([^\n]+)/i);
       const expProblem = expMatch ? expMatch[1].trim() : null;
       const expOutcome = expMatch ? expMatch[2].trim() : null;
+      const expDecisionMatch = request.prompt.match(/EXPERIENCE DECISION:\s*([^\n]+)/i);
+      const expDecision = expDecisionMatch ? expDecisionMatch[1].trim() : null;
 
       const summaryMatch = request.prompt.match(/RESEARCH SUMMARY:\s*([^\n]+)/i);
       const researchSummary = summaryMatch ? summaryMatch[1].trim() : "";
 
       const tradeoffMatch = request.prompt.match(/PRIMARY TRADEOFF:\s*([^\n]+)/i);
       const tradeoffLine = tradeoffMatch ? tradeoffMatch[1].trim() : "";
-      let chosenApproach = "Explicit boundary decoupling";
+      let chosenApproach = expDecision || "Explicit boundary decoupling";
       let sacrificedApproach = "Day-1 setup speed";
       if (tradeoffLine) {
-        const cM = tradeoffLine.match(/Chosen:\s*([^vs(,\n]+)/i);
-        if (cM && cM[1].trim()) chosenApproach = cM[1].trim();
-        const sM = tradeoffLine.match(/Sacrificed:\s*([^\n)]+)/i);
+        if (!expDecision) {
+          const cM = tradeoffLine.match(/Chosen:\s*(.+?)(?:\s+vs\s+Sacrificed:|\s*\)|$)/i);
+          if (cM && cM[1].trim()) chosenApproach = cM[1].trim();
+        }
+        const sM = tradeoffLine.match(/Sacrificed:\s*(.+?)(?:\)\s*$|$)/i);
         if (sM && sM[1].trim()) sacrificedApproach = sM[1].trim();
       }
 
@@ -1409,7 +1415,7 @@ export class AIGateway {
               evidence: ["Live project implementation & verification"],
             },
             insight: {
-              engineeringLesson: `Keeping boundaries explicit in ${category} prevents small integration shortcuts from becoming production bottlenecks.`,
+              engineeringLesson: `Keeping boundaries explicit in ${category.replace(/\s*\([^)]*\)/g, "").trim() || "Full Stack Engineering"} prevents small integration shortcuts from becoming production bottlenecks.`,
               tradeoffs: [
                 `Chosen: ${chosenApproach}`,
                 `Sacrificed: ${sacrificedApproach}`,
