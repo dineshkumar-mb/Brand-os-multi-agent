@@ -559,6 +559,17 @@ export class CandidateCompetitionEngine {
         overallScore = Math.min(100, overallScore + 15);
       }
 
+      // Brand Alignment Boost / Off-Stack Filter: keep feed aligned with Full Stack | MERN | React | Node.js | Agentic AI
+      const alignmentText = `${candidateTitle} ${category} ${framework} ${tags.join(" ")}`.toLowerCase();
+      const isCoreFullStackOrAI = /\b(react|next\.?js|node\.?js|mern|mongodb|express|typescript|javascript|mcp|agent|rag|langgraph|full\s*stack|prisma|hono|tailwind)\b/i.test(alignmentText);
+      const isOffBrandLowLevel = /\b(c\+\+|cpp|rust|zig|embedded|kernel|firmware)\b/i.test(alignmentText) && !isCoreFullStackOrAI;
+
+      if (isCoreFullStackOrAI) {
+        overallScore = Math.min(100, overallScore + 10);
+      } else if (isOffBrandLowLevel) {
+        overallScore = Math.max(10, overallScore - 25);
+      }
+
       const scores: CandidateOpportunityScores = {
         careerRelevance,
         personalExperienceMatch: experienceMatchScore,

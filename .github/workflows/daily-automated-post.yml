@@ -135,7 +135,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add post_history.json packages/agents/post_history.json visual_history.json scratch/.state/ 2>/dev/null || true
+          git add post_history.json packages/agents/post_history.json visual_history.json skill_evidence_registry.json scratch/.state/ 2>/dev/null || true
           if ! git diff --cached --quiet; then
             echo "Persisting updated post history to repository..."
             git commit -m "chore(history): persist published post history [skip ci]"

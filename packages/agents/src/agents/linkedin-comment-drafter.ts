@@ -20,23 +20,23 @@ export class LinkedInCommentDrafterAgent {
 
     switch (angle) {
       case "TECHNICAL_COUNTEREXAMPLE":
-        commentText = `Solid analysis. In our workload, we found that this approach works great until downstream service latency spikes. At that point, the fallback circuit breaker strategy becomes the real bottleneck.`;
+        commentText = `Worth noting the trade-off here: simpler direct wrappers work fine for small prototypes, while standardized boundaries pay off once multiple tools or services evolve together.`;
         break;
 
       case "TELEMETRY_INSIGHT":
-        commentText = `Great breakdown! When we benchmarked a similar architecture, the p99 latency dropped by 35%, but memory usage spiked by 20%. Instrumenting granular telemetry early saved us in production.`;
+        commentText = `In full-stack apps, adding basic request timing and error-rate tracking around external integrations early makes it obvious when to swap or cache a dependency.`;
         break;
 
       case "TRADEOFF_QUESTION":
-        commentText = `Sharp observation. How does your team balance operational complexity versus state consistency when scaling this pattern under peak load?`;
+        commentText = `Curious how teams here balance keeping the stack simple for onboarding versus adding abstraction layers as features grow.`;
         break;
 
       case "REINFORCE_EXPERIENCE":
-        commentText = `Spot on. We ran into the exact same issue during a major refactor. Decoupling the execution path and establishing strict bounded contexts made all the difference.`;
+        commentText = `Keeping component and API boundaries explicit has been one of the highest-leverage habits in full-stack TypeScript and AI projects.`;
         break;
 
       default:
-        commentText = `Strong technical breakdown. The trade-offs between initial setup speed and long-term maintainability here are critical for senior engineering leadership.`;
+        commentText = `Clean separation of concerns matters most when teams need to ship new features without breaking existing integrations.`;
     }
 
     const executionTimeMs = Date.now() - startTime;

@@ -90,7 +90,7 @@ export class WritingMemoryTracker {
   }
 
   /**
-   * Select a StoryMode that was NOT used in recent 7 posts (enforcing rotation)
+   * Select a StoryMode that was NOT used in recent 7 posts (prioritizing recruiter-engaging modes)
    */
   public selectFreshStoryMode(preferredMode?: StoryMode): StoryMode {
     const allModes = Object.values(StoryMode);
@@ -102,15 +102,30 @@ export class WritingMemoryTracker {
       return preferredMode;
     }
 
+    const recruiterPriorityOrder: StoryMode[] = [
+      StoryMode.BUILD_IN_PUBLIC,
+      StoryMode.TECH_DISCOVERY,
+      StoryMode.DECISION_STORY,
+      StoryMode.PERFORMANCE_STORY,
+      StoryMode.BEFORE_AFTER,
+      StoryMode.ARCHITECTURE_STORY,
+      StoryMode.DEBUGGING_STORY,
+      StoryMode.FAILURE_STORY,
+      StoryMode.CONTRARIAN_OBSERVATION,
+      StoryMode.PRODUCTION_REALITY,
+    ];
+
     const available = allModes.filter((m) => !recentModes.includes(m));
     if (available.length > 0) {
-      return available[Math.floor(Math.random() * available.length)];
+      const prioritized = recruiterPriorityOrder.filter((m) => available.includes(m));
+      const pool = prioritized.length > 0 ? prioritized.slice(0, 3) : available;
+      return pool[Math.floor(Math.random() * pool.length)];
     }
 
     // Fallback: choose least recently used
     const lastUsed = recentModes[0];
     const alternative = allModes.find((m) => m !== lastUsed);
-    return alternative || StoryMode.FAILURE_STORY;
+    return alternative || StoryMode.BUILD_IN_PUBLIC;
   }
 
   /**
@@ -137,7 +152,8 @@ export class WritingMemoryTracker {
   }
 
   /**
-   * Select a hook structure that was NOT used in recent 7 posts
+   * Select a hook structure that was NOT used in recent 7 posts, prioritizing
+   * Question / Build-Experience / Transformation hooks that drive profile visits.
    */
   public selectFreshHookType(preferredType?: HookType): HookType {
     const allHooks = Object.values(HookType);
@@ -147,14 +163,27 @@ export class WritingMemoryTracker {
       return preferredType;
     }
 
+    const highConversionHooks: HookType[] = [
+      HookType.BUILD_EXPERIENCE,
+      HookType.ARCHITECTURE_QUESTION,
+      HookType.NEW_TECHNOLOGY,
+      HookType.BEFORE_AFTER_TRANSFORMATION,
+      HookType.TRADEOFF,
+      HookType.CURIOSITY_GAP,
+      HookType.UNEXPECTED_FAILURE,
+      HookType.DEBUGGING_STORY,
+    ];
+
     const available = allHooks.filter((h) => !recentHooks.includes(h));
     if (available.length > 0) {
-      return available[Math.floor(Math.random() * available.length)];
+      const prioritized = highConversionHooks.filter((h) => available.includes(h));
+      const pool = prioritized.length > 0 ? prioritized.slice(0, 4) : available;
+      return pool[Math.floor(Math.random() * pool.length)];
     }
 
     const lastUsed = recentHooks[0];
     const alternative = allHooks.find((h) => h !== lastUsed);
-    return alternative || HookType.ENGINEERING_OBSERVATION;
+    return alternative || HookType.BUILD_EXPERIENCE;
   }
 
   /**

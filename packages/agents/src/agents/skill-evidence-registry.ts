@@ -148,6 +148,51 @@ const INITIAL_SKILLS: SkillEvidenceItem[] = [
     lastDemonstratedDate: null,
     postIds: [],
   },
+  {
+    id: "skill_be_mern_mongodb",
+    name: "MERN Stack & MongoDB Persistence",
+    category: "BACKEND",
+    supportingProject: "Full Stack MERN Applications",
+    demonstratedImplementation: "Built end-to-end MERN services with MongoDB schema modeling, Express APIs, React UIs, and Node.js workers.",
+    technicalDepth: "ADVANCED",
+    confidenceScore: 93,
+    architectureDecisions: ["Indexed MongoDB query patterns", "Clean REST contract validation"],
+    tradeoffsFaced: ["Flexible document schemas vs relational strictness"],
+    artifacts: ["server/src/controllers/", "packages/database/"],
+    interviewTopics: ["MongoDB aggregation & indexing", "Express middleware ordering", "Full-stack auth flows"],
+    lastDemonstratedDate: null,
+    postIds: [],
+  },
+  {
+    id: "skill_fe_nextjs_fullstack",
+    name: "Next.js Full Stack & Server Actions",
+    category: "FRONTEND",
+    supportingProject: "Modern React & Next.js Web Apps",
+    demonstratedImplementation: "Implemented Next.js Server Actions, TypeScript client boundaries, and Tailwind CSS component primitives.",
+    technicalDepth: "ADVANCED",
+    confidenceScore: 94,
+    architectureDecisions: ["Server-first mutations without redundant client boilerplate", "Owned Radix + Tailwind primitives"],
+    tradeoffsFaced: ["Server coupling vs portable SPA bundles"],
+    artifacts: ["client/src/App.tsx", "client/src/pages/"],
+    interviewTopics: ["RSC vs client components", "Optimistic UI state", "Bundle size reduction"],
+    lastDemonstratedDate: null,
+    postIds: [],
+  },
+  {
+    id: "skill_ai_mcp_rag",
+    name: "MCP, LangGraph & RAG Workflows",
+    category: "AI_ENGINEERING",
+    supportingProject: "Agentic AI & Tool Integration Pipelines",
+    demonstratedImplementation: "Standardized AI tool calling via Model Context Protocol (MCP), cyclic agent graphs, and semantic retrieval.",
+    technicalDepth: "EXPERT",
+    confidenceScore: 95,
+    architectureDecisions: ["Decoupled MCP tool contracts", "Cyclic validation loops with bounded retries"],
+    tradeoffsFaced: ["IPC validation overhead vs brittle per-model wrappers"],
+    artifacts: ["packages/mcp-client/", "packages/agents/src/"],
+    interviewTopics: ["MCP tool schemas", "RAG context relevance", "Agent reliability guardrails"],
+    lastDemonstratedDate: null,
+    postIds: [],
+  },
 ];
 
 export class SkillEvidenceRegistry {
@@ -165,7 +210,9 @@ export class SkillEvidenceRegistry {
         const raw = fs.readFileSync(this.registryFile, "utf-8");
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          this.skills = parsed;
+          const existingIds = new Set(parsed.map((s: any) => s.id));
+          const missingDefaults = INITIAL_SKILLS.filter((s) => !existingIds.has(s.id));
+          this.skills = [...parsed, ...missingDefaults];
           return;
         }
       }
@@ -175,6 +222,9 @@ export class SkillEvidenceRegistry {
   }
 
   private saveRegistry(): void {
+    if (process.env.VITEST || process.env.NODE_ENV === "test") {
+      return;
+    }
     try {
       fs.writeFileSync(this.registryFile, JSON.stringify(this.skills, null, 2), "utf-8");
     } catch (e) {
@@ -187,14 +237,42 @@ export class SkillEvidenceRegistry {
   }
 
   public recordSkillDemonstration(skillName: string, postId: string): void {
-    const skill = this.skills.find(
-      (s) => s.name.toLowerCase() === skillName.toLowerCase() || s.id === skillName
-    );
-    if (skill) {
-      skill.lastDemonstratedDate = new Date().toISOString();
-      if (!skill.postIds.includes(postId)) {
-        skill.postIds.push(postId);
+    const query = skillName.toLowerCase().trim();
+    if (!query) return;
+
+    const keywordRules: Array<{ match: RegExp; ids: string[] }> = [
+      { match: /react|frontend|tailwind|shadcn|ui/i, ids: ["skill_fe_react19", "skill_fe_nextjs_fullstack"] },
+      { match: /next\.js|nextjs|server action/i, ids: ["skill_fe_nextjs_fullstack", "skill_fe_react19"] },
+      { match: /mern|mongodb|express/i, ids: ["skill_be_mern_mongodb", "skill_be_node_express"] },
+      { match: /node|backend|rest|api|prisma|postgres/i, ids: ["skill_be_node_express", "skill_be_mern_mongodb"] },
+      { match: /mcp|rag|langgraph|agentic/i, ids: ["skill_ai_mcp_rag", "skill_ai_agents_rag"] },
+      { match: /\bai\b|llm|gateway/i, ids: ["skill_ai_agents_rag", "skill_ai_mcp_rag"] },
+      { match: /redis|queue|worker|system/i, ids: ["skill_sys_redis_queues"] },
+      { match: /test|vitest|observability|quality/i, ids: ["skill_qual_testing_observability"] },
+      { match: /full stack|fullstack|ci\/cd|docker|typescript/i, ids: ["skill_prod_ci_cd"] },
+    ];
+
+    const matchedIds = new Set<string>();
+    for (const rule of keywordRules) {
+      if (rule.match.test(query)) {
+        rule.ids.forEach((id) => matchedIds.add(id));
       }
+    }
+
+    let updated = false;
+    for (const skill of this.skills) {
+      const exactMatch = skill.name.toLowerCase() === query || skill.id === skillName;
+      const fuzzyMatch = skill.name.toLowerCase().includes(query) || matchedIds.has(skill.id);
+      if (exactMatch || fuzzyMatch) {
+        skill.lastDemonstratedDate = new Date().toISOString();
+        if (!skill.postIds.includes(postId)) {
+          skill.postIds.push(postId);
+        }
+        updated = true;
+      }
+    }
+
+    if (updated) {
       this.saveRegistry();
     }
   }

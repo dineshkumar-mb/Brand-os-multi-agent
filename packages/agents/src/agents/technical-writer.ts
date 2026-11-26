@@ -39,6 +39,24 @@ export interface TechnicalWriterOutput {
 export class TechnicalWriterAgent {
   private visualPlanner = new VisualPlanningAgent();
 
+  private buildRecruiterHashtags(topic: Topic): string[] {
+    const text = `${topic.title} ${topic.category} ${topic.framework || ""} ${(topic.supportingTech || []).join(" ")} ${(topic.keywords || []).join(" ")}`.toLowerCase();
+    const tags = new Set<string>(["#FullStackDeveloper"]);
+
+    if (text.includes("mern") || text.includes("mongodb") || text.includes("express")) tags.add("#MERNStack");
+    if (text.includes("react") || text.includes("shadcn") || text.includes("frontend")) tags.add("#React");
+    if (text.includes("next")) tags.add("#Nextjs");
+    if (text.includes("node") || text.includes("hono") || text.includes("backend")) tags.add("#NodeJS");
+    if (text.includes("typescript")) tags.add("#TypeScript");
+    if (text.includes("mcp") || text.includes("agent") || text.includes("langgraph")) tags.add("#AIAgents");
+    if (text.includes("rag") || text.includes("llm") || text.includes("ai")) tags.add("#AIEngineering");
+    if (text.includes("prisma") || text.includes("postgres") || text.includes("redis")) tags.add("#SystemDesign");
+    if ((topic.references || []).some((r) => r.includes("github.com"))) tags.add("#OpenSource");
+    tags.add("#SoftwareEngineering");
+
+    return Array.from(tags).slice(0, 5);
+  }
+
   private getDynamicImageUrl(topic: Topic, researchContext?: string): string {
     const plan = this.visualPlanner.createVisualPlan(topic, undefined, researchContext);
     const svg = plan.data.renderedSvg;
@@ -150,8 +168,10 @@ flowchart TD
     const hasBuildMatch = Boolean(experience.foundMatch && experience.quantifiableOutcome);
     const selectedStoryMode = writingMemoryTracker.selectFreshStoryMode();
     const selectedFormatStyle = writingMemoryTracker.selectFreshFormatStyle();
-    const selectedHookType = writingMemoryTracker.selectFreshHookType(HookType.ENGINEERING_OBSERVATION);
+    const preferredHook = hasBuildMatch ? HookType.BUILD_EXPERIENCE : HookType.NEW_TECHNOLOGY;
+    const selectedHookType = writingMemoryTracker.selectFreshHookType(preferredHook);
     const selectedCtaType = writingMemoryTracker.selectFreshCtaType(DiscussionCtaType.TRADEOFF_CHOICE);
+    const dynamicHashtags = this.buildRecruiterHashtags(topic);
 
     // Stage 1: Engineering Reasoning Agent -> STARStory
     const reasoningRes = await engineeringReasoningAgent.generateSTARStory(
@@ -197,12 +217,12 @@ Primary Career Objective: Increase profile visits, recruiter visibility, intervi
 - Target post length: **120–220 words**.
 
 ## MANDATORY LINKEDIN STRUCTURE:
-1. Opening Hook: 1-2 short, curiosity-driven lines. Must make readers click "See more".
-2. Context: Plain English explanation of the real-world challenge or problem.
+1. Opening Hook: 1-2 short, curiosity-driven lines (under 160 chars on line 1) that highlight a real problem or build insight.
+2. Context: 1-2 plain-English sentences explaining why this problem matters to product teams and full-stack developers (readable in 10 seconds by a non-technical recruiter).
 3. Main Insight: 1-2 short sentences + concise bullet points (- ) explaining what changed or how it works.
 4. Practical Application: Where developers or teams can use this in real applications.${gitHubRepoUrl ? ` Reference repo (place in first comment, NOT inside linkedIn.fullText): ${gitHubRepoUrl}` : ""}
 5. Personal Perspective: One authentic developer reflection or trade-off observation (no generic AI cheerleading).
-6. Closing: One specific technical discussion question + 3-5 relevant hashtags (#FullStack #React #NodeJS #AI #WebDevelopment).
+6. Closing: One specific technical discussion question + these targeted hashtags (${dynamicHashtags.join(" ")}).
 
 ## STRICT FORMATTING RULES:
 - NEVER write the entire post as a single paragraph.
@@ -234,7 +254,7 @@ Return ONLY a valid JSON object matching:
     "lesson": "${starStory.insight.engineeringLesson}",
     "actionableInsight": "${starStory.result.outcome}",
     "cta": "${generatedCta}",
-    "hashtags": ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"],
+    "hashtags": ${JSON.stringify(dynamicHashtags)},
     "fullText": "Full 120-220 word post text"
   },
   "devTo": {
@@ -350,7 +370,7 @@ Return ONLY a valid JSON object matching:
       const personalPerspective = starStory.insight?.engineeringLesson || `Keeping system boundaries explicit beats implicit framework magic.`;
       const closingQuestion = generatedCta || `How does your team handle this pattern when building in production?`;
 
-      const tags = ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"].join(" ");
+      const tags = dynamicHashtags.join(" ");
 
       const fullText = [
         hook,
@@ -369,7 +389,7 @@ Return ONLY a valid JSON object matching:
         lesson: starStory.insight.engineeringLesson,
         actionableInsight: starStory.result.outcome,
         cta: generatedCta,
-        hashtags: ["#FullStack", "#React", "#NodeJS", "#AI", "#WebDevelopment"],
+        hashtags: dynamicHashtags,
         fullText,
         imageUrl: finalImageUrl,
         storyMode: selectedStoryMode,

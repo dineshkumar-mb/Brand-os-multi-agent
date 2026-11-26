@@ -2,7 +2,7 @@ import "dotenv/config";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import { agentOrchestrator, PostHistoryDeduplicationAgent } from "../packages/agents/src/index";
+import { agentOrchestrator, PostHistoryDeduplicationAgent, skillEvidenceRegistry } from "../packages/agents/src/index";
 import { postHistoryTracker } from "../packages/analytics/src/index";
 import { publisherService, MissingAccessTokenError } from "../packages/publisher/src/index";
 import { Platform } from "../packages/shared/src/index";
@@ -387,7 +387,17 @@ async function main() {
       fullText: swarmResult.linkedInPost.fullText,
       publishedAt: new Date().toISOString(),
     });
-    logStructured("INFO", "post_history", "Published post recorded into post_history.json successfully", { pipelineId });
+    const postUrn = publishResult.externalId || `urn:li:share:${Date.now()}`;
+    const skillsToRecord = Array.from(new Set([
+      swarmResult.topic.category,
+      swarmResult.topic.framework || "",
+      ...(swarmResult.topic.supportingTech || []),
+      ...(swarmResult.topic.keywords || []),
+    ].filter(Boolean)));
+    for (const sk of skillsToRecord) {
+      skillEvidenceRegistry.recordSkillDemonstration(sk, postUrn);
+    }
+    logStructured("INFO", "post_history", "Published post recorded into post_history.json and skill_evidence_registry.json successfully", { pipelineId });
   } catch (histErr: any) {
     logStructured("WARN", "post_history", `Failed to record in post_history.json: ${histErr.message}`);
   }

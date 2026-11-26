@@ -585,13 +585,26 @@ export class AIGateway {
         ? `Takeaway: ${lessonText}\n\nOpen-source repository link is in the first comment.`
         : `Takeaway: ${lessonText}`;
 
+      const tagSignal = `${topicTitle} ${situationCtx} ${actionClean}`.toLowerCase();
+      const dynamicTags = new Set<string>(["#FullStackDeveloper"]);
+      if (tagSignal.includes("mern") || tagSignal.includes("mongodb") || tagSignal.includes("express")) dynamicTags.add("#MERNStack");
+      if (tagSignal.includes("react") || tagSignal.includes("shadcn") || tagSignal.includes("frontend")) dynamicTags.add("#React");
+      if (tagSignal.includes("next")) dynamicTags.add("#Nextjs");
+      if (tagSignal.includes("node") || tagSignal.includes("hono") || tagSignal.includes("api")) dynamicTags.add("#NodeJS");
+      if (tagSignal.includes("typescript")) dynamicTags.add("#TypeScript");
+      if (tagSignal.includes("mcp") || tagSignal.includes("agent") || tagSignal.includes("langgraph")) dynamicTags.add("#AIAgents");
+      if (tagSignal.includes("rag") || tagSignal.includes("llm") || tagSignal.includes("ai")) dynamicTags.add("#AIEngineering");
+      if (ghUrl) dynamicTags.add("#OpenSource");
+      dynamicTags.add("#SoftwareEngineering");
+      const finalHashtags = Array.from(dynamicTags).slice(0, 5);
+
       const fullText = [
         hookText,
         `${contextPart}\n\n${challengePart}`,
         `Key takeaways:\n\n${insightBullets}`,
         practicalPart,
         ctaText,
-        `#FullStack #React #NodeJS #AI #SoftwareEngineering`,
+        finalHashtags.join(" "),
       ].join("\n\n");
 
       const payload = {
@@ -602,7 +615,7 @@ export class AIGateway {
           lesson: lessonText,
           actionableInsight: resultOutcome,
           cta: ctaText,
-          hashtags: ["#FullStack", "#React", "#NodeJS", "#AI", "#SoftwareEngineering"],
+          hashtags: finalHashtags,
           fullText,
         },
         devTo: {
