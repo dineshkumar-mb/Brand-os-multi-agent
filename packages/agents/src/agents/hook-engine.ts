@@ -28,6 +28,14 @@ export class HookEngine {
     return stripped.split(/\s+/).slice(0, 5).join(" ");
   }
 
+  private formatStoryAngleHook(storyAngle: string, quantifiableOutcome?: string): string {
+    const cleanAngle = storyAngle.replace(/—/g, ". ").replace(/\s+/g, " ").trim();
+    const parts = cleanAngle.split(/[.;]\s+/).filter(Boolean);
+    const line1 = parts[0] ? (parts[0].endsWith(".") ? parts[0] : `${parts[0]}.`) : cleanAngle;
+    const second = parts.slice(1).join(". ").trim() || (quantifiableOutcome ? `Result: ${quantifiableOutcome}` : "");
+    return second ? `${line1}\n\n${second}` : line1;
+  }
+
   /**
    * Generates a hook string matching the given HookType and StoryMode
    */
@@ -36,26 +44,48 @@ export class HookEngine {
     topic: Topic,
     hasBuildMatch: boolean,
     realWorldProblem?: string,
-    storyMode?: StoryMode
+    storyMode?: StoryMode,
+    quantifiableOutcome?: string
   ): string {
     const techName = topic.framework || topic.category || topic.title;
     const cleanTitle = this.shortenTitle(topic.title, techName);
+    const storyAngle = (topic as any).storyAngle as string | undefined;
 
-    // Mode-specific override options if storyMode is provided
+    // When a real portfolio/build storyAngle exists, lead with the concrete build tension
+    // instead of generic boilerplate hooks, while keeping each StoryMode distinct.
+    if (hasBuildMatch && storyAngle && storyMode) {
+      if (
+        storyMode === StoryMode.DECISION_STORY ||
+        storyMode === StoryMode.BUILD_IN_PUBLIC ||
+        storyMode === StoryMode.BEFORE_AFTER ||
+        storyMode === StoryMode.ARCHITECTURE_STORY
+      ) {
+        return this.formatStoryAngleHook(storyAngle, quantifiableOutcome);
+      }
+      if (storyMode === StoryMode.PERFORMANCE_STORY && quantifiableOutcome) {
+        return `What slowed ${cleanTitle} down wasn't syntax.\n\nFixing the execution boundary delivered: ${quantifiableOutcome}`;
+      }
+      if (storyMode === StoryMode.FAILURE_STORY && realWorldProblem) {
+        const prob = realWorldProblem.split(".")[0].trim();
+        return `${prob}.\n\nHere is what we changed to keep requests predictable.`;
+      }
+    }
+
+    // Mode-specific fallback angles when no specific build storyAngle is present
     if (storyMode === StoryMode.FAILURE_STORY) {
-      return `The ${cleanTitle} implementation was technically correct.\n\nThe system was still wrong under load.`;
+      return `The ${cleanTitle} implementation passed unit tests.\n\nProduction concurrency broke it anyway.`;
     }
     if (storyMode === StoryMode.PERFORMANCE_STORY) {
-      return `I thought our ${techName} query path was slow.\n\nIt wasn't.`;
+      return `I assumed the database query in ${techName} was the bottleneck.\n\nRequest profiling proved otherwise.`;
     }
     if (storyMode === StoryMode.CONTRARIAN_OBSERVATION) {
-      return `Adding a cache layer to ${cleanTitle} made the system less reliable.`;
+      return `Adding extra caching to ${cleanTitle} actually hid the real bug longer.`;
     }
     if (storyMode === StoryMode.TECH_DISCOVERY) {
-      return `The most useful part of ${techName} wasn't the headline feature.\n\nIt was the failure handling design.`;
+      return `The real payoff in ${techName} isn't the API syntax.\n\nIt's isolating failures before they cascade.`;
     }
     if (storyMode === StoryMode.DECISION_STORY) {
-      return `I could make this ${cleanTitle} architecture simpler.\n\nI deliberately didn't.`;
+      return `Keeping ${cleanTitle} inside a single synchronous route looked simpler.\n\nBreaking the boundary saved debugging hours later.`;
     }
 
     switch (hookType) {

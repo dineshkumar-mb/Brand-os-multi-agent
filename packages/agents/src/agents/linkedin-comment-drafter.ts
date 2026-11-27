@@ -14,29 +14,36 @@ export class LinkedInCommentDrafterAgent {
     const startTime = Date.now();
     console.log(`[LinkedIn Comment Drafter] Drafting strategic comment with angle '${angle}'...`);
 
-    const cleanSnippet = postText.replace(/\n/g, " ").substring(0, 100).trim();
+    const textLower = postText.toLowerCase();
+    const detectedStack: string[] = [];
+    if (textLower.includes("bullmq") || textLower.includes("redis")) detectedStack.push("Redis/BullMQ queues");
+    if (textLower.includes("mongodb")) detectedStack.push("MongoDB tenant scoping");
+    if (textLower.includes("chromadb") || textLower.includes("rag")) detectedStack.push("ChromaDB retrieval");
+    if (textLower.includes("webrtc") || textLower.includes("socket.io")) detectedStack.push("WebRTC + Socket.IO signaling");
+    if (textLower.includes("react") || textLower.includes("typescript")) detectedStack.push("TypeScript + React boundaries");
+    const stackLabel = detectedStack.slice(0, 2).join(" & ") || "explicit service boundaries";
 
     let commentText = "";
 
     switch (angle) {
       case "TECHNICAL_COUNTEREXAMPLE":
-        commentText = `Worth noting the trade-off here: simpler direct wrappers work fine for small prototypes, while standardized boundaries pay off once multiple tools or services evolve together.`;
+        commentText = `Implementation note on ${stackLabel}: direct inline handlers are faster to prototype on day 1, so we only isolate async workers or strict contracts once retries or schema drift start hitting user latency.`;
         break;
 
       case "TELEMETRY_INSIGHT":
-        commentText = `In full-stack apps, adding basic request timing and error-rate tracking around external integrations early makes it obvious when to swap or cache a dependency.`;
+        commentText = `If you inspect the repo, look at how failure logging wraps external calls around ${stackLabel}. Measuring retry counts early tells you immediately when an integration needs backoff or caching.`;
         break;
 
       case "TRADEOFF_QUESTION":
-        commentText = `Curious how teams here balance keeping the stack simple for onboarding versus adding abstraction layers as features grow.`;
+        commentText = `Happy to share more code walkthroughs on ${stackLabel}. Where does your team usually draw the line between shipping a quick endpoint vs. adding queues/contracts upfront?`;
         break;
 
       case "REINFORCE_EXPERIENCE":
-        commentText = `Keeping component and API boundaries explicit has been one of the highest-leverage habits in full-stack TypeScript and AI projects.`;
+        commentText = `Extra implementation context: keeping ${stackLabel} isolated made testing and debugging much easier than optimizing prompts or endpoints later. Feel free to inspect the repo and portfolio below.`;
         break;
 
       default:
-        commentText = `Clean separation of concerns matters most when teams need to ship new features without breaking existing integrations.`;
+        commentText = `Clean separation around ${stackLabel} kept regressions low as features scaled. Source repo and full portfolio linked below.`;
     }
 
     const executionTimeMs = Date.now() - startTime;

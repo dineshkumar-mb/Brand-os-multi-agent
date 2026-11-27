@@ -188,52 +188,38 @@ flowchart TD
       topic,
       hasBuildMatch,
       experience.realWorldProblem,
-      selectedStoryMode
+      selectedStoryMode,
+      experience.quantifiableOutcome
     );
 
     const generatedCta = hookEngine.generateDiscussionCta(
       selectedCtaType,
       topic,
-      true
+      false
     );
 
     // Stage 2: Full Stack & AI Developer Personal Branding Writer
     const gitHubRepoUrl = (topic.references || []).find((ref: string) => ref.includes("github.com")) || "";
 
-    const prompt = `You are writing as a skilled Full Stack & AI Developer specializing in MERN Stack, React, Next.js, Node.js, and Agentic AI.
-Your goal is to build a recognizable developer personal brand that attracts:
-- Technical recruiters hiring Full Stack, MERN Stack, and AI Full Stack Developers.
-- Engineering managers and tech leads.
-- Startup founders and CTOs.
-- Fellow developers seeking practical engineering insights.
+    const prompt = `You are writing as Dinesh Kumar M B, a Full Stack & AI Engineer specializing in MERN Stack, React, TypeScript, Node.js, and Agentic AI.
+Your goal is high reader engagement (saves, comments, and profile visits) from technical recruiters, engineering managers, startup CTOs, and fellow developers.
 
-Primary Career Objective: Increase profile visits, recruiter visibility, interview opportunities, and inbound inquiries.
+## VIRAL LINKEDIN ENGAGEMENT RULES:
+1. Hook (First 2 lines, strictly <= 140 chars on line 1): Open with the exact failure, bottleneck, or verified build trade-off (${generatedHook}). NEVER start with "Architectural breakdown of..." or repeat the long topic title.
+2. Stakes (1-2 short lines): Explain in plain English what broke or why product teams hit this bottleneck.
+3. What Changed + Saveable Value (3 crisp bullets starting with "• "): Concrete architectural change, verified outcome/metric${experience.quantifiableOutcome ? ` (${experience.quantifiableOutcome})` : ""}, and the engineering trade-off accepted.
+4. Rule of Thumb (1 punchy sentence): A reusable takeaway developers can bookmark and apply to their own systems.${gitHubRepoUrl ? ` Add on its own line: "Code & architecture link in the first comment."` : ""}
+5. Debate Closing Question (${dynamicHashtags.join(" ")}): End with a sharp binary trade-off question engineers debate in code reviews (NOT generic "What do you think?").
 
-## CORE WRITING PRINCIPLE:
-**Simple explanation + real engineering insight + practical value.**
-- A technical recruiter or hiring manager MUST understand the core value of the post in 10-15 seconds.
-- Avoid overloading the reader with obscure architectural jargon, deep mathematical abstractions, or overly complex workflows.
-- Instead of explaining a whole theoretical distributed system, explain the actual problem it solves, why it matters, and what a developer can learn from it.
-- Target post length: **120–220 words**.
-
-## MANDATORY LINKEDIN STRUCTURE:
-1. Opening Hook: 1-2 short, curiosity-driven lines (under 160 chars on line 1) that highlight a real problem or build insight.
-2. Context: 1-2 plain-English sentences explaining why this problem matters to product teams and full-stack developers (readable in 10 seconds by a non-technical recruiter).
-3. Main Insight: 1-2 short sentences + concise bullet points (- ) explaining what changed or how it works.
-4. Practical Application: Where developers or teams can use this in real applications.${gitHubRepoUrl ? ` Reference repo (place in first comment, NOT inside linkedIn.fullText): ${gitHubRepoUrl}` : ""}
-5. Personal Perspective: One authentic developer reflection or trade-off observation (no generic AI cheerleading).
-6. Closing: One specific technical discussion question + these targeted hashtags (${dynamicHashtags.join(" ")}).
+Target length: **130–200 words** (scannable on mobile with double newlines \\n\\n between blocks).
 
 ## STRICT FORMATTING RULES:
 - NEVER write the entire post as a single paragraph.
 - NEVER include raw http:// or https:// URLs inside linkedIn.fullText (LinkedIn penalizes outbound body links by 40-60% reach).
 - NEVER include "Option A:" / "Option B:" labels verbatim in the post.
-- Use a crisp, line-by-line format with plenty of whitespace (double newlines \\n\\n between ideas).
-- Keep every paragraph to 1-2 short sentences maximum (first line strictly under 180 characters).
-- Avoid unnecessary emojis. No numbered emoji headers like "1️⃣ Observation:".
-- Avoid corporate fluff and AI-favorite words (delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, game-changing).
-- Avoid clickbait and artificial engagement bait (NEVER end with "What do you think?", "Agree or disagree?", "Drop your thoughts below").
-- Ensure high readability on mobile.
+- NEVER use AI clichés (delve, pivotal, crucial, transformative, revolutionary, seamless, robust, leverage, game-changing, unlock, empower, landscape).
+- NEVER use em dashes (—) repetitively; prefer periods or commas.
+- Keep every paragraph to 1-2 short sentences maximum.
 
 CONTEXT FROM STAR FRAMEWORK:
 - Context: ${starStory.situation.context}

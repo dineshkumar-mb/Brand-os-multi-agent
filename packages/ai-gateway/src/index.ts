@@ -573,18 +573,24 @@ export class AIGateway {
         ? ctaRefMatch[1]
         : `How does your team handle ${shortTopic} trade-offs in production?`;
 
-      // ── Build recruiter-friendly, mobile-scannable LinkedIn post (NO inline URLs) ───
+      // ── Build high-engagement, mobile-scannable LinkedIn post (NO inline URLs) ───
+      const isGenericBreakdown = /^Architectural breakdown of/i.test(situationCtx) || situationCtx.toLowerCase().includes(topicTitle.toLowerCase());
       const contextPart = situationCtx.endsWith(".") ? situationCtx : `${situationCtx}.`;
       const challengePart = taskObj.endsWith(".") ? taskObj : `${taskObj}.`;
+      const hookLower = hookText.toLowerCase();
+      const bodyIntro = isGenericBreakdown
+        ? (hookLower.includes(challengePart.slice(0, 30).toLowerCase()) ? "" : challengePart)
+        : (challengePart && !challengePart.toLowerCase().includes(contextPart.slice(0, 25).toLowerCase()) ? `${contextPart}\n\n${challengePart}` : contextPart);
+
       const insightBullets = [
-        `• Approach: ${actionClean}`,
-        `• Impact: ${outcomeClean}`,
+        `• What changed: ${actionClean}`,
+        `• Result: ${outcomeClean}`,
         `• Trade-off: ${tradeoffClean}`,
       ].join("\n\n");
 
       const practicalPart = ghUrl
-        ? `Takeaway: ${lessonText}\n\nOpen-source repository link is in the first comment.`
-        : `Takeaway: ${lessonText}`;
+        ? `Rule of thumb: ${lessonText}\n\nCode & architecture notes are in the first comment.`
+        : `Rule of thumb: ${lessonText}`;
 
       const tagSignal = `${topicTitle} ${situationCtx} ${actionClean}`.toLowerCase();
       const dynamicTags = new Set<string>(["#FullStackDeveloper"]);
@@ -601,12 +607,12 @@ export class AIGateway {
 
       const fullText = [
         hookText,
-        `${contextPart}\n\n${challengePart}`,
+        bodyIntro,
         `Key takeaways:\n\n${insightBullets}`,
         practicalPart,
         ctaText,
         finalHashtags.join(" "),
-      ].join("\n\n");
+      ].filter(Boolean).join("\n\n");
 
       const payload = {
         linkedIn: {
@@ -1387,7 +1393,7 @@ export class AIGateway {
           // ── Dynamic Real-Experience STAR Builder (never mixes unrelated copy) ──
           starPayload = {
             situation: {
-              context: researchSummary || `Engineering ${category} capabilities while building ${topicTitle}.`,
+              context: expProblem || `Engineering ${category.replace(/\s*\([^)]*\)/g, "").trim()} workflows in ${topicTitle}.`,
               trigger: expProblem,
               stakes: "Tight coupling and unguarded boundaries slowed iteration and risked unreliable behavior for users.",
               curiosityTension: "The initial flow worked for basic cases, but edge-case behavior broke once real workflows scaled.",

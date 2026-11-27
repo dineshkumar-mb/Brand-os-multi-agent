@@ -638,7 +638,7 @@ export class VisualPlanningAgent {
   <!-- Bottom Takeaway Banner (Wide enough for crisp padding) -->
   <g transform="translate(90, 560)">
     <rect width="620" height="44" fill="#ecfdf5" stroke="#a7f3d0" stroke-width="1.5" rx="22" />
-    <text x="310" y="27" class="metric-pill">Key Outcome: Simpler Integration &amp; Clear Service Boundaries</text>
+    <text x="310" y="27" class="metric-pill">${escapeXml(this.shortenVisualLabel(`Result: ${rightCol?.subtitle || "Decoupled Boundaries & Predictable Scale"}`, 60))}</text>
   </g>
 </svg>`;
     }
@@ -706,7 +706,7 @@ export class VisualPlanningAgent {
 
   <g transform="translate(90, 560)">
     <rect width="620" height="44" fill="#e0f2fe" stroke="#bae6fd" stroke-width="1.5" rx="22" />
-    <text x="310" y="27" class="metric-pill">Structured Input -&gt; Validated Boundary -&gt; Predictable Output</text>
+    <text x="310" y="27" class="metric-pill">${escapeXml(this.shortenVisualLabel(`Flow: ${cols.map((c) => c.subtitle).filter(Boolean).join(" | ") || "Clean Boundaries -> Predictable Scale"}`, 60))}</text>
   </g>
 </svg>`;
     }
