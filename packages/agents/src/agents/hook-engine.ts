@@ -32,7 +32,7 @@ export class HookEngine {
     const cleanAngle = storyAngle.replace(/—/g, ". ").replace(/\s+/g, " ").trim();
     const parts = cleanAngle.split(/[.;]\s+/).filter(Boolean);
     const line1 = parts[0] ? (parts[0].endsWith(".") ? parts[0] : `${parts[0]}.`) : cleanAngle;
-    const second = parts.slice(1).join(". ").trim() || (quantifiableOutcome ? `Result: ${quantifiableOutcome}` : "");
+    const second = parts.slice(1).join(". ").trim() || (quantifiableOutcome ? `Outcome: ${quantifiableOutcome}` : "");
     return second ? `${line1}\n\n${second}` : line1;
   }
 

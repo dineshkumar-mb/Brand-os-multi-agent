@@ -584,7 +584,7 @@ export class AIGateway {
 
       const insightBullets = [
         `• What changed: ${actionClean}`,
-        `• Result: ${outcomeClean}`,
+        `• Impact: ${outcomeClean}`,
         `• Trade-off: ${tradeoffClean}`,
       ].join("\n\n");
 

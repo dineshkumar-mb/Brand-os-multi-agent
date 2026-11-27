@@ -23,8 +23,10 @@
       "React re-render optimization",
       "Modular UI architecture"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.480Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_be_node_express",
@@ -50,8 +52,10 @@
       "Webhook idempotency",
       "API proxy security"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.483Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_ai_agents_rag",
@@ -77,8 +81,10 @@
       "LLM failover routing",
       "Prompt drift mitigation"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.482Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_sys_redis_queues",
@@ -104,8 +110,10 @@
       "WebRTC STUN/TURN signaling",
       "Idempotency locks"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.481Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_qual_testing_observability",
@@ -158,8 +166,10 @@
       "Browser-native APIs vs cloud APIs",
       "GitHub Actions automation"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.484Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_be_mern_mongodb",
@@ -185,8 +195,10 @@
       "Multi-tenant data isolation",
       "Payment webhook security"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.483Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_fe_nextjs_fullstack",
@@ -212,8 +224,10 @@
       "TypeScript component props",
       "Tailwind design systems"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.480Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   },
   {
     "id": "skill_ai_mcp_rag",
@@ -239,7 +253,9 @@
       "Preventing LLM math hallucinations",
       "MCP tool schemas"
     ],
-    "lastDemonstratedDate": null,
-    "postIds": []
+    "lastDemonstratedDate": "2026-11-27T16:08:48.482Z",
+    "postIds": [
+      "urn:li:share:7532113198687309824"
+    ]
   }
 ]

@@ -1,5 +1,40 @@
 [
   {
+    "id": "urn:li:share:7532113198687309824",
+    "title": "Building Multi-Tenant Sprint SaaS with MongoDB Isolation, BullMQ & OpenAI",
+    "platform": "LINKEDIN",
+    "category": "Full Stack Engineering",
+    "framework": "Node.js",
+    "supportingTech": [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Redis",
+      "BullMQ",
+      "OpenAI",
+      "RBAC"
+    ],
+    "keywords": [
+      "MERN Stack",
+      "Multi-Tenancy",
+      "RBAC",
+      "BullMQ",
+      "Full Stack"
+    ],
+    "hook": "Our Node.js integration test suite was completely green.\n\nThe workflow still failed under real load.",
+    "fullText": "Our Node.js integration test suite was completely green.\n\nThe workflow still failed under real load.\n\nManual sprint breakdown slowed planning and billing webhooks plus AI ticket parsing blocked API request threads.\n\nKey takeaways:\n\n• What changed: Designed MongoDB tenant scoping, Redis/BullMQ async workers, and natural-language-to-JSON AI ticket creation\n\n• Impact: Saved 40% sprint planning time across multi-tenant RBAC teams\n\n• Trade-off: Added operational overhead in exchange for fault isolation\n\nRule of thumb: Keeping boundaries explicit in Full Stack Engineering prevents small integration shortcuts from becoming production bottlenecks\n\nWhere would your team draw the boundary between async queuing and the downstream service source of truth in Node.js?\n\n#FullStackDeveloper #MERNStack #NodeJS #AIEngineering #SoftwareEngineering",
+    "publishedAt": "2026-11-27T16:08:48.469Z",
+    "engagementMetrics": {
+      "impressions": 218,
+      "reactions": 24,
+      "comments": 7,
+      "shares": 2,
+      "saves": 2,
+      "profileVisits": 10,
+      "followersGained": 5
+    }
+  },
+  {
     "id": "urn:li:share:664689470",
     "title": "Eliminating Form Mutation Boilerplate with Next.js 15 Server Actions and React 19 Compiler",
     "platform": "LINKEDIN",
