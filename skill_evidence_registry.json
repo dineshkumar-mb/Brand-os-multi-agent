@@ -3,25 +3,25 @@
     "id": "skill_fe_react19",
     "name": "React & Component Architecture",
     "category": "FRONTEND",
-    "supportingProject": "InnoIDE (Innotrat Labs) & Neelan Oxysoft Modules",
-    "demonstratedImplementation": "Owned React.js, TypeScript, Redux Toolkit, and React Flow canvas architecture for 50+ engineers at Innotrat Labs and 10+ modules at Neelan Oxysoft (-35% re-renders).",
+    "supportingProject": "Neelan Oxysoft Modules & TaskFlow SaaS UI",
+    "demonstratedImplementation": "Delivered 10+ production React.js, TypeScript, Redux Toolkit, and Tailwind modules at Neelan Oxysoft, cutting component re-renders by 35% and improving load speed by 20%.",
     "technicalDepth": "EXPERT",
     "confidenceScore": 95,
     "architectureDecisions": [
-      "Normalized Redux Toolkit slices for canvas/UI state",
+      "Normalized Redux Toolkit slices for UI state",
       "Reusable Tailwind component libraries"
     ],
     "tradeoffsFaced": [
       "Upfront component abstraction vs sprint speed"
     ],
     "artifacts": [
-      "https://ide.innotrat.in/",
+      "https://github.com/dineshkumar-mb/taskflow-frontend",
       "https://dineshkumar-mb-portfolio.vercel.app/"
     ],
     "interviewTopics": [
       "Redux Toolkit state normalization",
       "React re-render optimization",
-      "React Flow custom nodes"
+      "Modular UI architecture"
     ],
     "lastDemonstratedDate": null,
     "postIds": []
@@ -111,23 +111,23 @@
     "id": "skill_qual_testing_observability",
     "name": "Testing & Engineering Observability",
     "category": "ENGINEERING_QUALITY",
-    "supportingProject": "InnoIDE Virtual Simulation & Brand OS Quality Gates",
-    "demonstratedImplementation": "Built browser virtual sensor simulation slashing hardware test validation from hours to minutes, plus Vitest 16-gate AI evaluation suites.",
+    "supportingProject": "AI Code Review & Brand OS Quality Gates",
+    "demonstratedImplementation": "Engineered sub-2.5s AST/security/Big-O automated code audit workflows paired with Vitest 16-gate AI evaluation suites.",
     "technicalDepth": "EXPERT",
     "confidenceScore": 95,
     "architectureDecisions": [
-      "Browser-based simulation removing hardware test blocks",
-      "Deterministic verification gates before publishing"
+      "Automated AST & Big-O verification checks",
+      "Deterministic quality gates before publishing"
     ],
     "tradeoffsFaced": [
       "Thorough validation suites vs quick prototyping"
     ],
     "artifacts": [
-      "https://ide.innotrat.in/",
+      "https://github.com/dineshkumar-mb/code-ReviewFrontend",
       "https://github.com/dineshkumar-mb/Brand-os-multi-agent"
     ],
     "interviewTopics": [
-      "Browser workflow simulation",
+      "Automated code review pipelines",
       "Testing AI outputs deterministically",
       "Monorepo Vitest setups"
     ],

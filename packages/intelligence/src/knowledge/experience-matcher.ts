@@ -12,12 +12,6 @@ export class ExperienceMatcherEngine {
     // Positioning: Full Stack Developer | MERN Stack | React | Node.js | AI Integration | Agentic AI
     const userExperiences = [
       {
-        id: "exp_innoide_real",
-        title: "InnoIDE Industrial Automation & Virtual Sensor Simulation (Innotrat Labs)",
-        tech: ["React", "React.js", "TypeScript", "Redux Toolkit", "Node.js", "WebSockets", "React Flow", "Full Stack"],
-        description: "Owned frontend architecture and virtual sensor simulation at Innotrat Labs for 50+ engineers, cutting validation from hours to minutes.",
-      },
-      {
         id: "exp_neelan_real",
         title: "Enterprise React, TypeScript & Express RBAC Modules (Neelan Oxysoft)",
         tech: ["React", "React.js", "TypeScript", "Node.js", "Express", "Tailwind CSS", "REST API", "MERN Stack", "Frontend Engineering"],

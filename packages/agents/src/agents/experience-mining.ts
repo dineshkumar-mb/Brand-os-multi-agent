@@ -20,21 +20,7 @@ export interface MinedExperienceNarrative {
 // Portfolio: https://dineshkumar-mb-portfolio.vercel.app/
 // ─────────────────────────────────────────────────────────────────────────
 const DEFAULT_REALISTIC_EXPERIENCE_LOGS: ExperienceLog[] = [
-  // ── 1. Innotrat Labs: InnoIDE Industrial Simulation Platform ────────────
-  {
-    id: "exp_01_innoide_simulation",
-    title: "InnoIDE — Industrial Automation Workflow & Virtual Sensor Simulation",
-    category: "Full Stack & Real-Time Engineering",
-    description: "Owned frontend architecture and built virtual sensor simulation for InnoIDE at Innotrat Labs, used by 50+ internal engineers.",
-    technologiesUsed: ["React.js", "TypeScript", "Redux Toolkit", "Node.js", "React Flow", "Dyte SDK", "WebSockets"],
-    challengesFaced: ["Automation engineers needed physical hardware setups to test workflows, stretching validation cycles to hours."],
-    solutionApproach: "Built virtual sensor simulation on React Flow node graphs backed by Redux Toolkit slices and Dyte WebRTC collaboration.",
-    tradeoffs: ["Maintaining complex canvas node state in Redux Toolkit required careful slice normalization to prevent unnecessary re-renders."],
-    keyLessons: ["Simulating hardware boundaries in the browser removes physical bottlenecks before code ever hits production equipment."],
-    metricsOrOutcome: "Used by 50+ internal engineers; slashed industrial workflow validation cycles from hours to minutes.",
-    createdAt: new Date(Date.now() - 4 * 86400000).toISOString(),
-  },
-  // ── 2. Neelan Oxysoft: Enterprise React & RBAC Optimization ─────────────
+  // ── 1. Neelan Oxysoft: Enterprise React & RBAC Optimization ─────────────
   {
     id: "exp_02_neelan_react_rbac",
     title: "Enterprise React Architecture, Redux Standardization & API RBAC Integration",

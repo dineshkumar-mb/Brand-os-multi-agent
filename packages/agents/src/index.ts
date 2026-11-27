@@ -316,7 +316,7 @@ export class AgentOrchestrator {
     const commentRes = this.linkedinCommentDrafterAgent.draftComment(post.fullText, angle, audience, pipelineId);
     const ghLink = repoUrls.find((u) => u.includes("github.com")) || repoUrls[0];
     const portfolioUrl = "https://dineshkumar-mb-portfolio.vercel.app/";
-    const isPersonalProject = Boolean(ghLink && (ghLink.includes("dineshkumar-mb") || ghLink.includes("innotrat")));
+    const isPersonalProject = Boolean(ghLink && ghLink.includes("dineshkumar-mb"));
 
     let commentText = commentRes.data.commentText;
     if (ghLink) {

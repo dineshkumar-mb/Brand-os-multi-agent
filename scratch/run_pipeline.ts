@@ -361,6 +361,15 @@ async function main() {
     process.exit(0);
   }
 
+  // Stage 3c: Confidential Project Guard (never publish blocked internal project names/URLs)
+  const confidentialCheckText = `${swarmResult.topic?.title || ""} ${swarmResult.linkedInPost?.fullText || ""} ${swarmResult.firstComment || ""}`;
+  if (/\b(innoide|innotrat)\b/i.test(confidentialCheckText)) {
+    const blockedMsg = "Confidential Project Guard blocked publication because draft referenced restricted project (InnoIDE / Innotrat).";
+    logStructured("ERROR", "confidential_guard", blockedMsg, { pipelineId });
+    writeGitHubStepSummary(`## 🛑 Pipeline Blocked (Confidential Project Guard)\n\n${blockedMsg}`);
+    process.exit(1);
+  }
+
   // Stage 4: Publish to LinkedIn Platform (Primary Target - Failures are Fatal)
   logStructured("INFO", "publisher", `Dispatching post to LinkedIn Publisher in [${mode}] mode...`, { pipelineId });
 
