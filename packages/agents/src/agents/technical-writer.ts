@@ -70,13 +70,14 @@ export class TechnicalWriterAgent {
 
   private async generateAIImageUrl(topic: Topic, customPrompt?: string): Promise<string | null> {
     const apiKey = process.env.OPENROUTER_API_KEY?.trim();
-    if (!apiKey) {
-      console.log("[Visual Generator] No OPENROUTER_API_KEY found, falling back to dynamic SVG.");
+    const imageModel = process.env.OPENROUTER_IMAGE_MODEL?.trim();
+    if (!apiKey || !imageModel) {
+      console.log("[Visual Generator] Using dynamic SVG architecture diagram pipeline.");
       return null;
     }
 
     try {
-      console.log(`[Visual Generator 🎨] Requesting AI visual from OpenRouter for: "${topic.title}"...`);
+      console.log(`[Visual Generator 🎨] Requesting AI visual (${imageModel}) from OpenRouter for: "${topic.title}"...`);
       const imagePrompt = customPrompt ||
         `Clean, professional editorial tech infographic for: ${topic.title}. Modern SaaS aesthetic on a bright white and soft slate background (#ffffff / #f8fafc), clear visual hierarchy with max 3 steps or a crisp Before-vs-After comparison. Easy for non-technical recruiters and engineering managers to grasp in 3 seconds. Crisp typography, minimal text, no code snippets or dark terminal clutter, 16:9 LinkedIn editorial layout.`;
 
@@ -89,7 +90,7 @@ export class TechnicalWriterAgent {
           "X-Title": "Personal Brand OS Multi-Agent",
         },
         body: JSON.stringify({
-          model: "black-forest-labs/flux-1-schnell",
+          model: imageModel,
           messages: [
             {
               role: "user",

@@ -16,7 +16,7 @@ const MODEL_PRICING: Record<string, { prompt: number; completion: number }> = {
   "claude-3-5-sonnet": { prompt: 0.003, completion: 0.015 },
   "openrouter/auto": { prompt: 0.001, completion: 0.003 },
   "nvidia/llama-3.1-405b": { prompt: 0.002, completion: 0.008 },
-  "meta/llama-3.2-11b-vision-instruct": { prompt: 0.0005, completion: 0.0015 },
+  "nvidia/nemotron-3.5-lightning-30b-a3b": { prompt: 0.0005, completion: 0.0015 },
   "meta/llama-3.2-90b-vision-instruct": { prompt: 0.001, completion: 0.003 },
   "ollama/llama3": { prompt: 0, completion: 0 },
   "synthetic/deterministic-engine": { prompt: 0, completion: 0 },
@@ -65,7 +65,7 @@ export class AIGateway {
     if (hasNim && !hasOpenAI && !hasGemini) {
       return {
         provider: ModelProvider.NVIDIA_NIM,
-        model: "meta/llama-3.2-11b-vision-instruct",
+        model: "nvidia/nemotron-3.5-lightning-30b-a3b",
         reason: "Active high-performance NVIDIA NIM inference provider",
       };
     }
@@ -75,7 +75,7 @@ export class AIGateway {
         return { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Cost-optimized fast model for structured check" };
       }
       if (hasNim) {
-        return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "Cost-optimized fast model on NVIDIA NIM" };
+        return { provider: ModelProvider.NVIDIA_NIM, model: "nvidia/nemotron-3.5-lightning-30b-a3b", reason: "Cost-optimized fast model on NVIDIA NIM" };
       }
       if (hasOpenAI) {
         return { provider: ModelProvider.OPENAI, model: "gpt-4o-mini", reason: "Cost-optimized default model" };
@@ -87,7 +87,7 @@ export class AIGateway {
         return { provider: ModelProvider.ANTHROPIC, model: "claude-3-5-sonnet", reason: "High-accuracy long-form technical writing" };
       }
       if (hasNim) {
-        return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "High-accuracy reasoning model via NVIDIA NIM" };
+        return { provider: ModelProvider.NVIDIA_NIM, model: "nvidia/nemotron-3.5-lightning-30b-a3b", reason: "High-accuracy reasoning model via NVIDIA NIM" };
       }
       if (hasOpenAI) {
         return { provider: ModelProvider.OPENAI, model: "gpt-4o", reason: "High-accuracy reasoning model" };
@@ -95,7 +95,7 @@ export class AIGateway {
     }
 
     if (hasNim) {
-      return { provider: ModelProvider.NVIDIA_NIM, model: "meta/llama-3.2-11b-vision-instruct", reason: "Fast inference via active NVIDIA NIM endpoint" };
+      return { provider: ModelProvider.NVIDIA_NIM, model: "nvidia/nemotron-3.5-lightning-30b-a3b", reason: "Fast inference via active NVIDIA NIM endpoint" };
     }
     if (hasGemini) {
       return { provider: ModelProvider.GEMINI, model: "gemini-1.5-flash", reason: "Lowest latency inference via Gemini" };
@@ -130,7 +130,7 @@ export class AIGateway {
     if (hasNim && target.provider !== ModelProvider.NVIDIA_NIM) {
       fallbackCascade.push({
         provider: ModelProvider.NVIDIA_NIM,
-        model: "meta/llama-3.2-11b-vision-instruct",
+        model: "nvidia/nemotron-3.5-lightning-30b-a3b",
         reason: "Active high-performance NVIDIA NIM inference fallback",
       });
     }
@@ -326,7 +326,7 @@ export class AIGateway {
         const nimModel =
           model && (model.startsWith("meta/") || model.startsWith("nvidia/") || model.startsWith("deepseek"))
             ? model
-            : "meta/llama-3.2-11b-vision-instruct";
+            : "nvidia/nemotron-3.5-lightning-30b-a3b";
 
         const messages: Array<{ role: string; content: string }> = [];
         if (isJsonRequested) {

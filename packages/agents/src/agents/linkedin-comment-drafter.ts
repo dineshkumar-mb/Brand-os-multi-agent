@@ -25,25 +25,26 @@ export class LinkedInCommentDrafterAgent {
 
     let commentText = "";
 
+    // Keep opener under ~95 chars so LinkedIn displays repo & portfolio URLs without hiding behind "...more"
     switch (angle) {
       case "TECHNICAL_COUNTEREXAMPLE":
-        commentText = `Implementation note on ${stackLabel}: direct inline handlers are faster to prototype on day 1, so we only isolate async workers or strict contracts once retries or schema drift start hitting user latency.`;
+        commentText = `Trade-off note on ${stackLabel}: start inline, isolate queues once retries hit user latency.`;
         break;
 
       case "TELEMETRY_INSIGHT":
-        commentText = `If you inspect the repo, look at how failure logging wraps external calls around ${stackLabel}. Measuring retry counts early tells you immediately when an integration needs backoff or caching.`;
+        commentText = `In the repo below, check how failure logging wraps ${stackLabel} before adding caching.`;
         break;
 
       case "TRADEOFF_QUESTION":
-        commentText = `Happy to share more code walkthroughs on ${stackLabel}. Where does your team usually draw the line between shipping a quick endpoint vs. adding queues/contracts upfront?`;
+        commentText = `Repo + portfolio below. Where do you split sync APIs vs async ${stackLabel} in your stack?`;
         break;
 
       case "REINFORCE_EXPERIENCE":
-        commentText = `Extra implementation context: keeping ${stackLabel} isolated made testing and debugging much easier than optimizing prompts or endpoints later. Feel free to inspect the repo and portfolio below.`;
+        commentText = `Keeping ${stackLabel} isolated made testing and debugging much easier in this build.`;
         break;
 
       default:
-        commentText = `Clean separation around ${stackLabel} kept regressions low as features scaled. Source repo and full portfolio linked below.`;
+        commentText = `Clean ${stackLabel} boundaries kept regressions low as features scaled.`;
     }
 
     const executionTimeMs = Date.now() - startTime;
